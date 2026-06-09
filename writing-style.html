@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Writing Styles Framework</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+      background:#f5f5f5;
+      color:#111;
+      line-height:1.7;
+      padding:20px;
+    }
+
+    .container{
+      max-width:1600px;
+      margin:auto;
+    }
+
+    h2{
+      font-size:26px;
+      margin-bottom:18px;
+      padding-left:4px;
+    }
+
+    .table-wrapper{
+      background:#fff;
+      border-radius:18px;
+      overflow:hidden;
+      margin-bottom:32px;
+      box-shadow:0 4px 20px rgba(0,0,0,0.06);
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+    }
+
+    th,
+    td{
+      border:1px solid #e5e5e5;
+      padding:18px;
+      text-align:left;
+      vertical-align:top;
+      font-size:15px;
+    }
+
+    th{
+      background:#111;
+      color:#fff;
+      font-weight:600;
+      width:28%;
+    }
+
+    tr:nth-child(even){
+      background:#fafafa;
+    }
+
+    ul{
+      padding-left:22px;
+      margin-top:8px;
+    }
+
+    li{
+      margin-bottom:6px;
+    }
+
+    /* MOBILE RESPONSIVE CARD TABLE */
+
+    @media (max-width:768px){
+
+      body{
+        padding:12px;
+      }
+
+      h2{
+        font-size:22px;
+      }
+
+      .table-wrapper table,
+      .table-wrapper thead,
+      .table-wrapper tbody,
+      .table-wrapper th,
+      .table-wrapper td,
+      .table-wrapper tr{
+        display:block;
+        width:100%;
+      }
+
+      .table-wrapper thead{
+        display:none;
+      }
+
+      .table-wrapper tr{
+        background:#fff;
+        margin-bottom:18px;
+        border-radius:14px;
+        overflow:hidden;
+        border:1px solid #e5e5e5;
+        box-shadow:0 3px 12px rgba(0,0,0,0.05);
+      }
+
+      .table-wrapper td{
+        border:none;
+        border-bottom:1px solid #f1f1f1;
+        padding:14px;
+        padding-left:44%;
+        position:relative;
+        min-height:64px;
+      }
+
+      .table-wrapper td:last-child{
+        border-bottom:none;
+      }
+
+      .table-wrapper td::before{
+        content:attr(data-label);
+        position:absolute;
+        left:14px;
+        top:14px;
+        width:36%;
+        font-weight:700;
+        color:#111;
+        line-height:1.4;
+      }
+    }
+
+    @media (max-width:480px){
+
+      h2{
+        font-size:20px;
+      }
+
+      .table-wrapper td{
+        padding-left:46%;
+        font-size:14px;
+      }
+
+      .table-wrapper td::before{
+        width:38%;
+        font-size:12px;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- Reflection -->
+
+    <h2>Reflection (২০০–৫০০ শব্দ)</h2>
+
+    <div class="table-wrapper">
+
+      <table>
+
+        <tbody>
+
+          <tr>
+            <td data-label="Question">Definition of the Writing Style</td>
+            <td data-label="Answer">
+              একটি সংক্ষিপ্ত কিন্তু গভীর অনুভূতিনির্ভর লেখা, যেখানে ব্যক্তিগত observation বা emotional experience থেকে broader human insight-এর দিকে যাওয়া হয়।
+            </td>
+          </tr>
+
+          <tr>
+            <td data-label="Question">Purpose of the Writing Style</td>
+            <td data-label="Answer">
+              <ul>
+                <li>reader-কে নিজের অনুভূতির সাথে reconnect করানো</li>
+                <li>subtle emotional recognition তৈরি করা</li>
+                <li>ordinary experience-এর ভিতরে deeper meaning দেখানো</li>
+              </ul>
+            </td>
+          </tr>
+
+          <tr>
+            <td data-label="Question">
+              কোন Trigger Question-এর Answer দেখায় যে এই Style আপনার Content-এর জন্য Perfect?
+            </td>
+
+            <td data-label="Answer">
+              যদি আপনার মূল প্রশ্ন হয়:
+              <ul>
+                <li>“মানুষ কেন এমন অনুভব করে?”</li>
+                <li>“এই ছোট্ট অভিজ্ঞতার ভিতরে deeper কিছু আছে কি?”</li>
+                <li>“আমি কি একটা familiar feeling-কে articulate করতে চাই?”</li>
+              </ul>
+
+              তাহলে Reflection সবচেয়ে উপযুক্ত।
+            </td>
+          </tr>
+
+          <tr>
+            <td data-label="Question">Framework of the Writing Style</td>
+
+            <td data-label="Answer">
+              ১. Personal observation / emotional moment<br><br>
+
+              ২. familiar feeling establish করা<br><br>
+
+              ৩. সেই feeling-এর ভিতরের pattern দেখানো<br><br>
+
+              ৪. deeper emotional বা existential insight-এর দিকে যাওয়া<br><br>
+
+              ৫. quiet realisation দিয়ে শেষ করা
+            </td>
+          </tr>
+
+        </tbody>
+
+      </table>
+    </div>
+
+
+
+    <!-- Aphorism -->
+
+    <h2>Aphorism</h2>
+
+    <div class="table-wrapper">
+
+      <table>
+
+        <tbody>
+
+          <tr>
+            <td data-label="Question">Definition of the Writing Style</td>
+
+            <td data-label="Answer">
+              খুব ছোট, compressed, poetic বা psychologically sharp statement যা familiar human truth-কে নতুনভাবে articulate করে।
+            </td>
+          </tr>
+
+          <tr>
+            <td data-label="Question">Purpose of the Writing Style</td>
+
+            <td data-label="Answer">
+              <ul>
+                <li>instant recognition তৈরি করা</li>
+                <li>lingering psychological impact তৈরি করা</li>
+                <li>complex truth-কে minimal ভাষায় compress করা</li>
+              </ul>
+            </td>
+          </tr>
+
+          <tr>
+            <td data-label="Question">
+              কোন Trigger Question-এর Answer দেখায় যে এই Style আপনার Content-এর জন্য Perfect?
+            </td>
+
+            <td data-label="Answer">
+              যদি আপনার প্রশ্ন হয়:
+
+              <ul>
+                <li>“এক লাইনে গভীর কিছু বলা যায়?”</li>
+                <li>“একটা contradiction বা emotional truth sharply capture করতে চাই?”</li>
+                <li>“reader যেন থেমে যায় ও চিন্তা করে?”</li>
+              </ul>
+
+              তাহলে Aphorism perfect।
+            </td>
+          </tr>
+
+          <tr>
+            <td data-label="Question">Framework of the Writing Style</td>
+
+            <td data-label="Answer">
+              ১. familiar contradiction<br><br>
+
+              ২. unexpected insight<br><br>
+
+              ৩. compressed emotional/philosophical truth<br><br>
+
+              ৪. open-ended lingering effect
+            </td>
+          </tr>
+
+        </tbody>
+
+      </table>
+    </div>
+
+
+
+    <!-- Conversational Essay -->
+
+    <h2>Conversational Essay</h2>
+
+    <div class="table-wrapper">
+
+      <table>
+
+        <tbody>
+
+          <tr>
+            <td data-label="Question">Definition of the Writing Style</td>
+
+            <td data-label="Answer">
+              এমন essay যা বন্ধুর সাথে intimate conversation-এর মতো flow করে, কিন্তু ধীরে ধীরে psychological ও existential insight-এর দিকে যায়।
+            </td>
+          </tr>
+
+          <tr>
+            <td data-label="Question">Purpose of the Writing Style</td>
+
+            <td data-label="Answer">
+              <ul>
+                <li>connection তৈরি করা</li>
+                <li>relatable observation থেকে broader insight দেওয়া</li>
+                <li>reader-কে চিন্তার ভিতরে quietly টেনে নেওয়া</li>
+              </ul>
+            </td>
+          </tr>
+
+          <tr>
+            <td data-label="Question">
+              কোন Trigger Question-এর Answer দেখায় যে এই Style আপনার Content-এর জন্য Perfect?
+            </td>
+
+            <td data-label="Answer">
+              যদি আপনার প্রশ্ন হয়:
+
+              <ul>
+                <li>“আমি কি reader-এর সাথে কথা বলতে চাই?”</li>
+                <li>“আমি কি example + psychology + observation mix করতে চাই?”</li>
+                <li>“আমি কি heavy না হয়ে thoughtful হতে চাই?”</li>
+              </ul>
+
+              তাহলে Conversational Essay best।
+            </td>
+          </tr>
+
+          <tr>
+            <td data-label="Question">Framework of the Writing Style</td>
+
+            <td data-label="Answer">
+              ১. relatable observation<br><br>
+
+              ২. conversational entry<br><br>
+
+              ৩. example / situation<br><br>
+
+              ৪. psychological unpacking<br><br>
+
+              ৫. broader social/existential pattern<br><br>
+
+              ৬. reflective closing
+            </td>
+          </tr>
+
+        </tbody>
+
+      </table>
+    </div>
+
+
+
+    <!-- Real Example Writing -->
+
+    <h2>Real Example Writing</h2>
+
+    <div class="table-wrapper">
+
+      <table>
+
+        <tbody>
+
+          <tr>
+            <td data-label="Question">Definition of the Writing Style</td>
+
+            <td data-label="Answer">
+              বাস্তব ঘটনা, মানুষ, scene বা interaction analyse করে broader human behaviour বা emotional pattern দেখানোর লেখা।
+            </td>
+          </tr>
+
+          <tr>
+            <td data-label="Question">Purpose of the Writing Style</td>
+
+            <td data-label="Answer">
+              <ul>
+                <li>credibility তৈরি করা</li>
+                <li>abstract truth-এর বদলে lived reality দেখানো</li>
+                <li>reader-কে বলতে বাধ্য করা: “এটা আমি দেখেছি”</li>
+              </ul>
+            </td>
+          </tr>
+
+          <tr>
+            <td data-label="Question">
+              কোন Trigger Question-এর Answer দেখায় যে এই Style আপনার Content-এর জন্য Perfect?
+            </td>
+
+            <td data-label="Answer">
+              যদি আপনার প্রশ্ন হয়:
+
+              <ul>
+                <li>“আমি কি বাস্তব ঘটনা দিয়ে insight দেখাতে চাই?”</li>
+                <li>“আমি কি observation-based writing করতে চাই?”</li>
+                <li>“আমি কি human behaviour decode করতে চাই?”</li>
+              </ul>
+
+              তাহলে এই style perfect।
+            </td>
+          </tr>
+
+          <tr>
+            <td data-label="Question">Framework of the Writing Style</td>
+
+            <td data-label="Answer">
+              ১. real scene / incident<br><br>
+
+              ২. emotional detail<br><br>
+
+              ৩. behaviour observation<br><br>
+
+              ৪. psychological interpretation<br><br>
+
+              ৫. collective human pattern<br><br>
+
+              ৬. grounded realisation
+            </td>
+          </tr>
+
+        </tbody>
+
+      </table>
+    </div>
+
+
+
+    <!-- Social Media Observation -->
+
+    <h2>Social Media Observation</h2>
+
+    <div class="table-wrapper">
+
+      <table>
+
+        <tbody>
+
+          <tr>
+            <td data-label="Question">Definition of the Writing Style</td>
+
+            <td data-label="Answer">
+              মানুষের online behaviour, validation seeking, identity performance ও digital emotional patterns analyse করার writing style।
+            </td>
+          </tr>
+
+          <tr>
+            <td data-label="Question">Purpose of the Writing Style</td>
+
+            <td data-label="Answer">
+              <ul>
+                <li>self-recognition তৈরি করা</li>
+                <li>digital culture-এর hidden psychology unpack করা</li>
+                <li>subtle discomfort ও awareness তৈরি করা</li>
+              </ul>
+            </td>
+          </tr>
+
+          <tr>
+            <td data-label="Question">
+              কোন Trigger Question-এর Answer দেখায় যে এই Style আপনার Content-এর জন্য Perfect?
+            </td>
+
+            <td data-label="Answer">
+              যদি আপনার প্রশ্ন হয়:
+
+              <ul>
+                <li>“মানুষ online-এ আসলে কি খুঁজছে?”</li>
+                <li>“social media behaviour-এর পিছনে emotional need কি?”</li>
+                <li>“আমি কি modern digital loneliness নিয়ে লিখতে চাই?”</li>
+              </ul>
+
+              তাহলে এই style সবচেয়ে effective।
+            </td>
+          </tr>
+
+          <tr>
+            <td data-label="Question">Framework of the Writing Style</td>
+
+            <td data-label="Answer">
+              ১. online behaviour observation<br><br>
+
+              ২. familiar digital pattern<br><br>
+
+              ৩. validation/identity psychology<br><br>
+
+              ৪. emotional emptiness বা self-alienation<br><br>
+
+              ৫. subtle existential opening<br><br>
+
+              ৬. uncomfortable awareness দিয়ে শেষ
+            </td>
+          </tr>
+
+        </tbody>
+
+      </table>
+    </div>
+
+
+
+    <!-- Inward Reflection -->
+
+    <h2>Inward Reflection</h2>
+
+    <div class="table-wrapper">
+
+      <table>
+
+        <tbody>
+
+          <tr>
+            <td data-label="Question">Definition of the Writing Style</td>
+
+            <td data-label="Answer">
+              নিজের ভিতরের conflict, vulnerability, emotional contradiction ও self-awareness explore করার intimate writing style।
+            </td>
+          </tr>
+
+          <tr>
+            <td data-label="Question">Purpose of the Writing Style</td>
+
+            <td data-label="Answer">
+              <ul>
+                <li>emotional honesty তৈরি করা</li>
+                <li>self-awareness deepen করা</li>
+                <li>inner emotional truth articulate করা</li>
+              </ul>
+            </td>
+          </tr>
+
+          <tr>
+            <td data-label="Question">
+              কোন Trigger Question-এর Answer দেখায় যে এই Style আপনার Content-এর জন্য Perfect?
+            </td>
+
+            <td data-label="Answer">
+              যদি আপনার প্রশ্ন হয়:
+
+              <ul>
+                <li>“আমি কি নিজের ভিতরের conflict explore করতে চাই?”</li>
+                <li>“আমি কি emotionally honest হতে চাই?”</li>
+                <li>“আমি কি self-questioning-based writing করতে চাই?”</li>
+              </ul>
+
+              তাহলে Inward Reflection ideal।
+            </td>
+          </tr>
+
+          <tr>
+            <td data-label="Question">Framework of the Writing Style</td>
+
+            <td data-label="Answer">
+              ১. inner discomfort/conflict<br><br>
+
+              ২. vulnerability establish করা<br><br>
+
+              ৩. self-questioning<br><br>
+
+              ৪. emotional contradiction uncover করা<br><br>
+
+              ৫. deeper self-awareness<br><br>
+
+              ৬. quiet emotional truth দিয়ে শেষ
+            </td>
+          </tr>
+
+        </tbody>
+
+      </table>
+    </div>
+
+  </div>
+
+</body>
+</html>
