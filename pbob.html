@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="bn">
+<head>
+    <title>Welcome | Membership Success</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Noto+Sans+Bengali:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --champagne-gold: #C89B3C;
+            --ivory-mist: #FDFCF9;
+            --premium-brown: #2A1E17;
+            --whatsapp-vibrant: #25D366; /* For prominence */
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        body {
+            background-color: var(--ivory-mist);
+            margin: 0; padding: 0;
+            font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
+            color: var(--premium-brown);
+            line-height: 1.85;
+            position: relative;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Ambient Background Lighting */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 10% 10%, rgba(200, 155, 60, 0.05) 0%, transparent 40%),
+                        radial-gradient(circle at 90% 90%, rgba(200, 155, 60, 0.03) 0%, transparent 40%);
+            pointer-events: none; z-index: -1;
+        }
+
+        /* Paper Texture Overlay */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');
+            opacity: 0.4; pointer-events: none; z-index: -2;
+        }
+
+        .main-content {
+            max-width: 680px;
+            margin: 4em auto 2em;
+            padding: 4.5em 3.5em;
+            background-color: #ffffff;
+            border-radius: 2px;
+            box-shadow: 0 40px 100px rgba(42, 30, 23, 0.04);
+            border: 1px solid rgba(200, 155, 60, 0.08);
+            animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            flex: 1;
+        }
+
+        /* Right Top Luxury Accent */
+        .main-content::after {
+            content: "";
+            position: absolute;
+            top: 25px; right: 25px; width: 65px; height: 65px;
+            border-top: 1px solid rgba(200, 155, 60, 0.35);
+            border-right: 1px solid rgba(200, 155, 60, 0.35);
+            pointer-events: none;
+        }
+
+        .bengali-text { font-family: 'Noto Sans Bengali', sans-serif; }
+
+        .header-section { text-align: center; margin-bottom: 30px; }
+        .welcome-title { font-family: 'Playfair Display', serif; font-weight: 600; font-size: 2.4em; color: var(--premium-brown); margin-bottom: 10px; }
+        .success-text { font-size: 1.2em; color: var(--champagne-gold); font-weight: 500; }
+
+        .divider { color: var(--champagne-gold); opacity: 0.3; text-align: center; margin: 30px 0; letter-spacing: 2px; font-size: 14px; }
+
+        .section-title { font-size: 1.3em; font-weight: 600; margin-bottom: 15px; }
+
+        .warning-text { background: #FFF9EB; padding: 10px 15px; border-left: 3px solid #FFCC00; font-weight: 500; margin: 20px 0; font-size: 0.95em; }
+
+        /* Buttons Styling */
+        .join-button {
+            display: block;
+            text-align: center;
+            padding: 20px;
+            margin: 25px 0;
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 4px;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .tg-btn {
+            background-color: var(--premium-brown);
+            color: #ffffff !important;
+            border: 1px solid var(--premium-brown);
+        }
+
+        /* Prominent WhatsApp Button */
+        .wa-btn {
+            background-color: #128C7E; /* Deep WhatsApp Teal for prominence but luxury feel */
+            color: #ffffff !important;
+            border: 1px solid #128C7E;
+            transform: scale(1.02); /* Slightly larger to stand out */
+        }
+
+        .tg-btn:hover, .wa-btn:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            opacity: 0.95;
+        }
+
+        .summary-box { background: var(--ivory-mist); padding: 25px; border-radius: 4px; border: 1px solid rgba(200, 155, 60, 0.1); }
+
+        /* --- New Footer Styling --- */
+        .site-footer {
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 14px;
+            color: var(--premium-brown);
+            opacity: 0.7;
+            font-weight: 400;
+        }
+
+        @media (max-width: 768px) {
+            .main-content { margin: 20px 15px; padding: 35px 20px; }
+            .welcome-title { font-size: 1.8em; }
+            .wa-btn { transform: scale(1); } /* Normal scale on mobile for better fit */
+        }
+
+/* Styling for the new Copy Text Boxes */
+.copy-box-container {
+    margin: 15px 0;
+    border: 1px solid rgba(200, 155, 60, 0.2);
+    border-radius: 4px;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.copy-textarea {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    background: transparent;
+    font-family: inherit;
+    font-size: 0.95em;
+    color: var(--premium-brown);
+    resize: none;
+    box-sizing: border-box;
+    outline: none;
+    line-height: 1.6;
+}
+
+.copy-action-btn {
+    background: var(--champagne-gold);
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 4px 0 0 0;
+    transition: all 0.3s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+.copy-action-btn:hover {
+    background: var(--premium-brown);
+}
+
+.copy-action-btn.copied {
+    background: var(--whatsapp-vibrant);
+}
+    </style>
+</head>
+
+<body>
+
+<div class="main-content">
+    
+    <div class="header-section">
+        <h1 class="welcome-title bengali-text">🎉 আপনাকে স্বাগতম!</h1>
+<p class="bengali-text" style="text-align: center;">
+<!-- Add to Home Screen -->
+<div class="home-screen-wrapper">
+    <button id="addToHomeScreenBtn" onclick="showInstallInstructions()">
+        📱এক ক্লিকে খুলতে হোম স্ক্রিনে যোগ করুন
+    </button>
+</div>
+
+<script>
+function showInstallInstructions() {
+    const ua = navigator.userAgent.toLowerCase();
+
+    if (ua.includes("android")) {
+        alert(
+            "দ্রুত ব্যবহারের জন্য এই সাইটটি Home Screen-এ যোগ করুন।\n\n" +
+            "১. উপরের ⋮ (তিন ডট) মেনুতে চাপুন\n" +
+            "২. 'Add to Home screen' নির্বাচন করুন\n" +
+            "৩. 'Add' চাপুন"
+        );
+    }
+    else if (/iphone|ipad|ipod/.test(ua)) {
+        alert(
+            "দ্রুত ব্যবহারের জন্য এই সাইটটি Home Screen-এ যোগ করুন।\n\n" +
+            "১. Share (□↑) বাটনে চাপুন\n" +
+            "২. 'Add to Home Screen' নির্বাচন করুন\n" +
+            "৩. 'Add' চাপুন"
+        );
+    }
+    else {
+        alert(
+            "দ্রুত ব্যবহারের জন্য:\n\n" +
+            "• এই পেজটি Bookmark করুন\n" +
+            "• অথবা Browser Menu থেকে Install App / Create Shortcut নির্বাচন করুন"
+        );
+    }
+}
+</script>
+
+<style>
+.home-screen-wrapper {
+    text-align: center;
+    margin: 25px 0 35px;
+}
+
+#addToHomeScreenBtn {
+    background: #C89B3C;
+    color: #ffffff;
+    border: none;
+    padding: 14px 26px;
+    border-radius: 4px;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(42, 30, 23, 0.08);
+    transition: all 0.35s ease;
+}
+
+#addToHomeScreenBtn:hover {
+    background: #2A1E17;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(42, 30, 23, 0.12);
+}
+
+@media (max-width: 768px) {
+    #addToHomeScreenBtn {
+        width: 100%;
+        max-width: 320px;
+        font-size: 14px;
+        padding: 15px 20px;
+    }
+}
+</style>
+        <p class="success-text bengali-text">আপনার পেমেন্ট সফল হয়েছে।</p>
+    </div>
+
+    <p class="bengali-text" style="text-align: center;">
+        আগে নিচের এই জরুরী ধাপটি সম্পন্ন করুন, যাতে আপনার এই অর্থ খরচের সকল সুবিধাগুলি আপনি উপভোগ করতে পারেন।
+    </p>
+
+    <div class="divider">━━━━━━━━━━━━━━━</div>
+
+    <div class="section">
+        <div class="section-title bengali-text">📢 WhatsApp Community</div>
+        <p class="bengali-text">
+            নতুন তথ্য, নতুন গাইড, আপডেটস এবং গুরুত্বপূর্ণ ঘোষণাগুলো দ্রুত আপনার কাছে পৌঁছে দেওয়ার জন্য আমাদের WhatsApp Community ব্যবহার করা হয়।<br>
+            এটি Notification & Announcement Hub হিসেবে কাজ করবে।<br>
+            এখানে আপনি পাবেন:<br>
+            • নতুন নতুন পদ্ধতি • নতুন টেকনোলজির আপডেট • গুরুত্বপূর্ণ নোটিশ • বিশেষ ঘোষণা • নতুন রিসোর্সের খবর
+        </p>
+        <p class="warning-text bengali-text">
+            ⚠️ কোনো গুরুত্বপূর্ণ আপডেট মিস না করতে WhatsApp Community-তে অবশ্যই যুক্ত থাকুন।
+        </p>
+
+        <a href="https://chat.whatsapp.com/CgThFjItglVCDpe4ZnDksq" class="join-button wa-btn bengali-text">
+            WhatsAppএ জয়েন করতে খানে ক্লিক করুন 
+        </a>
+    </div>
+        <div style="padding-top: 15px;">&nbsp;</div>
+        <h1 class="welcome-title bengali-text">⏳ আসুন এবার যাত্রা শুরু করা যাক...</h1>
+
+    <div class="divider">━━━━━━━━━━━━━━━</div>
+
+
+<div class="section">
+    <div class="section-title bengali-text"> Step#1: নীচের প্রশ্ন গুলো কপি করুন:</div>
+    <div class="copy-box-container">
+        <textarea id="text-step-1" class="copy-textarea" rows="6" readonly>
+১, প্রশ্ন: আমি এআই (AI)-এর সাহায্যে ঠিক কী কাজ সম্পন্ন করতে  চাইছি?
+উত্তর: 
+
+২, প্রশ্ন: আমার এই কাজের মূল দর্শক, পাঠক বা শ্রোতা ঠিক কারা?
+উত্তর: 
+
+৩, প্রশ্ন: আমি ফলাফলটি ঠিক কোন ফরম্যাটে (format) বা আকারে পেতে  চাইছি?
+উত্তর: 
+
+৪, প্রশ্ন: লেখার সুর (tone) বা ধরনটি ঠিক কেমন হোক বলে  আমি পছন্দ করি?
+উত্তর: 
+
+৫, প্রশ্ন: এই কাজের জন্য  আমার কি নির্দিষ্ট কোনো শর্ত বা সীমাবদ্ধতা রয়েছে?
+উত্তর: 
+
+৬, প্রশ্ন: ঠিক কী ধরনের ফলাফল পেলে  আমার মনে হবে যে কাজটি সম্পূর্ণ সফল হয়েছে?
+উত্তর:</textarea>
+        <button class="copy-action-btn" onclick="copyToClipboard('text-step-1', this)">Copy Questions</button>
+    </div>
+</div>
+
+    <div class="divider">━━━━━━━━━━━━━━━</div>
+
+    <div class="section">
+        <div class="section-title bengali-text">Step#2: একটা নতুন Google doc পেজ ওপেন করুন:</div>
+        <p class="bengali-text">
+            এই পেজে প্রশ্ন গুলো পেস্ট করে দিন 
+        </p>
+        <p class="warning-text bengali-text">
+            ⚠️ একটা নতুন Google doc পেজ খুলতে নীচের লিংকে ক্লিক করুন:
+        </p>
+
+        <a href="https://docs.new" class="join-button wa-btn bengali-text">
+            Google doc পেজ খুলতে এখানে ক্লিক করুন
+        </a>
+    </div>
+
+    <div class="divider">━━━━━━━━━━━━━━━</div>
+
+    <div class="section">
+        <div class="section-title bengali-text">Step#৩: গুগল ডকে এবার প্রশ্ন গুলোর উত্তর লিখুন:</div>
+        <p class="bengali-text">
+            উত্তর যত বিস্তারিত লিখবেন আপনি তত সুন্দর উত্তর পাবেন।  
+        </p>
+        <p class="warning-text bengali-text">
+            ⚠️ উত্তর যত বিস্তারিত লিখবেন আপনি তত সুন্দর উত্তর পাবেন।
+        </p>
+    </div>
+
+    <div class="divider">━━━━━━━━━━━━━━━</div>
+
+<div class="section">
+    <div class="section-title bengali-text">Step#৪: এবার নীচের অংশটা কপি করে আপনার প্রশ্নোত্তরের উপরের অংশে পেস্ট করে দিন:</div>
+    <div class="copy-box-container">
+        <textarea id="text-step-4" class="copy-textarea" rows="2" readonly>I would like to create an AI prompt based on the following questions and answers:</textarea>
+        <button class="copy-action-btn" onclick="copyToClipboard('text-step-4', this)">Copy Text</button>
+    </div>
+</div>
+
+    <div class="divider">━━━━━━━━━━━━━━━</div>
+
+<div class="section">
+    <div class="section-title bengali-text">Step#৫: এবার নীচের অংশটা কপি করে আপনার প্রশ্নোত্তরের নীচের অংশে পেস্ট করে দিন:</div>
+    <div class="copy-box-container">
+        <textarea id="text-step-5" class="copy-textarea" rows="8" readonly>Generate a single high-performance prompt designed to produce the best possible result on the first run. Carefully analyze the information provided in the questions and answers to identify the user's objective, context, constraints, preferences, audience, desired outcome, and any other relevant details. The prompt must begin with "Act as" and assign only the expert role or combination of expert roles genuinely needed to achieve the objective. Use the minimum level of complexity required, avoiding unnecessary jargon, roles, or instructions. Create one clear placeholder only when additional user input is genuinely necessary; otherwise, incorporate the provided information directly into the prompt. Clearly define how the AI should think, reason, evaluate, and approach the task while establishing the appropriate tone, depth, structure, and level of detail. Adapt the sophistication of the prompt to the complexity of the request, ensuring that simple objectives receive concise prompts and complex objectives receive more advanced guidance when beneficial. Require originality, accuracy, practical usefulness, and high information value while preventing generic wording, superficial explanations, repetitive patterns, and low-effort responses. The final prompt must be immediately usable in ChatGPT and similar AI systems by non-technical users without requiring prompt-engineering knowledge, clarification, iteration, or follow-up instructions.</textarea>
+        <button class="copy-action-btn" onclick="copyToClipboard('text-step-5', this)">Copy Text</button>
+    </div>
+</div>
+
+    <div class="divider">━━━━━━━━━━━━━━━</div>
+
+    <div class="section">
+        <div class="section-title bengali-text">Step#৬: এবার গুগল ডকে পুরো টেক্সটটা সিলেক্ট ও কপি করুন:</div>
+        <p class="bengali-text">
+            উত্তর যত বিস্তারিত লিখবেন আপনি তত সুন্দর উত্তর পাবেন।  
+        </p>
+        <p class="warning-text bengali-text">
+            ⚠️ উত্তর যত বিস্তারিত লিখবেন আপনি তত সুন্দর উত্তর পাবেন।
+        </p>
+    </div>
+
+    <div class="divider">━━━━━━━━━━━━━━━</div>
+
+    <div class="section">
+        <div class="section-title bengali-text">Step#৭: এবার চ্যাটজিপিটি খুলুন :</div>
+        <p class="bengali-text">
+            উত্তর যত বিস্তারিত লিখবেন আপনি তত সুন্দর উত্তর পাবেন।  
+        </p>
+        <p class="warning-text bengali-text">
+            ⚠️ উত্তর যত বিস্তারিত লিখবেন আপনি তত সুন্দর উত্তর পাবেন।
+        </p>
+
+        <a href="https://chatgpt.com/" class="join-button wa-btn bengali-text">
+            চ্যাটজিপিটি খুলতে এখানে ক্লিক করুন 
+        </a>
+    </div>
+
+    <div class="divider">━━━━━━━━━━━━━━━</div>
+
+    <div class="section">
+        <div class="section-title bengali-text">Step#৮: চ্যাট বক্সে কপি করা টেক্সটটা পেস্ট করে দিন :</div>
+        <p class="bengali-text">
+            এনটার / তীর চিহ্নে ক্লিক করুন ও একটু অপেক্ষা করুন 
+        </p>
+        <p class="warning-text bengali-text">
+            ⚠️ উত্তর যত বিস্তারিত লিখবেন আপনি তত সুন্দর উত্তর পাবেন।
+        </p>
+    </div>
+
+    <div class="divider">━━━━━━━━━━━━━━━</div>
+
+    <div class="section">
+        <div class="section-title bengali-text">Step#৯: চ্যাটজিপিটির উত্তরটা কপি করুন :</div>
+        <p class="bengali-text">
+            এনটার / তীর চিহ্নে ক্লিক করুন ও একটু অপেক্ষা করুন 
+        </p>
+        <p class="warning-text bengali-text">
+            ⚠️ চ্যাটজিপিটি যে উত্তরটা আপনাকে এখানে দেবে সেটা একটা AI প্রম্পট, এটা আপনার সমস্যার উত্তরটা নয়।
+        </p>
+    </div>
+
+    <div class="divider">━━━━━━━━━━━━━━━</div>
+
+    <div class="section">
+        <div class="section-title bengali-text">Step#১০: চ্যাটজিপিটিতে নতুন একটা চ্যাট খুলুন :</div>
+        <p class="bengali-text">
+            এনটার / তীর চিহ্নে ক্লিক করুন ও একটু অপেক্ষা করুন 
+        </p>
+        <p class="warning-text bengali-text">
+            ⚠️ উত্তর যত বিস্তারিত লিখবেন আপনি তত সুন্দর উত্তর পাবেন।
+        </p>
+
+        <a href="https://chatgpt.com/" class="join-button wa-btn bengali-text">
+            চ্যাটজিপিটিতে নতুন একটা চ্যাট খুলতে এখানে ক্লিক করুন 
+        </a>
+    </div>
+
+    <div class="divider">━━━━━━━━━━━━━━━</div>
+
+    <div class="section">
+        <div class="section-title bengali-text">Step#১১: চ্যাটজিপিটি থেকে কপি করা প্রম্পটটা পেস্ট করে রান করান:</div>
+        <p class="bengali-text">
+            এনটার / তীর চিহ্নে ক্লিক করুন ও একটু অপেক্ষা করুন 
+        </p>
+        <p class="warning-text bengali-text">
+            ⚠️ উত্তর যত বিস্তারিত লিখবেন আপনি তত সুন্দর উত্তর পাবেন।
+        </p>
+    </div>
+
+    <div class="divider">━━━━━━━━━━━━━━━</div>
+
+    <div class="section">
+        <div class="section-title bengali-text">Step#১২: চ্যাটজিপিটি থেকে কপি করা প্রম্পটটা পেস্ট করে রান করানএবার আপনি আপনার সমস্যার উত্তর পেয়ে যাবেন। :</div>
+        <p class="bengali-text">
+            এই উত্তরের কোনো অংশ আপনি বুঝতে না পারলে বা আপনার এ বিষয়ে আরো কোনো প্রশ্ন থাকলে চ্যাট বক্সে লিখে রান করান 
+        </p>
+        <p class="warning-text bengali-text">
+            ⚠️ উত্তর যত বিস্তারিত লিখবেন আপনি তত সুন্দর উত্তর পাবেন।
+        </p>
+    </div>
+
+
+
+     <div class="divider">━━━━━━━━━━━━━━━</div>
+
+    <div class="summary-box">
+        <div class="section-title bengali-text">✅ সর্বোত্তম অভিজ্ঞতার জন্য</div>
+        <p class="bengali-text">
+            এই ছোট্টো পরিসরে সমস্ত কিছু একসাথে শেখানো সম্ভব নয়।  আরো সূক্ষ্ম সূক্ষ্ম টেকনিক ও ট্রিক্সগুলো জানার জন্য WhatsApp Community-তে যুক্ত থাকুন।
+        </p>
+
+        <a href="https://chat.whatsapp.com/CgThFjItglVCDpe4ZnDksq" class="join-button wa-btn bengali-text">
+            WhatsAppএ জয়েন করতে খানে ক্লিক করুন 
+        </a>
+    </div>
+
+</div>
+
+<!-- FOOTER WITH DYNAMIC YEAR -->
+<footer class="site-footer">
+    <p>Copyright © <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+</footer>
+
+
+<script>
+function copyToClipboard(elementId, btn) {
+    const text = document.getElementById(elementId).value;
+    
+    navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerText;
+        btn.innerText = "Copied!";
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+            btn.innerText = originalText;
+            btn.classList.remove('copied');
+        }, 2000);
+    }).catch(err => {
+        console.error('Failed to copy: ', err);
+    });
+}
+</script>
+</body>
+</html>
