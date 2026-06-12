@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Independent Ecosystem</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient-start: #020617;
+      --bg-gradient-end: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.4);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-primary: #22d3ee;
+      --accent-hover: #67e8f9;
+      --accent-success: #10b981;
+      --code-bg: rgba(0, 0, 0, 0.3);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+      --input-bg: rgba(15, 23, 42, 0.6);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: fixed linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 60px 20px;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .sub-header {
+      color: var(--accent-primary);
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .input-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .full-width {
+      grid-column: span 2;
+    }
+
+    label {
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--accent-primary);
+      letter-spacing: 0.08em;
+    }
+
+    textarea {
+      background: var(--input-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 12px;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      resize: vertical;
+      min-height: 60px;
+      transition: all 0.3s;
+      outline: none;
+    }
+
+    textarea:focus {
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.1);
+    }
+
+    .prompt-workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .step-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .step-label {
+      font-weight: 800;
+      font-size: 0.85rem;
+      background: var(--accent-primary);
+      color: #020617;
+      padding: 4px 14px;
+      border-radius: 6px;
+      text-transform: uppercase;
+    }
+
+    .prompt-content {
+      background: var(--code-bg);
+      padding: 25px;
+      border-radius: 12px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.95rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 20px;
+      line-height: 1.5;
+      max-height: 600px;
+      overflow-y: auto;
+    }
+
+    .copy-btn {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+      width: 100%;
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-primary);
+      color: #020617;
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-success);
+      border-color: var(--accent-success);
+      color: white;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 40px;
+    }
+
+    @media (max-width: 850px) {
+      .input-grid { grid-template-columns: 1fr; }
+      .full-width { grid-column: span 1; }
+      h1 { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>My Independent Ecosystem</h1>
+      <p class="sub-header">Strategic Expansion Architecture</p>
+    </header>
+
+    <div class="input-grid">
+      <div class="input-group">
+        <label>Insert Source Platform</label>
+        <textarea id="val1" oninput="updatePrompts()" placeholder="e.g. X, Newsletter, or Blog"></textarea>
+      </div>
+      <div class="input-group">
+        <label>Insert Source Content Idea</label>
+        <textarea id="val2" oninput="updatePrompts()" placeholder="The central anchor of your ecosystem..."></textarea>
+      </div>
+    </div>
+
+    <div class="prompt-workflow">
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Ecosystem Expansion Prompt</span>
+        </div>
+        <div class="prompt-content" id="p1_out"></div>
+        <button class="copy-btn" onclick="copyText('p1_out', this)">
+          <span>Copy Prompt to Clipboard</span>
+        </button>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    function updatePrompts() {
+      const platform = document.getElementById('val1').value || "[INSERT SOURCE PLATFORM]";
+      const idea = document.getElementById('val2').value || "[INSERT SOURCE CONTENT IDEA]";
+
+      const prompt = `INTELLECTUAL ECOSYSTEM EXPANSION SYSTEM
+
+Act as a world-class intellectual strategist, content architect, philosopher, educator, writer, and audience-development expert.
+
+Your task is to transform a single content idea into a complete six-platform intellectual ecosystem.
+
+The goal is NOT to generate multiple unrelated content ideas.
+
+The goal is to create six interconnected content pieces that communicate the same underlying truth through six distinct platform roles.
+
+Each platform must perform a unique intellectual function.
+
+The audience should experience one central idea through multiple lenses, with each platform contributing something that none of the others can replace.
+
+---
+
+INPUT
+
+Source Platform:
+${platform}
+
+Source Content Idea:
+${idea}
+
+---
+
+CORE PRINCIPLE
+
+The Source Content Idea is the ecosystem anchor.
+
+The Source Platform is only where the idea originated.
+
+Do NOT treat the Source Platform as the most important platform.
+
+All six platforms are equally important.
+
+Every platform must contribute a unique layer of value to the audience's intellectual journey.
+
+The ecosystem must remain balanced regardless of where the original idea came from.
+
+---
+
+PLATFORM ROLES
+
+These roles are mandatory and must not overlap.
+
+X (Twitter/X)
+
+Primary Function
+Discovery
+
+Primary Goal
+Create curiosity, attention, tension, and initial awareness.
+
+Audience Experience
+"I have never thought about it this way before."
+
+Depth Level
+Surface Insight
+
+Content Characteristics
+
+- Short
+- Insight-driven
+- Memorable
+- Shareable
+- Curiosity-inducing
+
+The X content introduces the idea.
+
+It should not fully explain the idea.
+
+---
+
+Newsletter
+
+Primary Function
+Reflection
+
+Primary Goal
+Help readers connect the idea to their own experiences and thinking.
+
+Audience Experience
+"This idea applies to me."
+
+Depth Level
+Personal Reflection
+
+Content Characteristics
+
+- Personal
+- Reflective
+- Interpretive
+- Relationship-building
+
+The Newsletter should deepen personal relevance and emotional connection.
+
+---
+
+Blog
+
+Primary Function
+Understanding
+
+Primary Goal
+Provide structured reasoning, analysis, explanation, and intellectual clarity.
+
+Audience Experience
+"Now I understand how this works."
+
+Depth Level
+Analytical Understanding
+
+Content Characteristics
+
+- Analytical
+- Educational
+- Structured
+- Evidence-based
+
+The Blog should explain the idea thoroughly.
+
+---
+
+Solo Podcast
+
+Primary Function
+Exploration
+
+Primary Goal
+Examine the idea through stories, examples, observations, thought experiments, and reflection.
+
+Audience Experience
+"I can see how this idea connects to reality."
+
+Depth Level
+Exploratory Understanding
+
+Content Characteristics
+
+- Conversational
+- Story-driven
+- Nuanced
+- Exploratory
+
+The Podcast should investigate implications rather than merely teach concepts.
+
+---
+
+Community
+
+Primary Function
+Participation
+
+Primary Goal
+Turn passive learning into active engagement and experimentation.
+
+Audience Experience
+"I can test and apply this idea."
+
+Depth Level
+Practical Application
+
+Content Characteristics
+
+- Interactive
+- Practical
+- Collaborative
+- Discussion-oriented
+
+The Community content should invite contribution, dialogue, and application.
+
+---
+
+Book
+
+Primary Function
+Synthesis
+
+Primary Goal
+Integrate the idea into a larger worldview, philosophy, framework, or body of thought.
+
+Audience Experience
+"This idea is part of a deeper understanding of life, people, or reality."
+
+Depth Level
+Philosophical Integration
+
+Content Characteristics
+
+- Timeless
+- Foundational
+- Comprehensive
+- Framework-driven
+
+The Book content must elevate the idea into a principle, model, worldview, philosophy, or enduring intellectual framework.
+
+The Book must not feel like a longer blog post.
+
+---
+
+NON-NEGOTIABLE RULES
+
+Rule 1: No Content Recycling
+
+Rephrasing the same idea in different formats is NOT acceptable.
+
+Each platform must contribute:
+
+- A new perspective
+- A new question
+- A new implication
+- A new application
+- A new story
+- A new framework
+- A new layer of meaning
+
+Every platform must add value that does not already exist elsewhere in the ecosystem.
+
+---
+
+Rule 2: One Thesis, Multiple Contributions
+
+All six content pieces must support the same Core Thesis.
+
+However, they must contribute different forms of value.
+
+Think:
+
+One truth.
+Six functions.
+
+Not:
+
+One truth.
+Six rewrites.
+
+---
+
+Rule 3: Platform Integrity
+
+No platform may perform another platform's role.
+
+Examples:
+
+- X should not function like a Blog.
+- Newsletter should not function like a Podcast.
+- Podcast should not function like a Book.
+- Community should not function like a Newsletter.
+
+Each platform must remain faithful to its assigned role.
+
+---
+
+Rule 4: Ecosystem Thinking
+
+Design the content as an integrated intellectual system.
+
+Every piece should strengthen the others.
+
+Every piece should make the ecosystem more valuable as a whole.
+
+---
+
+STEP 1 — EXTRACT THE INTELLECTUAL FOUNDATION
+
+From the Source Content Idea identify:
+
+- Core Belief
+- Core Thesis
+- Core Message
+- Core Question
+- Core Tension
+- Core Insight
+
+Do not summarize.
+
+Reveal the deeper intellectual principle beneath the content.
+
+---
+
+STEP 2 — ANALYZE THE SOURCE CONTENT IDEA
+
+Explain:
+
+- Why this content works on the Source Platform
+- What intellectual role it serves
+- What audience need it satisfies
+- What stage of audience development it supports
+
+---
+
+STEP 3 — BUILD THE SIX-PLATFORM ECOSYSTEM
+
+Create exactly one content idea for each platform:
+
+- X
+- Newsletter
+- Blog
+- Solo Podcast
+- Community
+- Book
+
+INCLUDING the Source Platform.
+
+For each platform provide:
+
+Platform
+
+Platform Role
+
+Primary Goal
+
+Depth Level
+
+How This Content Supports The Ecosystem
+
+Unique Contribution
+
+Content Angle
+
+Content Framework
+
+Content Title
+
+Detailed Content Outline
+
+Requirements:
+
+- Every content idea must support the same Core Thesis.
+- Every content idea must be unique.
+- Every content idea must suit the platform's role.
+- Every content idea must contribute something unavailable elsewhere in the ecosystem.
+
+---
+
+STEP 4 — ECOSYSTEM FLOW
+
+Show how a person naturally moves through the ecosystem:
+
+Discovery
+↓
+Reflection
+↓
+Understanding
+↓
+Exploration
+↓
+Participation
+↓
+Synthesis
+
+For each stage explain:
+
+- What the audience gains
+- Why that platform belongs there
+- How it prepares the audience for the next stage
+
+---
+
+STEP 5 — ECOSYSTEM COHERENCE AUDIT
+
+For each platform explain:
+
+- What unique job it performs
+- What would be lost if it disappeared
+- How it strengthens the other platforms
+
+Identify any overlap.
+
+If overlap exists, revise the ecosystem until all platform roles are clearly differentiated.
+
+---
+
+STEP 6 — AUDIENCE TRANSFORMATION TEST
+
+Verify that a person who experiences all six content pieces gains significantly more value than a person who experiences only one.
+
+Explain:
+
+- What transformation occurs at each stage
+- Why each platform is necessary
+- How the combined ecosystem creates a deeper experience than any individual content piece
+
+---
+
+STEP 7 — FINAL SYNTHESIS
+
+Answer:
+
+"What is the single unifying idea connecting all six content pieces?"
+
+Explain how every platform communicates the same truth while creating a different audience experience.
+
+Explain how the ecosystem functions as one coherent body of thought rather than six separate pieces of content.
+
+---
+
+FINAL TABLE
+
+Create a table with the following columns:
+
+| Platform | Primary Goal | Depth Level | Unique Contribution | Content Style | Audience Experience | Content Framework | Content Title | Content Outline |
+
+Include one row for each platform.
+
+Before presenting the table, verify that:
+
+✓ X creates curiosity.
+
+✓ Newsletter creates reflection.
+
+✓ Blog creates understanding.
+
+✓ Podcast creates exploration.
+
+✓ Community creates participation.
+
+✓ Book creates synthesis.
+
+If any platform fails its role, revise the ecosystem before producing the final answer.`;
+
+      document.getElementById('p1_out').innerText = prompt;
+    }
+
+    function copyText(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<span>Copied to Clipboard!</span>`;
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    // Initial setup
+    updatePrompts();
+  </script>
+</body>
+</html>
