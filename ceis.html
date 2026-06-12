@@ -1,0 +1,3065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CEIS Command Center</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient-start: #020617;
+      --bg-gradient-end: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.4);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-primary: #22d3ee;
+      --accent-hover: #67e8f9;
+      --accent-success: #10b981;
+      --code-bg: rgba(0, 0, 0, 0.3);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: fixed linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 60px 20px;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .sub-header {
+      color: var(--accent-primary);
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .prompt-workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 35px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      position: relative;
+    }
+
+    .step-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .step-label {
+      font-weight: 800;
+      font-size: 0.8rem;
+      background: var(--accent-primary);
+      color: #020617;
+      padding: 5px 16px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .prompt-content {
+      background: var(--code-bg);
+      padding: 25px;
+      border-radius: 12px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.95rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 25px;
+      line-height: 1.6;
+      max-height: 600px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--accent-primary) transparent;
+    }
+
+    .copy-btn {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      transition: all 0.2s;
+      width: 100%;
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-primary);
+      color: #020617;
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-success);
+      border-color: var(--accent-success);
+      color: white;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 40px;
+      width: 100%;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      .step-card { padding: 25px; }
+      .prompt-content { font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>CEIS (Content Ecosystem Intelligence System)</h1>
+      <p class="sub-header">One Idea. One Voice. One Ecosystem. Unlimited Content Growth. <br>
+      Inclusive: Translator, Generator, Optimizer, Distribution, Voice Governance, and Flow Logic.</p>
+    </header>
+
+    <div class="prompt-workflow">
+
+      <!-- Prompt #1 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">1. Content Ecosystem Idea Translator</span>
+        </div>
+        <div class="prompt-content" id="p1"># Content Ecosystem Idea Translator
+
+You are a Content Ecosystem Strategist.
+
+Your task is to transform a content idea from one platform into complementary content ideas for the other five platforms in the ecosystem.
+
+## Inputs
+
+**Source Platform**
+[Platform]
+
+**Source Content Idea**
+[Content Idea Details]
+
+---
+
+# Core Mission
+
+Design a coordinated content ecosystem where a single core idea is experienced through multiple platforms, each serving a distinct strategic purpose.
+
+The goal is NOT to create six separate pieces of content.
+
+The goal IS to create one intellectual journey experienced through six different lenses.
+
+Every platform must have a clear job.
+
+- Social Media Post → Create curiosity
+- Newsletter → Create reflection
+- Blog → Create understanding
+- Podcast → Create exploration
+- Community → Create participation
+- Book → Create synthesis
+
+The audience should gain increasing depth, context, application, and wisdom as they move through the ecosystem.
+
+---
+
+# Ecosystem Design Principles
+
+1. Preserve one unified core idea across all platforms.
+2. Adapt the angle to match each platform's unique role.
+3. Ensure every platform contributes something new.
+4. Avoid repetition, duplication, and content overlap.
+5. Create a logical progression of audience transformation.
+6. Build intentional connections between platforms.
+7. Treat the ecosystem as a complete learning journey.
+
+### Critical Rule
+
+Every platform must introduce at least ONE new:
+
+- Insight
+- Question
+- Perspective
+- Story
+- Example
+- Framework
+- Mental model
+- Discussion point
+- Exercise
+- Application
+- Case study
+- Lesson
+
+that is NOT already provided by the source content.
+
+No platform should merely restate another platform's content in a different format.
+
+---
+
+# Content Depth Ladder
+
+The ecosystem should gradually increase in depth.
+
+| Platform | Depth Level |
+|-----------|-------------|
+| Social Media Post | Surface Awareness |
+| Newsletter | Light Reflection |
+| Blog | Structured Understanding |
+| Podcast | Deep Exploration |
+| Community | Practical Application |
+| Book | Comprehensive Synthesis |
+
+Ensure content complexity and audience commitment increase as the audience progresses through the ecosystem.
+
+---
+
+# Required Process
+
+## Step 1: Extract the Core Idea
+
+Provide:
+
+### Core Theme
+
+### Audience Problem
+
+### Key Insight
+
+### Desired Transformation
+
+---
+
+## Step 2: Extract Ecosystem Assets
+
+Identify the reusable intellectual assets that can appear across the ecosystem.
+
+Provide:
+
+### Core Principle
+
+### Core Framework
+
+### Core Mental Model
+
+### Core Question
+
+### Core Quote
+
+### Core Transformation
+
+These assets should create consistency across all six platforms while allowing each platform to explore them differently.
+
+---
+
+## Step 3: Create the Ecosystem Translation
+
+Generate content ideas ONLY for the FIVE platforms other than the source platform.
+
+For each platform provide:
+
+### Platform Name
+
+#### Role in Ecosystem
+
+Why this platform exists in the audience journey.
+
+#### Content Depth
+
+How deeply the topic is explored on this platform.
+
+#### Content Idea
+
+A clear and specific content concept.
+
+#### Unique Contribution
+
+What new value this platform introduces that does not exist elsewhere in the ecosystem.
+
+#### Primary Audience Outcome
+
+What the audience gains from consuming this content.
+
+#### Connection to Original Idea
+
+How it expands the source content rather than repeating it.
+
+#### Logical Next Step
+
+Which platform the audience should consume next.
+
+#### Transition Strategy
+
+Explain why moving to that next platform creates a better audience experience.
+
+---
+
+## Step 4: Audience Journey
+
+Design the ideal audience progression.
+
+Show the recommended order for consuming content across all six platforms.
+
+Format:
+
+### Stage 1
+
+Platform:
+
+Audience Discovery:
+
+### Stage 2
+
+Platform:
+
+Audience Discovery:
+
+### Stage 3
+
+Platform:
+
+Audience Discovery:
+
+### Stage 4
+
+Platform:
+
+Audience Discovery:
+
+### Stage 5
+
+Platform:
+
+Audience Discovery:
+
+### Stage 6
+
+Platform:
+
+Audience Discovery:
+
+---
+
+## Step 5: Ecosystem Sequencing Strategy
+
+Determine the most effective sequence for consuming content across platforms.
+
+Explain:
+
+- Why this sequence works
+- What audience transformation occurs at each stage
+- Why a different sequence would be less effective
+- How depth increases throughout the ecosystem
+
+---
+
+## Step 6: Cross-Platform Flow Map
+
+Show how audience members move between platforms.
+
+Format:
+
+Social Media Post → Newsletter
+
+Reason:
+
+Newsletter → Blog
+
+Reason:
+
+Blog → Podcast
+
+Reason:
+
+Podcast → Community
+
+Reason:
+
+Community → Book
+
+Reason:
+
+Explain how each transition naturally increases audience commitment, understanding, and engagement.
+
+---
+
+## Step 7: FINAL TABLE
+
+Create a comprehensive table with the following columns:
+
+| Platform | Primary Goal | Depth Level | Content Style | Audience Experience | Unique Contribution | Content Framework | Content Title | Content Outline | Next Platform |
+|----------|--------------|-------------|---------------|---------------------|---------------------|-------------------|---------------|-----------------|---------------|
+
+Include one row for each platform:
+
+- Social Media Post
+- Newsletter
+- Blog
+- Podcast
+- Community
+- Book
+
+### Column Definitions
+
+#### Platform
+
+Platform name.
+
+#### Primary Goal
+
+The strategic purpose of the platform.
+
+#### Depth Level
+
+The depth of learning or engagement.
+
+#### Content Style
+
+The most suitable delivery format.
+
+#### Audience Experience
+
+What the audience experiences.
+
+#### Unique Contribution
+
+What this platform adds that no other platform provides.
+
+#### Content Framework
+
+The structural framework best suited for this platform.
+
+Examples:
+
+- Hook → Insight → Question
+- Problem → Analysis → Solution
+- Story → Lesson → Application
+- Conversation → Exploration → Takeaway
+- Challenge → Discussion → Feedback
+- Principles → Models → Synthesis
+
+#### Content Title
+
+A compelling platform-specific working title.
+
+#### Content Outline
+
+A concise outline tailored to the platform.
+
+#### Next Platform
+
+The recommended next step in the audience journey.
+
+---
+
+# Final Validation Checklist
+
+Before presenting the final answer, verify that:
+
+✓ All six platforms revolve around the same central idea.
+
+✓ No two platforms perform the same role.
+
+✓ No two platforms introduce the same primary insight.
+
+✓ Every platform contributes a unique perspective.
+
+✓ Content depth increases throughout the ecosystem.
+
+✓ The audience journey becomes progressively deeper.
+
+✓ The ecosystem feels intentionally designed.
+
+✓ Cross-platform transitions are logical.
+
+✓ The original content idea remains recognizable throughout the ecosystem.
+
+✓ The ecosystem functions as a complete learning and transformation journey.
+
+Begin by analyzing the Source Platform and Source Content Idea provided above.</div>
+        <button class="copy-btn" onclick="copyText('p1', this)">Copy Prompt #1</button>
+      </div>
+
+      <!-- Prompt #2 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">2. Content Ecosystem Content Generator</span>
+        </div>
+        <div class="prompt-content" id="p2"># Content Ecosystem Content Generator
+
+You are a Content Ecosystem Content Creator.
+
+Your task is to create fully developed content for a specific platform while preserving the integrity of a larger content ecosystem.
+
+The content must not only work as a standalone piece but also function as part of a coordinated audience journey.
+
+---
+
+# Inputs
+
+**Platform**
+[Platform]
+
+**Content Title**
+[Content Title]
+
+**Content Outline**
+[Content Outline]
+
+**Core Theme**
+[Core Theme]
+
+**Core Principle**
+[Core Principle]
+
+**Core Framework**
+[Core Framework]
+
+**Core Mental Model**
+[Core Mental Model]
+
+**Desired Transformation**
+[Desired Transformation]
+
+**Target Audience**
+[Target Audience]
+
+**Tone**
+[Tone]
+
+---
+
+# Core Mission
+
+Create the complete content based on the provided inputs.
+
+The content must:
+
+- Faithfully serve the purpose of the selected platform.
+- Preserve the Core Theme.
+- Reinforce the Core Principle.
+- Apply the Core Framework where appropriate.
+- Reflect the Core Mental Model.
+- Support the Desired Transformation.
+- Match the Target Audience.
+- Maintain the requested Tone.
+- Contribute to the overall content ecosystem.
+
+The content should feel like one part of a larger intellectual journey rather than an isolated piece of content.
+
+---
+
+# Mandatory Ecosystem Rules
+
+Every platform has a specific job.
+
+The generated content MUST fulfill that job.
+
+The generated content MUST NOT behave like another platform.
+
+---
+
+## Social Media Post
+
+### Purpose
+
+Create curiosity.
+
+### Audience Experience
+
+Interest and intrigue.
+
+### Success Metric
+
+The audience wants to learn more.
+
+### Must
+
+- Capture attention quickly.
+- Introduce an intriguing idea.
+- Create curiosity gaps.
+- Spark interest.
+- Encourage further exploration.
+- Be concise and memorable.
+
+### Must NOT
+
+- Fully explain the topic.
+- Teach the complete framework.
+- Become an article.
+- Become a newsletter essay.
+- Become a detailed educational resource.
+
+---
+
+## Newsletter
+
+### Purpose
+
+Create reflection.
+
+### Audience Experience
+
+Personal insight and perspective.
+
+### Success Metric
+
+The audience reflects on their assumptions, beliefs, or experiences.
+
+### Must
+
+- Encourage thoughtful reflection.
+- Connect ideas to real life.
+- Explore meaning and implications.
+- Create emotional and intellectual resonance.
+- Leave the reader with a meaningful takeaway.
+
+### Must NOT
+
+- Become a comprehensive article.
+- Become a tutorial.
+- Become a step-by-step guide.
+- Become a blog post.
+
+---
+
+## Blog
+
+### Purpose
+
+Create understanding.
+
+### Audience Experience
+
+Clarity and comprehension.
+
+### Success Metric
+
+The audience can explain the concept in their own words.
+
+### Must
+
+- Teach systematically.
+- Explain concepts clearly.
+- Build understanding progressively.
+- Use examples where appropriate.
+- Clarify misconceptions.
+- Deliver practical learning.
+
+### Must NOT
+
+- Become a reflective essay.
+- Become a podcast transcript.
+- Become a book chapter.
+
+---
+
+## Podcast
+
+### Purpose
+
+Create exploration.
+
+### Audience Experience
+
+Expanded thinking and perspective.
+
+### Success Metric
+
+The audience sees new possibilities, viewpoints, and implications.
+
+### Must
+
+- Explore multiple perspectives.
+- Examine nuances.
+- Consider alternatives.
+- Discuss implications.
+- Investigate deeper questions.
+- Encourage intellectual curiosity.
+
+### Must NOT
+
+- Become a structured tutorial.
+- Become a blog article read aloud.
+- Become a book chapter.
+
+---
+
+## Community
+
+### Purpose
+
+Create participation.
+
+### Audience Experience
+
+Engagement and application.
+
+### Success Metric
+
+The audience actively contributes, discusses, experiments, or shares experiences.
+
+### Must
+
+- Invite discussion.
+- Encourage participation.
+- Promote practical application.
+- Ask meaningful questions.
+- Facilitate interaction among members.
+- Create opportunities for contribution.
+
+### Must NOT
+
+- Become a lecture.
+- Become an educational article.
+- Become a book chapter.
+
+---
+
+## Book
+
+### Purpose
+
+Create synthesis.
+
+### Audience Experience
+
+Integration and wisdom.
+
+### Success Metric
+
+The audience integrates the idea into a broader worldview or framework.
+
+### Must
+
+- Connect multiple ideas.
+- Reveal deeper patterns.
+- Present principles and models.
+- Integrate lessons into a larger system.
+- Deliver enduring insight.
+- Create long-term intellectual value.
+
+### Must NOT
+
+- Become a blog article.
+- Become a podcast discussion.
+- Become a social media post.
+
+---
+
+# Content Depth Framework
+
+Match the appropriate depth level.
+
+| Platform | Depth Level |
+|-----------|-------------|
+| Social Media Post | Surface Awareness |
+| Newsletter | Light Reflection |
+| Blog | Structured Understanding |
+| Podcast | Deep Exploration |
+| Community | Practical Application |
+| Book | Comprehensive Synthesis |
+
+Do not exceed or reduce the expected depth.
+
+---
+
+# Platform-Specific Structure Rules
+
+## Social Media Post Structure
+
+- Hook
+- Insight
+- Curiosity Gap
+- Call to Explore
+
+---
+
+## Newsletter Structure
+
+- Opening Observation
+- Reflection
+- Personal or Practical Connection
+- Key Insight
+- Closing Reflection Question
+
+---
+
+## Blog Structure
+
+- Introduction
+- Problem or Context
+- Main Teaching Sections
+- Examples
+- Key Takeaways
+- Conclusion
+
+---
+
+## Podcast Structure
+
+- Opening Topic Introduction
+- Multiple Perspectives
+- Exploration of Implications
+- Discussion of Possibilities
+- Key Takeaways
+- Closing Thought
+
+---
+
+## Community Structure
+
+- Topic Introduction
+- Context
+- Discussion Prompt
+- Reflection Questions
+- Participation Challenge
+- Invitation to Share Experiences
+
+---
+
+## Book Structure
+
+- Foundational Principle
+- Supporting Concepts
+- Pattern Recognition
+- Broader Implications
+- Integrated Framework
+- Synthesis and Wisdom
+
+---
+
+# Ecosystem Consistency Requirements
+
+The following elements must remain visible throughout the content.
+
+### Core Theme
+
+The central subject must remain recognizable.
+
+### Core Principle
+
+The key lesson must remain consistent.
+
+### Core Framework
+
+The framework should be referenced or applied where appropriate.
+
+### Core Mental Model
+
+The mental model should guide the thinking process.
+
+### Desired Transformation
+
+The content must move the audience toward the desired transformation.
+
+---
+
+# Cross-Platform Bridge Requirement
+
+This content exists within a larger ecosystem.
+
+At the end of the content, include a natural transition to the most logical next platform.
+
+The transition must feel organic rather than promotional.
+
+Examples:
+
+- Social Media → Newsletter
+- Newsletter → Blog
+- Blog → Podcast
+- Podcast → Community
+- Community → Book
+
+Adapt as appropriate.
+
+The purpose is to guide the audience deeper into the ecosystem.
+
+---
+
+# Content Creation Process
+
+Before writing:
+
+1. Analyze the Platform.
+2. Analyze the Content Title.
+3. Analyze the Content Outline.
+4. Analyze the Core Theme.
+5. Analyze the Core Principle.
+6. Analyze the Core Framework.
+7. Analyze the Core Mental Model.
+8. Analyze the Desired Transformation.
+9. Analyze the Target Audience.
+10. Determine the platform's intended outcome.
+11. Determine the required depth level.
+12. Generate content that fulfills the platform's unique purpose.
+
+---
+
+# Quality Standards
+
+The content must:
+
+- Follow the Content Outline faithfully.
+- Match the Platform's Purpose.
+- Match the Platform's Success Metric.
+- Match the required Depth Level.
+- Match the specified Tone.
+- Match the Target Audience.
+- Deliver genuine value.
+- Avoid filler.
+- Avoid repetition.
+- Remain intellectually coherent.
+- Contribute to the broader ecosystem.
+
+---
+
+# Final Validation Checklist
+
+Before presenting the final content, verify:
+
+✓ The Platform's purpose is fulfilled.
+
+✓ The audience receives the intended experience.
+
+✓ The Success Metric is achieved.
+
+✓ The content matches the platform's depth level.
+
+✓ The Core Theme remains recognizable.
+
+✓ The Core Principle remains consistent.
+
+✓ The Core Framework is respected.
+
+✓ The Core Mental Model is reflected.
+
+✓ The Desired Transformation is supported.
+
+✓ The content does not behave like another platform.
+
+✓ The content naturally belongs on the selected platform.
+
+✓ The content contributes to the larger ecosystem.
+
+✓ A natural bridge to the next platform is included.
+
+---
+
+# Output Instructions
+
+Provide only the final publish-ready content.
+
+Do not explain your reasoning.
+
+Do not provide notes.
+
+Do not provide analysis.
+
+Do not provide the validation checklist.
+
+Generate the completed content now.</div>
+        <button class="copy-btn" onclick="copyText('p2', this)">Copy Prompt #2</button>
+      </div>
+
+      <!-- Prompt #3 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">3. Content Ecosystem Content Optimizer</span>
+        </div>
+        <div class="prompt-content" id="p3"># Content Ecosystem Content Optimizer
+
+You are an elite Content Strategist, Senior Editor, Conversion Copywriter, Audience Psychologist, Content Performance Analyst, and Platform Specialist.
+
+Your task is to analyze, critique, edit, refine, optimize, and upgrade the content provided below.
+
+Your objective is not merely to improve the writing.
+
+Your objective is to transform the content into a platform-optimized, audience-focused, ecosystem-consistent, publication-ready asset that can compete with top-performing content on its platform.
+
+The final version should outperform the original content in clarity, engagement, retention, impact, and strategic effectiveness.
+
+---
+
+# Inputs
+
+**Platform**
+[Platform]
+
+**Content**
+[Paste Generated Content]
+
+**Core Theme**
+[Core Theme]
+
+**Core Principle**
+[Core Principle]
+
+**Core Framework**
+[Core Framework]
+
+**Core Mental Model**
+[Core Mental Model]
+
+**Desired Transformation**
+[Desired Transformation]
+
+**Target Audience**
+[Target Audience]
+
+**Tone**
+[Tone]
+
+---
+
+# Core Mission
+
+Optimize the content for:
+
+- Attention
+- Readability
+- Retention
+- Engagement
+- Clarity
+- Persuasion
+- Memorability
+- Emotional Impact
+- Intellectual Value
+- Audience Experience
+- Platform Fit
+- Ecosystem Consistency
+- Publication Readiness
+
+The final version should feel intentionally crafted, not AI-generated.
+
+---
+
+# Competitive Benchmark Standard
+
+Do not compare the content against average content.
+
+Compare it against the top-performing content typically published on the selected platform.
+
+Evaluate whether the content could reasonably compete with the top 10% of content in its category.
+
+Consider:
+
+- Hook strength
+- Readability
+- Clarity
+- Originality
+- Memorability
+- Retention potential
+- Audience value
+- Practical usefulness
+- Intellectual depth
+- Emotional resonance
+
+Continue refining until the content approaches that standard.
+
+---
+
+# Platform Integrity Rules
+
+Never optimize content in a way that breaks the platform's role.
+
+Every platform has a specific purpose.
+
+## Social Media Post
+
+**Purpose:** Create curiosity.
+
+**Performance Goal:** Stop scrolling and trigger interest.
+
+**Success Metric:** The audience wants to learn more.
+
+---
+
+## Newsletter
+
+**Purpose:** Create reflection.
+
+**Performance Goal:** Encourage meaningful thought.
+
+**Success Metric:** The audience reconsiders assumptions, experiences, or beliefs.
+
+---
+
+## Blog
+
+**Purpose:** Create understanding.
+
+**Performance Goal:** Teach clearly and effectively.
+
+**Success Metric:** The audience can explain the concept in their own words.
+
+---
+
+## Podcast
+
+**Purpose:** Create exploration.
+
+**Performance Goal:** Expand thinking and perspective.
+
+**Success Metric:** The audience discovers new viewpoints and implications.
+
+---
+
+## Community
+
+**Purpose:** Create participation.
+
+**Performance Goal:** Generate interaction and contribution.
+
+**Success Metric:** The audience discusses, contributes, experiments, or shares.
+
+---
+
+## Book
+
+**Purpose:** Create synthesis.
+
+**Performance Goal:** Create lasting wisdom and integration.
+
+**Success Metric:** The audience incorporates the idea into a larger worldview.
+
+---
+
+# Optimization Process
+
+## Step 1: Strategic Analysis
+
+Analyze the content and identify:
+
+### Strengths
+
+What already works well.
+
+### Weaknesses
+
+What reduces effectiveness.
+
+### Missed Opportunities
+
+What could improve performance.
+
+### Platform Drift
+
+Sections behaving like another platform.
+
+### Audience Friction
+
+Anything likely to confuse, bore, overwhelm, or disengage.
+
+---
+
+## Step 2: Audience Psychology Review
+
+Analyze:
+
+### Audience Desire
+
+What desire is being activated?
+
+### Audience Fear
+
+What fear, frustration, challenge, or pain point is being addressed?
+
+### Audience Belief
+
+What belief is being reinforced, challenged, or transformed?
+
+### Audience Motivation
+
+What motivates the audience to continue reading, listening, or engaging?
+
+### Emotional Response
+
+What emotional response is likely to occur?
+
+### Psychological Gaps
+
+What emotional or motivational opportunities are currently missing?
+
+---
+
+## Step 3: Differentiation Review
+
+Analyze:
+
+### Generic Elements
+
+What feels common, predictable, or overused?
+
+### AI-Sounding Elements
+
+What feels formulaic, robotic, or generic?
+
+### Missing Originality
+
+Where could a stronger perspective emerge?
+
+### Unique Angle Opportunities
+
+What distinctive perspective could make the content more memorable?
+
+### Competitive Advantage
+
+What could help this content stand out from similar content?
+
+---
+
+## Step 4: Content Compression Review
+
+Review the content ruthlessly.
+
+Identify:
+
+- Redundant ideas
+- Repeated explanations
+- Unnecessary sentences
+- Weak transitions
+- Filler
+- Generic statements
+- Low-value sections
+
+Remove anything that weakens effectiveness.
+
+Remember:
+
+Stronger content is not always longer.
+
+Stronger content is often clearer, tighter, and more focused.
+
+---
+
+## Step 5: Content Scorecard
+
+Score from 1–10:
+
+- Hook Strength
+- Clarity
+- Readability
+- Engagement
+- Retention Potential
+- Originality
+- Emotional Impact
+- Intellectual Value
+- Audience Relevance
+- Platform Alignment
+- Ecosystem Consistency
+- Differentiation
+- Memorability
+- Call-to-Action Effectiveness
+
+Provide a concise explanation for each score.
+
+---
+
+## Step 6: Optimization Recommendations
+
+Identify the highest-impact improvements.
+
+Focus on:
+
+### Attention
+
+How to capture attention faster.
+
+### Curiosity
+
+How to increase interest.
+
+### Clarity
+
+How to improve understanding.
+
+### Engagement
+
+How to sustain attention.
+
+### Retention
+
+How to improve memorability.
+
+### Flow
+
+How to improve readability and progression.
+
+### Emotional Impact
+
+How to increase resonance.
+
+### Intellectual Impact
+
+How to deepen insight.
+
+### Differentiation
+
+How to become more distinctive.
+
+### Platform Alignment
+
+How to better fulfill the platform's role.
+
+### Ecosystem Alignment
+
+How to better support the content ecosystem.
+
+Keep recommendations concise and actionable.
+
+---
+
+## Step 7: Elite Editing Pass
+
+Perform a complete editorial upgrade.
+
+Improve:
+
+- Headlines
+- Sub-headlines
+- Hooks
+- Openings
+- Storytelling
+- Examples
+- Explanations
+- Analogies
+- Transitions
+- Flow
+- Structure
+- Conclusions
+- Calls to Action
+
+Remove:
+
+- Filler
+- Redundancy
+- Generic wording
+- Predictable phrasing
+- Weak statements
+- Low-value content
+
+Strengthen:
+
+- Specificity
+- Clarity
+- Relevance
+- Persuasiveness
+- Memorability
+- Audience connection
+
+---
+
+## Step 8: Scroll-Stopping Optimization
+
+Where appropriate:
+
+- Strengthen the opening.
+- Improve pattern interrupts.
+- Increase curiosity.
+- Improve readability.
+- Improve skimmability.
+- Create stronger takeaways.
+- Strengthen retention.
+- Increase audience momentum.
+
+Do not use clickbait.
+
+Do not sacrifice substance for attention.
+
+---
+
+## Step 9: Platform-Specific Optimization
+
+### Social Media Post
+
+Prioritize:
+
+- Hook
+- Curiosity
+- Shareability
+- Memorability
+
+---
+
+### Newsletter
+
+Prioritize:
+
+- Reflection
+- Insight
+- Perspective
+- Connection
+
+---
+
+### Blog
+
+Prioritize:
+
+- Clarity
+- Teaching
+- Structure
+- Understanding
+
+---
+
+### Podcast
+
+Prioritize:
+
+- Exploration
+- Nuance
+- Perspective
+- Discovery
+
+---
+
+### Community
+
+Prioritize:
+
+- Participation
+- Discussion
+- Contribution
+- Interaction
+
+---
+
+### Book
+
+Prioritize:
+
+- Synthesis
+- Principles
+- Frameworks
+- Wisdom
+
+---
+
+## Step 10: Ecosystem Consistency Check
+
+Verify that:
+
+- Core Theme remains visible.
+- Core Principle remains consistent.
+- Core Framework remains intact.
+- Core Mental Model remains recognizable.
+- Desired Transformation remains supported.
+
+Do not remove these elements during optimization.
+
+---
+
+## Step 11: Publication Readiness Review
+
+Evaluate whether the content is:
+
+- Clear
+- Compelling
+- Valuable
+- Distinctive
+- Memorable
+- Professional
+- Audience-appropriate
+- Platform-appropriate
+- Ecosystem-consistent
+
+Continue refining until publication-ready.
+
+---
+
+# Efficiency Rule
+
+If the content is already strong:
+
+- Keep the analysis concise.
+- Keep the score explanations concise.
+- Keep recommendations concise.
+
+Spend the majority of effort improving the final content.
+
+The primary deliverable is the optimized content, not the analysis.
+
+---
+
+# Output Format
+
+## CONTENT ANALYSIS
+
+Include:
+
+- Strengths
+- Weaknesses
+- Missed Opportunities
+- Platform Drift Issues
+- Audience Friction Points
+- Psychology Insights
+- Differentiation Insights
+
+---
+
+## CONTENT SCORECARD
+
+Provide scores with concise explanations.
+
+---
+
+## OPTIMIZATION RECOMMENDATIONS
+
+Provide the highest-impact recommendations only.
+
+---
+
+## FINAL OPTIMIZED CONTENT
+
+Provide the fully rewritten and optimized version.
+
+Requirements:
+
+- Strongest possible version
+- Scroll-stopping
+- Highly engaging
+- Distinctive
+- Platform-aligned
+- Ecosystem-aligned
+- Audience-focused
+- Publication-ready
+
+Do not provide multiple versions.
+
+Do not provide alternatives.
+
+Provide only the single best final version.
+
+---
+
+# Final Validation Checklist
+
+Before delivering the final content, verify:
+
+✓ Stronger than the original version.
+
+✓ Better platform alignment.
+
+✓ Better audience experience.
+
+✓ Better readability.
+
+✓ Better engagement.
+
+✓ Better retention.
+
+✓ Better differentiation.
+
+✓ Better memorability.
+
+✓ Better ecosystem consistency.
+
+✓ Better publication readiness.
+
+✓ Competitive with top-performing content on the platform.
+
+✓ Fully optimized.
+
+Deliver the final optimized version.</div>
+        <button class="copy-btn" onclick="copyText('p3', this)">Copy Prompt #3</button>
+      </div>
+
+      <!-- Prompt #4 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">4. Content Ecosystem Distribution & Amplification Engine</span>
+        </div>
+        <div class="prompt-content" id="p4"># Content Ecosystem Distribution & Amplification Engine
+
+You are an elite Content Distribution Strategist, Audience Growth Specialist, Content Repurposing Expert, Editorial Director, SEO Strategist, Content Performance Analyst, and Content Ecosystem Architect.
+
+Your task is to transform a completed content asset into a complete distribution and amplification system.
+
+Your objective is not simply to promote content.
+
+Your objective is to maximize reach, discoverability, engagement, retention, ecosystem participation, and long-term content value while preserving the integrity of the content ecosystem.
+
+The final output should function as a practical distribution and amplification plan that can be executed immediately.
+
+---
+
+# Inputs
+
+**Primary Platform**
+[Platform]
+
+**Content Title**
+[Content Title]
+
+**Final Optimized Content**
+[Paste Final Optimized Content]
+
+**Core Theme**
+[Core Theme]
+
+**Core Principle**
+[Core Principle]
+
+**Core Framework**
+[Core Framework]
+
+**Core Mental Model**
+[Core Mental Model]
+
+**Desired Transformation**
+[Desired Transformation]
+
+**Target Audience**
+[Target Audience]
+
+**Tone**
+[Tone]
+
+---
+
+# Core Mission
+
+Transform one completed content asset into a coordinated distribution and amplification system.
+
+The system should:
+
+- Increase reach
+- Increase discoverability
+- Increase engagement
+- Increase retention
+- Increase audience progression
+- Increase ecosystem participation
+- Increase content lifespan
+- Increase strategic content leverage
+
+Every amplification asset must reinforce:
+
+- Core Theme
+- Core Principle
+- Core Framework
+- Core Mental Model
+- Desired Transformation
+
+---
+
+# Decision-Making Rule
+
+The goal is not to overwhelm the user with excessive choices.
+
+For every asset category:
+
+- Generate multiple possibilities internally.
+- Evaluate them strategically.
+- Present only the strongest option by default.
+
+Only provide alternative options when there is a meaningful strategic reason.
+
+Whenever alternatives are provided:
+
+- Limit to a maximum of 3.
+- Clearly identify the Recommended Choice.
+- Briefly explain why it is the strongest option.
+
+The system should prioritize:
+
+- Clarity over quantity
+- Decisions over options
+- Actionability over brainstorming
+
+The final output should leave the user with a clear action plan rather than a large collection of choices.
+
+---
+
+# Ecosystem Integrity Rules
+
+Never distort the content.
+
+Never change the core message.
+
+Never create misleading promotional assets.
+
+Never use clickbait.
+
+Never sacrifice trust for attention.
+
+Never create amplification assets that conflict with the ecosystem's purpose.
+
+The objective is amplification without compromising credibility.
+
+---
+
+# Strategic Analysis Process
+
+## Step 1: Content Analysis
+
+Analyze:
+
+### Core Idea
+
+What is the central idea?
+
+### Strongest Insight
+
+What insight deserves the most amplification?
+
+### Most Shareable Idea
+
+What is most likely to spread?
+
+### Most Discussable Idea
+
+What is most likely to generate conversation?
+
+### Most Actionable Idea
+
+What is most likely to create action?
+
+### Most Memorable Idea
+
+What is most likely to be remembered?
+
+---
+
+## Step 2: Audience Analysis
+
+Identify:
+
+### Primary Audience Motivation
+
+### Primary Audience Desire
+
+### Primary Audience Challenge
+
+### Primary Audience Objection
+
+### Primary Audience Curiosity Gap
+
+### Primary Audience Transformation Opportunity
+
+---
+
+## Step 3: Distribution Strategy
+
+Determine:
+
+### Best Discovery Channel
+
+### Best Engagement Channel
+
+### Best Education Channel
+
+### Best Community Channel
+
+### Best Ecosystem Next Step
+
+Recommend the strongest audience journey.
+
+---
+
+# Audience Attraction Assets
+
+## Recommended Headline
+
+Provide the single strongest headline.
+
+Explain briefly why it is recommended.
+
+### Alternative Headlines (Optional)
+
+Maximum 3.
+
+---
+
+## Recommended Curiosity Hook
+
+Provide the strongest hook.
+
+Explain briefly why it is recommended.
+
+### Alternative Hooks (Optional)
+
+Maximum 3.
+
+---
+
+## Recommended Opening Line
+
+Provide the strongest opening line.
+
+Explain briefly why it is recommended.
+
+### Alternative Openings (Optional)
+
+Maximum 3.
+
+---
+
+## Recommended Key Takeaway
+
+Provide the most memorable takeaway.
+
+Explain briefly why it is recommended.
+
+### Alternative Takeaways (Optional)
+
+Maximum 3.
+
+---
+
+# Social Distribution Assets
+
+Create platform-ready promotional assets.
+
+## Recommended Short Social Post
+
+(X / Threads style)
+
+Explain why it is recommended.
+
+---
+
+## Recommended Medium Social Post
+
+(LinkedIn / Facebook style)
+
+Explain why it is recommended.
+
+---
+
+## Recommended Long Social Post
+
+Explain why it is recommended.
+
+---
+
+## Recommended Discussion Starter
+
+For community engagement.
+
+Explain why it is recommended.
+
+---
+
+## Recommended Poll Question
+
+Explain why it is recommended.
+
+---
+
+## Recommended Conversation Prompt
+
+Explain why it is recommended.
+
+---
+
+## Recommended Audience Challenge
+
+Explain why it is recommended.
+
+---
+
+# Email Promotion Assets
+
+## Recommended Email Subject Line
+
+Explain why it is recommended.
+
+### Alternative Subject Lines (Optional)
+
+Maximum 3.
+
+---
+
+## Recommended Preview Text
+
+Explain why it is recommended.
+
+---
+
+## Recommended Newsletter Teaser
+
+Explain why it is recommended.
+
+---
+
+## Recommended Short Email Promotion
+
+Explain why it is recommended.
+
+---
+
+## Recommended Long Email Promotion
+
+Explain why it is recommended.
+
+---
+
+# Discoverability Assets
+
+## Recommended SEO Title
+
+Explain why it is recommended.
+
+### Alternative SEO Titles (Optional)
+
+Maximum 3.
+
+---
+
+## Recommended Meta Description
+
+Explain why it is recommended.
+
+### Alternative Meta Descriptions (Optional)
+
+Maximum 3.
+
+---
+
+## Search Intent Analysis
+
+Identify:
+
+- Informational Intent
+- Educational Intent
+- Exploratory Intent
+- Practical Intent
+
+Determine which intent should be prioritized.
+
+Explain why.
+
+---
+
+## Recommended Long-Tail Keyword Opportunities
+
+Provide only the highest-value keyword opportunities.
+
+Explain why they were selected.
+
+---
+
+## Recommended FAQs
+
+Generate only the most valuable audience questions.
+
+Limit to the most important questions.
+
+---
+
+# Content Repurposing Opportunities
+
+Identify the strongest opportunities to repurpose this content into:
+
+- Social Media Post
+- Newsletter
+- Blog
+- Podcast
+- Community Discussion
+- Book Section
+
+For each provide:
+
+### Objective
+
+### Audience Experience
+
+### Unique Angle
+
+### Recommended Priority Level
+
+(High / Medium / Low)
+
+Only recommend repurposing opportunities that genuinely add value.
+
+---
+
+# Audience Journey Amplification
+
+Design the strongest audience journey.
+
+Show:
+
+### Entry Point
+
+How audiences discover the content.
+
+### Engagement Point
+
+How audiences engage.
+
+### Education Point
+
+How audiences learn.
+
+### Exploration Point
+
+How audiences go deeper.
+
+### Participation Point
+
+How audiences contribute.
+
+### Synthesis Point
+
+How audiences integrate the ideas.
+
+Explain why this sequence is optimal.
+
+---
+
+# Content Lifespan Extension Plan
+
+Recommend:
+
+### First 24 Hours
+
+Most important actions.
+
+### First 7 Days
+
+Most important actions.
+
+### First 30 Days
+
+Most important actions.
+
+### Evergreen Distribution
+
+Long-term actions.
+
+Explain how each stage extends content value.
+
+---
+
+# Amplification Opportunities
+
+Identify only the highest-value opportunities.
+
+Consider:
+
+### Discussion Opportunities
+
+### Collaboration Opportunities
+
+### Community Opportunities
+
+### Series Opportunities
+
+### Follow-Up Content Opportunities
+
+### Expansion Opportunities
+
+Prioritize opportunities according to expected impact.
+
+---
+
+# Ecosystem Growth Strategy
+
+Explain:
+
+### How This Content Strengthens the Ecosystem
+
+### Which Platform Should Be Promoted Next
+
+### Why That Platform Is the Best Next Step
+
+### How Audiences Should Progress Through the Ecosystem
+
+### Which Asset Should Receive Additional Amplification
+
+Provide a clear recommendation.
+
+---
+
+# Performance Standards
+
+All recommendations must be:
+
+- Audience-focused
+- Actionable
+- Credible
+- Clear
+- Specific
+- Memorable
+- Strategic
+- Platform-appropriate
+- Ecosystem-consistent
+
+Avoid:
+
+- Generic marketing language
+- Empty engagement tactics
+- Excessive options
+- Clickbait
+- Sensationalism
+
+---
+
+# Output Format
+
+## STRATEGIC ANALYSIS
+
+- Core Idea
+- Strongest Insight
+- Most Shareable Idea
+- Most Discussable Idea
+- Most Actionable Idea
+- Most Memorable Idea
+
+---
+
+## AUDIENCE ANALYSIS
+
+- Motivation
+- Desire
+- Challenge
+- Objection
+- Curiosity Gap
+- Transformation Opportunity
+
+---
+
+## DISTRIBUTION STRATEGY
+
+- Discovery Channel
+- Engagement Channel
+- Education Channel
+- Community Channel
+- Recommended Audience Journey
+
+---
+
+## AUDIENCE ATTRACTION ASSETS
+
+- Recommended Headline
+- Recommended Hook
+- Recommended Opening Line
+- Recommended Key Takeaway
+
+---
+
+## SOCIAL DISTRIBUTION ASSETS
+
+- Short Social Post
+- Medium Social Post
+- Long Social Post
+- Discussion Starter
+- Poll Question
+- Conversation Prompt
+- Audience Challenge
+
+---
+
+## EMAIL PROMOTION ASSETS
+
+- Subject Line
+- Preview Text
+- Newsletter Teaser
+- Short Email Promotion
+- Long Email Promotion
+
+---
+
+## DISCOVERABILITY ASSETS
+
+- SEO Title
+- Meta Description
+- Search Intent
+- Long-Tail Keywords
+- FAQs
+
+---
+
+## REPURPOSING OPPORTUNITIES
+
+---
+
+## AUDIENCE JOURNEY AMPLIFICATION
+
+---
+
+## CONTENT LIFESPAN EXTENSION PLAN
+
+---
+
+## HIGH-PRIORITY AMPLIFICATION OPPORTUNITIES
+
+---
+
+## ECOSYSTEM GROWTH STRATEGY
+
+---
+
+# Final Validation Checklist
+
+Before delivering the final output, verify:
+
+✓ Core Theme is preserved.
+
+✓ Core Principle is preserved.
+
+✓ Core Framework is preserved.
+
+✓ Core Mental Model is preserved.
+
+✓ Desired Transformation is preserved.
+
+✓ No clickbait is used.
+
+✓ No excessive options are presented.
+
+✓ The strongest recommendations are clearly identified.
+
+✓ Audience progression is encouraged.
+
+✓ Ecosystem integrity is preserved.
+
+✓ Discoverability is improved.
+
+✓ Engagement potential is improved.
+
+✓ Content lifespan is extended.
+
+✓ Every recommendation is actionable.
+
+Deliver the complete Content Distribution & Amplification System.</div>
+        <button class="copy-btn" onclick="copyText('p4', this)">Copy Prompt #4</button>
+      </div>
+
+      <!-- Prompt #5 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">5. Content Ecosystem Voice Governance System</span>
+        </div>
+        <div class="prompt-content" id="p5"># Content Ecosystem Voice Governance System
+
+You are an elite Editorial Director, Brand Voice Strategist, Content Quality Auditor, Writing Style Analyst, Content Consistency Specialist, and Content Ecosystem Architect.
+
+Your task is to review multiple content assets and determine whether they appear to have been created by the same writer, creator, thought leader, or brand.
+
+Your objective is not merely to compare writing quality.
+
+Your objective is to establish, protect, strengthen, and govern a unified content voice across an entire content ecosystem.
+
+You must identify:
+
+- Voice consistency
+- Style consistency
+- Tone consistency
+- Intellectual consistency
+- Teaching consistency
+- Brand consistency
+- Audience consistency
+- Ecosystem consistency
+
+The goal is to ensure the content ecosystem feels intentional, recognizable, cohesive, and unmistakably created by the same source.
+
+---
+
+# Inputs
+
+**Target Audience**
+[Target Audience]
+
+**Brand Voice Description**
+[Brand Voice Description]
+
+**Core Theme**
+[Core Theme]
+
+**Core Principle**
+[Core Principle]
+
+**Core Framework**
+[Core Framework]
+
+**Core Mental Model**
+[Core Mental Model]
+
+**Desired Transformation**
+[Desired Transformation]
+
+**Content Asset 1**
+[Paste Content]
+
+**Content Asset 2**
+[Paste Content]
+
+**Content Asset 3**
+[Paste Content]
+
+(Add additional content assets as needed.)
+
+---
+
+# Core Mission
+
+Determine whether the content appears to have been written by the same writer.
+
+Do not focus only on superficial similarities.
+
+Focus on deeper voice indicators including:
+
+- Thinking style
+- Teaching style
+- Argument structure
+- Sentence rhythm
+- Vocabulary patterns
+- Storytelling patterns
+- Framework usage
+- Analogy usage
+- Emotional tone
+- Intellectual depth
+- Audience relationship
+- Perspective
+- Reasoning style
+
+Your goal is to identify the true voice of the ecosystem and evaluate every asset against that voice.
+
+---
+
+# Voice Analysis Framework
+
+## Step 1: Writer Identity Analysis
+
+Identify:
+
+### Writing Personality
+
+How does the writer appear to think?
+
+### Teaching Style
+
+How are ideas explained?
+
+### Intellectual Style
+
+How are arguments developed?
+
+### Communication Style
+
+How does the writer communicate with the audience?
+
+### Emotional Style
+
+What emotional atmosphere does the writer create?
+
+### Audience Relationship Style
+
+How does the writer position themselves relative to the audience?
+
+---
+
+## Step 2: Canonical Voice Selection
+
+Determine which content asset best represents the desired ecosystem voice.
+
+Provide:
+
+### Canonical Content Asset
+
+Identify the strongest representative asset.
+
+### Why It Represents The Voice Best
+
+Evaluate:
+
+- Tone
+- Clarity
+- Teaching style
+- Thinking style
+- Audience relationship
+- Intellectual depth
+- Brand alignment
+- Ecosystem alignment
+
+This asset becomes the benchmark against which all other content is evaluated.
+
+---
+
+## Step 3: Ecosystem Voice Match Score
+
+Provide:
+
+### Overall Match Score
+
+0–100%
+
+### Confidence Level
+
+- High
+- Medium
+- Low
+
+### Consistency Classification
+
+90–100% = Highly Consistent
+
+75–89% = Mostly Consistent
+
+60–74% = Moderately Consistent
+
+40–59% = Significant Voice Drift
+
+Below 40% = Inconsistent
+
+### Summary Assessment
+
+Provide a concise explanation.
+
+---
+
+## Step 4: Writer Fingerprint Extraction
+
+Identify the unique characteristics that define the ecosystem voice.
+
+Provide:
+
+### Signature Phrases
+
+### Preferred Vocabulary
+
+### Recurring Sentence Patterns
+
+### Teaching Techniques
+
+### Storytelling Patterns
+
+### Framework Usage Patterns
+
+### Argument Structures
+
+### Audience Relationship Style
+
+### Intellectual Habits
+
+### Recurring Themes
+
+Explain how these elements create a recognizable voice.
+
+---
+
+## Step 5: Voice Consistency Audit
+
+Score from 1–10:
+
+### Tone Consistency
+
+### Vocabulary Consistency
+
+### Sentence Structure Consistency
+
+### Teaching Style Consistency
+
+### Storytelling Consistency
+
+### Framework Usage Consistency
+
+### Audience Relationship Consistency
+
+### Intellectual Consistency
+
+### Brand Voice Consistency
+
+### Ecosystem Consistency
+
+### Overall Voice Consistency
+
+Provide concise explanations.
+
+---
+
+## Step 6: Voice Drift Analysis
+
+Identify any content that feels noticeably different from the Canonical Voice.
+
+For each issue provide:
+
+### Location
+
+Quote the exact passage.
+
+### Problem
+
+Explain why it feels inconsistent.
+
+### Impact
+
+Explain how it weakens ecosystem consistency.
+
+### Severity
+
+- Minor
+- Moderate
+- Significant
+
+### Recommended Fix
+
+Provide guidance.
+
+---
+
+## Step 7: Weak Spot Analysis
+
+Identify specific passages that make the content appear to have been written by a different writer.
+
+For each passage provide:
+
+### Exact Passage
+
+### Why It Feels Different
+
+### Missing Voice Characteristics
+
+### Recommended Fix
+
+### Revised Version
+
+---
+
+## Step 8: Highest-Priority Voice Problems
+
+Rank the most important issues.
+
+Provide:
+
+### Problem
+
+### Why It Matters
+
+### Impact On Consistency
+
+### Recommended Fix
+
+### Expected Improvement
+
+Rank:
+
+1. Highest Impact
+2. Second Highest Impact
+3. Third Highest Impact
+
+Focus on the changes that would create the greatest improvement.
+
+---
+
+## Step 9: Editorial Cohesion Analysis
+
+Determine whether the content shares:
+
+### Similar Thought Patterns
+
+### Similar Teaching Patterns
+
+### Similar Vocabulary Patterns
+
+### Similar Emotional Patterns
+
+### Similar Structural Patterns
+
+### Similar Audience Assumptions
+
+### Similar Depth Levels
+
+### Similar Intellectual Frameworks
+
+Explain findings.
+
+---
+
+## Step 10: Brand Voice Alignment
+
+Compare all content against:
+
+- Brand Voice Description
+- Core Theme
+- Core Principle
+- Core Framework
+- Core Mental Model
+- Desired Transformation
+
+Identify:
+
+### Strong Alignments
+
+### Weak Alignments
+
+### Misalignments
+
+### Missing Voice Elements
+
+---
+
+## Step 11: Ecosystem Consistency Review
+
+Determine whether the content ecosystem feels like:
+
+- One creator
+- One brand
+- One philosophy
+- One audience journey
+
+or
+
+- Multiple unrelated creators
+
+Provide evidence for your assessment.
+
+---
+
+## Step 12: Unified Voice Revision Pass
+
+Rewrite the most inconsistent passages.
+
+Requirements:
+
+- Match the Canonical Voice.
+- Preserve meaning.
+- Preserve accuracy.
+- Preserve audience relevance.
+- Improve consistency.
+
+For each provide:
+
+### Original Passage
+
+### Revised Passage
+
+### Explanation
+
+---
+
+## Step 13: Unified Voice Recommendations
+
+Provide the highest-impact recommendations required to make all content feel like it was created by the same writer.
+
+Focus on:
+
+### Tone
+
+### Vocabulary
+
+### Sentence Rhythm
+
+### Teaching Style
+
+### Storytelling Style
+
+### Framework Usage
+
+### Audience Relationship
+
+### Intellectual Style
+
+### Structural Patterns
+
+---
+
+## Step 14: Voice Protection Rules
+
+Create a future-proof voice governance system.
+
+### Always Do
+
+Behaviors that strengthen consistency.
+
+### Usually Do
+
+Preferred voice patterns.
+
+### Usually Avoid
+
+Patterns that weaken consistency.
+
+### Never Do
+
+Patterns that break voice integrity.
+
+These rules should help future content remain aligned with the ecosystem voice.
+
+---
+
+## Step 15: Reusable Style Guide Extraction
+
+Create a reusable style guide based on the strongest voice patterns discovered.
+
+Include:
+
+### Writer Personality
+
+### Tone
+
+### Vocabulary Preferences
+
+### Sentence Style
+
+### Paragraph Style
+
+### Teaching Style
+
+### Storytelling Style
+
+### Framework Style
+
+### Audience Relationship Style
+
+### Intellectual Style
+
+### Structural Preferences
+
+### Things To Do
+
+### Things To Avoid
+
+This style guide should enable future content creators to reproduce the ecosystem voice consistently.
+
+---
+
+# Analysis Standards
+
+Do not assume consistency.
+
+Use evidence.
+
+Quote examples.
+
+Explain reasoning.
+
+Be specific.
+
+Prioritize meaningful patterns over superficial observations.
+
+Focus on high-impact recommendations.
+
+Do not provide vague editorial feedback.
+
+---
+
+# Output Format
+
+## EXECUTIVE SUMMARY
+
+Provide a concise overall assessment.
+
+---
+
+## ECOSYSTEM VOICE MATCH SCORE
+
+---
+
+## CANONICAL VOICE SELECTION
+
+---
+
+## WRITER FINGERPRINT EXTRACTION
+
+---
+
+## VOICE CONSISTENCY SCORECARD
+
+---
+
+## VOICE DRIFT ISSUES
+
+---
+
+## WEAK SPOTS
+
+---
+
+## HIGHEST-PRIORITY VOICE PROBLEMS
+
+---
+
+## EDITORIAL COHESION ANALYSIS
+
+---
+
+## BRAND VOICE ALIGNMENT
+
+---
+
+## ECOSYSTEM CONSISTENCY REVIEW
+
+---
+
+## UNIFIED VOICE REVISION PASS
+
+---
+
+## UNIFIED VOICE RECOMMENDATIONS
+
+---
+
+## VOICE PROTECTION RULES
+
+---
+
+## REUSABLE STYLE GUIDE
+
+---
+
+# Final Validation Checklist
+
+Before delivering the final report verify:
+
+✓ Canonical Voice established.
+
+✓ Ecosystem Voice Match Score calculated.
+
+✓ Writer Fingerprint extracted.
+
+✓ Voice consistency evaluated.
+
+✓ Voice drift identified.
+
+✓ Weak spots identified.
+
+✓ Brand alignment evaluated.
+
+✓ Ecosystem consistency evaluated.
+
+✓ Priority issues ranked.
+
+✓ Inconsistent passages revised.
+
+✓ Voice governance rules created.
+
+✓ Reusable style guide created.
+
+✓ Recommendations are actionable.
+
+Deliver the complete Voice Governance Report.</div>
+        <button class="copy-btn" onclick="copyText('p5', this)">Copy Prompt #5</button>
+      </div>
+
+      <!-- Prompt #6 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">6. List of Placeholders & Workflow Map</span>
+        </div>
+        <div class="prompt-content" id="p6"># Prompt 1 — Content Ecosystem Idea Translator
+
+- [Platform]
+- [Content Idea Details]
+
+---
+
+# Prompt 2 — Content Ecosystem Content Generator
+
+- [Platform]
+- [Content Title]
+- [Content Outline]
+- [Core Theme]
+- [Core Principle]
+- [Core Framework]
+- [Core Mental Model]
+- [Desired Transformation]
+- [Target Audience]
+- [Tone]
+
+---
+
+# Prompt 3 — Content Ecosystem Content Optimizer
+
+- [Platform]
+- [Paste Generated Content]
+- [Core Theme]
+- [Core Principle]
+- [Core Framework]
+- [Core Mental Model]
+- [Desired Transformation]
+- [Target Audience]
+- [Tone]
+
+---
+
+# Prompt 4 — Content Ecosystem Distribution & Amplification Engine
+
+- [Platform]
+- [Content Title]
+- [Paste Final Optimized Content]
+- [Core Theme]
+- [Core Principle]
+- [Core Framework]
+- [Core Mental Model]
+- [Desired Transformation]
+- [Target Audience]
+- [Tone]
+
+---
+
+# Prompt 5 — Content Ecosystem Voice Governance System
+
+- [Target Audience]
+- [Brand Voice Description]
+- [Core Theme]
+- [Core Principle]
+- [Core Framework]
+- [Core Mental Model]
+- [Desired Transformation]
+- [Content Asset 1]
+- [Content Asset 2]
+- [Content Asset 3]
+- [Additional Content Assets as Needed]
+
+---
+
+# CEIS Workflow Data Flow
+
+## Prompt 1 Generates
+
+- Core Theme
+- Audience Problem
+- Key Insight
+- Desired Transformation
+- Core Principle
+- Core Framework
+- Core Mental Model
+- Core Question
+- Core Quote
+- Core Transformation
+- Content Titles
+- Content Outlines
+- Audience Journey
+- Ecosystem Strategy
+
+↓
+
+Used by Prompts 2, 3, 4, and 5.
+
+---
+
+## Prompt 2 Generates
+
+- Complete Platform Content
+
+↓
+
+Used by Prompt 3.
+
+---
+
+## Prompt 3 Generates
+
+- Final Optimized Content
+
+↓
+
+Used by Prompt 4.
+
+---
+
+## Prompt 4 Generates
+
+- Distribution Plan
+- SEO Assets
+- Social Assets
+- Email Assets
+- Repurposing Strategy
+- Amplification Strategy
+
+---
+
+## Prompt 5 Generates
+
+- Ecosystem Voice Match Score
+- Canonical Voice
+- Writer Fingerprint
+- Voice Audit
+- Voice Drift Analysis
+- Voice Protection Rules
+- Reusable Style Guide
+
+---
+
+# Minimum Manual Inputs Required To Run CEIS
+
+## Initial Inputs
+
+- [Platform]
+- [Content Idea Details]
+- [Target Audience]
+- [Tone]
+
+## Optional Inputs
+
+- [Brand Voice Description]
+
+Everything else is generated and carried forward through the CEIS workflow.</div>
+        <button class="copy-btn" onclick="copyText('p6', this)">Copy Reference #6</button>
+      </div>
+
+    </div>
+
+    <footer class="footer">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    function copyText(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<span>Copied to Clipboard!</span>`;
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
