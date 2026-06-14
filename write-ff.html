@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Write the Flash Fiction - System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient-start: #020617;
+      --bg-gradient-end: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.4);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-primary: #22d3ee;
+      --accent-hover: #67e8f9;
+      --accent-success: #10b981;
+      --code-bg: rgba(0, 0, 0, 0.3);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: fixed linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 60px 20px;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .sub-header {
+      color: var(--accent-primary);
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .prompt-workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .step-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .step-label {
+      font-weight: 800;
+      font-size: 0.85rem;
+      background: var(--accent-primary);
+      color: #020617;
+      padding: 4px 14px;
+      border-radius: 6px;
+      text-transform: uppercase;
+    }
+
+    .prompt-content {
+      background: var(--code-bg);
+      padding: 25px;
+      border-radius: 12px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.95rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 20px;
+      line-height: 1.5;
+      max-height: 600px;
+      overflow-y: auto;
+    }
+
+    .copy-btn {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+      width: 100%;
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-primary);
+      color: #020617;
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-success);
+      border-color: var(--accent-success);
+      color: white;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 40px;
+    }
+
+    @media (max-width: 850px) {
+      h1 { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Write the Flash Fiction</h1>
+      <p class="sub-header">Strategic Storytelling Workflow</p>
+    </header>
+
+    <div class="prompt-workflow">
+      
+      <!-- Prompt #1 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Step #1: CULTURAL DIRECTIVE</span>
+        </div>
+        <div class="prompt-content" id="p1">এই গল্পটি ভারতীয় বাংলা ভাষায় লেখা হবে।
+
+গল্পের ভাষা, সংলাপ, পরিবেশ, সামাজিক আচরণ, পারিবারিক সম্পর্ক, প্রতীক, উৎসব, পোশাক, খাবার, স্থাপত্য, স্থানীয় শব্দচয়ন, স্মৃতি, আবেগ ও জীবনযাত্রা ভারতীয় বাঙালি সংস্কৃতির সঙ্গে সামঞ্জস্যপূর্ণ হতে হবে।
+
+Setting হতে পারে:
+
+- পশ্চিমবঙ্গের গ্রাম
+- মফস্বল শহর
+- কলকাতা
+- উত্তরবঙ্গ
+- জঙ্গলমহল
+- নদীয়া, বর্ধমান, হুগলি, মেদিনীপুর প্রভৃতি অঞ্চলের বাস্তব জীবন
+
+যদি গল্পের জন্য উপযুক্ত হয়, তবে স্থানীয় সাংস্কৃতিক উপাদান ব্যবহার করুন:
+
+- দুর্গাপূজা
+- কালীপূজা
+- সরস্বতী পূজা
+- পয়লা বৈশাখ
+- রথযাত্রা
+- পাড়ার সংস্কৃতি
+- চায়ের দোকান
+- লোকাল ট্রেন
+- পুরোনো বাড়ি
+- বাংলা মাধ্যম স্কুল
+- সরকারি অফিস
+- মফস্বল জীবন
+- কলকাতার নগরজীবন
+
+IMPORTANT:
+
+- বাংলাদেশি বাংলা ব্যবহার করবেন না
+- generic South Asian setting ব্যবহার করবেন না
+- cultural details যেন organic হয়
+- cultural stereotype ব্যবহার করবেন না
+- setting যেন গল্পের emotional experience-কে শক্তিশালী করে</div>
+        <button class="copy-btn" onclick="copyText('p1', this)">
+          <span>Copy Directive</span>
+        </button>
+      </div>
+
+      <!-- Prompt #2 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Step #2: Emotional Core Discovery</span>
+        </div>
+        <div class="prompt-content" id="p2">আমি একটি Flash Fiction গল্প লিখতে চাই।
+
+আমাকে গল্পের emotional core খুঁজে বের করতে সাহায্য করুন।
+
+নিচের বিষয়গুলো বিশ্লেষণ করুন:
+
+1. গল্পটির কেন্দ্রীয় আবেগ কী?
+2. চরিত্রটির সবচেয়ে গভীর মানসিক ক্ষত বা অভাব কী?
+3. চরিত্রটি ভিতরে কী চায়?
+4. সে কী ভুল বিশ্বাস করে?
+5. গল্পটির thematic contradiction কী?
+6. কোন উপলব্ধি গল্পের শেষে তাকে বদলে দিতে পারে?
+7. পাঠকের মনে গল্প শেষে কী অনুভূতি থাকা উচিত?
+8. সবচেয়ে শক্তিশালী final emotional image কী হতে পারে?
+9. সবচেয়ে কার্যকর dramatic irony কী হতে পারে?
+
+তারপর:
+
+- ৩টি সম্ভাব্য Flash Fiction direction দিন
+- প্রতিটির emotional tone লিখুন
+- প্রতিটির thematic implication লিখুন
+- কোনটি Flash Fiction হিসেবে সবচেয়ে শক্তিশালী হবে তা ব্যাখ্যা করুন
+
+IMPORTANT:
+
+- একটি প্রধান emotional movement রাখুন
+- subplot যোগ করবেন না
+- emotional intensity prioritise করুন
+- ending image-কে গুরুত্ব দিন
+- Flash Fiction form-এর জন্য narrative economy বজায় রাখুন</div>
+        <button class="copy-btn" onclick="copyText('p2', this)">
+          <span>Copy Discovery Prompt</span>
+        </button>
+      </div>
+
+      <!-- Prompt #3 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Step #3: Story Bible Creation</span>
+        </div>
+        <div class="prompt-content" id="p3">আমার Flash Fiction-এর জন্য একটি Compact Story Bible তৈরি করুন।
+
+নিচের বিভাগগুলো পূরণ করুন:
+
+1. Premise
+2. Theme
+3. Main Character
+4. Emotional Wound
+5. External Situation
+6. External Desire
+7. Internal Need
+8. Fear
+9. Opposing Force
+10. Setting
+11. Symbolic Object / Image
+12. Emotional Tone
+13. Final Realization
+14. Ending Transformation
+15. Final Emotional Image
+
+তারপর:
+
+- গল্পের emotional arc ব্যাখ্যা করুন
+- গল্পটি hopeful, bittersweet, tragic, অথবা ambiguous ending-এ শেষ হওয়া উচিত কি না ব্যাখ্যা করুন
+- Flash Fiction form-এর জন্য সবচেয়ে কার্যকর ending type নির্বাচন করুন
+- emotional payoff কোথায় ঘটবে তা ব্যাখ্যা করুন
+
+IMPORTANT:
+
+- চরিত্রের arc সংক্ষিপ্ত কিন্তু meaningful হতে হবে
+- Flash Fiction-এর tight scope বজায় রাখতে হবে</div>
+        <button class="copy-btn" onclick="copyText('p3', this)">
+          <span>Copy Bible Prompt</span>
+        </button>
+      </div>
+
+      <!-- Prompt #4 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Step #4: Cause-and-Effect Moment Chain</span>
+        </div>
+        <div class="prompt-content" id="p4">আমার Story Bible অনুযায়ী একটি Flash Fiction Moment Chain তৈরি করুন।
+
+IMPORTANT:
+
+এটি Flash Fiction।
+
+তাই:
+
+- সর্বোচ্চ ৫–৭টি beat ব্যবহার করুন
+- প্রতিটি beat strictly cause-and-effect logic অনুসরণ করবে
+- প্রতিটি beat emotional pressure বাড়াবে
+- unnecessary ঘটনা যোগ করবেন না
+- প্রতিটি beat ending-এর দিকে গল্পকে irreversible direction-এ ঠেলে দেবে
+
+Format:
+
+[Beat Number]
+
+- What Happens
+- Why It Happens
+- Emotional Shift
+- New Pressure Created
+
+তারপর:
+
+- emotional turning point identify করুন
+- climax beat identify করুন
+- কোন beat থেকে ending inevitable হয়ে যায় তা ব্যাখ্যা করুন
+- story momentum analysis দিন</div>
+        <button class="copy-btn" onclick="copyText('p4', this)">
+          <span>Copy Moment Chain</span>
+        </button>
+      </div>
+
+      <!-- Prompt #5 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Step #5: Architecture & Structure Table</span>
+        </div>
+        <div class="prompt-content" id="p5">আমার Moment Chain-কে Flash Fiction Architecture-এ map করুন।
+
+পুরো গল্পটিকে একটি "Flash Fiction Structure Table" আকারে সাজান।
+
+| Beat Number | Story Function | Main Event / Turning Point | Core Conflict | Emotional Shift | Narrative Purpose |
+|-------------|-------------|-------------|-------------|-------------|-------------|-------------|
+
+Column Rules:
+
+1. Beat Number
+- Beat 1
+- Beat 2
+- Beat 3
+- Beat 4
+- Beat 5
+
+2. Story Function
+- Opening Image
+- Disturbance
+- Escalation
+- Revelation
+- Final Image
+
+3. Main Event / Turning Point
+- ওই beat-এর সবচেয়ে গুরুত্বপূর্ণ ঘটনা
+
+4. Core Conflict
+- external + internal tension
+
+5. Emotional Shift
+- beat-এর শুরু ও শেষে emotional state কীভাবে বদলায়
+
+6. Narrative Purpose
+- setup
+- pressure escalation
+- revelation
+- emotional reversal
+- climax
+- thematic payoff
+
+এরপর একটি Three-Movement Compression Table তৈরি করুন:
+
+| Movement | Beats Included | Purpose |
+|----------|----------|----------|
+| Setup | | |
+| Confrontation | | |
+| Resolution | | |
+
+Additional Instructions:
+
+- emotional turning point identify করুন
+- midpoint থাকলে identify করুন
+- climax beat আলাদা করে mark করুন
+- final emotional image explain করুন
+- pacing analysis দিন
+- emotional density analysis দিন
+- কোন beat বাদ দিলে গল্প সবচেয়ে কম ক্ষতিগ্রস্ত হবে তা identify করুন</div>
+        <button class="copy-btn" onclick="copyText('p5', this)">
+          <span>Copy Architecture Prompt</span>
+        </button>
+      </div>
+
+      <!-- Prompt #6 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Step #6: Beat / Scene Expansion</span>
+        </div>
+        <div class="prompt-content" id="p6">Beat / Section [X] expand করুন।
+
+প্রথমে একটি Scene Analysis Table তৈরি করুন।
+
+| Element | Details |
+|----------|----------|
+| Scene Goal | |
+| Conflict Source | |
+| Character Emotion | |
+| Hidden Subtext | |
+| Sensory Atmosphere | |
+| Dialogue Tension | |
+| Emotional Turn | |
+| Ending Hook | |
+
+তারপর নিচের বিষয়গুলো লিখুন:
+
+1. Scene Goal
+2. Conflict Source
+3. Character Emotion
+4. Hidden Subtext
+5. Sensory Atmosphere
+6. Dialogue Tension
+7. Emotional Turn
+8. Ending Hook
+
+এরপর:
+
+- scene summary লিখুন
+- cinematic prose direction দিন
+- POV consistency বজায় রাখুন
+- emotional compression ব্যবহার করুন
+- exposition এড়িয়ে চলুন
+- implied meaning ব্যবহার করুন
+- Flash Fiction pacing বজায় রাখুন
+
+IMPORTANT:
+
+প্রতিটি বাক্য যেন scene-এর emotional purpose পূরণ করে।
+কোনো অপ্রয়োজনীয় dialogue, description বা exposition রাখা যাবে না।</div>
+        <button class="copy-btn" onclick="copyText('p6', this)">
+          <span>Copy Expansion Prompt</span>
+        </button>
+      </div>
+
+      <!-- Prompt #7 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Step #7: Write the Flash Fiction</span>
+        </div>
+        <div class="prompt-content" id="p7">নীচের Story Bible, Moment Chain, Structure Table এবং Scene Architecture অনুসরণ করে পুরো Flash Fiction গল্পটি লিখুন।
+
+IMPORTANT RULES:
+
+- ৫০০–১৫০০ শব্দের মধ্যে লিখুন
+- literary realism বজায় রাখুন
+- emotional subtlety বজায় রাখুন
+- exposition dump করবেন না
+- overwriting করবেন না
+- dialogue natural রাখুন
+- subtext ব্যবহার করুন
+- sensory details ব্যবহার করুন
+- pacing tight রাখুন
+- subplot যোগ করবেন না
+- একটি মাত্র emotional journey অনুসরণ করুন
+- প্রতিটি paragraph গল্পকে forward motion দেবে
+
+Writing Style:
+
+- cinematic intimacy
+- psychological realism
+- compressed emotional intensity
+- meaningful silence
+- layered subtext
+- visual clarity
+- emotional precision
+
+Ending Requirements:
+
+- ending explain করবেন না
+- final realization সরাসরি বলবেন না
+- thematic message preach করবেন না
+- একটি শক্তিশালী final emotional image দিয়ে শেষ করুন
+- পাঠকের মনে lingering feeling রেখে শেষ করুন
+- শেষ লাইনের পরে যেন গল্পটি পাঠকের মনে আরও কিছুক্ষণ চলতে থাকে
+
+শেষে আলাদা করে লিখুন:
+
+Final Emotional Image
+- গল্পের শেষ চিত্রটির প্রতীকী অর্থ
+
+Ending Analysis
+- ending কেন emotionalভাবে কাজ করে
+- theme কীভাবে payoff হয়েছে
+- lingering feeling কী</div>
+        <button class="copy-btn" onclick="copyText('p7', this)">
+          <span>Copy Final Execution Prompt</span>
+        </button>
+      </div>
+
+    </div>
+
+    <footer class="footer">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    function copyText(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<span>Copied to Clipboard!</span>`;
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
