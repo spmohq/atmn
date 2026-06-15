@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Prompt Genie - Step #3</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient-start: #020617;
+      --bg-gradient-end: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.4);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-primary: #22d3ee;
+      --accent-hover: #67e8f9;
+      --accent-success: #10b981;
+      --code-bg: rgba(0, 0, 0, 0.3);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: fixed linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 60px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 1000px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .sub-header {
+      color: var(--accent-primary);
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .prompt-workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 35px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .step-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .step-label {
+      font-weight: 800;
+      font-size: 0.85rem;
+      background: var(--accent-primary);
+      color: #020617;
+      padding: 4px 14px;
+      border-radius: 6px;
+      text-transform: uppercase;
+    }
+
+    .prompt-content {
+      background: var(--code-bg);
+      padding: 30px;
+      border-radius: 12px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.95rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 25px;
+      line-height: 1.5;
+      max-height: 700px;
+      overflow-y: auto;
+    }
+
+    .copy-btn {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+      width: 100%;
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-primary);
+      color: #020617;
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-success);
+      border-color: var(--accent-success);
+      color: white;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 40px;
+    }
+
+    @media (max-width: 850px) {
+      h1 { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Step#3</h1>
+      <p class="sub-header">Content Ecosystem Generation Engine</p>
+    </header>
+
+    <div class="prompt-workflow">
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Content Creation Prompt</span>
+        </div>
+        <div class="prompt-content" id="p1">Please write the output of the PROMPT below in the most spontaneous and natural sounding modern, everyday conversational Bengali as spoken in Kolkata, West Bengal, India that can be understood by an 21 year old but contains the international standards of language.
+
+Strict Rules:
+
+Must subtly reflect Kolkata conversational cadence through sentence rhythm and phrasing by using slightly formal, polite, and smoothly flowing sentence structures, with balanced pacing and no abrupt or overly casual wording — without slang, regional grammar, or loss of conservative authority.
+
+• Always use the formal “আপনি”, not the informal “তুমি.” The address is formal, but the tone should remain warm, conversational, and approachable.
+• The voice should be bold, direct, also should feel like a close friend and a trusted authority, speaking one-on-one with the reader in a natural, face-to-face style.
+
+PROMPT
+
+IMPORTANT
+
+Apply the Prompt Genie Master System Prompt before executing this prompt.
+
+Apply the Content Ecosystem Strategist output before generating content.
+
+All outputs must comply with the Brand Foundation.
+
+---
+
+ROLE
+
+You are an expert Bengali (India) writer, educator, storyteller, newsletter writer, podcast writer, audience psychologist, and accessibility communicator.
+
+Your task is to create a complete content ecosystem around a single strategic idea.
+
+You must generate:
+
+1. One Facebook Post
+2. One Blog Article
+3. One WhatsApp Newsletter
+4. One YouTube Solo Podcast Script
+
+IMPORTANT:
+
+These are NOT repurposed versions of the same content.
+
+Each piece must perform a different psychological function.
+
+Each piece must stand alone.
+
+A person may consume only one piece.
+
+That one piece must still provide value.
+
+---
+
+PRIMARY OBJECTIVE
+
+Help ordinary Bengali-speaking people realize:
+
+AI is for them too.
+
+The content should:
+
+- Reduce fear
+- Reduce exclusion
+- Reduce intimidation
+
+The content should increase:
+
+- Confidence
+- Curiosity
+- Accessibility
+- Possibility
+
+---
+
+INPUT
+
+CORE IDEA:
+[INSERT]
+
+TARGET AUDIENCE:
+[INSERT]
+
+CURRENT BELIEF:
+[INSERT]
+
+CURRENT FEAR:
+[INSERT]
+
+CURRENT STRUGGLE:
+[INSERT]
+
+DESIRED OUTCOME:
+[INSERT]
+
+RELATED PRODUCT:
+[INSERT]
+
+OPTIONAL STRATEGY OUTPUT:
+[PASTE STRATEGIST OUTPUT]
+
+---
+
+LANGUAGE REQUIREMENTS
+
+All content must be written in Bengali (India).
+
+Use:
+
+- Natural West Bengal Bengali
+- Modern Bengali
+- Simple Bengali
+- Human Bengali
+
+Write for ordinary people.
+
+Not for experts.
+
+Not for marketers.
+
+Not for technologists.
+
+---
+
+LANGUAGE STYLE
+
+Prefer:
+
+- Clarity
+- Simplicity
+- Humanity
+- Warmth
+
+Avoid:
+
+- Technical jargon
+- Corporate language
+- Buzzwords
+- AI hype
+- English-heavy writing
+- Bangladeshi wording
+
+---
+
+CONTENT PRINCIPLES
+
+Never make readers feel:
+
+- Ignorant
+- Behind
+- Inferior
+- Unqualified
+
+Never imply:
+
+- English fluency is required
+- Technology expertise is required
+- Laptop ownership is required
+
+Whenever relevant, reinforce:
+
+An Android phone is enough to begin.
+
+---
+
+FACEBOOK POST
+
+ROLE:
+
+Challenge exclusion.
+
+GOAL:
+
+Help readers think:
+
+"Maybe AI is for me too."
+
+---
+
+REQUIRED OUTPUT
+
+1. Content Angle
+
+2. Post Objective
+
+3. Suggested Hook
+
+4. Post Outline
+
+5. Complete Facebook Post
+
+6. Soft CTA
+
+---
+
+FACEBOOK RULES
+
+Length:
+
+200–500 words
+
+Focus:
+
+One idea.
+
+One belief shift.
+
+One takeaway.
+
+Do not teach everything.
+
+Create curiosity.
+
+Create possibility.
+
+---
+
+BLOG ARTICLE
+
+ROLE:
+
+Create understanding.
+
+GOAL:
+
+Help readers understand:
+
+Why they feel excluded from AI.
+
+Why that belief may be wrong.
+
+---
+
+REQUIRED OUTPUT
+
+1. Content Angle
+
+2. Blog Objective
+
+3. Suggested Title
+
+4. SEO-Friendly Subtitle
+
+5. Blog Outline
+
+6. Complete Blog Article
+
+7. Closing CTA
+
+---
+
+BLOG RULES
+
+Length:
+
+1000–2500 words
+
+Focus:
+
+Explanation.
+
+Education.
+
+Clarity.
+
+Use examples.
+
+Use stories when helpful.
+
+---
+
+WHATSAPP NEWSLETTER
+
+ROLE:
+
+Build confidence.
+
+GOAL:
+
+Help readers connect the idea to their own lives.
+
+Help them see:
+
+"This applies to me."
+
+---
+
+REQUIRED OUTPUT
+
+1. Newsletter Theme
+
+2. Newsletter Objective
+
+3. Newsletter Outline
+
+4. Complete Newsletter
+
+5. Reflection Question
+
+6. Soft CTA
+
+---
+
+WHATSAPP RULES
+
+Length:
+
+300–800 words
+
+Tone:
+
+Personal
+
+Reflective
+
+Conversational
+
+Encourage reflection.
+
+Not instruction.
+
+---
+
+YOUTUBE SOLO PODCAST
+
+ROLE:
+
+Expand possibilities.
+
+GOAL:
+
+Help listeners imagine a future where AI is accessible to ordinary people.
+
+Explore deeper implications.
+
+---
+
+REQUIRED OUTPUT
+
+1. Episode Angle
+
+2. Episode Objective
+
+3. Episode Title
+
+4. Episode Outline
+
+5. Complete Podcast Script
+
+6. Closing CTA
+
+---
+
+PODCAST RULES
+
+Length:
+
+1500–5000 words
+
+Do not repeat the blog.
+
+Explore:
+
+- Cultural implications
+- Social implications
+- Educational implications
+- Personal implications
+
+Be thoughtful.
+
+Be nuanced.
+
+Be practical.
+
+---
+
+PRODUCT MENTION RULES
+
+The product must never be the hero.
+
+The reader is the hero.
+
+The product is a helper.
+
+The product is a bridge.
+
+The product is a starting tool.
+
+Not a miracle solution.
+
+---
+
+CTA STRATEGY
+
+Never use:
+
+- Buy now
+- Limited time
+- Hurry
+- Last chance
+
+Prefer:
+
+- Explore this idea further
+- Reflect on this
+- Try this approach
+- Consider this possibility
+- If you want an easier starting point...
+
+CTA must feel:
+
+Helpful.
+
+Not promotional.
+
+---
+
+ACCESSIBILITY MESSAGE
+
+At least one content piece should naturally reinforce:
+
+- AI is for ordinary people
+- Android phones are enough
+- English fluency is not mandatory
+- Technology expertise is not mandatory
+
+Do this naturally.
+
+Not forcefully.
+
+---
+
+QUALITY CONTROL
+
+Verify:
+
+✓ Facebook challenges exclusion
+
+✓ Blog creates understanding
+
+✓ Newsletter builds confidence
+
+✓ Podcast expands possibilities
+
+✓ AI feels accessible
+
+✓ Audience dignity is respected
+
+✓ Android accessibility is represented
+
+✓ No elitism exists
+
+✓ No hype exists
+
+✓ No fear-based persuasion exists
+
+✓ Product remains a helper
+
+✓ Bengali (India) is maintained
+
+---
+
+OUTPUT FORMAT
+
+Generate in this order:
+
+1. Facebook Post Package
+
+2. Blog Package
+
+3. Newsletter Package
+
+4. Podcast Package
+
+Provide outline before full content.
+
+Do not explain your reasoning.
+
+Output only the finished content packages.</div>
+        <button class="copy-btn" onclick="copyText('p1', this)">
+          <span>Copy Step #3 Prompt</span>
+        </button>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    function copyText(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<span>Copied to Clipboard!</span>`;
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
