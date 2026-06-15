@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Prompt Genie - Step #1</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient-start: #020617;
+      --bg-gradient-end: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.4);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-primary: #22d3ee;
+      --accent-hover: #67e8f9;
+      --accent-success: #10b981;
+      --code-bg: rgba(0, 0, 0, 0.3);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: fixed linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 60px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 1000px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .sub-header {
+      color: var(--accent-primary);
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .prompt-workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 35px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .step-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .step-label {
+      font-weight: 800;
+      font-size: 0.85rem;
+      background: var(--accent-primary);
+      color: #020617;
+      padding: 4px 14px;
+      border-radius: 6px;
+      text-transform: uppercase;
+    }
+
+    .prompt-content {
+      background: var(--code-bg);
+      padding: 30px;
+      border-radius: 12px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.95rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 25px;
+      line-height: 1.5;
+      max-height: 600px;
+      overflow-y: auto;
+    }
+
+    .copy-btn {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+      width: 100%;
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-primary);
+      color: #020617;
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-success);
+      border-color: var(--accent-success);
+      color: white;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 40px;
+      width: 100%;
+    }
+
+    @media (max-width: 850px) {
+      h1 { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Step#1</h1>
+      <p class="sub-header">Foundation & Mission Architecture</p>
+    </header>
+
+    <div class="prompt-workflow">
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Foundational Strategy Prompt</span>
+        </div>
+        <div class="prompt-content" id="p1">Please write the output of the PROMPT below in the most spontaneous and natural sounding modern, everyday conversational Bengali as spoken in Kolkata, West Bengal, India that can be understood by an 21 year old but contains the international standards of language.
+
+Strict Rules:
+
+Must subtly reflect Kolkata conversational cadence through sentence rhythm and phrasing by using slightly formal, polite, and smoothly flowing sentence structures, with balanced pacing and no abrupt or overly casual wording — without slang, regional grammar, or loss of conservative authority.
+
+• Always use the formal “আপনি”, not the informal “তুমি.” The address is formal, but the tone should remain warm, conversational, and approachable.
+• The voice should be bold, direct, also should feel like a close friend and a trusted authority, speaking one-on-one with the reader in a natural, face-to-face style.
+
+PROMPT
+
+PURPOSE
+
+This foundation governs every content, proof, sales, design, and communication output.
+
+All future outputs must align with this foundation.
+
+---
+
+MISSION
+
+We want people who believe AI is not for them to realize:
+
+AI is for them too.
+
+We do not exist to teach AI.
+
+We do not exist to teach prompt engineering.
+
+We do not exist to impress people with technology.
+
+We exist to make AI more accessible to ordinary people.
+
+---
+
+VISION
+
+A future where AI is not limited to:
+
+- English-speaking people
+- Wealthy people
+- Tech-savvy people
+- Computer owners
+
+A future where ordinary people can use AI confidently in their daily lives.
+
+---
+
+CORE BELIEF
+
+AI is for everyone.
+
+---
+
+SUPPORTING BELIEFS
+
+People do not need to be AI experts.
+
+People do not need to learn prompt engineering.
+
+People do not need to be fluent in English.
+
+People do not need a laptop or desktop computer.
+
+An Android phone is enough to begin.
+
+People only need a genuine need and a willingness to try.
+
+---
+
+PRIMARY AUDIENCE
+
+Ordinary Bengali-speaking people who:
+
+- Feel excluded from technology
+- Believe AI is for others
+- Are uncomfortable with English
+- Use Android phones
+- Do not own a computer
+- Want practical help
+- Want to improve their lives
+
+---
+
+THE REAL PROBLEM
+
+The biggest problem is not technology.
+
+The biggest problem is exclusion.
+
+Many people believe:
+
+"AI is not for people like me."
+
+This belief prevents them from even starting.
+
+---
+
+THE ENEMY
+
+The enemy is not AI.
+
+The enemy is not technology.
+
+The enemy is not the user.
+
+The enemy is the belief:
+
+"AI is not for me."
+
+Every output should challenge this belief.
+
+---
+
+THE TRANSFORMATION
+
+Before:
+
+AI is not for me.
+
+After:
+
+AI is for me too.
+
+---
+
+Before:
+
+I need a laptop.
+
+After:
+
+My Android phone is enough.
+
+---
+
+Before:
+
+I need strong English.
+
+After:
+
+I can begin with the language I already know.
+
+---
+
+Before:
+
+Technology is for experts.
+
+After:
+
+Technology can serve ordinary people.
+
+---
+
+WHAT PROMPT GENIE IS
+
+Prompt Genie is an AI Access Tool.
+
+Prompt Genie helps ordinary people express their needs in a form that AI can understand.
+
+Prompt Genie lowers barriers.
+
+Prompt Genie simplifies entry.
+
+Prompt Genie builds confidence.
+
+---
+
+WHAT PROMPT GENIE IS NOT
+
+Prompt Genie is not a prompt library.
+
+Prompt Genie is not a prompt marketplace.
+
+Prompt Genie is not a prompt engineering course.
+
+Prompt Genie is not an expert-only tool.
+
+Prompt Genie is not a technology showcase.
+
+---
+
+COMMUNICATION PRIORITY
+
+Every output should communicate in this order:
+
+1. AI is for you too.
+
+2. You do not need to be an expert.
+
+3. You do not need strong English.
+
+4. You do not need a laptop.
+
+5. An Android phone is enough.
+
+6. There is a simple path to begin.
+
+7. Prompt Genie helps make that path easier.
+
+Never reverse this order.
+
+---
+
+CONTENT ECOSYSTEM PURPOSE
+
+Social Media:
+
+Challenge exclusion.
+
+Show that AI is for ordinary people.
+
+---
+
+Blog:
+
+Explain why people believe AI is not for them.
+
+Demystify technology.
+
+---
+
+Newsletter:
+
+Build confidence.
+
+Help people connect the idea to their own lives.
+
+---
+
+Podcast:
+
+Expand possibilities.
+
+Explore the social, cultural, and practical implications.
+
+---
+
+Proof Content:
+
+Show real examples of ordinary people using AI.
+
+---
+
+Sales Page:
+
+Show that getting started is possible.
+
+Reduce fear.
+
+Increase confidence.
+
+---
+
+Product:
+
+Provide a practical way to begin.
+
+---
+
+BRAND PERSONALITY
+
+Human
+
+Patient
+
+Helpful
+
+Accessible
+
+Inclusive
+
+Respectful
+
+Encouraging
+
+Practical
+
+Never arrogant.
+
+Never elitist.
+
+Never condescending.
+
+---
+
+BRAND VOICE
+
+Speak like a guide.
+
+Not like an expert.
+
+Speak like a helper.
+
+Not like a guru.
+
+Speak like a fellow traveler.
+
+Not like a lecturer.
+
+---
+
+LANGUAGE STYLE
+
+Use simple language.
+
+Prefer clarity over sophistication.
+
+Prefer understanding over impressiveness.
+
+Prefer accessibility over cleverness.
+
+Avoid jargon whenever possible.
+
+Avoid unnecessary technical language.
+
+---
+
+CONTENT RULES
+
+Never shame people.
+
+Never imply people are behind.
+
+Never imply people are ignorant.
+
+Never imply technology belongs to a special class.
+
+Never create fear.
+
+Never create artificial urgency.
+
+Never manipulate.
+
+---
+
+REPEATED MESSAGE
+
+Every output should reinforce:
+
+AI is for you too.
+
+An Android phone is enough.
+
+You can begin where you are.
+
+---
+
+SIGNATURE MESSAGE
+
+আমি AI শেখাতে চাই না।
+
+আমি চাই, যারা মনে করে AI তাদের জন্য নয়, তারা যেন বুঝতে পারে AI তাদের জন্যও।
+
+সাধারণ মানুষও AI ব্যবহার করতে পারে।
+
+আমি সেই পথটা সহজ করতে চাই.</div>
+        <button class="copy-btn" onclick="copyText('p1', this)">
+          <span>Copy Step #1 Prompt</span>
+        </button>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    function copyText(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<span>Copied to Clipboard!</span>`;
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
