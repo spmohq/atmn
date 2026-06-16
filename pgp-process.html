@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PGP Process - Step by Step Guide</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --bg-color: #f8fafc;
+            --text-color: #1e293b;
+            --card-bg: #ffffff;
+            --accent-color: #10b981;
+            --border-radius: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            padding-bottom: 50px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Header Section */
+        header {
+            padding: 60px 0 40px;
+            text-align: center;
+            background: linear-gradient(180deg, #e2e8f0 0%, var(--bg-color) 100%);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: #0f172a;
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: #64748b;
+        }
+
+        /* Introduction Section */
+        .intro-box {
+            background: white;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .intro-box p {
+            margin-bottom: 0;
+            font-weight: 500;
+        }
+
+        /* Section Styling */
+        section {
+            margin-bottom: 50px;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #334155;
+        }
+
+        .step-label {
+            background: var(--primary-color);
+            color: white;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* Prompt Box Styling */
+        .prompt-container {
+            background: #1e293b;
+            border-radius: var(--border-radius);
+            position: relative;
+            margin-top: 15px;
+            overflow: hidden;
+        }
+
+        .prompt-header {
+            background: #334155;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #cbd5e1;
+            font-size: 0.85rem;
+            font-family: monospace;
+        }
+
+        pre {
+            padding: 20px;
+            color: #f8fafc;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.95rem;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .copy-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: bold;
+            transition: opacity 0.2s;
+        }
+
+        .copy-btn:active {
+            opacity: 0.7;
+        }
+
+        /* Footer Message */
+        .footer-note {
+            text-align: center;
+            padding: 30px;
+            background: #f1f5f9;
+            border-radius: var(--border-radius);
+            margin-top: 40px;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 600px) {
+            header h1 { font-size: 2rem; }
+            pre { font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>PGP Process</h1>
+            <p>আপনার প্রোডাক্টিভিটি এবং আউটপুটকে পরবর্তী স্তরে নিয়ে যাওয়ার রোডম্যাপ</p>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <div class="intro-box">
+            <p>আপনি যদি নিজের প্রম্পটগুলো দিয়ে একটি সলিড প্রোডাক্ট তৈরি করে সেটি সেল করতে চান, তবে আপনি একদম সঠিক জায়গায় এসেছেন। নিচে আপনার কাজের সুবিধার জন্য ৩টি মাস্টার প্রম্পট সাজিয়ে দেওয়া হলো। আপনি জাস্ট কপি করে ChatGPT-তে ব্যবহার করতে পারবেন।</p>
+        </div>
+
+        <!-- Section 1 -->
+        <section>
+            <h2><span class="step-label">PROMPT 1</span> কাজের পদ্ধতি বুঝে নেওয়া</h2>
+            <p>এই প্রম্পটটি AI-কে আপনার পুরো কাজের ব্লুপ্রিন্ট বুঝিয়ে দেবে এবং আপনার প্রতিটি স্টেপ কীভাবে এগোবে তার একটা স্বচ্ছ ধারণা তৈরি করবে।</p>
+            <div class="prompt-container">
+                <div class="prompt-header">
+                    <span>Master Prompt #1</span>
+                    <button class="copy-btn" onclick="copyText('prompt1')">Copy Prompt</button>
+                </div>
+                <pre id="prompt1">এই ওয়ার্কফ্লো অনুযায়ী আমি কাজ করতে চাই -
+
+STEP 1
+
+Prompt Extraction
+
+↓
+
+STEP 2
+
+Product Packaging
+
+↓
+
+STEP 3
+
+Sales Copy
+
+↓
+
+SAVE FILE
+
+salescopy.md
+
+↓
+
+STEP 4
+
+Convert salescopy.md
+to HTML
+
+STRICT MODE
+
+NO COPY EDITING
+
+↓
+
+index.html
+
+---
+
+এখন আমি একটা কনটেন্ট আপলোড করে তার থেকে এ আই প্রম্পট এক্সট্র্যাক্ট করে ও সেই এক্সট্র্যাকটেড প্রম্পট বান্ডিল দিয়ে একটা Product for selling বানাবো ও সেই প্রোডাক্টটা প্রোমোট করার জন্য ৪ ধরণের ৪টে কনটেন্ট লিখবো। 
+
+তার আগে তুমি আমাকে সহজ বাংলা ভাষাতে বুঝিয়ে দাও - 
+এই কাজটা করার সরল পদ্ধতিটা কি (একটা minute detail-ও skip কোরো না বা কোনো step-কে jump কোরো না)?
+সেটা কটা ধাপ বা স্টেপে বিভক্ত?
+- কোন স্টেপে কি করতে হবে ও স্টেপ থেকে কোন আউটপুট বের করতে হবে। 
+
+মনে রাখবে যে, ইউজার হিসেবে আমি একজন Product Builder and Seller. 
+আমার উদ্দেশ্য - 
+১, Prompt Extraction, 
+2, Packaging the Prompts as a Product, 
+3, Writing its Sales Copy, 
+4, generating its complete 100% mobile responsive html sales page (all codes, css, and scripts in a single html file) 
+5, Getting A social media post, a Blig post, a newsletter, and a solo podcast with a call to action to send visitors to the sales page. All these four contents must be based on a single pshycological pain problem related to the product</pre>
+            </div>
+        </section>
+
+        <!-- Section 2 -->
+        <section>
+            <h2><span class="step-label">PROMPT 2</span> আউটপুট নিশ্চিত করা</h2>
+            <p>প্রতিটি স্টেপের শেষে আপনি ঠিক কী ফাইল বা রেজাল্ট পাচ্ছেন, তা পরিষ্কার করার জন্য এই প্রম্পটটি ব্যবহার করুন।</p>
+            <div class="prompt-container">
+                <div class="prompt-header">
+                    <span>Master Prompt #2</span>
+                    <button class="copy-btn" onclick="copyText('prompt2')">Copy Prompt</button>
+                </div>
+                <pre id="prompt2">আমি প্রতিটি স্টেপের জন্য একটি ছোট Deliverable Prompt ব্যবহার করতে চাই, যেখানে AI-কে শুধু একটাই প্রশ্ন করা হবে:
+
+"এই স্টেপের শেষে আমি কোন ফাইল বা আউটপুট হাতে পাব?"
+
+যদি সেই প্রশ্নের উত্তর পরিষ্কার না হয়, তাহলে সেই স্টেপ অপ্রয়োজনীয়। 
+
+- প্রতিটি স্টেপের জন্য বাংলাতে একটি ছোট Deliverable Prompt লিখে দাও - give them in codebox in markdown</pre>
+            </div>
+        </section>
+
+        <!-- Section 3 -->
+        <section>
+            <h2><span class="step-label">PROMPT 3</span> ফাইনাল সেলস পেজ জেনারেশন</h2>
+            <p>সবশেষে, আপনার সেলস কপিকে বিন্দুমাত্র এডিট না করে সরাসরি একটি কমপ্লিট HTML ফাইলে রূপান্তর করার জন্য এটি ব্যবহার করুন।</p>
+            <div class="prompt-container">
+                <div class="prompt-header">
+                    <span>Master Prompt #3</span>
+                    <button class="copy-btn" onclick="copyText('prompt3')">Copy Prompt</button>
+                </div>
+                <pre id="prompt3">একটা complete, ready to use, high converting sales page in html পাওয়ার উপায়টা কি? 
+ChatGPT সবসময় টেক্সট ছেঁটে ছোটো করে দেয়। 
+আমি চাই যে ফাইনাল সেলস কপিটা আমি দিয়েছি - তা অল্টার বা এডিট না করে না কেটেছেঁটে সেলসপেজটা হোক -</pre>
+            </div>
+        </section>
+
+        <div class="footer-note">
+            <p>আপনি যখনই কোনো নতুন প্রজেক্ট শুরু করবেন, ধাপে ধাপে এই প্রম্পটগুলো ব্যবহার করুন। মনে রাখবেন, সঠিক প্রশ্নই আপনাকে সঠিক রেজাল্ট দেবে। শুভকামনা!</p>
+        </div>
+
+    </main>
+
+    <script>
+        function copyText(id) {
+            const text = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = event.target;
+                const originalText = btn.innerText;
+                btn.innerText = 'Copied!';
+                btn.style.background = '#059669';
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.style.background = '#10b981';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+    </script>
+</body>
+</html>
