@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Basic Prompt - আপনার নিজস্ব প্রম্পট জেনারেটর</title>
+    <style>
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #f8f9fa;
+            --text-color: #2d3436;
+            --accent-color: #00b894;
+            --border-radius: 12px;
+            --shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f5f7fa;
+            color: var(--text-color);
+            line-height: 1.7;
+            padding-bottom: 50px;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Header Area */
+        header {
+            padding: 50px 0 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            color: #1a1a1a;
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .intro-text {
+            background: #fff;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+            border-left: 5px solid var(--primary-color);
+        }
+
+        /* Input Fields Area */
+        .input-section {
+            background: white;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #4a4a4a;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 80px;
+            transition: border-color 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background-color: #fdfdfd;
+        }
+
+        /* Prompt Boxes Area */
+        .prompt-box {
+            background: #fff;
+            margin-bottom: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid #eee;
+        }
+
+        .prompt-header {
+            background: #2d3436;
+            color: #fff;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prompt-header span {
+            font-weight: bold;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .prompt-content {
+            padding: 20px;
+            background: #fafafa;
+            color: #2d3436;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 1rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-top: 1px solid #eee;
+        }
+
+        .copy-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.8rem;
+            transition: transform 0.2s;
+        }
+
+        .copy-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Sticky Feedback */
+        .copy-notice {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            display: none;
+            z-index: 1000;
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            .container { width: 95%; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>My Basic Prompt</h1>
+            <div class="intro-text">
+                <p>আপনি নিজের কাজকে ঠিক কতটা নিখুঁতভাবে করতে চান, তা এই প্রম্পটগুলো দিয়ে AI-কে বুঝিয়ে দিন। নিচের ৪টি বক্সে আপনার প্রয়োজনমতো তথ্য লিখুন, নিচের প্রম্পটগুলো আপনার হয়ে অটোমেটিক তৈরি হয়ে যাবে। আপনি জাস্ট কপি করে ChatGPT-তে ব্যবহার করবেন।</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <!-- User Input Section -->
+        <div class="input-section">
+            <div class="input-group">
+                <label>টাইপ অফ ইউজার:</label>
+                <textarea id="userType" placeholder="যেমন: একজন অভিজ্ঞ কন্টেন্ট ক্রিয়েটর..." oninput="updatePrompts()"></textarea>
+            </div>
+            <div class="input-group">
+                <label>আমার উদ্দেশ্য ও প্রয়োজন:</label>
+                <textarea id="userGoal" placeholder="যেমন: আমার নতুন প্রম্পট বান্ডেল বিক্রি করা..." oninput="updatePrompts()"></textarea>
+            </div>
+            <div class="input-group">
+                <label>আমি কি করতে চাইছি?</label>
+                <textarea id="userAction" placeholder="যেমন: একটি সেলস পেজ এবং ৪টি সোশ্যাল মিডিয়া পোস্ট তৈরি করা..." oninput="updatePrompts()"></textarea>
+            </div>
+            <div class="input-group">
+                <label>ওয়ার্ক ফ্লো:</label>
+                <textarea id="userWorkflow" placeholder="যেমন: Step 1: Extraction, Step 2: Drafting..." oninput="updatePrompts()"></textarea>
+            </div>
+        </div>
+
+        <hr style="margin: 40px 0; border: 0; border-top: 1px solid #ddd;">
+
+        <!-- Generated Prompts Section -->
+        
+        <!-- Prompt #1 -->
+        <div class="prompt-box">
+            <div class="prompt-header">
+                <span>PROMPT #1</span>
+                <button class="copy-btn" onclick="copyPrompt('p1')">Copy Content</button>
+            </div>
+            <div class="prompt-content" id="p1">মনে রাখবে যে, ইউজার হিসেবে আমি একজন [টাইপ অফ ইউজার]
+
+আমার উদ্দেশ্য - 
+[আমার উদ্দেশ্য ও প্রয়োজন]
+
+[আমি কি করতে চাইছি?]
+
+এই কাজটা করার জন্য সবচেয়ে নিখুঁত ও কার্যকর ওয়ার্কফ্লো কি হবে সেটা আমাকে বলো ও শেষে তার একটা স্কেচ আমাকে in codebox in markdown দাও</div>
+        </div>
+
+        <!-- Prompt #2 -->
+        <div class="prompt-box">
+            <div class="prompt-header">
+                <span>PROMPT #2</span>
+                <button class="copy-btn" onclick="copyPrompt('p2')">Copy Content</button>
+            </div>
+            <div class="prompt-content" id="p2">এই ওয়ার্কফ্লো অনুযায়ী আমি কাজ করতে চাই -
+
+[ওয়ার্ক ফ্লো]
+
+---
+
+[আমি কি করতে চাইছি?]
+
+তার আগে তুমি আমাকে সহজ বাংলা ভাষাতে বুঝিয়ে দাও - 
+এই কাজটা করার সরল পদ্ধতিটা কি (একটা minute detail-ও skip কোরো না বা কোনো step-কে jump কোরো না)?
+সেটা কটা ধাপ বা স্টেপে বিভক্ত?
+- কোন স্টেপে কি করতে হবে ও স্টেপ থেকে কোন আউটপুট বের করতে হবে। 
+
+মনে রাখবে যে, ইউজার হিসেবে আমি একজন [টাইপ অফ ইউজার]
+
+আমার উদ্দেশ্য - 
+[আমার উদ্দেশ্য ও প্রয়োজন]</div>
+        </div>
+
+        <!-- Prompt #3 -->
+        <div class="prompt-box">
+            <div class="prompt-header">
+                <span>PROMPT #3</span>
+                <button class="copy-btn" onclick="copyPrompt('p3')">Copy Content</button>
+            </div>
+            <div class="prompt-content" id="p3">আমি প্রতিটি স্টেপের জন্য একটি ছোট Deliverable Prompt ব্যবহার করতে চাই, যেখানে AI-কে শুধু একটাই প্রশ্ন করা হবে:
+
+"এই স্টেপের শেষে আমি কোন ফাইল বা আউটপুট হাতে পাব?"
+
+যদি সেই প্রশ্নের উত্তর পরিষ্কার না হয়, তাহলে সেই স্টেপ অপ্রয়োজনীয়। 
+
+- প্রতিটি স্টেপের জন্য বাংলাতে একটি ছোট Deliverable Prompt লিখে দাও - give them in codebox in markdown</div>
+        </div>
+
+        <!-- Prompt #4 -->
+        <div class="prompt-box">
+            <div class="prompt-header">
+                <span>PROMPT #4</span>
+                <button class="copy-btn" onclick="copyPrompt('p4')">Copy Content</button>
+            </div>
+            <div class="prompt-content" id="p4">একটা complete, ready to use, high converting sales page in html (all inclusive in a single html file - html code, css, scripts) পাওয়ার উপায়টা কি?
+
+ChatGPT সবসময় টেক্সট কেটেছেঁটে ছোটো করে দেয়। 
+
+আমি চাই যে ফাইনাল সেলস কপিটা আমি দিয়েছি - তা অল্টার বা এডিট না করে - না কেটেছেঁটে পুরো সেলসপেজটা যেন পাই -</div>
+        </div>
+
+    </main>
+
+    <div class="copy-notice" id="copyNotice">Copied to Clipboard!</div>
+
+    <script>
+        const templates = {
+            p1: `মনে রাখবে যে, ইউজার হিসেবে আমি একজন [টাইপ অফ ইউজার]
+
+আমার উদ্দেশ্য - 
+[আমার উদ্দেশ্য ও প্রয়োজন]
+
+[আমি কি করতে চাইছি?]
+
+এই কাজটা করার জন্য সবচেয়ে নিখুঁত ও কার্যকর ওয়ার্কফ্লো কি হবে সেটা আমাকে বলো ও শেষে তার একটা স্কেচ আমাকে in codebox in markdown দাও`,
+
+            p2: `এই ওয়ার্কফ্লো অনুযায়ী আমি কাজ করতে চাই -
+
+[ওয়ার্ক ফ্লো]
+
+---
+
+[আমি কি করতে চাইছি?]
+
+তার আগে তুমি আমাকে সহজ বাংলা ভাষাতে বুঝিয়ে দাও - 
+এই কাজটা করার সরল পদ্ধতিটা কি (একটা minute detail-ও skip কোরো না বা কোনো step-কে jump কোরো না)?
+সেটা কটা ধাপ বা স্টেপে বিভক্ত?
+- কোন স্টেপে কি করতে হবে ও স্টেপ থেকে কোন আউটপুট বের করতে হবে। 
+
+মনে রাখবে যে, ইউজার হিসেবে আমি একজন [টাইপ অফ ইউজার]
+
+আমার উদ্দেশ্য - 
+[আমার উদ্দেশ্য ও প্রয়োজন]`,
+
+            p3: `আমি প্রতিটি স্টেপের জন্য একটি ছোট Deliverable Prompt ব্যবহার করতে চাই, যেখানে AI-কে শুধু একটাই প্রশ্ন করা হবে:
+
+"এই স্টেপের শেষে আমি কোন ফাইল বা আউটপুট হাতে পাব?"
+
+যদি সেই প্রশ্নের উত্তর পরিষ্কার না হয়, তাহলে সেই স্টেপ অপ্রয়োজনীয়। 
+
+- প্রতিটি স্টেপের জন্য বাংলাতে একটি ছোট Deliverable Prompt লিখে দাও - give them in codebox in markdown`,
+
+            p4: `একটা complete, ready to use, high converting sales page in html (all inclusive in a single html file - html code, css, scripts) পাওয়ার উপায়টা কি?
+
+ChatGPT সবসময় টেক্সট কেটেছেঁটে ছোটো করে দেয়। 
+
+আমি চাই যে ফাইনাল সেলস কপিটা আমি দিয়েছি - তা অল্টার বা এডিট না করে - না কেটেছেঁটে পুরো সেলসপেজটা যেন পাই -`
+        };
+
+        function updatePrompts() {
+            const userType = document.getElementById('userType').value || '[টাইপ অফ ইউজার]';
+            const userGoal = document.getElementById('userGoal').value || '[আমার উদ্দেশ্য ও প্রয়োজন]';
+            const userAction = document.getElementById('userAction').value || '[আমি কি করতে চাইছি?]';
+            const userWorkflow = document.getElementById('userWorkflow').value || '[ওয়ার্ক ফ্লো]';
+
+            // Update P1
+            let text1 = templates.p1
+                .replace('[টাইপ অফ ইউজার]', userType)
+                .replace('[আমার উদ্দেশ্য ও প্রয়োজন]', userGoal)
+                .replace('[আমি কি করতে চাইছি?]', userAction);
+            document.getElementById('p1').innerText = text1;
+
+            // Update P2
+            let text2 = templates.p2
+                .replace('[ওয়ার্ক ফ্লো]', userWorkflow)
+                .replace('[আমি কি করতে চাইছি?]', userAction)
+                .replace('[টাইপ অফ ইউজার]', userType)
+                .replace('[আমার উদ্দেশ্য ও প্রয়োজন]', userGoal);
+            document.getElementById('p2').innerText = text2;
+
+            // P3 and P4 are static, no update needed but templates are kept for consistency
+        }
+
+        function copyPrompt(id) {
+            const text = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const notice = document.getElementById('copyNotice');
+                notice.style.display = 'block';
+                setTimeout(() => {
+                    notice.style.display = 'none';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
