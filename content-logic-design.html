@@ -1,0 +1,434 @@
+html
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Content Logic Design</title>
+
+<style>
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #f8f9fa;
+    --text-color: #2d3436;
+    --accent-color: #00b894;
+    --border-radius: 12px;
+    --shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    -webkit-font-smoothing:antialiased;
+}
+
+body{
+    font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    background:#f5f7fa;
+    color:var(--text-color);
+    line-height:1.7;
+    padding-bottom:50px;
+}
+
+.container{
+    width:92%;
+    max-width:800px;
+    margin:0 auto;
+}
+
+header{
+    padding:50px 0 30px;
+    text-align:center;
+}
+
+header h1{
+    font-size:2.2rem;
+    color:#1a1a1a;
+    margin-bottom:10px;
+    font-weight:800;
+}
+
+.intro-text{
+    background:#fff;
+    padding:20px;
+    border-radius:var(--border-radius);
+    box-shadow:var(--shadow);
+    margin-bottom:30px;
+    border-left:5px solid var(--primary-color);
+}
+
+.input-section{
+    background:white;
+    padding:25px;
+    border-radius:var(--border-radius);
+    box-shadow:var(--shadow);
+    margin-bottom:40px;
+}
+
+.input-group{
+    margin-bottom:20px;
+}
+
+label{
+    display:block;
+    font-weight:600;
+    margin-bottom:8px;
+    color:#4a4a4a;
+}
+
+textarea{
+    width:100%;
+    padding:15px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    font-family:inherit;
+    font-size:1rem;
+    resize:vertical;
+    min-height:120px;
+    transition:border-color 0.3s;
+}
+
+textarea:focus{
+    outline:none;
+    border-color:var(--primary-color);
+    background:#fdfdfd;
+}
+
+.prompt-box{
+    background:#fff;
+    margin-bottom:30px;
+    border-radius:var(--border-radius);
+    box-shadow:var(--shadow);
+    overflow:hidden;
+    border:1px solid #eee;
+}
+
+.prompt-header{
+    background:#2d3436;
+    color:#fff;
+    padding:12px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.prompt-header span{
+    font-weight:bold;
+    font-size:0.9rem;
+    letter-spacing:1px;
+}
+
+.prompt-content{
+    padding:20px;
+    background:#fafafa;
+    color:#2d3436;
+    font-family:'Consolas','Monaco',monospace;
+    font-size:1rem;
+    white-space:pre-wrap;
+    word-wrap:break-word;
+    border-top:1px solid #eee;
+}
+
+.copy-btn{
+    background:var(--accent-color);
+    color:white;
+    border:none;
+    padding:8px 15px;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:bold;
+    font-size:0.8rem;
+}
+
+.copy-btn:active{
+    transform:scale(0.95);
+}
+
+.copy-notice{
+    position:fixed;
+    bottom:20px;
+    left:50%;
+    transform:translateX(-50%);
+    background:#333;
+    color:white;
+    padding:10px 20px;
+    border-radius:30px;
+    display:none;
+    z-index:1000;
+}
+
+@media(max-width:600px){
+    header h1{
+        font-size:1.8rem;
+    }
+
+    .container{
+        width:95%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="container">
+        <h1>My Content Logic Design</h1>
+
+        <div class="intro-text">
+            <p>নিচের Core Belief লিখুন। Prompt গুলো স্বয়ংক্রিয়ভাবে আপডেট হবে। তারপর Copy Content বাটনে ক্লিক করে ChatGPT-তে ব্যবহার করুন।</p>
+        </div>
+    </div>
+</header>
+
+<main class="container">
+
+<div class="input-section">
+
+    <div class="input-group">
+        <label>Core Belief:</label>
+        <textarea
+            id="coreBelief"
+            placeholder="এখানে Core Belief লিখুন"
+            oninput="updatePrompts()"></textarea>
+    </div>
+
+</div>
+
+<hr style="margin:40px 0;border:0;border-top:1px solid #ddd;">
+
+<div class="prompt-box">
+    <div class="prompt-header">
+        <span>PROMPT #1</span>
+        <button class="copy-btn" onclick="copyPrompt('p1')">Copy Content</button>
+    </div>
+
+    <div class="prompt-content" id="p1"></div>
+</div>
+
+<div class="prompt-box">
+    <div class="prompt-header">
+        <span>PROMPT #2</span>
+        <button class="copy-btn" onclick="copyPrompt('p2')">Copy Content</button>
+    </div>
+
+    <div class="prompt-content" id="p2"></div>
+</div>
+
+</main>
+
+<div class="copy-notice" id="copyNotice">
+Copied to Clipboard!
+</div>
+
+<script>
+
+const template1 = `আপনি একজন Audience Psychology Analyst, Content Strategist এবং Hook Writer।
+
+আপনার কাজ হলো নিচের একটি Core Belief থেকে একটি সম্পূর্ণ Content Tree তৈরি করা।
+
+INPUT:
+
+Core Belief:
+[এখানে Core Belief লিখুন]
+
+নিচের ধাপগুলো অনুসরণ করুন:
+
+STEP 1
+Core Belief থেকে বের করুন:
+
+* Problem (এই বিশ্বাস কোন সমস্যার সমাধান করে?)
+* Transformation (এই বিশ্বাস মানুষকে কী পরিবর্তন এনে দিতে পারে?)
+
+STEP 2
+Transformation থেকে ৫টি আলাদা Psychological Pain Point বের করুন।
+
+প্রতিটি Pain Point যেন ভিন্ন ধরনের মানসিক কষ্ট, হতাশা, ভয়, বিভ্রান্তি বা অস্বস্তিকে প্রকাশ করে।
+
+STEP 3
+প্রতিটি Psychological Pain Point-এর জন্য বের করুন:
+
+* Desired Outcome (মানুষ আসলে কী পেতে চায়?)
+* Angle (নিচের যেকোনো একটি)
+
+Angle Categories:
+
+* Mistake
+* Step-by-Step
+* Simplification
+* Reality Check
+* Efficiency
+* Micro Progress
+
+STEP 4
+প্রতিটি Desired Outcome-এর জন্য একটি Core Message লিখুন।
+
+নিয়ম:
+
+Core Message = Core Belief + Angle
+
+Core Message লেখার পর আলাদা করে উল্লেখ করুন:
+
+* Core Belief
+* Angle
+* Core Message
+
+STEP 5
+প্রতিটি Core Message-এর জন্য একটি Pattern Interrupt তৈরি করুন।
+
+তারপর Pattern Interrupt-এর Type নির্ধারণ করুন।
+
+Pattern Interrupt Types:
+
+* Contradiction
+* Warning
+* Unexpected Fact
+* Identity Challenge
+* Curiosity Gap
+
+STEP 6
+প্রতিটি Branch-এর জন্য Hook তৈরি করুন।
+
+নিয়ম:
+
+Hook = Pattern Interrupt + Core Message
+
+Hook লেখার পর আলাদা করে উল্লেখ করুন:
+
+* Pattern Interrupt
+* Pattern Interrupt Type
+* Core Message
+* Hook
+
+OUTPUT FORMAT:
+
+CORE BELIEF:
+...
+
+PROBLEM:
+...
+
+TRANSFORMATION:
+...
+
+━━━━━━━━━━━━━━
+BRANCH 1
+━━━━━━━━━━━━━━
+
+Psychological Pain:
+...
+
+Desired Outcome:
+...
+
+Angle:
+...
+
+Core Belief:
+...
+
+Core Message:
+...
+
+Pattern Interrupt:
+...
+
+Pattern Interrupt Type:
+...
+
+Hook:
+...
+
+━━━━━━━━━━━━━━
+BRANCH 2
+━━━━━━━━━━━━━━
+
+(একই কাঠামো)
+
+━━━━━━━━━━━━━━
+BRANCH 3
+━━━━━━━━━━━━━━
+
+(একই কাঠামো)
+
+━━━━━━━━━━━━━━
+BRANCH 4
+━━━━━━━━━━━━━━
+
+(একই কাঠামো)
+
+━━━━━━━━━━━━━━
+BRANCH 5
+━━━━━━━━━━━━━━
+
+(একই কাঠামো)
+
+গুরুত্বপূর্ণ নির্দেশনা:
+
+* প্রতিটি Branch অন্য Branch থেকে আলাদা হতে হবে।
+* Psychological Pain গুলো পুনরাবৃত্তি করা যাবে না।
+* Desired Outcome গুলো পুনরাবৃত্তি করা যাবে না।
+* Angle গুলো যতটা সম্ভব ভিন্ন রাখুন।
+* Hook যেন স্বাভাবিক, মানবিক এবং কনটেন্টের শুরুতে ব্যবহারযোগ্য হয়।
+* প্রতিটি Hook-এর মধ্যে ব্যবহৃত Pattern Interrupt স্পষ্টভাবে শনাক্ত করতে হবে।
+* Core Message-এর মধ্যে ব্যবহৃত Angle স্পষ্টভাবে শনাক্ত করতে হবে।`;
+
+const template2 = `আমি কী বিশ্বাস প্রচার করছি? (Core Belief)
+[এখানে Core Belief লিখুন]
+
+এই বিশ্বাস কোন সমস্যার সমাধান করছে? (Problem)
+মানুষ কী পরিবর্তন পাবে? (Transformation)
+তারা কী নিয়ে কষ্ট পাচ্ছে? (Psychological Pain)
+তারা আসলে কী চায়? (Desired Outcome)
+আমি কোন Angle থেকে বিষয়টা বলব? (Angle)
+আমার মূল বক্তব্য কী? (Core Message)
+কীভাবে মনোযোগ আকর্ষণ করব? (Pattern Interrupt)
+প্রথম লাইনটা কী হবে? (Hook)`;
+
+
+function updatePrompts(){
+
+    const coreBelief =
+        document.getElementById("coreBelief").value ||
+        "[এখানে Core Belief লিখুন]";
+
+    document.getElementById("p1").innerText =
+        template1.replaceAll(
+            "[এখানে Core Belief লিখুন]",
+            coreBelief
+        );
+
+    document.getElementById("p2").innerText =
+        template2.replace(
+            "[এখানে Core Belief লিখুন]",
+            coreBelief
+        );
+}
+
+function copyPrompt(id){
+
+    const text =
+        document.getElementById(id).innerText;
+
+    navigator.clipboard.writeText(text).then(() => {
+
+        const notice =
+            document.getElementById("copyNotice");
+
+        notice.style.display = "block";
+
+        setTimeout(() => {
+            notice.style.display = "none";
+        }, 2000);
+
+    });
+}
+
+updatePrompts();
+
+</script>
+
+</body>
+</html>
+
