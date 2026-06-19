@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Review and Assets - প্রম্পট অ্যানালাইসিস টুল</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-color: #34495e;
+            --border-radius: 12px;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            padding-bottom: 60px;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        /* Header Styling */
+        header {
+            padding: 50px 0 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.4rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .intro-text {
+            background: #fff;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+            border-left: 6px solid var(--accent-color);
+            font-size: 1.1rem;
+        }
+
+        /* Input Field Section */
+        .input-section {
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            color: var(--primary-color);
+        }
+
+        textarea {
+            width: 100%;
+            padding: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1.05rem;
+            resize: vertical;
+            min-height: 150px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 8px rgba(52, 152, 219, 0.2);
+        }
+
+        /* Prompt Box Styling */
+        .prompt-wrapper {
+            margin-bottom: 40px;
+        }
+
+        .prompt-box {
+            background: #fff;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid #e1e8ed;
+        }
+
+        .prompt-header {
+            background: var(--primary-color);
+            color: #fff;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prompt-header h3 {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin: 0;
+        }
+
+        .prompt-content {
+            padding: 25px;
+            background: #fafafa;
+            color: #2c3e50;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 1rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-top: 1px solid #eee;
+        }
+
+        .copy-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: #2980b9;
+        }
+
+        /* Toast Notification */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.9rem; }
+            .container { width: 94%; }
+            .prompt-content { font-size: 0.95rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Prompt Review and Assets</h1>
+            <div class="intro-text">
+                আপনি যদি আপনার তৈরি করা কোনো AI প্রম্পটকে আরও পেশাদার ভাবে রিভিউ করতে এবং তার মার্কেটিং অ্যাসেট তৈরি করতে চান, তবে এটি আপনার জন্য। নিচের বক্সে আপনার প্রম্পটটি দিন, দেখবেন নিচের প্রথম প্রম্পটটি অটোমেটিক আপডেট হয়ে যাচ্ছে। এরপর ধাপে ধাপে ChatGPT-তে এগুলো ব্যবহার করুন।
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <!-- Input Section -->
+        <div class="input-section">
+            <label for="promptInput">আপনার প্রম্পটটি এখানে লিখুন বা পেস্ট করুন:</label>
+            <textarea id="promptInput" placeholder="আপনার প্রম্পটটি এখানে দিন..." oninput="syncPrompt()"></textarea>
+        </div>
+
+        <hr style="margin: 50px 0; border: 0; border-top: 1px solid #ddd;">
+
+        <!-- Prompt 1 -->
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>Prompt #1: Analysis & Transformation</h3>
+                    <button class="copy-btn" onclick="copyToClipboard('display1')">Copy Prompt</button>
+                </div>
+                <div class="prompt-content" id="display1">Please write the output of the PROMPT below in the most spontaneous and natural sounding modern, everyday conversational Bengali as spoken in Kolkata, West Bengal, India that can be understood by a 21 year old but contains the international standards of language.
+Strict Rules:
+Must subtly reflect Kolkata conversational cadence through sentence rhythm and phrasing by using slightly formal, polite, and smoothly flowing sentence structures, with balanced pacing and no abrupt or overly casual wording — without slang, regional grammar, or loss of conservative authority.
+• Always use the formal “আপনি”, not the informal “তুমি.” The address is formal, but the tone should remain warm, conversational, and approachable.
+• The voice should be bold, direct, also should feel like a close friend and a trusted authority, speaking one-on-one with the reader in a natural, face-to-face style.
+
+PROMPT
+Review the AI prompt below and answer the following questions:
+Name this prompt. The name must be short, attractive, and self-explanatory.
+Write a tagline. The tagline must clearly describe the prompt's purpose and primary benefit.
+Write a short description explaining what the prompt does for its users.
+Describe the transformation it delivers using the format: From → To.
+Explain how the prompt works, step by step.
+List the inputs that users need to provide.
+Describe the ideal users of this prompt and the situations in which they should use it.
+
+PROMPT TO REVIEW
+
+[PROMPT TO REVIEW]</div>
+            </div>
+        </div>
+
+        <!-- Prompt 2 -->
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>Prompt #2: AIDA Framework</h3>
+                    <button class="copy-btn" onclick="copyToClipboard('display2')">Copy Prompt</button>
+                </div>
+                <div class="prompt-content" id="display2">Please write the output of the PROMPT below in the most spontaneous and natural sounding modern, everyday conversational Bengali as spoken in Kolkata, West Bengal, India that can be understood by a 21 year old but contains the international standards of language.
+Strict Rules:
+Must subtly reflect Kolkata conversational cadence through sentence rhythm and phrasing by using slightly formal, polite, and smoothly flowing sentence structures, with balanced pacing and no abrupt or overly casual wording — without slang, regional grammar, or loss of conservative authority.
+• Always use the formal “আপনি”, not the informal “তুমি.” The address is formal, but the tone should remain warm, conversational, and approachable.
+• The voice should be bold, direct, also should feel like a close friend and a trusted authority, speaking one-on-one with the reader in a natural, face-to-face style.
+
+PROMPT
+Based on your previous answer, write a description of the prompt using the AIDA framework (Attention, Interest, Desire, Action).</div>
+            </div>
+        </div>
+
+        <!-- Prompt 3 -->
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>Prompt #3: Core Message</h3>
+                    <button class="copy-btn" onclick="copyToClipboard('display3')">Copy Prompt</button>
+                </div>
+                <div class="prompt-content" id="display3">Please write the output of the PROMPT below in the most spontaneous and natural sounding modern, everyday conversational Bengali as spoken in Kolkata, West Bengal, India that can be understood by a 21 year old but contains the international standards of language.
+Strict Rules:
+Must subtly reflect Kolkata conversational cadence through sentence rhythm and phrasing by using slightly formal, polite, and smoothly flowing sentence structures, with balanced pacing and no abrupt or overly casual wording — without slang, regional grammar, or loss of conservative authority.
+• Always use the formal “আপনি”, not the informal “তুমি.” The address is formal, but the tone should remain warm, conversational, and approachable.
+• The voice should be bold, direct, also should feel like a close friend and a trusted authority, speaking one-on-one with the reader in a natural, face-to-face style.
+
+PROMPT
+Convert the AIDA description into a concise, reusable core message that can be incorporated into other AI prompts.</div>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="toast">ক্লিপবোর্ডে কপি হয়েছে!</div>
+
+    <script>
+        const originalP1 = `Please write the output of the PROMPT below in the most spontaneous and natural sounding modern, everyday conversational Bengali as spoken in Kolkata, West Bengal, India that can be understood by a 21 year old but contains the international standards of language.
+Strict Rules:
+Must subtly reflect Kolkata conversational cadence through sentence rhythm and phrasing by using slightly formal, polite, and smoothly flowing sentence structures, with balanced pacing and no abrupt or overly casual wording — without slang, regional grammar, or loss of conservative authority.
+• Always use the formal “আপনি”, not the informal “তুমি.” The address is formal, but the tone should remain warm, conversational, and approachable.
+• The voice should be bold, direct, also should feel like a close friend and a trusted authority, speaking one-on-one with the reader in a natural, face-to-face style.
+
+PROMPT
+Review the AI prompt below and answer the following questions:
+Name this prompt. The name must be short, attractive, and self-explanatory.
+Write a tagline. The tagline must clearly describe the prompt's purpose and primary benefit.
+Write a short description explaining what the prompt does for its users.
+Describe the transformation it delivers using the format: From → To.
+Explain how the prompt works, step by step.
+List the inputs that users need to provide.
+Describe the ideal users of this prompt and the situations in which they should use it.
+
+PROMPT TO REVIEW
+
+[PROMPT TO REVIEW]`;
+
+        function syncPrompt() {
+            const inputVal = document.getElementById('promptInput').value;
+            const target = document.getElementById('display1');
+            
+            if (inputVal.trim() === "") {
+                target.innerText = originalP1;
+            } else {
+                target.innerText = originalP1.replace('[PROMPT TO REVIEW]', inputVal);
+            }
+        }
+
+        function copyToClipboard(id) {
+            const text = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
