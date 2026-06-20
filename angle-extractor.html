@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Angle Selection - আপনার কন্টেন্টের সঠিক অ্যাঙ্গেল বেছে নিন</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #e67e22;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-color: #34495e;
+            --border-radius: 12px;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            padding-bottom: 60px;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Header Styling */
+        header {
+            padding: 50px 0 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .intro-text {
+            background: #fff;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+            border-left: 6px solid var(--accent-color);
+            font-size: 1.1rem;
+        }
+
+        /* Input Fields Section */
+        .input-section {
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+            color: var(--primary-color);
+        }
+
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 80px;
+            transition: border-color 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        /* Prompt Box Styling */
+        .prompt-wrapper {
+            margin-bottom: 40px;
+        }
+
+        .prompt-box {
+            background: #fff;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid #e1e8ed;
+        }
+
+        .prompt-header {
+            background: var(--primary-color);
+            color: #fff;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prompt-header h3 {
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin: 0;
+        }
+
+        .prompt-content {
+            padding: 25px;
+            background: #fafafa;
+            color: #2c3e50;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.95rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-top: 1px solid #eee;
+        }
+
+        .copy-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: opacity 0.3s;
+        }
+
+        .copy-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Toast Notification */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            .container { width: 94%; }
+            .prompt-content { font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>CONTENT ANGLE SELECTION</h1>
+            <div class="intro-text">
+                নমস্কার! কন্টেন্ট তৈরির সময় সবচেয়ে বড় চ্যালেঞ্জ হলো সঠিক 'অ্যাঙ্গেল' খুঁজে বের করা। আপনি ঠিক কার জন্য লিখছেন এবং তাদের সমস্যাটা কোথায়—সেটা নিচের বক্সে লিখুন। আপনার দেওয়া তথ্যের ওপর ভিত্তি করে নিচের প্রম্পটগুলো অটোমেটিক আপডেট হয়ে যাবে। এরপর এগুলো ব্যবহার করে আপনি আপনার কন্টেন্টের জন্য নিখুঁত দিশা খুঁজে পাবেন।
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <!-- Input Section -->
+        <div class="input-section">
+            <div class="input-group">
+                <label>টার্গেট অডিয়েন্স (Target Audience):</label>
+                <textarea id="in_audience" placeholder="যেমন: নতুন ফ্রিল্যান্সার বা কন্টেন্ট ক্রিয়েটর..." oninput="updatePrompts()"></textarea>
+            </div>
+            <div class="input-group">
+                <label>মানসিক কষ্টের জায়গা (Psychological Pain Point):</label>
+                <textarea id="in_pain" placeholder="যেমন: ক্যামেরাভীতি বা প্রতিদিন লিখতে না পারা..." oninput="updatePrompts()"></textarea>
+            </div>
+            <div class="input-group">
+                <label>কাঙ্ক্ষিত পরিবর্তন (Desired Transformation):</label>
+                <textarea id="in_trans" placeholder="যেমন: আত্মবিশ্বাসের সাথে ভিডিও বানানো..." oninput="updatePrompts()"></textarea>
+            </div>
+        </div>
+
+        <hr style="margin: 50px 0; border: 0; border-top: 1px solid #ddd;">
+
+        <!-- Prompt 1 -->
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>Without Desired Transformation</h3>
+                    <button class="copy-btn" onclick="copyToClipboard('display1')">Copy Prompt</button>
+                </div>
+                <div class="prompt-content" id="display1">Target Audience:
+[Insert Target Audience]
+
+Psychological Pain Point:
+[Insert Psychological Pain Point]
+
+
+Context
+You have already identified the target audience's psychological pain point.
+
+Question
+
+Based on the psychological pain point identified above, determine the single most effective content angle for addressing that pain point.
+
+Choose the best fit from the following angles:
+
+1. Mistake
+2. Reality Check
+3. Simplification
+4. Efficiency
+5. Micro Progress
+6. Step-by-Step
+
+If none of these six angles is the best fit, propose a more suitable angle.
+
+Evaluation Criteria
+
+Select the angle that is most likely to:
+
+- Address the root psychological barrier.
+- Reduce resistance, confusion, fear, doubt, or frustration.
+- Create the fastest path toward clarity and action.
+- Match the audience's current mental state.
+
+Output Format
+
+RECOMMENDED ANGLE:
+[Angle Name]
+
+WHY THIS ANGLE IS THE BEST FIT:
+[Detailed Explanation]
+
+AUDIENCE MENTAL STATE:
+[What the audience is currently thinking, feeling, believing, or struggling with]
+
+HOW THIS ANGLE HELPS:
+[How the selected angle addresses the psychological pain point]
+
+WHY THE OTHER ANGLES ARE LESS SUITABLE:
+[Brief Explanation]
+
+CONFIDENCE LEVEL:
+[High / Medium / Low]</div>
+            </div>
+        </div>
+
+        <!-- Prompt 2 -->
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>With Desired Transformation</h3>
+                    <button class="copy-btn" onclick="copyToClipboard('display2')">Copy Prompt</button>
+                </div>
+                <div class="prompt-content" id="display2">Target Audience:
+[Insert Target Audience]
+
+Psychological Pain Point:
+[Insert Psychological Pain Point]
+
+Desired Transformation:
+[Insert Desired Transformation]
+
+Context
+You have already identified:
+
+1. The target audience's psychological pain point.
+2. The desired transformation or outcome the content should create.
+
+Question
+
+Based on both the psychological pain point and the desired transformation, determine the single most effective content angle for this content.
+
+Choose the best fit from the following angles:
+
+1. Mistake
+2. Reality Check
+3. Simplification
+4. Efficiency
+5. Micro Progress
+6. Step-by-Step
+
+If none of these six angles is the best fit, propose a more suitable angle.
+
+Evaluation Criteria
+
+Select the angle that is most likely to:
+
+- Address the root psychological barrier.
+- Move the audience toward the desired transformation.
+- Create the strongest shift in thinking, belief, emotion, or behavior.
+- Reduce resistance and increase willingness to act.
+- Match both the audience's current state and desired future state.
+
+Output Format
+
+RECOMMENDED ANGLE:
+[Angle Name]
+
+CURRENT STATE:
+[Audience's current psychological state]
+
+DESIRED TRANSFORMATION:
+[Audience's desired future state]
+
+WHY THIS ANGLE IS THE BEST FIT:
+[Detailed Explanation]
+
+TRANSFORMATION LOGIC:
+[Explain how this angle helps move the audience from the current state to the desired state]
+
+HOW THIS ANGLE SHOULD BE EXECUTED:
+[Specific guidance for creating content using this angle]
+
+WHY THE OTHER ANGLES ARE LESS SUITABLE:
+[Brief Explanation]
+
+CONFIDENCE LEVEL:
+[High / Medium / Low]</div>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="toast">ক্লিপবোর্ডে কপি হয়েছে!</div>
+
+    <script>
+        const originalP1 = `Target Audience:
+[Insert Target Audience]
+
+Psychological Pain Point:
+[Insert Psychological Pain Point]
+
+
+Context
+You have already identified the target audience's psychological pain point.
+
+Question
+
+Based on the psychological pain point identified above, determine the single most effective content angle for addressing that pain point.
+
+Choose the best fit from the following angles:
+
+1. Mistake
+2. Reality Check
+3. Simplification
+4. Efficiency
+5. Micro Progress
+6. Step-by-Step
+
+If none of these six angles is the best fit, propose a more suitable angle.
+
+Evaluation Criteria
+
+Select the angle that is most likely to:
+
+- Address the root psychological barrier.
+- Reduce resistance, confusion, fear, doubt, or frustration.
+- Create the fastest path toward clarity and action.
+- Match the audience's current mental state.
+
+Output Format
+
+RECOMMENDED ANGLE:
+[Angle Name]
+
+WHY THIS ANGLE IS THE BEST FIT:
+[Detailed Explanation]
+
+AUDIENCE MENTAL STATE:
+[What the audience is currently thinking, feeling, believing, or struggling with]
+
+HOW THIS ANGLE HELPS:
+[How the selected angle addresses the psychological pain point]
+
+WHY THE OTHER ANGLES ARE LESS SUITABLE:
+[Brief Explanation]
+
+CONFIDENCE LEVEL:
+[High / Medium / Low]`;
+
+        const originalP2 = `Target Audience:
+[Insert Target Audience]
+
+Psychological Pain Point:
+[Insert Psychological Pain Point]
+
+Desired Transformation:
+[Insert Desired Transformation]
+
+Context
+You have already identified:
+
+1. The target audience's psychological pain point.
+2. The desired transformation or outcome the content should create.
+
+Question
+
+Based on both the psychological pain point and the desired transformation, determine the single most effective content angle for this content.
+
+Choose the best fit from the following angles:
+
+1. Mistake
+2. Reality Check
+3. Simplification
+4. Efficiency
+5. Micro Progress
+6. Step-by-Step
+
+If none of these six angles is the best fit, propose a more suitable angle.
+
+Evaluation Criteria
+
+Select the angle that is most likely to:
+
+- Address the root psychological barrier.
+- Move the audience toward the desired transformation.
+- Create the strongest shift in thinking, belief, emotion, or behavior.
+- Reduce resistance and increase willingness to act.
+- Match both the audience's current state and desired future state.
+
+Output Format
+
+RECOMMENDED ANGLE:
+[Angle Name]
+
+CURRENT STATE:
+[Audience's current psychological state]
+
+DESIRED TRANSFORMATION:
+[Audience's desired future state]
+
+WHY THIS ANGLE IS THE BEST FIT:
+[Detailed Explanation]
+
+TRANSFORMATION LOGIC:
+[Explain how this angle helps move the audience from the current state to the desired state]
+
+HOW THIS ANGLE SHOULD BE EXECUTED:
+[Specific guidance for creating content using this angle]
+
+WHY THE OTHER ANGLES ARE LESS SUITABLE:
+[Brief Explanation]
+
+CONFIDENCE LEVEL:
+[High / Medium / Low]`;
+
+        function updatePrompts() {
+            const audience = document.getElementById('in_audience').value || '[Insert Target Audience]';
+            const pain = document.getElementById('in_pain').value || '[Insert Psychological Pain Point]';
+            const transformation = document.getElementById('in_trans').value || '[Insert Desired Transformation]';
+
+            // Update P1
+            document.getElementById('display1').innerText = originalP1
+                .replace('[Insert Target Audience]', audience)
+                .replace('[Insert Psychological Pain Point]', pain);
+
+            // Update P2
+            document.getElementById('display2').innerText = originalP2
+                .replace('[Insert Target Audience]', audience)
+                .replace('[Insert Psychological Pain Point]', pain)
+                .replace('[Insert Desired Transformation]', transformation);
+        }
+
+        function copyToClipboard(id) {
+            const text = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

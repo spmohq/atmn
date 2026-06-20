@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desired Transformation Extractor - অডিয়েন্সের মন পড়ার টুল</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --bg-color: #f7f9fc;
+            --card-bg: #ffffff;
+            --text-color: #34495e;
+            --border-radius: 12px;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            padding-bottom: 60px;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Header Styling */
+        header {
+            padding: 50px 0 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .intro-text {
+            background: #fff;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+            border-left: 6px solid var(--accent-color);
+            font-size: 1.1rem;
+        }
+
+        /* Input Section */
+        .input-section {
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            color: var(--primary-color);
+        }
+
+        textarea {
+            width: 100%;
+            padding: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1.05rem;
+            resize: vertical;
+            min-height: 120px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 8px rgba(52, 152, 219, 0.2);
+        }
+
+        /* Prompt Box Styling */
+        .prompt-wrapper {
+            margin-bottom: 40px;
+        }
+
+        .prompt-box {
+            background: #fff;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid #e1e8ed;
+        }
+
+        .prompt-header {
+            background: var(--primary-color);
+            color: #fff;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prompt-header h3 {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin: 0;
+        }
+
+        .prompt-content {
+            padding: 25px;
+            background: #fafafa;
+            color: #2c3e50;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 1rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-top: 1px solid #eee;
+        }
+
+        .copy-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: #2980b9;
+        }
+
+        /* Toast Notification */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            .container { width: 94%; }
+            .prompt-content { font-size: 0.95rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Desired Transformation Extractor</h1>
+            <div class="intro-text">
+                নমস্কার! অডিয়েন্সের মনের গভীরে ঠিক কী চলছে, সেটা বুঝতে পারাটাই হলো সফল কন্টেন্ট তৈরির প্রথম ধাপ। তাদের ভয়, হতাশা বা দ্বিধাগুলোকে যদি সঠিকভাবে চিনতে পারেন, তবেই আপনি তাদের সঠিক সমাধান দিতে পারবেন। নিচে আপনার অডিয়েন্সের <strong>Psychological Pain Point</strong>-টি লিখুন, আর দেখুন কীভাবে এ আই আপনাকে তাদের মনের গভীরতম ইচ্ছাগুলো খুঁজে পেতে সাহায্য করে।
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <!-- Input Section -->
+        <div class="input-section">
+            <label for="painPointInput">এখানে আপনার অডিয়েন্সের Psychological Pain Point-টি লিখুন:</label>
+            <textarea id="painPointInput" placeholder="যেমন: তারা হয়তো প্রতিদিন লিখতে চায় কিন্তু শুরু করতে ভয় পায়..." oninput="syncPrompt()"></textarea>
+        </div>
+
+        <hr style="margin: 50px 0; border: 0; border-top: 1px solid #ddd;">
+
+        <!-- Prompt Section -->
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>ChatGPT-র জন্য আপনার প্রম্পট</h3>
+                    <button class="copy-btn" onclick="copyToClipboard()">প্রম্পট কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="promptDisplay">[Insert The Psychological Pain Point of Your Target Audience Here]
+
+এটি আমার target audience-এর psychological pain point।
+
+Psychological Pain Point বলতে audience-এর মনের ভিতরের সেই চিন্তা, ভয়, সন্দেহ, হতাশা, বিভ্রান্তি, বা মানসিক বাধাকে বোঝায় যা তাদের কাঙ্ক্ষিত অগ্রগতি বা ফলাফল অর্জনে বাধা সৃষ্টি করছে।
+
+তুমি একজন Audience Psychologist, Consumer Behavior Analyst, এবং Market Research Specialist হিসেবে কাজ করো।
+
+এই psychological pain point-টি বিশ্লেষণ করো এবং নিচের প্রশ্নগুলোর উত্তর দাও:
+
+1. এই psychological pain point-এর consequence(s) কী বা কী কী?
+2. এই psychological pain point-এর ক্ষেত্রে audience-এর desired transformation(s) কী বা কী কী?
+
+বিশ্লেষণের সময় শুধুমাত্র psychological, emotional, behavioral, and decision-making perspective-এর উপর ফোকাস করো।
+
+Consequence(s) বিশ্লেষণ করার সময় বিবেচনা করো:
+
+- audience কী অনুভব করতে পারে?
+- audience কী নিয়ে উদ্বিগ্ন বা অনিশ্চিত হতে পারে?
+- audience-এর আচরণ বা সিদ্ধান্ত গ্রহণে কী প্রভাব পড়তে পারে?
+- audience কী কী নেতিবাচক ফলাফলের সম্মুখীন হতে পারে?
+
+Desired Transformation(s) বিশ্লেষণ করার সময় বিবেচনা করো:
+
+- audience কী অবস্থায় যেতে চায়?
+- audience কী অনুভব করতে চায়?
+- audience কী করতে সক্ষম হতে চায়?
+- audience কী ফলাফল পেতে চায়?
+
+গভীর, audience-centric, এবং বাস্তবসম্মত insight প্রদান করো। Generic বা surface-level উত্তর দেবে না।
+
+Output Format:
+
+PAIN POINT:
+[এক বাক্যে pain point-এর সারাংশ]
+
+CONSEQUENCES:
+
+PSYCHOLOGICAL
+• ...
+• ...
+• ...
+
+EMOTIONAL
+• ...
+• ...
+• ...
+
+BEHAVIORAL
+• ...
+• ...
+• ...
+
+DECISION-MAKING
+• ...
+• ...
+• ...
+
+DESIRED TRANSFORMATIONS:
+
+STATE
+• ...
+• ...
+• ...
+
+FEELING
+• ...
+• ...
+• ...
+
+CAPABILITY
+• ...
+• ...
+• ...
+
+OUTCOME
+• ...
+• ...
+• ...</div>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="toast">ক্লিপবোর্ডে কপি হয়েছে!</div>
+
+    <script>
+        const originalPrompt = `[Insert The Psychological Pain Point of Your Target Audience Here]
+
+এটি আমার target audience-এর psychological pain point।
+
+Psychological Pain Point বলতে audience-এর মনের ভিতরের সেই চিন্তা, ভয়, সন্দেহ, হতাশা, বিভ্রান্তি, বা মানসিক বাধাকে বোঝায় যা তাদের কাঙ্ক্ষিত অগ্রগতি বা ফলাফল অর্জনে বাধা সৃষ্টি করছে।
+
+তুমি একজন Audience Psychologist, Consumer Behavior Analyst, এবং Market Research Specialist হিসেবে কাজ করো।
+
+এই psychological pain point-টি বিশ্লেষণ করো এবং নিচের প্রশ্নগুলোর উত্তর দাও:
+
+1. এই psychological pain point-এর consequence(s) কী বা কী কী?
+2. এই psychological pain point-এর ক্ষেত্রে audience-এর desired transformation(s) কী বা কী কী?
+
+বিশ্লেষণের সময় শুধুমাত্র psychological, emotional, behavioral, and decision-making perspective-এর উপর ফোকাস করো।
+
+Consequence(s) বিশ্লেষণ করার সময় বিবেচনা করো:
+
+- audience কী অনুভব করতে পারে?
+- audience কী নিয়ে উদ্বিগ্ন বা অনিশ্চিত হতে পারে?
+- audience-এর আচরণ বা সিদ্ধান্ত গ্রহণে কী প্রভাব পড়তে পারে?
+- audience কী কী নেতিবাচক ফলাফলের সম্মুখীন হতে পারে?
+
+Desired Transformation(s) বিশ্লেষণ করার সময় বিবেচনা করো:
+
+- audience কী অবস্থায় যেতে চায়?
+- audience কী অনুভব করতে চায়?
+- audience কী করতে সক্ষম হতে চায়?
+- audience কী ফলাফল পেতে চায়?
+
+গভীর, audience-centric, এবং বাস্তবসম্মত insight প্রদান করো। Generic বা surface-level উত্তর দেবে না।
+
+Output Format:
+
+PAIN POINT:
+[এক বাক্যে pain point-এর সারাংশ]
+
+CONSEQUENCES:
+
+PSYCHOLOGICAL
+• ...
+• ...
+• ...
+
+EMOTIONAL
+• ...
+• ...
+• ...
+
+BEHAVIORAL
+• ...
+• ...
+• ...
+
+DECISION-MAKING
+• ...
+• ...
+• ...
+
+DESIRED TRANSFORMATIONS:
+
+STATE
+• ...
+• ...
+• ...
+
+FEELING
+• ...
+• ...
+• ...
+
+CAPABILITY
+• ...
+• ...
+• ...
+
+OUTCOME
+• ...
+• ...
+• ...`;
+
+        function syncPrompt() {
+            const inputVal = document.getElementById('painPointInput').value;
+            const display = document.getElementById('promptDisplay');
+            
+            if (inputVal.trim() === "") {
+                display.innerText = originalPrompt;
+            } else {
+                // Replacing the placeholder with actual input
+                display.innerText = originalPrompt.replace('[Insert The Psychological Pain Point of Your Target Audience Here]', inputVal);
+            }
+        }
+
+        function copyToClipboard() {
+            const text = document.getElementById('promptDisplay').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platform-Native Content Adaptation Master Prompt</title>
+    <style>
+        :root {
+            --primary-color: #1a5f7a;
+            --secondary-color: #f0f4f8;
+            --accent-color: #d63031;
+            --text-color: #2d3436;
+            --border-radius: 12px;
+            --shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f5f7fa;
+            color: var(--text-color);
+            line-height: 1.7;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.4rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .intro-text {
+            background: #fff;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+            border-left: 6px solid var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        /* Input Fields Grid */
+        .input-grid {
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 50px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group.full-width {
+            grid-column: span 2;
+        }
+
+        label {
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #4a4a4a;
+            font-size: 0.95rem;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d8e0;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 80px;
+            transition: border-color 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background-color: #fdfdfd;
+        }
+
+        /* Prompt Sections */
+        .prompt-card {
+            background: #fff;
+            margin-bottom: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid #e1e8ed;
+        }
+
+        .prompt-header {
+            background: var(--primary-color);
+            color: #fff;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prompt-header h3 {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .prompt-content {
+            padding: 25px;
+            background: #fafafa;
+            color: #2d3436;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.95rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-top: 1px solid #eee;
+        }
+
+        .copy-btn {
+            background: #fff;
+            color: var(--primary-color);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.8rem;
+            transition: background 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: #f0f0f0;
+        }
+
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 30px;
+            display: none;
+            z-index: 1000;
+        }
+
+        @media (max-width: 768px) {
+            .input-grid { grid-template-columns: 1fr; }
+            .input-group.full-width { grid-column: span 1; }
+            header h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Platform-Native Content Adaptation</h1>
+            <div class="intro-text">
+                নমস্কার! আপনার কনটেন্টকে প্রতিটি প্ল্যাটফর্মের জন্য নিখুঁতভাবে তৈরি করার টুল এটি। নিচের ঘরগুলোতে আপনার তথ্যগুলো দিন, ৯ নম্বর মাস্টার প্রম্পটটি অটোমেটিক আপডেট হয়ে যাবে। বাকি প্রম্পটগুলো আপনার রেফারেন্সের জন্য নিচে দেওয়া হলো।
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <!-- Input Fields Grid -->
+        <div class="input-grid">
+            <div class="input-group">
+                <label>Target Audience</label>
+                <textarea id="in1" placeholder="[Insert Target Audience]" oninput="updatePrompts()"></textarea>
+            </div>
+            <div class="input-group">
+                <label>Psychological Pain Point</label>
+                <textarea id="in2" placeholder="[Insert Psychological Pain Point]" oninput="updatePrompts()"></textarea>
+            </div>
+            <div class="input-group">
+                <label>Desired Transformation</label>
+                <textarea id="in3" placeholder="[Insert Desired Transformation]" oninput="updatePrompts()"></textarea>
+            </div>
+            <div class="input-group">
+                <label>Angle</label>
+                <textarea id="in4" placeholder="[Insert Angle]" oninput="updatePrompts()"></textarea>
+            </div>
+            <div class="input-group">
+                <label>Content Role</label>
+                <textarea id="in5" placeholder="[Insert Content Role]" oninput="updatePrompts()"></textarea>
+            </div>
+            <div class="input-group">
+                <label>Core Message</label>
+                <textarea id="in6" placeholder="[Insert Content's Core Message]" oninput="updatePrompts()"></textarea>
+            </div>
+            <div class="input-group">
+                <label>Pattern Interrupt for Hook</label>
+                <textarea id="in7" placeholder="[Pattern Interrupt for Hook]" oninput="updatePrompts()"></textarea>
+            </div>
+            <div class="input-group">
+                <label>Hook</label>
+                <textarea id="in8" placeholder="[Insert Hook]" oninput="updatePrompts()"></textarea>
+            </div>
+            <div class="input-group">
+                <label>Content Mapping</label>
+                <textarea id="in9" placeholder="[Insert Content Mapping]" oninput="updatePrompts()"></textarea>
+            </div>
+            <div class="input-group">
+                <label>Content Structure</label>
+                <textarea id="in10" placeholder="[Insert Content Structure]" oninput="updatePrompts()"></textarea>
+            </div>
+            <div class="input-group full-width">
+                <label>Platform (e.g. Facebook, Blog, etc.)</label>
+                <textarea id="in11" placeholder="[Platform]" oninput="updatePrompts()"></textarea>
+            </div>
+        </div>
+
+        <!-- Prompts 1-8 (Labels/Short Prompts) -->
+        <div id="prompts-list">
+            <div class="prompt-card"><div class="prompt-header"><h3>Prompt #1</h3><button class="copy-btn" onclick="copyToClipboard('p1')">Copy</button></div><div class="prompt-content" id="p1">Social Media Post – Facebook</div></div>
+            <div class="prompt-card"><div class="prompt-header"><h3>Prompt #2</h3><button class="copy-btn" onclick="copyToClipboard('p2')">Copy</button></div><div class="prompt-content" id="p2">Social Media Post – WhatsApp Channel</div></div>
+            <div class="prompt-card"><div class="prompt-header"><h3>Prompt #3</h3><button class="copy-btn" onclick="copyToClipboard('p3')">Copy</button></div><div class="prompt-content" id="p3">Blog – Blogger (Google)</div></div>
+            <div class="prompt-card"><div class="prompt-header"><h3>Prompt #4</h3><button class="copy-btn" onclick="copyToClipboard('p4')">Copy</button></div><div class="prompt-content" id="p4">Newsletter – WhatsApp Group</div></div>
+            <div class="prompt-card"><div class="prompt-header"><h3>Prompt #5</h3><button class="copy-btn" onclick="copyToClipboard('p5')">Copy</button></div><div class="prompt-content" id="p5">Solo Podcast – YouTube</div></div>
+            <div class="prompt-card"><div class="prompt-header"><h3>Prompt #6</h3><button class="copy-btn" onclick="copyToClipboard('p6')">Copy</button></div><div class="prompt-content" id="p6">Solo Podcast – Facebook</div></div>
+            <div class="prompt-card"><div class="prompt-header"><h3>Prompt #7</h3><button class="copy-btn" onclick="copyToClipboard('p7')">Copy</button></div><div class="prompt-content" id="p7">Community (Members-Only Content) – WhatsApp Group</div></div>
+            <div class="prompt-card"><div class="prompt-header"><h3>Prompt #8</h3><button class="copy-btn" onclick="copyToClipboard('p8')">Copy</button></div><div class="prompt-content" id="p8">Book – Gumroad</div></div>
+
+            <!-- Main Master Prompt #9 -->
+            <div class="prompt-card">
+                <div class="prompt-header">
+                    <h3>Prompt #9: The Master Adapter</h3>
+                    <button class="copy-btn" onclick="copyToClipboard('p9')">Copy Master Prompt</button>
+                </div>
+                <div class="prompt-content" id="p9">You are an Audience Psychology Analyst, Content Strategist, Platform Architect, and Adaptive Content Designer.
+
+Your task is to transform a single core message into platform-native content while preserving its underlying truth, intent, and desired transformation.
+
+Before writing, thoroughly analyze all provided inputs, including the target audience, psychological pain point, desired transformation, angle, content role, core message, hook, pattern interrupt, content mapping, content structure, and selected platform.
+
+Do not merely reformat the content. Reconstruct it so that the same underlying truth is expressed in the way that best serves the platform's purpose, while remaining faithful to the provided inputs and the Platform Doctrine.
+
+Adapt the content according to the selected platform's:
+
+* Natural role
+* Communication style
+* Audience expectations
+* Consumption behavior
+* Appropriate depth and level of detail
+
+When making decisions, follow this order of priority:
+
+1. Platform Doctrine
+2. Desired Transformation
+3. Content's Core Message
+4. Target Audience Psychology
+5. Content Role
+6. Content Mapping
+7. Content Structure
+8. Hook and Pattern Interrupt
+
+Use only the information provided in the inputs. Do not introduce assumptions, unsupported claims, unnecessary examples, or additional context unless required to effectively fulfill the task.
+
+Every output must:
+
+* Align with the target audience's psychology.
+* Address the specified pain point.
+* Move the audience toward the desired transformation.
+* Reflect the provided angle and core message.
+* Fulfill the intended content role.
+* Follow the supplied content mapping and content structure.
+* Respect the platform's native communication style.
+* Match the platform's expected level of depth.
+* Express the same underlying truth in a platform-appropriate manner.
+* Remain internally consistent and logically coherent.
+
+Strictly following the "Platform Doctrine" below, write a **[Platform]** based on the provided inputs.
+
+INPUTS
+
+Target Audience:
+
+[Insert Target Audience]
+
+Psychological Pain Point of the Target Audience:
+
+[Insert Psychological Pain Point]
+
+Desired Transformation:
+
+[Insert Desired Transformation]
+
+Angle:
+
+[Insert Angle]
+
+Content Role:
+
+[Insert Content Role]
+
+Content's Core Message:
+
+[Insert Content's Core Message]
+
+Pattern Interrupt for Hook:
+
+[Insert Pattern Interrupt]
+
+Hook:
+
+[Insert Hook]
+
+Content Mapping:
+
+[Insert Content Mapping]
+
+Content Structure:
+
+[Insert Content Structure]
+
+Platform:
+
+[Platform] 
+
+PLATFORM DOCTRINE
+
+The content must adapt to the platform's natural role.
+
+* Social Media Posts create curiosity, discovery, emotional resonance, or intellectual tension that encourages further engagement.
+* Newsletters deepen understanding, interpretation, and relationship-building through ongoing communication.
+* Blogs provide structured analysis, explanation, education, and contextual understanding.
+* Solo Podcasts explore ideas through stories, examples, reflection, and conversational thinking.
+* Community Content encourages participation, implementation, discussion, accountability, and feedback.
+* Books synthesize ideas into a broader worldview, methodology, philosophy, or framework.
+
+Every platform must communicate the same underlying truth while serving a different purpose.
+
+The expression, depth, structure, pacing, and delivery may change across platforms, but the underlying truth, core message, and desired transformation must remain consistent.</div>
+            </div>
+        </div>
+    </main>
+
+    <div id="toast">ক্লিপবোর্ডে কপি হয়েছে!</div>
+
+    <script>
+        const p9Template = `You are an Audience Psychology Analyst, Content Strategist, Platform Architect, and Adaptive Content Designer.
+
+Your task is to transform a single core message into platform-native content while preserving its underlying truth, intent, and desired transformation.
+
+Before writing, thoroughly analyze all provided inputs, including the target audience, psychological pain point, desired transformation, angle, content role, core message, hook, pattern interrupt, content mapping, content structure, and selected platform.
+
+Do not merely reformat the content. Reconstruct it so that the same underlying truth is expressed in the way that best serves the platform's purpose, while remaining faithful to the provided inputs and the Platform Doctrine.
+
+Adapt the content according to the selected platform's:
+
+* Natural role
+* Communication style
+* Audience expectations
+* Consumption behavior
+* Appropriate depth and level of detail
+
+When making decisions, follow this order of priority:
+
+1. Platform Doctrine
+2. Desired Transformation
+3. Content's Core Message
+4. Target Audience Psychology
+5. Content Role
+6. Content Mapping
+7. Content Structure
+8. Hook and Pattern Interrupt
+
+Use only the information provided in the inputs. Do not introduce assumptions, unsupported claims, unnecessary examples, or additional context unless required to effectively fulfill the task.
+
+Every output must:
+
+* Align with the target audience's psychology.
+* Address the specified pain point.
+* Move the audience toward the desired transformation.
+* Reflect the provided angle and core message.
+* Fulfill the intended content role.
+* Follow the supplied content mapping and content structure.
+* Respect the platform's native communication style.
+* Match the platform's expected level of depth.
+* Express the same underlying truth in a platform-appropriate manner.
+* Remain internally consistent and logically coherent.
+
+Strictly following the "Platform Doctrine" below, write a **[Platform]** based on the provided inputs.
+
+INPUTS
+
+Target Audience:
+
+[Insert Target Audience]
+
+Psychological Pain Point of the Target Audience:
+
+[Insert Psychological Pain Point]
+
+Desired Transformation:
+
+[Insert Desired Transformation]
+
+Angle:
+
+[Insert Angle]
+
+Content Role:
+
+[Insert Content Role]
+
+Content's Core Message:
+
+[Insert Content's Core Message]
+
+Pattern Interrupt for Hook:
+
+[Insert Pattern Interrupt]
+
+Hook:
+
+[Insert Hook]
+
+Content Mapping:
+
+[Insert Content Mapping]
+
+Content Structure:
+
+[Insert Content Structure]
+
+Platform:
+
+[Platform] 
+
+PLATFORM DOCTRINE
+
+The content must adapt to the platform's natural role.
+
+* Social Media Posts create curiosity, discovery, emotional resonance, or intellectual tension that encourages further engagement.
+* Newsletters deepen understanding, interpretation, and relationship-building through ongoing communication.
+* Blogs provide structured analysis, explanation, education, and contextual understanding.
+* Solo Podcasts explore ideas through stories, examples, reflection, and conversational thinking.
+* Community Content encourages participation, implementation, discussion, accountability, and feedback.
+* Books synthesize ideas into a broader worldview, methodology, philosophy, or framework.
+
+Every platform must communicate the same underlying truth while serving a different purpose.
+
+The expression, depth, structure, pacing, and delivery may change across platforms, but the underlying truth, core message, and desired transformation must remain consistent.`;
+
+        function updatePrompts() {
+            let p9 = p9Template;
+            
+            const inputs = [
+                { id: 'in1', placeholder: '[Insert Target Audience]' },
+                { id: 'in2', placeholder: '[Insert Psychological Pain Point]' },
+                { id: 'in3', placeholder: '[Insert Desired Transformation]' },
+                { id: 'in4', placeholder: '[Insert Angle]' },
+                { id: 'in5', placeholder: '[Insert Content Role]' },
+                { id: 'in6', placeholder: "[Insert Content's Core Message]" },
+                { id: 'in7', placeholder: '[Insert Pattern Interrupt]' },
+                { id: 'in8', placeholder: '[Insert Hook]' },
+                { id: 'in9', placeholder: '[Insert Content Mapping]' },
+                { id: 'in10', placeholder: '[Insert Content Structure]' },
+                { id: 'in11', placeholder: '[Platform]' }
+            ];
+
+            inputs.forEach(item => {
+                const val = document.getElementById(item.id).value || item.placeholder;
+                // Use a global regex for Platform as it appears twice in the text
+                const regex = new RegExp(item.placeholder.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'g');
+                p9 = p9.replace(regex, val);
+            });
+
+            document.getElementById('p9').innerText = p9;
+        }
+
+        function copyToClipboard(id) {
+            const text = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
