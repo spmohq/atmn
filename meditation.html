@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meditation Course Architecture - ধ্যানের গভীরতায় পৌঁছানোর পথ</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #16a085;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-color: #34495e;
+            --border-radius: 12px;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            padding-bottom: 60px;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        header {
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .intro-text {
+            background: #fff;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+            border-left: 6px solid var(--accent-color);
+            font-size: 1.1rem;
+        }
+
+        /* Input Sections */
+        .section-title {
+            font-size: 1.4rem;
+            color: var(--primary-color);
+            margin: 30px 0 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid var(--accent-color);
+            display: inline-block;
+        }
+
+        .input-card {
+            background: white;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-size: 1rem;
+            color: var(--primary-color);
+        }
+
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 80px;
+            transition: border-color 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        /* Prompt Box Styling */
+        .prompt-wrapper {
+            margin-bottom: 40px;
+        }
+
+        .prompt-box {
+            background: #fff;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid #e1e8ed;
+        }
+
+        .prompt-header {
+            background: var(--primary-color);
+            color: #fff;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prompt-header h3 {
+            font-size: 1rem;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .prompt-content {
+            padding: 25px;
+            background: #fafafa;
+            color: #2c3e50;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.95rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-top: 1px solid #eee;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .copy-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: opacity 0.3s;
+        }
+
+        .copy-btn:hover {
+            opacity: 0.9;
+        }
+
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 2rem; }
+            .container { width: 94%; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Meditation Course</h1>
+            <div class="intro-text">
+                নমস্কার! আপনি যদি আপনার মেডিটেশন কোর্সটিকে একটি সুসংগঠিত রূপ দিতে চান, তবে এই টুলটি আপনার জন্য। অডিয়েন্সের মানসিক অবস্থা বুঝে তাদের সরাসরি অভিজ্ঞতার পথে নিয়ে যাওয়ার জন্য প্রয়োজনীয় প্রম্পটগুলো নিচে সাজানো আছে। ইনপুট ফিল্ডগুলো পূরণ করলেই আপনার প্রম্পটগুলো রেডি হয়ে যাবে।
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <!-- CORE INPUTS -->
+        <h2 class="section-title">CORE INPUTS</h2>
+        <div class="input-card">
+            <div class="input-group">
+                <label>Target Audience</label>
+                <textarea id="target_audience" placeholder="কাদের জন্য এই কোর্স? (যেমন: কর্পোরেট প্রফেশনাল বা নতুন অভিভাবক...)" oninput="syncAll()"></textarea>
+            </div>
+            <div class="input-group">
+                <label>Psychological Pain Point</label>
+                <textarea id="pain_point" placeholder="তারা মানসিকভাবে কোন সমস্যায় ভুগছেন?" oninput="syncAll()"></textarea>
+            </div>
+            <div class="input-group">
+                <label>Core Message</label>
+                <textarea id="core_message" placeholder="আপনার কোর্সের মূল বক্তব্য কী?" oninput="syncAll()"></textarea>
+            </div>
+            <div class="input-group">
+                <label>Meditation Method(s)</label>
+                <textarea id="meditation_methods" placeholder="কোন কোন মেডিটেশন টেকনিক ব্যবহার করা হবে?" oninput="syncAll()"></textarea>
+            </div>
+        </div>
+
+        <!-- DERIVED INPUTS -->
+        <h2 class="section-title">DERIVED INPUTS</h2>
+        <div class="input-card">
+            <div class="input-group">
+                <label>Platform Doctrine</label>
+                <textarea id="platform_doctrine" placeholder="প্ল্যাটফর্ম ডকট্রিন এখানে ইনসার্ট করুন (সাধারণত প্রম্পট ১-এর আউটপুট)" oninput="syncAll()"></textarea>
+            </div>
+            <div class="input-group">
+                <label>Choose One Platform</label>
+                <textarea id="chosen_platform" placeholder="কোন প্ল্যাটফর্মের জন্য কন্টেন্ট বানাচ্ছেন?" oninput="syncAll()"></textarea>
+            </div>
+            <div class="input-group">
+                <label>Platform Content Objective</label>
+                <textarea id="content_objective" placeholder="এই কন্টেন্ট থেকে আপনি কী অর্জন করতে চান?" oninput="syncAll()"></textarea>
+            </div>
+        </div>
+
+        <hr style="margin: 50px 0; border: 0; border-top: 1px solid #ddd;">
+
+        <!-- Prompt 1 -->
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>Prompt 1: Platform Doctrine</h3>
+                    <button class="copy-btn" onclick="copyToClipboard('display1')">কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="display1">Platform Doctrine
+
+The content must adapt to the platform's natural role.
+
+Social media posts create awareness, curiosity, discovery, or intellectual tension around the Core Message.
+
+Newsletters deepen understanding, interpretation, and reflection.
+
+Blogs provide structured explanation, analysis, and clarity.
+
+Solo podcasts explore the Core Message through stories, examples, observations, and reflection.
+
+Community content encourages observation, discussion, shared experience, and practical application.
+
+Courses transform intellectual understanding of the Core Message into direct experience through structured meditation practice, guided progression, and deliberate application.
+
+Books synthesize the Core Message into a broader framework, worldview, and deeper understanding through principles, observations, and reflection, while supporting the learner's journey toward and through the course experience.
+
+Every platform must communicate the same underlying Core Message while serving a different purpose.
+
+All non-course content should naturally guide interested learners toward the course as the primary environment for direct experience and application of the Core Message.</div>
+            </div>
+        </div>
+
+        <!-- Prompt 2 -->
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>Prompt 2: Platform Content Objective Generator</h3>
+                    <button class="copy-btn" onclick="copyToClipboard('display2')">কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="display2">ROLE
+
+You are an expert Content Strategist, Educational Content Architect, and Platform Adaptation Specialist.
+
+PLATFORM DOCTRINE
+
+[Insert Platform Doctrine]
+
+INPUTS
+
+TARGET AUDIENCE
+
+[Insert Target Audience]
+
+PSYCHOLOGICAL PAIN POINT
+
+[Insert Psychological Pain Point]
+
+CORE MESSAGE
+
+[Insert Core Message]
+
+TASK
+
+Generate a Platform Content Objective for each platform below:
+
+1. Social Media Post
+2. Newsletter
+3. Blog
+4. Solo Podcast
+5. Community Content
+6. Course
+7. Book
+
+Each objective must explain:
+
+- What the content should accomplish
+- What shift it should create
+- How it moves the audience one step closer to the Core Message
+
+REQUIREMENTS
+
+- Preserve the Core Message
+- Adapt to the platform's natural role
+- Focus on audience transformation
+- Write each objective as a single concise statement
+- Do not generate content ideas
+- Do not generate content mapping
+- Do not generate content structure
+- Do not generate hooks
+- Do not generate titles
+
+OUTPUT FORMAT
+
+Social Media Post Objective
+
+[Objective]
+
+Newsletter Objective
+
+[Objective]
+
+Blog Objective
+
+[Objective]
+
+Solo Podcast Objective
+
+[Objective]
+
+Community Objective
+
+[Objective]
+
+Course Objective
+
+[Objective]
+
+Book Objective
+
+[Objective]</div>
+            </div>
+        </div>
+
+        <!-- Prompt 3 -->
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>Prompt 3: Platform Content Mapping & Structure Generator</h3>
+                    <button class="copy-btn" onclick="copyToClipboard('display3')">কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="display3">ROLE
+
+You are an expert Content Strategist, Content Architect, Educational Content Designer, and Platform Adaptation Specialist.
+
+PLATFORM DOCTRINE
+
+[Insert Platform Doctrine]
+
+INPUTS
+
+TARGET AUDIENCE
+
+[Insert Target Audience]
+
+PSYCHOLOGICAL PAIN POINT
+
+[Insert Psychological Pain Point]
+
+CORE MESSAGE
+
+[Insert Core Message]
+
+PLATFORM
+
+[Social Media Post / Newsletter / Blog / Solo Podcast / Community Content / Book]
+
+PLATFORM CONTENT OBJECTIVE
+
+[Insert Platform Content Objective]
+
+TASK
+
+Generate:
+
+1. Content Mapping
+2. Content Structure
+
+The mapping and structure must emerge naturally from:
+
+- The Core Message
+- The Platform Content Objective
+- The Platform's natural role
+- The Psychological Pain Point
+
+Do NOT force the content into a predefined framework.
+
+Use only the number of stages and sections genuinely required.
+
+PART 1: CONTENT MAPPING
+
+Create the logical progression that moves the audience from their current state toward the Platform Content Objective.
+
+Format:
+
+Stage
+↓
+Stage
+↓
+Stage
+
+For each stage provide:
+
+- Stage Name
+- Purpose
+
+PART 2: CONTENT STRUCTURE
+
+Convert the mapping into a practical content outline.
+
+For each section provide:
+
+- Section Title
+- Purpose
+- Key Point
+
+OUTPUT REQUIREMENTS
+
+The output must:
+
+- Preserve the Core Message
+- Align with the Platform Doctrine
+- Address the Psychological Pain Point
+- Focus on audience transformation
+- Focus on clarity and progression
+- Fit the selected platform
+
+Do NOT generate:
+
+- Content
+- Hooks
+- Titles
+- CTAs
+
+Generate only:
+
+Content Mapping
+
+Content Structure</div>
+            </div>
+        </div>
+
+        <!-- Prompt 4 -->
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>Prompt 4: Meditation Course Mapping & Structure Generator</h3>
+                    <button class="copy-btn" onclick="copyToClipboard('display4')">কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="display4">ROLE
+
+You are an expert Meditation Course Architect, Instructional Designer, Learning Experience Designer, and Curriculum Strategist.
+
+COURSE DOCTRINE
+
+Courses transform intellectual understanding of the Core Message into direct experience through structured meditation practice, guided progression, and deliberate application.
+
+INPUTS
+
+TARGET AUDIENCE
+
+[Insert Target Audience]
+
+PSYCHOLOGICAL PAIN POINT
+
+[Insert Psychological Pain Point]
+
+CORE MESSAGE
+
+[Insert Core Message]
+
+MEDITATION METHOD(S)
+
+[Insert Meditation Method(s)]
+
+TASK
+
+Design a meditation course that helps learners move from intellectual understanding of the Core Message to direct experience through meditation practice.
+
+Generate:
+
+1. Course Mapping
+2. Course Structure
+
+INSTRUCTIONS
+
+The course must be built around the Core Message.
+
+The Meditation Method(s) are the practical vehicles through which learners experience and apply the Core Message.
+
+The course should help learners:
+
+- Understand the Core Message
+- Experience the Core Message directly
+- Apply the Core Message in daily life
+
+The course structure must emerge naturally from:
+
+- The Core Message
+- The Psychological Pain Point
+- The Meditation Method(s)
+
+Do NOT force the course into a predefined curriculum framework.
+
+Use only the number of stages and modules genuinely required.
+
+A course may contain:
+
+- A single meditation method
+- Multiple meditation methods
+- Guided practices
+- Reflection exercises
+- Observation exercises
+- Real-life application guidance
+
+PART 1: COURSE MAPPING
+
+Create the learning and practice journey.
+
+Format:
+
+Stage
+↓
+Stage
+↓
+Stage
+
+For each stage provide:
+
+- Stage Name
+- Purpose
+- Learning Outcome
+
+The mapping should clearly show how learners move from their current state toward direct experience of the Core Message.
+
+PART 2: COURSE STRUCTURE
+
+Convert the Course Mapping into a structured course outline.
+
+For each module provide:
+
+- Module Title
+- Objective
+- Key Understandings
+- Meditation Practice (if applicable)
+- Reflection or Observation Practice (if applicable)
+
+Organize the modules in the most natural sequence.
+
+The structure should reflect:
+
+- Understanding progression
+- Practice progression
+- Experience progression
+- Transformation progression
+
+OUTPUT REQUIREMENTS
+
+The output must:
+
+- Preserve the Core Message
+- Align with the Meditation Method(s)
+- Address the Psychological Pain Point
+- Focus on direct experience rather than theory
+- Focus on practice rather than information
+- Focus on transformation rather than content volume
+
+Do NOT generate:
+
+- Full lessons
+- Scripts
+- Worksheets
+- Assessments
+- Marketing copy
+
+Generate only:
+
+Course Mapping
+
+Course Structure</div>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="toast">ক্লিপবোর্ডে কপি হয়েছে!</div>
+
+    <script>
+        const originalTemplates = {
+            p2: `ROLE
+
+You are an expert Content Strategist, Educational Content Architect, and Platform Adaptation Specialist.
+
+PLATFORM DOCTRINE
+
+[Insert Platform Doctrine]
+
+INPUTS
+
+TARGET AUDIENCE
+
+[Insert Target Audience]
+
+PSYCHOLOGICAL PAIN POINT
+
+[Insert Psychological Pain Point]
+
+CORE MESSAGE
+
+[Insert Core Message]
+
+TASK
+
+Generate a Platform Content Objective for each platform below:
+
+1. Social Media Post
+2. Newsletter
+3. Blog
+4. Solo Podcast
+5. Community Content
+6. Course
+7. Book
+
+Each objective must explain:
+
+- What the content should accomplish
+- What shift it should create
+- How it moves the audience one step closer to the Core Message
+
+REQUIREMENTS
+
+- Preserve the Core Message
+- Adapt to the platform's natural role
+- Focus on audience transformation
+- Write each objective as a single concise statement
+- Do not generate content ideas
+- Do not generate content mapping
+- Do not generate content structure
+- Do not generate hooks
+- Do not generate titles
+
+OUTPUT FORMAT
+
+Social Media Post Objective
+
+[Objective]
+
+Newsletter Objective
+
+[Objective]
+
+Blog Objective
+
+[Objective]
+
+Solo Podcast Objective
+
+[Objective]
+
+Community Objective
+
+[Objective]
+
+Course Objective
+
+[Objective]
+
+Book Objective
+
+[Objective]`,
+
+            p3: `ROLE
+
+You are an expert Content Strategist, Content Architect, Educational Content Designer, and Platform Adaptation Specialist.
+
+PLATFORM DOCTRINE
+
+[Insert Platform Doctrine]
+
+INPUTS
+
+TARGET AUDIENCE
+
+[Insert Target Audience]
+
+PSYCHOLOGICAL PAIN POINT
+
+[Insert Psychological Pain Point]
+
+CORE MESSAGE
+
+[Insert Core Message]
+
+PLATFORM
+
+[Social Media Post / Newsletter / Blog / Solo Podcast / Community Content / Book]
+
+PLATFORM CONTENT OBJECTIVE
+
+[Insert Platform Content Objective]
+
+TASK
+
+Generate:
+
+1. Content Mapping
+2. Content Structure
+
+The mapping and structure must emerge naturally from:
+
+- The Core Message
+- The Platform Content Objective
+- The Platform's natural role
+- The Psychological Pain Point
+
+Do NOT force the content into a predefined framework.
+
+Use only the number of stages and sections genuinely required.
+
+PART 1: CONTENT MAPPING
+
+Create the logical progression that moves the audience from their current state toward the Platform Content Objective.
+
+Format:
+
+Stage
+↓
+Stage
+↓
+Stage
+
+For each stage provide:
+
+- Stage Name
+- Purpose
+
+PART 2: CONTENT STRUCTURE
+
+Convert the mapping into a practical content outline.
+
+For each section provide:
+
+- Section Title
+- Purpose
+- Key Point
+
+OUTPUT REQUIREMENTS
+
+The output must:
+
+- Preserve the Core Message
+- Align with the Platform Doctrine
+- Address the Psychological Pain Point
+- Focus on audience transformation
+- Focus on clarity and progression
+- Fit the selected platform
+
+Do NOT generate:
+
+- Content
+- Hooks
+- Titles
+- CTAs
+
+Generate only:
+
+Content Mapping
+
+Content Structure`,
+
+            p4: `ROLE
+
+You are an expert Meditation Course Architect, Instructional Designer, Learning Experience Designer, and Curriculum Strategist.
+
+COURSE DOCTRINE
+
+Courses transform intellectual understanding of the Core Message into direct experience through structured meditation practice, guided progression, and deliberate application.
+
+INPUTS
+
+TARGET AUDIENCE
+
+[Insert Target Audience]
+
+PSYCHOLOGICAL PAIN POINT
+
+[Insert Psychological Pain Point]
+
+CORE MESSAGE
+
+[Insert Core Message]
+
+MEDITATION METHOD(S)
+
+[Insert Meditation Method(s)]
+
+TASK
+
+Design a meditation course that helps learners move from intellectual understanding of the Core Message to direct experience through meditation practice.
+
+Generate:
+
+1. Course Mapping
+2. Course Structure
+
+INSTRUCTIONS
+
+The course must be built around the Core Message.
+
+The Meditation Method(s) are the practical vehicles through which learners experience and apply the Core Message.
+
+The course should help learners:
+
+- Understand the Core Message
+- Experience the Core Message directly
+- Apply the Core Message in daily life
+
+The course structure must emerge naturally from:
+
+- The Core Message
+- The Psychological Pain Point
+- The Meditation Method(s)
+
+Do NOT force the course into a predefined curriculum framework.
+
+Use only the number of stages and modules genuinely required.
+
+A course may contain:
+
+- A single meditation method
+- Multiple meditation methods
+- Guided practices
+- Reflection exercises
+- Observation exercises
+- Real-life application guidance
+
+PART 1: COURSE MAPPING
+
+Create the learning and practice journey.
+
+Format:
+
+Stage
+↓
+Stage
+↓
+Stage
+
+For each stage provide:
+
+- Stage Name
+- Purpose
+- Learning Outcome
+
+The mapping should clearly show how learners move from their current state toward direct experience of the Core Message.
+
+PART 2: COURSE STRUCTURE
+
+Convert the Course Mapping into a structured course outline.
+
+For each module provide:
+
+- Module Title
+- Objective
+- Key Understandings
+- Meditation Practice (if applicable)
+- Reflection or Observation Practice (if applicable)
+
+Organize the modules in the most natural sequence.
+
+The structure should reflect:
+
+- Understanding progression
+- Practice progression
+- Experience progression
+- Transformation progression
+
+OUTPUT REQUIREMENTS
+
+The output must:
+
+- Preserve the Core Message
+- Align with the Meditation Method(s)
+- Address the Psychological Pain Point
+- Focus on direct experience rather than theory
+- Focus on practice rather than information
+- Focus on transformation rather than content volume
+
+Do NOT generate:
+
+- Full lessons
+- Scripts
+- Worksheets
+- Assessments
+- Marketing copy
+
+Generate only:
+
+Course Mapping
+
+Course Structure`
+        };
+
+        function syncAll() {
+            const audience = document.getElementById('target_audience').value || '[Insert Target Audience]';
+            const pain = document.getElementById('pain_point').value || '[Insert Psychological Pain Point]';
+            const core = document.getElementById('core_message').value || '[Insert Core Message]';
+            const methods = document.getElementById('meditation_methods').value || '[Insert Meditation Method(s)]';
+            const doctrine = document.getElementById('platform_doctrine').value || '[Insert Platform Doctrine]';
+            const platform = document.getElementById('chosen_platform').value || '[Social Media Post / Newsletter / Blog / Solo Podcast / Community Content / Book]';
+            const objective = document.getElementById('content_objective').value || '[Insert Platform Content Objective]';
+
+            // Update P2
+            document.getElementById('display2').innerText = originalTemplates.p2
+                .replace('[Insert Platform Doctrine]', doctrine)
+                .replace('[Insert Target Audience]', audience)
+                .replace('[Insert Psychological Pain Point]', pain)
+                .replace('[Insert Core Message]', core);
+
+            // Update P3
+            document.getElementById('display3').innerText = originalTemplates.p3
+                .replace('[Insert Platform Doctrine]', doctrine)
+                .replace('[Insert Target Audience]', audience)
+                .replace('[Insert Psychological Pain Point]', pain)
+                .replace('[Insert Core Message]', core)
+                .replace('[Social Media Post / Newsletter / Blog / Solo Podcast / Community Content / Book]', platform)
+                .replace('[Insert Platform Content Objective]', objective);
+
+            // Update P4
+            document.getElementById('display4').innerText = originalTemplates.p4
+                .replace('[Insert Target Audience]', audience)
+                .replace('[Insert Psychological Pain Point]', pain)
+                .replace('[Insert Core Message]', core)
+                .replace('[Insert Meditation Method(s)]', methods);
+        }
+
+        function copyToClipboard(id) {
+            const text = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
