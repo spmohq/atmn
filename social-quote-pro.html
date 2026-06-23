@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Quote Image Prompt Genie - শিব প্রসাদ মুখোপাধ্যায়ের পক্ষ থেকে</title>
+    <style>
+        /* ডিজাইন ও থিম */
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #e67e22;
+            --bg-color: #f7f9fc;
+            --card-bg: #ffffff;
+            --text-color: #34495e;
+            --border-radius: 12px;
+            --shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            padding-bottom: 60px;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* হেডার সেকশন */
+        header {
+            padding: 50px 0 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+            font-weight: 800;
+        }
+
+        header h2 {
+            font-size: 1.1rem;
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .intro-text {
+            background: #fff;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+            border-left: 6px solid var(--accent-color);
+            font-size: 1.1rem;
+        }
+
+        /* ইনপুট সেকশন */
+        .input-section {
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            color: var(--primary-color);
+        }
+
+        textarea {
+            width: 100%;
+            padding: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1.05rem;
+            resize: vertical;
+            min-height: 150px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 10px rgba(230, 126, 34, 0.15);
+        }
+
+        /* প্রম্পট বক্স সেকশন */
+        .prompt-wrapper {
+            margin-bottom: 40px;
+        }
+
+        .prompt-box {
+            background: #fff;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid #e1e8ed;
+        }
+
+        .prompt-header {
+            background: var(--primary-color);
+            color: #fff;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prompt-header h3 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin: 0;
+        }
+
+        .prompt-content {
+            padding: 25px;
+            background: #fafafa;
+            color: #2c3e50;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.95rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-top: 1px solid #eee;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .copy-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: #d35400;
+        }
+
+        /* টোস্ট নোটিফিকেশন */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        /* মোবাইল অ্যাডজাস্টমেন্ট */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            .container { width: 94%; }
+            .prompt-content { font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Social Quote Image Prompt Genie</h1>
+            <h2>by Siva Prasad Mukherjee</h2>
+            <div class="intro-text">
+                নমস্কার! আপনি কি আপনার সোশ্যাল মিডিয়া পোস্টের জন্য অসাধারণ কোনো কোট বা ইমেজ তৈরি করতে চাইছেন? নিচের বক্সে আপনার পছন্দের কোট বা ছবির বিষয়টি লিখুন। আমাদের এই সিস্টেমটি স্বয়ংক্রিয়ভাবে আপনার জন্য একটি শক্তিশালী এ আই প্রম্পট তৈরি করে দেবে, যা ব্যবহার করে আপনি অসাধারণ সব ছবি তৈরি করতে পারবেন।
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <!-- ইনপুট সেকশন -->
+        <div class="input-section">
+            <label for="promptInput">আপনার কোট বা ইমেজ রিকোয়েস্টটি এখানে লিখুন:</label>
+            <textarea id="promptInput" placeholder="যেমন: 'সাফল্যের কোনো শর্টকাট নেই'..." oninput="syncPrompt()"></textarea>
+        </div>
+
+        <hr style="margin: 40px 0; border: 0; border-top: 1px solid #ddd;">
+
+        <!-- প্রম্পট ডিসপ্লে সেকশন -->
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>Generated Master Prompt</h3>
+                    <button class="copy-btn" onclick="copyToClipboard()">প্রম্পট কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="promptDisplay">I would like to create an image-generation prompt for this image request: [INPUT]. 
+Generate one elite-level, jaw-dropping image-generation prompt that I can paste into ChatGPT to create the finished image. Do not create the image. Do not give explanations, options, notes, or commentary. Return only the finished image-generation prompt in one all-in-one paragraph form with no bullet points, no numbered list, no section headers, no line breaks, and no separate blocks of text. The prompt you create must begin with "Act as" and assign exactly two highly relevant expert personas chosen specifically for this image request, with one persona responsible for elite visual/art direction and the other responsible for the specialized execution style required for the request, such as social media design, Bengali typography design, editorial design, advertising design, cinematic photography, product mockup design, packaging design, branding, infographic design, poster design, or another relevant visual discipline. Before selecting the personas, first analyze the image request to identify the dominant visual objective, primary subject, intended platform, emotional goal, cultural context, and most important design element. Then choose the two most suitable expert personas for achieving the strongest possible result. After the two personas, clearly instruct ChatGPT to create one polished finished image based on the user's request. The generated prompt must define a powerful and intentional creative direction, visual concept, composition, focal hierarchy, color world, mood, atmosphere, lighting, depth, styling, framing, background treatment, level of detail, texture quality, typography treatment where applicable, and overall finish. When visible text, a quote, a title, a slogan, a brand name, or any wording is provided, instruct ChatGPT to preserve the wording exactly, spell it perfectly, maintain complete script integrity, and render it ultra-crisp, highly legible, beautifully integrated, and visually dominant when appropriate. If the text is written in Bengali, prioritize authentic Indian Bengali language usage and script accuracy, preserve all Bengali characters perfectly, avoid distorted glyphs, broken conjunct letters, incorrect spellings, malformed typography, or unreadable decorative styling, and never introduce Bangladeshi language variants, spellings, or wording unless explicitly requested. For Bengali-language images, typography quality is more important than decorative complexity. Prioritize clarity, elegance, readability, script integrity, and visual hierarchy over excessive artistic effects. Ensure the most important element in the request remains the dominant focal point and receives the strongest visual hierarchy. If visible text is present, build the composition around the text first and allow supporting visuals to enhance rather than compete with it. Optimize the image specifically for the intended platform and viewing environment, including mobile-first readability when relevant. If the request contains cultural, linguistic, regional, or community-specific elements, incorporate authentic visual cues with sophistication and restraint while avoiding stereotypes and visual clichés. Before constructing the final prompt, intentionally seek the most unexpected yet appropriate creative direction for the request. Avoid relying on the most obvious visual solution unless it is genuinely the strongest choice. For every execution, generate a fresh and distinct creative interpretation while preserving the meaning, emotional intent, usability, and communication goal of the original request. Treat every execution as an opportunity to explore a new creative territory. Even when the input is similar to common greeting, quote, or wish messages, actively avoid predictable visual solutions and seek a distinctly different creative approach from the most likely interpretation. Prioritize novelty. Rotate among typography-led, editorial, cinematic, conceptual, symbolic, minimalist, luxury lifestyle, architectural, artistic, nature-driven, cultural, and emotionally narrative visual directions. The final image must feel like it belongs to a completely different creative campaign than a typical execution of the same request. When the request represents a greeting, wish, daypart message, seasonal message, or emotional greeting such as Good Morning, Good Evening, Good Night, শুভ সকাল, শুভ সন্ধ্যা, শুভ রাত্রি, or similar expressions, focus primarily on the emotional experience, symbolism, mood, and human feeling behind the message rather than relying on literal representations of the time of day. Explore poetic, conceptual, editorial, artistic, architectural, cultural, luxury, atmospheric, or emotionally narrative interpretations whenever appropriate. Push for an absolutely stunning, premium, scroll-stopping, emotionally memorable, visually unforgettable result that feels custom-crafted rather than template-generated. Include intelligent constraints that prevent generic AI aesthetics, repetitive concepts, stock-photo energy, predictable compositions, weak visual storytelling, clutter, excessive decorative elements, poor spacing, low contrast, muddy colors, awkward proportions, distorted anatomy, malformed objects, unreadable typography, cheap effects, visual noise, lifeless backgrounds, or anything that feels low-effort, mass-produced, or visually ordinary. The final generated image prompt should be strong enough to produce an exceptional first-attempt result without requiring clarification, iteration, or follow-up.</div>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="toast">ক্লিপবোর্ডে কপি হয়েছে!</div>
+
+    <script>
+        // প্রম্পট টেমপ্লেট
+        const originalPrompt = `I would like to create an image-generation prompt for this image request: [INPUT]. 
+Generate one elite-level, jaw-dropping image-generation prompt that I can paste into ChatGPT to create the finished image. Do not create the image. Do not give explanations, options, notes, or commentary. Return only the finished image-generation prompt in one all-in-one paragraph form with no bullet points, no numbered list, no section headers, no line breaks, and no separate blocks of text. The prompt you create must begin with "Act as" and assign exactly two highly relevant expert personas chosen specifically for this image request, with one persona responsible for elite visual/art direction and the other responsible for the specialized execution style required for the request, such as social media design, Bengali typography design, editorial design, advertising design, cinematic photography, product mockup design, packaging design, branding, infographic design, poster design, or another relevant visual discipline. Before selecting the personas, first analyze the image request to identify the dominant visual objective, primary subject, intended platform, emotional goal, cultural context, and most important design element. Then choose the two most suitable expert personas for achieving the strongest possible result. After the two personas, clearly instruct ChatGPT to create one polished finished image based on the user's request. The generated prompt must define a powerful and intentional creative direction, visual concept, composition, focal hierarchy, color world, mood, atmosphere, lighting, depth, styling, framing, background treatment, level of detail, texture quality, typography treatment where applicable, and overall finish. When visible text, a quote, a title, a slogan, a brand name, or any wording is provided, instruct ChatGPT to preserve the wording exactly, spell it perfectly, maintain complete script integrity, and render it ultra-crisp, highly legible, beautifully integrated, and visually dominant when appropriate. If the text is written in Bengali, prioritize authentic Indian Bengali language usage and script accuracy, preserve all Bengali characters perfectly, avoid distorted glyphs, broken conjunct letters, incorrect spellings, malformed typography, or unreadable decorative styling, and never introduce Bangladeshi language variants, spellings, or wording unless explicitly requested. For Bengali-language images, typography quality is more important than decorative complexity. Prioritize clarity, elegance, readability, script integrity, and visual hierarchy over excessive artistic effects. Ensure the most important element in the request remains the dominant focal point and receives the strongest visual hierarchy. If visible text is present, build the composition around the text first and allow supporting visuals to enhance rather than compete with it. Optimize the image specifically for the intended platform and viewing environment, including mobile-first readability when relevant. If the request contains cultural, linguistic, regional, or community-specific elements, incorporate authentic visual cues with sophistication and restraint while avoiding stereotypes and visual clichés. Before constructing the final prompt, intentionally seek the most unexpected yet appropriate creative direction for the request. Avoid relying on the most obvious visual solution unless it is genuinely the strongest choice. For every execution, generate a fresh and distinct creative interpretation while preserving the meaning, emotional intent, usability, and communication goal of the original request. Treat every execution as an opportunity to explore a new creative territory. Even when the input is similar to common greeting, quote, or wish messages, actively avoid predictable visual solutions and seek a distinctly different creative approach from the most likely interpretation. Prioritize novelty. Rotate among typography-led, editorial, cinematic, conceptual, symbolic, minimalist, luxury lifestyle, architectural, artistic, nature-driven, cultural, and emotionally narrative visual directions. The final image must feel like it belongs to a completely different creative campaign than a typical execution of the same request. When the request represents a greeting, wish, daypart message, seasonal message, or emotional greeting such as Good Morning, Good Evening, Good Night, শুভ সকাল, শুভ সন্ধ্যা, শুভ রাত্রি, or similar expressions, focus primarily on the emotional experience, symbolism, mood, and human feeling behind the message rather than relying on literal representations of the time of day. Explore poetic, conceptual, editorial, artistic, architectural, cultural, luxury, atmospheric, or emotionally narrative interpretations whenever appropriate. Push for an absolutely stunning, premium, scroll-stopping, emotionally memorable, visually unforgettable result that feels custom-crafted rather than template-generated. Include intelligent constraints that prevent generic AI aesthetics, repetitive concepts, stock-photo energy, predictable compositions, weak visual storytelling, clutter, excessive decorative elements, poor spacing, low contrast, muddy colors, awkward proportions, distorted anatomy, malformed objects, unreadable typography, cheap effects, visual noise, lifeless backgrounds, or anything that feels low-effort, mass-produced, or visually ordinary. The final generated image prompt should be strong enough to produce an exceptional first-attempt result without requiring clarification, iteration, or follow-up.`;
+
+        // লাইভ ইনপুট সিঙ্ক্রোনাইজেশন
+        function syncPrompt() {
+            const inputVal = document.getElementById('promptInput').value;
+            const display = document.getElementById('promptDisplay');
+            
+            if (inputVal.trim() === "") {
+                display.innerText = originalPrompt;
+            } else {
+                display.innerText = originalPrompt.replace('[INPUT]', inputVal);
+            }
+        }
+
+        // কপি টু ক্লিপবোর্ড ফাংশন
+        function copyToClipboard() {
+            const text = document.getElementById('promptDisplay').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

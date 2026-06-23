@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Genie - আপনার কন্টেন্ট প্রম্পট জেনারেটর</title>
+    <style>
+        /* ডিজাইন ও লেআউট */
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #334155;
+            --border-radius: 12px;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            padding-bottom: 60px;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        /* হেডার সেকশন */
+        header {
+            padding: 50px 0 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .intro-text {
+            background: #fff;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+            border-left: 6px solid var(--accent-color);
+            font-size: 1.1rem;
+            color: #475569;
+        }
+
+        /* ইনপুট ফিল্ড এরিয়া */
+        .input-grid {
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 50px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group.full-width {
+            grid-column: span 2;
+        }
+
+        label {
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+            font-size: 0.95rem;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 60px;
+            transition: all 0.3s ease;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+            background-color: #fcfcfc;
+        }
+
+        /* প্রম্পট ডিসপ্লে এরিয়া */
+        .prompt-card {
+            background: #fff;
+            margin-bottom: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+
+        .prompt-header {
+            background: var(--primary-color);
+            color: #fff;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prompt-header h3 {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .prompt-content {
+            padding: 25px;
+            background: #fafafa;
+            color: #1e293b;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 1rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-top: 1px solid #eee;
+            min-height: 200px;
+        }
+
+        .copy-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: #2980b9;
+        }
+
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #334155;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 30px;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        /* মোবাইল অ্যাডজাস্টমেন্ট */
+        @media (max-width: 768px) {
+            .input-grid { grid-template-columns: 1fr; }
+            .input-group.full-width { grid-column: span 1; }
+            header h1 { font-size: 2rem; }
+            .container { width: 94%; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Input Genie</h1>
+            <div class="intro-text">
+                নমস্কার! আপনার ইমেজের ধরণ এবং মেজাজ অনুযায়ী সঠিক প্রম্পট তৈরি করা এখন সময়ের ব্যাপার মাত্র। নিচের ঘরগুলোতে আপনার পছন্দমতো তথ্যগুলো দিন, আর দেখুন কীভাবে আপনার জন্য একটি গোছানো প্রম্পট তৈরি হয়ে যাচ্ছে। কাজ শেষ হলে জাস্ট 'কপি' করে আপনার পছন্দের এ আই টুলে ব্যবহার করুন।
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <!-- ইনপুট ফিল্ড সেকশন -->
+        <div class="input-grid">
+            <div class="input-group">
+                <label>Image Type</label>
+                <textarea id="imgType" placeholder="যেমন: Facebook Quote Image / Facebook Post..." oninput="updatePrompt()"></textarea>
+            </div>
+            <div class="input-group">
+                <label>Aspect Ratio</label>
+                <textarea id="aspectRatio" placeholder="যেমন: 1:1 / 4:5 / 16:9..." oninput="updatePrompt()"></textarea>
+            </div>
+            <div class="input-group full-width">
+                <label>Text</label>
+                <textarea id="bengaliText" placeholder="এখানে আপনার বাংলা টেক্সট লিখুন..." oninput="updatePrompt()"></textarea>
+            </div>
+            <div class="input-group">
+                <label>Emotion</label>
+                <textarea id="emotion" placeholder="যেমন: Peaceful / Reflective / Inspirational..." oninput="updatePrompt()"></textarea>
+            </div>
+            <div class="input-group">
+                <label>Visual Direction</label>
+                <textarea id="visualDir" placeholder="AI-এর ওপর ছেড়ে দিতে চাইলে ফাঁকা রাখুন..." oninput="updatePrompt()"></textarea>
+            </div>
+            <div class="input-group">
+                <label>Avoid</label>
+                <textarea id="avoidText" placeholder="যা যা ইমেজে দেখতে চান না (অপশনাল)..." oninput="updatePrompt()"></textarea>
+            </div>
+            <div class="input-group">
+                <label>Brand</label>
+                <textarea id="brandText" placeholder="ব্র্যান্ডের নাম বা লোগোর তথ্য (অপশনাল)..." oninput="updatePrompt()"></textarea>
+            </div>
+        </div>
+
+        <!-- জেনারেটেড প্রম্পট সেকশন -->
+        <div class="prompt-card">
+            <div class="prompt-header">
+                <h3>Final Prompt</h3>
+                <button class="copy-btn" onclick="copyPrompt()">প্রম্পট কপি করুন</button>
+            </div>
+            <div class="prompt-content" id="finalPrompt">Image Type:
+[Facebook Quote Image / Facebook Post / Instagram Post / Poster]
+
+Aspect Ratio:
+[1:1 / 4:5 / 16:9]
+
+Text:
+"[Insert Bengali Text Here]"
+
+Emotion:
+[Peaceful / Reflective / Inspirational / Hopeful / Thoughtful / Powerful / Elegant / Joyful]
+
+Visual Direction:
+[Leave Blank for AI Creativity or Specify]
+
+Avoid:
+[Optional]
+
+Brand:
+[Optional]</div>
+        </div>
+
+    </main>
+
+    <div id="toast">ক্লিপবোর্ডে কপি হয়েছে!</div>
+
+    <script>
+        function updatePrompt() {
+            const imgType = document.getElementById('imgType').value || '[Facebook Quote Image / Facebook Post / Instagram Post / Poster]';
+            const aspect = document.getElementById('aspectRatio').value || '[1:1 / 4:5 / 16:9]';
+            const text = document.getElementById('bengaliText').value || '[Insert Bengali Text Here]';
+            const emotion = document.getElementById('emotion').value || '[Peaceful / Reflective / Inspirational / Hopeful / Thoughtful / Powerful / Elegant / Joyful]';
+            const visual = document.getElementById('visualDir').value || '[Leave Blank for AI Creativity or Specify]';
+            const avoid = document.getElementById('avoidText').value || '[Optional]';
+            const brand = document.getElementById('brandText').value || '[Optional]';
+
+            const fullPrompt = `Image Type:
+${imgType}
+
+Aspect Ratio:
+${aspect}
+
+Text:
+"${text}"
+
+Emotion:
+${emotion}
+
+Visual Direction:
+${visual}
+
+Avoid:
+${avoid}
+
+Brand:
+${brand}`;
+
+            document.getElementById('finalPrompt').innerText = fullPrompt;
+        }
+
+        function copyPrompt() {
+            const text = document.getElementById('finalPrompt').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
