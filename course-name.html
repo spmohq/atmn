@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Name & Description Generator</title>
+    <style>
+        /* Modern Design System */
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #e67e22;
+            --bg-color: #f7f9fc;
+            --card-bg: #ffffff;
+            --text-color: #34495e;
+            --border-radius: 12px;
+            --shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-bottom: 50px;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Header Styling */
+        header {
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .welcome-box {
+            background: #fff;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+            border-left: 6px solid var(--accent-color);
+            font-size: 1.1rem;
+        }
+
+        /* Form Styling */
+        .input-grid {
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .full-width {
+            grid-column: span 2;
+        }
+
+        label {
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d8e0;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.1);
+        }
+
+        /* Prompt Display Area */
+        .prompt-card {
+            background: #fff;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid #e1e8ed;
+        }
+
+        .prompt-header {
+            background: var(--primary-color);
+            color: #fff;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prompt-header h3 {
+            font-size: 1rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .prompt-content {
+            padding: 25px;
+            background: #2d3436;
+            color: #dfe6e9;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.95rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            min-height: 300px;
+            line-height: 1.5;
+        }
+
+        .copy-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: background 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: #d35400;
+        }
+
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            display: none;
+            z-index: 1000;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .input-grid {
+                grid-template-columns: 1fr;
+            }
+            .full-width {
+                grid-column: span 1;
+            }
+            header h1 {
+                font-size: 1.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Click Enticing Course Name & Unique Course Description</h1>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="welcome-box">
+            আপনি কি আপনার ডিজিটাল কোর্সের জন্য এমন নাম এবং বর্ণনা চান যা সেলস কয়েক গুণ বাড়িয়ে দেবে? নিচের তথ্যগুলো পূরণ করুন। প্রম্পটটি অটোমেটিক আপডেট হবে। কাজ শেষ হলে সেটি কপি করে ChatGPT-তে দিন এবং চমৎকার সব আইডিয়া পান।
+        </div>
+
+        <!-- Input Fields -->
+        <div class="input-grid">
+            <div class="input-group">
+                <label>Course Topic</label>
+                <textarea id="topic" placeholder="যেমন: Digital Marketing, Cooking, Excel..."></textarea>
+            </div>
+            <div class="input-group">
+                <label>Target Audience</label>
+                <textarea id="audience" placeholder="যেমন: Students, Small Business Owners..."></textarea>
+            </div>
+            <div class="input-group">
+                <label>Current Skill Level</label>
+                <select id="skill">
+                    <option value="Beginner">Beginner</option>
+                    <option value="Intermediate">Intermediate</option>
+                    <option value="Advanced">Advanced</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Primary Transformation</label>
+                <textarea id="transformation" placeholder="কোর্স শেষে তারা কী অর্জন করবে?"></textarea>
+            </div>
+            <div class="input-group">
+                <label>Biggest Pain Point</label>
+                <textarea id="pain" placeholder="তাদের প্রধান সমস্যা কী?"></textarea>
+            </div>
+            <div class="input-group">
+                <label>Biggest Desire</label>
+                <textarea id="desire" placeholder="তাদের চূড়ান্ত লক্ষ্য কী?"></textarea>
+            </div>
+            <div class="input-group">
+                <label>Unique Method (Optional)</label>
+                <textarea id="framework" placeholder="আপনার কোনো বিশেষ মেথড থাকলে লিখুন"></textarea>
+            </div>
+            <div class="input-group">
+                <label>Brand Personality</label>
+                <select id="personality">
+                    <option value="Luxury">Luxury</option>
+                    <option value="Friendly">Friendly</option>
+                    <option value="Premium">Premium</option>
+                    <option value="Scientific">Scientific</option>
+                    <option value="Minimalist">Minimalist</option>
+                    <option value="Bold">Bold</option>
+                    <option value="Modern">Modern</option>
+                    <option value="Traditional">Traditional</option>
+                </select>
+            </div>
+            <div class="input-group full-width">
+                <label>Language</label>
+                <textarea id="language" placeholder="যেমন: Bengali, English..."></textarea>
+            </div>
+        </div>
+
+        <!-- Resulting Prompt -->
+        <div class="prompt-card">
+            <div class="prompt-header">
+                <h3>Final Master Prompt</h3>
+                <button class="copy-btn" onclick="copyPrompt()">প্রম্পট কপি করুন</button>
+            </div>
+            <div class="prompt-content" id="masterPrompt"></div>
+        </div>
+    </main>
+
+    <div id="toast">ক্লিপবোর্ডে কপি হয়েছে!</div>
+
+    <script>
+        const inputs = ['topic', 'audience', 'skill', 'transformation', 'pain', 'desire', 'framework', 'personality', 'language'];
+
+        function updatePrompt() {
+            const data = {};
+            inputs.forEach(id => {
+                data[id] = document.getElementById(id).value || `[INSERT ${id.toUpperCase()}]`;
+            });
+
+            const promptText = `ROLE
+
+You are a world-class Brand Strategist, Direct Response Copywriter, Product Positioning Expert, and Consumer Psychologist.
+
+Your job is to create irresistible course names and unique course descriptions that instantly capture attention, communicate transformation, and increase click-through and purchase intent.
+
+Do NOT generate generic or cliché course names.
+
+Every output should feel like a premium product with a clear market position.
+
+---
+
+INPUT
+
+Course Topic:
+${data.topic}
+
+Target Audience:
+${data.audience}
+
+Current Skill Level:
+${data.skill}
+
+Primary Transformation:
+${data.transformation}
+
+Biggest Pain Point:
+${data.pain}
+
+Biggest Desire:
+${data.desire}
+
+Unique Method or Framework (Optional):
+${data.framework}
+
+Brand Personality:
+${data.personality}
+
+Language:
+${data.language}
+
+---
+
+OBJECTIVE
+
+Generate course names that make people immediately think:
+
+"I need to know what this is."
+
+NOT
+
+"Oh...another course."
+
+The names should maximize curiosity while remaining relevant and believable.
+
+---
+
+COURSE NAME PRINCIPLES
+
+Every name should satisfy most of these:
+
+• Short
+• Memorable
+• Easy to pronounce
+• Premium sounding
+• Curiosity inducing
+• Benefit-focused
+• Emotionally attractive
+• Different from common course names
+• Not keyword stuffed
+• Avoid clichés like:
+  - Ultimate
+  - Complete
+  - Masterclass
+  - A-Z
+  - Crash Course
+  - Bootcamp
+  - Beginner Guide
+unless genuinely superior.
+
+Whenever possible, use naming styles like:
+
+• Framework Names
+• System Names
+• Blueprint Names
+• Formula Names
+• Method Names
+• Engine Names
+• Compass
+• Playbook
+• Protocol
+• Matrix
+• OS
+• Accelerator
+• Code
+• Lab
+• Studio
+• Shift
+• Catalyst
+• Navigator
+• Vault
+• Path
+• Sprint
+• Forge
+
+Mix literal and metaphorical naming creatively.
+
+---
+
+COURSE DESCRIPTION PRINCIPLES
+
+Do NOT simply describe the course.
+
+Sell the transformation.
+
+Structure:
+
+1.
+One powerful hook.
+
+2.
+The student's current struggle.
+
+3.
+Why traditional solutions fail.
+
+4.
+What makes this course different.
+
+5.
+The transformation.
+
+6.
+Who this is for.
+
+7.
+One memorable closing statement.
+
+Keep it emotionally compelling while remaining believable.
+
+Length:
+150–250 words.
+
+---
+
+OUTPUT FORMAT
+
+#OPTION 1
+
+##Course Name
+
+...
+
+##Tagline
+
+...
+
+##Description
+
+...
+
+##Why It Works
+
+...
+
+---
+
+#OPTION 2
+
+...
+
+(Generate 10 completely different options.)
+
+Each option must have:
+
+• Different naming style
+• Different positioning angle
+• Different emotional trigger
+
+Examples of emotional triggers:
+
+• Freedom
+• Confidence
+• Clarity
+• Speed
+• Simplicity
+• Authority
+• Independence
+• Curiosity
+• Identity
+• Achievement
+• Financial growth
+• Creativity
+• Peace of mind
+
+---
+
+QUALITY CHECK
+
+Before finalizing, verify:
+
+✓ Sounds premium
+✓ Sparks curiosity
+✓ Communicates transformation
+✓ Easy to remember
+✓ Easy to say aloud
+✓ Not generic
+✓ Not cliché
+✓ Fits the audience
+✓ Description sells the outcome, not just the content
+✓ Every option feels unique from the others
+
+If any option fails these checks, improve it before returning the final answer.`;
+
+            document.getElementById('masterPrompt').textContent = promptText;
+        }
+
+        // Add event listeners to all inputs
+        inputs.forEach(id => {
+            document.getElementById(id).addEventListener('input', updatePrompt);
+        });
+
+        // Initialize
+        updatePrompt();
+
+        function copyPrompt() {
+            const text = document.getElementById('masterPrompt').textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
