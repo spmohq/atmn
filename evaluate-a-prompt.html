@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluate A Prompt - আপনার প্রম্পট ঝালিয়ে নিন</title>
+    <style>
+        /* Modern Design System */
+        :root {
+            --primary-color: #1e293b;
+            --accent-color: #6366f1;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #334155;
+            --border-radius: 12px;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            padding-bottom: 60px;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Header Area */
+        header {
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.4rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .welcome-card {
+            background: #fff;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+            border-left: 6px solid var(--accent-color);
+        }
+
+        .welcome-card p {
+            font-size: 1.1rem;
+            color: #475569;
+            margin-bottom: 0;
+        }
+
+        /* Input Section */
+        .input-section {
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            color: var(--primary-color);
+        }
+
+        textarea {
+            width: 100%;
+            padding: 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1.05rem;
+            resize: vertical;
+            min-height: 150px;
+            transition: all 0.3s ease;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+            background-color: #fcfcfc;
+        }
+
+        /* Prompt Display Box */
+        .prompt-wrapper {
+            margin-bottom: 40px;
+        }
+
+        .prompt-box {
+            background: #fff;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+
+        .prompt-header {
+            background: var(--primary-color);
+            color: #fff;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prompt-header h3 {
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .prompt-content {
+            padding: 25px;
+            background: #fafafa;
+            color: #1e293b;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 1rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-top: 1px solid #eee;
+            line-height: 1.6;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .copy-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #4f46e5;
+        }
+
+        .copy-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Footer Message */
+        .footer-note {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+
+        /* Toast Notification */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e293b;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 30px;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Mobile Friendliness */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.9rem; }
+            .container { width: 94%; }
+            .prompt-content { font-size: 0.95rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Evaluate A Prompt</h1>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <div class="welcome-card">
+            <p>আপনার প্রম্পটটি কি এআই-কে ভুল পথে চালিত করতে পারে? এর মধ্যে কি কোনো অস্পষ্টতা রয়ে গেছে? চলুন, একজন বিশেষজ্ঞের মতো করে আপনার প্রম্পটটি রিভিউ করে নেওয়া যাক। নিচের বক্সে আপনার প্রম্পটটি দিন, আর নিচের মাস্টার-প্রম্পটটি অটোমেটিক আপডেট হয়ে যাবে। কাজ শেষ হলে সেটি কপি করে আপনার এআই অ্যাসিস্ট্যান্টের সাথে ব্যবহার করুন।</p>
+        </div>
+
+        <div class="input-section">
+            <label for="promptInput">আপনার প্রম্পটটি এখানে লিখুন:</label>
+            <textarea id="promptInput" placeholder="এখানে প্রম্পটটি পেস্ট করুন..." oninput="syncPrompt()"></textarea>
+        </div>
+
+        <hr style="margin: 40px 0; border: 0; border-top: 1px solid #ddd;">
+
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>Review Master Prompt</h3>
+                    <button class="copy-btn" onclick="copyPrompt()">কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="finalPrompt">নিচের প্রম্পটটি পর্যালোচনা করে এর দুর্বলতা, অস্পষ্টতা, লুকিয়ে থাকা অনুমান (hidden assumptions), এবং যেসব গুরুত্বপূর্ণ দিক এখনও বিবেচনায় আসেনি, সেগুলো চিহ্নিত করুন।
+
+বিশ্লেষণের সময় বিশেষভাবে লক্ষ্য করুন—
+
+* কোথায় প্রম্পটটি AI-কে ভুল ব্যাখ্যার সুযোগ দিচ্ছে।
+* কোথায় নির্দেশনা পরস্পরের সঙ্গে সংঘর্ষ (conflict) তৈরি করতে পারে।
+* কোন গুরুত্বপূর্ণ তথ্য অনুপস্থিত, যার কারণে আউটপুটের মান বা ধারাবাহিকতা কমে যেতে পারে।
+* Target Audience সম্পর্কে আর কী কী তথ্য যোগ করলে আরও কার্যকর ফল পাওয়া যাবে।
+* Content Design, Learning Experience, Skill Building, Mobile-First ব্যবহার, এবং Beginner Psychology–এ সবগুলোর যেটা যেটা প্রাসঙ্গিক সেসবগুলোর দৃষ্টিকোণ থেকে কী কী বিষয় এখনও বাদ পড়ে আছে।
+* এমন কোনো লুকানো ঝুঁকি (hidden risks), সীমাবদ্ধতা (limitations), বা edge cases আছে কি না, যা এখনই সমাধান করা উচিত।
+* Content-র Core Message তৈরি করার আগে, এইক্ষেত্রে প্রাসঙ্গিক হলে, কোন মৌলিক সিদ্ধান্ত বা নীতিগুলো স্পষ্টভাবে নির্ধারণ করা প্রয়োজন।
+* প্রম্পটটিকে আরও নির্ভুল, পুনর্ব্যবহারযোগ্য (reusable), এবং ভবিষ্যতে বড় কোর্স তৈরির জন্য স্কেলযোগ্য (scalable) করতে কী কী পরিবর্তন করা উচিত।
+
+শুধু স্পষ্ট ভুল নয়, বরং যেসব বিষয় সাধারণত চোখ এড়িয়ে যায় কিন্তু ভবিষ্যতে বড় সমস্যা তৈরি করতে পারে, সেগুলোকেও অগ্রাধিকার দিয়ে বিশ্লেষণ করুন।
+
+প্রয়োজনে প্রতিটি সমস্যার সঙ্গে সংক্ষেপে ব্যাখ্যা এবং উন্নয়নের জন্য নির্দিষ্ট পরামর্শও দিন।
+
+PROMPT
+
+[Insert Your Prompt Here]</div>
+            </div>
+        </div>
+
+        <div class="footer-note">
+            <p>আপনার কাজের মানকে আরও এক ধাপ এগিয়ে নিয়ে যাওয়ার জন্য শুভকামনা রইল।</p>
+        </div>
+
+    </main>
+
+    <div id="toast">প্রম্পটটি ক্লিপবোর্ডে কপি হয়েছে!</div>
+
+    <script>
+        const originalTemplate = `নিচের প্রম্পটটি পর্যালোচনা করে এর দুর্বলতা, অস্পষ্টতা, লুকিয়ে থাকা অনুমান (hidden assumptions), এবং যেসব গুরুত্বপূর্ণ দিক এখনও বিবেচনায় আসেনি, সেগুলো চিহ্নিত করুন।
+
+বিশ্লেষণের সময় বিশেষভাবে লক্ষ্য করুন—
+
+* কোথায় প্রম্পটটি AI-কে ভুল ব্যাখ্যার সুযোগ দিচ্ছে।
+* কোথায় নির্দেশনা পরস্পরের সঙ্গে সংঘর্ষ (conflict) তৈরি করতে পারে।
+* কোন গুরুত্বপূর্ণ তথ্য অনুপস্থিত, যার কারণে আউটপুটের মান বা ধারাবাহিকতা কমে যেতে পারে।
+* Target Audience সম্পর্কে আর কী কী তথ্য যোগ করলে আরও কার্যকর ফল পাওয়া যাবে।
+* Content Design, Learning Experience, Skill Building, Mobile-First ব্যবহার, এবং Beginner Psychology–এ সবগুলোর যেটা যেটা প্রাসঙ্গিক সেসবগুলোর দৃষ্টিকোণ থেকে কী কী বিষয় এখনও বাদ পড়ে আছে।
+* এমন কোনো লুকানো ঝুঁকি (hidden risks), সীমাবদ্ধতা (limitations), বা edge cases আছে কি না, যা এখনই সমাধান করা উচিত।
+* Content-র Core Message তৈরি করার আগে, এইক্ষেত্রে প্রাসঙ্গিক হলে, কোন মৌলিক সিদ্ধান্ত বা নীতিগুলো স্পষ্টভাবে নির্ধারণ করা প্রয়োজন।
+* প্রম্পটটিকে আরও নির্ভুল, পুনর্ব্যবহারযোগ্য (reusable), এবং ভবিষ্যতে বড় কোর্স তৈরির জন্য স্কেলযোগ্য (scalable) করতে কী কী পরিবর্তন করা উচিত।
+
+শুধু স্পষ্ট ভুল নয়, বরং যেসব বিষয় সাধারণত চোখ এড়িয়ে যায় কিন্তু ভবিষ্যতে বড় সমস্যা তৈরি করতে পারে, সেগুলোকেও অগ্রাধিকার দিয়ে বিশ্লেষণ করুন।
+
+প্রয়োজনে প্রতিটি সমস্যার সঙ্গে সংক্ষেপে ব্যাখ্যা এবং উন্নয়নের জন্য নির্দিষ্ট পরামর্শও দিন।
+
+PROMPT
+
+[Insert Your Prompt Here]`;
+
+        function syncPrompt() {
+            const inputVal = document.getElementById('promptInput').value;
+            const display = document.getElementById('finalPrompt');
+            
+            if (inputVal.trim() === "") {
+                display.innerText = originalTemplate;
+            } else {
+                display.innerText = originalTemplate.replace('[Insert Your Prompt Here]', inputVal);
+            }
+        }
+
+        function copyPrompt() {
+            const text = document.getElementById('finalPrompt').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 2000);
+            }).catch(err => {
+                console.error('Copy failed: ', err);
+            });
+        }
+    </script>
+</body>
+</html>

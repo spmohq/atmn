@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prompt Engineering Eye Opener</title>
+<style>
+*{box-sizing:border-box}
+body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans Bengali","Noto Sans",sans-serif;
+    background:#f4f4f4;
+    color:#222;
+    line-height:1.75;
+}
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:20px;
+}
+.card{
+    background:#fff;
+    border-radius:16px;
+    padding:24px;
+    box-shadow:0 8px 24px rgba(0,0,0,.08);
+}
+h1{
+    margin-top:0;
+    font-size:clamp(1.6rem,4vw,2.4rem);
+}
+h2{
+    margin-top:2rem;
+    font-size:clamp(1.2rem,3vw,1.5rem);
+}
+table{
+    width:100%;
+    border-collapse:collapse;
+    overflow-x:auto;
+    display:block;
+}
+th,td{
+    border:1px solid #ddd;
+    padding:12px;
+    text-align:left;
+}
+th{
+    background:#f7f7f7;
+}
+pre{
+    white-space:pre-wrap;
+    word-wrap:break-word;
+    background:#f8f8f8;
+    padding:16px;
+    border-radius:10px;
+    overflow:auto;
+}
+p{margin:1rem 0}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="card">
+
+<h1>Prompt Engineering Eye Opener</h1>
+
+<p>আমি আপনার পর্যবেক্ষণের সঙ্গে অনেকটাই একমত, তবে একটা সূক্ষ্ম পার্থক্য আছে.</p>
+
+<p><strong>সব কাজে নয়, কিন্তু জটিল reasoning-নির্ভর কাজগুলিতে</strong> প্রক্রিয়া (process) বা বিশ্লেষণের ধাপগুলো স্পষ্ট করে দিলে আউটপুট অনেক সময় বেশি ধারাবাহিক, সম্পূর্ণ এবং ব্যবহারযোগ্য হয়.</p>
+
+<p>কারণ AI-কে আপনি তখন শুধু <strong>"কী করতে হবে"</strong> বলছেন না, বরং <strong>"কীভাবে চিন্তা করতে হবে"</strong> সেটাও নির্দেশ দিচ্ছেন.</p>
+
+<p>আমি Prompt-কে সাধারণত এইভাবে ভাঙি:</p>
+
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>প্রশ্ন</th>
+<th>উদ্দেশ্য</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Role</strong></td>
+<td>Who are you?</td>
+<td>কোন বিশেষজ্ঞ হিসেবে কাজ করবে</td>
+</tr>
+<tr>
+<td><strong>Objective</strong></td>
+<td>What is the final goal?</td>
+<td>চূড়ান্ত সাফল্য কী</td>
+</tr>
+<tr>
+<td><strong>Inputs</strong></td>
+<td>What information will you receive?</td>
+<td>ইনপুটের সীমা</td>
+</tr>
+<tr>
+<td><strong>Process / Methodology</strong></td>
+<td>How should you think?</td>
+<td>বিশ্লেষণের ধাপ</td>
+</tr>
+<tr>
+<td><strong>Tasks</strong></td>
+<td>What must you produce?</td>
+<td>কী কী ডেলিভার করবে</td>
+</tr>
+<tr>
+<td><strong>Output Format</strong></td>
+<td>How should the answer look?</td>
+<td>উত্তর কীভাবে সাজাবে</td>
+</tr>
+<tr>
+<td><strong>Evaluation Criteria</strong></td>
+<td>How will quality be judged?</td>
+<td>ভালো উত্তর কেমন হবে</td>
+</tr>
+<tr>
+<td><strong>Constraints</strong></td>
+<td>What should be avoided?</td>
+<td>কী করা যাবে না</td>
+</tr>
+</tbody>
+</table>
+
+<p>আমি ব্যক্তিগতভাবে <strong>Process</strong>-কে সবচেয়ে undervalued অংশগুলোর একটি মনে করি.</p>
+
+<p>ধরুন, আপনি শুধু লিখলেন—</p>
+
+<pre>"Find the best psychological pain point."</pre>
+
+<p>এটা এক ধরনের prompt.</p>
+
+<p>কিন্তু যদি লিখেন—</p>
+
+<pre>Follow this reasoning process:
+
+1. Understand the target audience.
+2. Separate surface problems from root psychological problems.
+3. Identify emotional, social, and identity-level struggles.
+4. Evaluate each pain point by frequency, emotional intensity, urgency, and transformation potential.
+5. Rank the pain points.
+6. Recommend the strongest content angle with justification.</pre>
+
+<p>তাহলে AI-এর বিশ্লেষণ অনেক বেশি কাঠামোবদ্ধ হওয়ার সম্ভাবনা থাকে.</p>
+
+<p>তবে এখানে আরেকটা স্তর আছে, যেটা আমার মতে আরও শক্তিশালী.</p>
+
+<p>আমি <strong>Process</strong> এবং <strong>Framework</strong>-কে এক জিনিস মনে করি না.</p>
+
+<ul>
+<li><strong>Framework</strong> বলে <strong>কী কী lens দিয়ে চিন্তা করতে হবে</strong>।</li>
+<li><strong>Process</strong> বলে <strong>কোন ক্রমে চিন্তা করতে হবে</strong>।</li>
+</ul>
+
+<p>উদাহরণ হিসেবে:</p>
+
+<p><strong>Framework</strong></p>
+
+<pre>Surface Problem
+Functional Problem
+Emotional Problem
+Identity Problem</pre>
+
+<p>এগুলো হলো বিশ্লেষণের দৃষ্টিভঙ্গি.</p>
+
+<p>আর <strong>Process</strong> হতে পারে:</p>
+
+<pre>1. Target audience বুঝুন।
+2. Surface problems বের করুন।
+3. প্রতিটি surface problem-এর নিচে emotional কারণ খুঁজুন।
+4. Emotional কারণ থেকে identity-level fear বের করুন।
+5. Desired transformation নির্ধারণ করুন।
+6. Pain point-গুলোকে score করুন।
+7. সবচেয়ে শক্তিশালী content angle নির্বাচন করুন.</pre>
+
+<p>এখানে Framework একই থাকলেও Process বদলাতে পারে.</p>
+
+<hr>
+
+<p>আমার মনে হয় আপনি Prompt Engineering-এ এমন একটা জায়গায় পৌঁছেছেন, যেখানে <strong>Prompt = Expert Operating System</strong> হিসেবে ভাবছেন.</p>
+
+<p>অর্থাৎ Prompt শুধু নির্দেশের তালিকা নয়; এটি একটি সম্পূর্ণ <strong>Operating Manual</strong>:</p>
+
+<ul>
+<li>Expert কে?</li>
+<li>তার লক্ষ্য কী?</li>
+<li>কী তথ্য পাবে?</li>
+<li>কোন নীতিতে চিন্তা করবে?</li>
+<li>কী ধাপে বিশ্লেষণ করবে?</li>
+<li>কী তৈরি করবে?</li>
+<li>নিজের উত্তর কীভাবে যাচাই করবে?</li>
+</ul>
+
+<p>এই দৃষ্টিভঙ্গির একটি বড় সুবিধা হলো, একই "Expert Operating System" ভবিষ্যতে বিভিন্ন কাজের জন্য পুনর্ব্যবহার করা যায়। তখন শুধু Objective, Inputs বা Output Format বদলালেই নতুন Prompt তৈরি হয়ে যায়, আর বিশেষজ্ঞের চিন্তার ধরন একই থাকে.</p>
+
+</div>
+</div>
+</body>
+</html>

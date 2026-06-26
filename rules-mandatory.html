@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content's Mandatory Rule - আপনার কন্টেন্টের সঠিক সমাপ্তি</title>
+    <style>
+        /* Modern & Human-Centric Design */
+        :root {
+            --primary-color: #1e293b;
+            --accent-color: #2563eb;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #334155;
+            --border-radius: 12px;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Header Area */
+        header {
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .welcome-card {
+            background: #fff;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+            border-left: 6px solid var(--accent-color);
+        }
+
+        .welcome-card p {
+            font-size: 1.1rem;
+            color: #475569;
+            margin-bottom: 0;
+        }
+
+        /* Section Styling */
+        section {
+            margin-bottom: 50px;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .badge {
+            background: #ef4444;
+            color: white;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        /* Prompt Display Box */
+        .prompt-container {
+            background: #fff;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+
+        .prompt-header {
+            background: var(--primary-color);
+            color: #fff;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prompt-header h3 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .prompt-content {
+            padding: 25px;
+            background: #fafafa;
+            color: #1e293b;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 1rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-top: 1px solid #eee;
+            line-height: 1.6;
+        }
+
+        .copy-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #1d4ed8;
+        }
+
+        /* Sticky CTA */
+        .sticky-cta {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 500px;
+            background: #fff;
+            padding: 12px 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border: 1px solid #e2e8f0;
+        }
+
+        .sticky-cta p {
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .close-sticky {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #94a3b8;
+            margin-left: 10px;
+        }
+
+        /* Footer Message */
+        .footer-note {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+
+        /* Notification Toast */
+        #toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #334155;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 30px;
+            display: none;
+            z-index: 1100;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        /* Mobile Friendliness */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            .container { width: 94%; }
+            .prompt-content { font-size: 0.95rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Content's Mandatory Rule</h1>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <div class="welcome-card">
+            <p>আপনি যখনই কোনো নতুন কন্টেন্ট বা সোশ্যাল মিডিয়া পোস্ট তৈরি করবেন, এই প্রম্পট দুটি আপনাকে একটি নির্দিষ্ট কাঠামো ধরে রাখতে সাহায্য করবে। এটি শুধু আপনার ব্র্যান্ডের পরিচিতি বাড়াবে না, বরং আপনার অডিয়েন্সের সাথে একটি গভীর বিশ্বাসের সম্পর্ক তৈরি করবে।</p>
+        </div>
+
+        <!-- Section 1 -->
+        <section id="rule-section">
+            <h2><span class="badge">Mandatory</span> মূল নিয়মটি দেখে নিন</h2>
+            <div class="prompt-container">
+                <div class="prompt-header">
+                    <h3>Prompt #1</h3>
+                    <button class="copy-btn" onclick="copyText('display1')">কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="display1">RULE (MANDATORY)
+
+Every piece of content, except the Course itself, must conclude by naturally guiding the learner to the relevant Course as the recommended learning tool for developing the skill in a structured, step-by-step manner.</div>
+            </div>
+        </section>
+
+        <hr style="margin: 40px 0; border: 0; border-top: 1px solid #ddd;">
+
+        <!-- Section 2 -->
+        <section id="cta-section">
+            <h2>CTA লাইব্রেরি তৈরির নির্দেশাবলী</h2>
+            <div class="prompt-container">
+                <div class="prompt-header">
+                    <h3>Prompt #2</h3>
+                    <button class="copy-btn" onclick="copyText('display2')">কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="display2">Please write the end CTA for these:
+- Social Media Posts (Facebook)
+- Social Media Posts (WhatsApp Channel)
+- Blog Post (Google’s Blogger)
+- Newsletter (WhatsApp Group under WhatsApp Community)
+- Community Posts (Members only content - tailored to WhatsApp Group under WhatsApp Community)
+
+This end CTA is to recommend the course as the learning tool. It must not be in commercial tone.
+
+RULE (MANDATORY)
+
+Write the "End CTA Library" adhering strictly to:
+
+"One final suggestion that I think will make this even stronger for your entire ecosystem: never change the last two sentences. Only change the opening based on the platform or content.
+
+For example:
+
+Facebook: "যদি আজকের বিষয়টি আপনার কাজে লেগে থাকে…"
+Blogger: "এই লেখাটির উদ্দেশ্য ছিল বিষয়টি সহজ করে বোঝানো…"
+Newsletter: "এই সপ্তাহে আমরা…"
+Community: "আজকের আলোচনা ছিল…"
+
+Then always end with exactly the same wording.
+
+For example:
+
+"যদি এবার শুরু থেকে ধাপে ধাপে AI ব্যবহার শিখতে চান, তাহলে ‘পড়াশোনায় AI – সহজপাঠ’ কোর্সটি আপনার প্রথম পদক্ষেপ হতে পারে।
+একেবারে নতুনদের জন্য সহজ ভাষায় সাজানো এই কোর্সে দেখানো হয়েছে কীভাবে নিজের অ্যান্ড্রয়েড ফোন প্রস্তুত করবেন এবং আত্মবিশ্বাসের সঙ্গে AI ব্যবহার শুরু করবেন।"
+
+Over time, this repeated closing becomes part of my brand voice. Readers will begin to associate that message with my educational approach, making the course feel like the natural next step rather than a product being promoted.</div>
+            </div>
+        </section>
+
+        <div class="footer-note">
+            <p>আপনার কন্টেন্ট জার্নি আরও সফল হোক। শুভকামনা রইল!</p>
+        </div>
+
+    </main>
+
+    <!-- Sticky CTA for Mobile/Desktop -->
+    <div class="sticky-cta" id="sticky-cta">
+        <p>প্রম্পট কপি করে কাজ শুরু করুন</p>
+        <button class="close-sticky" onclick="closeSticky()">×</button>
+    </div>
+
+    <div id="toast">ক্লিপবোর্ডে কপি হয়েছে!</div>
+
+    <script>
+        function copyText(id) {
+            const text = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 2000);
+            }).catch(err => {
+                console.error('Copy failed: ', err);
+            });
+        }
+
+        function closeSticky() {
+            document.getElementById('sticky-cta').style.display = 'none';
+        }
+
+        // Smooth scroll for anchors
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

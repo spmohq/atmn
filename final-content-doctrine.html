@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PLATFORM DOCTRINE with Course - আপনার লার্নিং ইকোসিস্টেম</title>
+    <style>
+        /* Modern Design System */
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #334155;
+            --border-radius: 12px;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            padding-bottom: 60px;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        /* Header Area */
+        header {
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .welcome-card {
+            background: #fff;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+            border-left: 6px solid var(--accent-color);
+        }
+
+        .welcome-card p {
+            font-size: 1.1rem;
+            color: #475569;
+            margin-bottom: 0;
+        }
+
+        /* Prompt Display Section */
+        .prompt-container {
+            background: #fff;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+            margin-top: 20px;
+        }
+
+        .prompt-header {
+            background: var(--primary-color);
+            color: #fff;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prompt-header h3 {
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .prompt-content {
+            padding: 25px;
+            background: #fafafa;
+            color: #1e293b;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 1rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-top: 1px solid #eee;
+            line-height: 1.6;
+        }
+
+        .copy-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #2980b9;
+        }
+
+        .copy-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Footer Note */
+        .footer-note {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+
+        /* Notification Toast */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #334155;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 30px;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        /* Mobile Friendliness */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            .container { width: 94%; }
+            .prompt-content { font-size: 0.95rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>PLATFORM DOCTRINE with Course</h1>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <div class="welcome-card">
+            <p>আপনার কন্টেন্ট এবং কোর্স জার্নিকে একটি শক্তিশালী কাঠামোর ওপর দাঁড় করানোর জন্য এই 'Platform Doctrine' ব্যবহার করুন। এটি আপনার এআই-কে শিখিয়ে দেবে কীভাবে প্রতিটি প্ল্যাটফর্মের নিজস্ব বৈশিষ্ট্য বজায় রেখেও আপনার মূল লক্ষ্য বা 'Desired Transformation' অর্জন করা সম্ভব।</p>
+        </div>
+
+        <div class="prompt-container">
+            <div class="prompt-header">
+                <h3>The Doctrine Prompt</h3>
+                <button class="copy-btn" onclick="copyPrompt()">কপি করুন</button>
+            </div>
+            <div class="prompt-content" id="doctrinePrompt">PLATFORM DOCTRINE
+
+The content must adapt to the platform's natural role within the learner's skill development journey.
+
+Social Media Posts create curiosity, discovery, motivation, and emotional resonance that encourage learners to take the next step.
+Newsletters reinforce learning, deepen understanding, strengthen long-term engagement, and help learners maintain consistent progress.
+Blogs provide structured explanation, education, practical guidance, and contextual understanding that build foundational knowledge.
+Solo Podcasts explore ideas through stories, examples, reflection, and conversational thinking that deepen comprehension and perspective.
+Community Content encourages participation, practice, implementation, discussion, accountability, collaboration, and constructive feedback.
+Courses provide a structured, step-by-step learning path that develops practical skills, confidence, and real-world application.
+Books synthesize knowledge into a broader methodology, philosophy, framework, or way of thinking that supports lifelong learning.
+
+Every platform must communicate the same underlying truth while serving a different purpose within the overall learning journey.
+
+Each platform should naturally prepare the learner for the next stage of learning without unnecessarily repeating the role of another platform.
+
+The expression, depth, structure, pacing, and delivery may change across platforms, but the underlying truth, core message, learning objectives, and desired transformation must remain consistent.
+
+Learning Continuity
+
+Every piece of content, except the Course itself, must conclude by naturally guiding the learner to the relevant Course as the recommended learning tool for developing the skill in a structured, step-by-step manner.
+
+This recommendation must be educational rather than promotional. It should position the Course as the learner's natural next step, using a consistent brand signature while allowing the opening sentence to adapt to the context and platform.
+
+The purpose of this recommendation is to maintain learning continuity by helping learners move naturally from individual content to structured skill development.</div>
+        </div>
+
+        <div class="footer-note">
+            <p>আপনার লার্নিং ইকোসিস্টেমকে আরও শক্তিশালী এবং অর্থবহ করে তুলুন।</p>
+        </div>
+
+    </main>
+
+    <div id="toast">প্রম্পটটি ক্লিপবোর্ডে কপি হয়েছে!</div>
+
+    <script>
+        function copyPrompt() {
+            const text = document.getElementById('doctrinePrompt').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 2000);
+            }).catch(err => {
+                console.error('Copy failed: ', err);
+            });
+        }
+    </script>
+</body>
+</html>

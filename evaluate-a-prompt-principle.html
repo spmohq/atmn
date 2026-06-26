@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluate A Prompt - Principle | আপনার প্রম্পট তৈরির গাইড</title>
+    <style>
+        /* Modern & Minimalist Design System */
+        :root {
+            --primary-color: #0f172a;
+            --accent-color: #d97706;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #334155;
+            --border-radius: 12px;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            padding-bottom: 60px;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        /* Header Area */
+        header {
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .welcome-card {
+            background: #fff;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+            border-left: 6px solid var(--accent-color);
+        }
+
+        .welcome-card p {
+            font-size: 1.1rem;
+            color: #475569;
+            margin-bottom: 0;
+        }
+
+        /* Prompt Content Display */
+        .prompt-container {
+            background: #fff;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+            margin-top: 20px;
+        }
+
+        .prompt-header {
+            background: var(--primary-color);
+            color: #fff;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prompt-header h3 {
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .prompt-content {
+            padding: 25px;
+            background: #fafafa;
+            color: #1e293b;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 1rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-top: 1px solid #eee;
+            line-height: 1.6;
+        }
+
+        .copy-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #b45309;
+            box-shadow: 0 4px 12px rgba(217, 119, 6, 0.2);
+        }
+
+        .copy-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Footer Message */
+        .footer-note {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+
+        /* Toast Notification */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e293b;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 30px;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Mobile Friendliness */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            .container { width: 94%; }
+            .prompt-content { font-size: 0.95rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Evaluate A Prompt - Principle</h1>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <div class="welcome-card">
+            <p>একটি ভালো প্রম্পট লেখার সময় আমরা অনেক সময় নিয়মকানুনের ভিড়ে মূল লক্ষ্যটাই ভুলে যাই। মনে রাখবেন, এ আই-কে আপনি যত বেশি 'Rules' দেবেন, আউটপুট তত বেশি যান্ত্রিক হবে। বরং এ আই-কে 'Principles' বা নীতি শেখান। এতে আপনি পাবেন অনেক বেশি সাবলীল এবং কার্যকরী রেজাল্ট। নিচে এই বিষয়ে একটি সলিড গাইডলাইন দেওয়া হলো।</p>
+        </div>
+
+        <div class="prompt-container">
+            <div class="prompt-header">
+                <h3>The Core Principles</h3>
+                <button class="copy-btn" onclick="copyPrompt()">নীতিগুলো কপি করুন</button>
+            </div>
+            <div class="prompt-content" id="principlePrompt">বেশি বড় প্রম্পট - অনেক অনেক instructions থাকার জন্য - জটিল হয়ে পড়ে। তাছাড়া Technically sound prompt অনেক সময় বড্ড বেশি rigid হয়ে পড়ার ফলে Prompt-র আউটপুট machanical and generic হয়ে যায়। আমার প্রয়োজন ১০০% নিখুঁত না হোক ১০০% কার্যকরী ও lively result আসুক।
+
+একটি ভালো Prompt-এর তিনটি স্তর থাকা উচিত-
+
+১. Identity (কে?)
+
+মাত্র কয়েক লাইনে।
+
+You are an Educational Course Architect.
+
+Your strength is simplifying complex ideas into clear, practical learning experiences for complete beginners.
+
+২. Context (কিসের জন্য?)
+
+এখানেই মূল তথ্য।
+
+Course Name
+Audience
+Language
+Goal
+Constraints
+
+ব্যস।
+
+৩. Design Doctrine (সবচেয়ে গুরুত্বপূর্ণ)
+
+এটা Rules নয়।
+
+এটা Philosophy।
+
+যেমন—
+
+Every lesson must reduce fear before teaching skill.
+
+অথবা
+
+Explain only what the learner needs at this moment.
+
+অথবা
+
+Never teach two new concepts together.
+
+এগুলো AI-কে "কীভাবে ভাবতে হবে" শেখায়, "কী লিখতে হবে" নয়।
+
+আমি যেটা এড়াতে বলব
+
+অনেকেই এমন Prompt লেখেন—
+
+Rule 1
+Rule 2
+Rule 3
+Rule 4
+Rule 5
+...
+Rule 47
+Rule 48
+Rule 49
+Rule 50
+
+ফলাফল?
+
+AI যেন পরীক্ষার খাতা লিখছে।
+
+বরং নীতিগুলো (Principles) লিখুন
+
+যেমন—
+
+Write like a patient teacher.
+
+Reduce cognitive load.
+
+Prefer clarity over completeness.
+
+Teach through examples.
+
+Avoid unnecessary terminology.
+
+Make the learner feel capable.
+
+- ছয়টি Principle অনেক সময় ৪০টি Rule-এর চেয়ে বেশি কার্যকর হয়।</div>
+        </div>
+
+        <div class="footer-note">
+            <p>সঠিক নীতিই আপনার প্রম্পটকে করে তুলবে প্রাণবন্ত। শুভকামনা!</p>
+        </div>
+
+    </main>
+
+    <div id="toast">নীতিগুলো ক্লিপবোর্ডে কপি হয়েছে!</div>
+
+    <script>
+        function copyPrompt() {
+            const text = document.getElementById('principlePrompt').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 2000);
+            }).catch(err => {
+                console.error('Copy failed: ', err);
+            });
+        }
+    </script>
+</body>
+</html>

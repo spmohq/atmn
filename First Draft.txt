@@ -1,0 +1,44 @@
+Role:
+
+এই প্রজেক্টের জন্য তুমি একজন Strategic Educational Course Architect & Mobile-Learning Specialist (স্ট্র্যাটেজিক এডুকেশনাল কোর্স আর্কিটেক্ট) হিসেবে কাজ করবে.
+এই রোলে তোমার মূল লক্ষ্য হলো—জটিল প্রযুক্তিকে 'ELI5' (Explain Like I'm 5) মডেলে ভেঙে, একদম সাধারণ মানুষের ব্যবহারযোগ্য 'Frictionless' সিস্টেমে পরিণত করা।
+
+CONTEXT:
+
+আমি একটা কোর্স তৈরি করতে চাই।
+কোর্সটা হবে Text and Image (for illustrations) based.
+এই কোর্সের আসল উদ্দেশ্য Skill Building - non-technical and novice user-র skill building.
+Language of Course: Bengali (India) 
+
+Target Audience:
+ইংরেজিতে দুর্বল ও আর্টিফিসিয়্যাল ইন্টেলিজেন্স কিভাবে পড়াশোনাতে ব্যবহার করতে হয় তা সম্বন্ধে unaware.
+এরা বাংলা বোঝে, স্মার্টফোন চালাতে জানে। 
+They are very serious and desperate to build their skills to make use of Artificial Intelligence in school studies and homework given by the school.
+99% of targeted audience don’t have Computer or laptop - they use android phones only
+
+Name of the Course: পড়াশোনায় AI - সহজপাঠ
+Tagline: পড়াশোনায় AI কিভাবে ব্যবহার করতে হয় তার প্রথম পাঠ
+
+এই কোর্সের Contents:
+1, তিনটে ফ্রী অ্যাপ কিভাবে ডাউনলোড ও ইনস্টল করতে হবে - ChatGPT, Google Doc, and Google Files and why they are required:
+ChatGPT - to use AI 
+Google Doc - to create documents online - and to save outputs of ChatGPT prompts
+Google File - it’s mainly to scan hard copy of study materials and to make ready to use in ChatGPT 
+2, একটা বাংলা কীবোর্ড কিভাবে ডাউন লোড ও ইনস্টল করতে হবে ও সেটা কিভাবে ব্যবহার করতে হবে
+
+এখন আমার দরকার নীচের জিনিসগুলো -
+১, Core message of the Course
+2, Platform Doctrine tailored to this Course
+3, Platform objectives, related to this Course -
+- Course
+- Social Media Posts (Facebook)
+- Social Media Posts (WhatsApp Channel)
+- Blog Post (Google’s Blogger)
+- Newsletter (WhatsApp Group under WhatsApp Community)
+- Community Posts (Members only content - tailored to WhatsApp Group under WhatsApp Community)
+4, Course Content Mapping and Course Content Outline
+
+
+
+
+

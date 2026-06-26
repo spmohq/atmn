@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Course Design Reference Guidelines</title>
+<style>
+:root{
+--bg:#f6f7fb;
+--card:#fff;
+--text:#1f2937;
+--accent:#2563eb;
+--border:#dbe3ef;
+}
+*{box-sizing:border-box}
+body{
+margin:0;
+font-family:system-ui,-apple-system,"Noto Sans Bengali","Nirmala UI",sans-serif;
+background:var(--bg);
+color:var(--text);
+line-height:1.8;
+}
+.container{
+max-width:900px;
+margin:auto;
+padding:20px;
+}
+.card{
+background:var(--card);
+border:1px solid var(--border);
+border-radius:16px;
+padding:24px;
+box-shadow:0 4px 14px rgba(0,0,0,.05);
+}
+h1,h2,h3{
+color:var(--accent);
+margin-top:1.8em;
+}
+h1{margin-top:0}
+pre{
+white-space:pre-wrap;
+word-break:break-word;
+background:#f1f5f9;
+padding:14px;
+border-radius:10px;
+overflow:auto;
+}
+strong{font-weight:700}
+hr{border:none;border-top:1px solid var(--border);margin:24px 0}
+@media (max-width:600px){
+.container{padding:12px}
+.card{padding:16px}
+body{font-size:16px}
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="card">
+
+<h1>Course Design Reference Guidelines</h1>
+
+<p>আমি মনে করি এখানে Instructional Design-এর বড় বড় তত্ত্ব দিয়ে শুরু করার দরকার নেই। কারণ আপনার Target Audience একেবারে Beginner, Mobile-only, এবং বাংলা ভাষাভাষী। আপনার কোর্সের শক্তি হবে <strong>Common Sense</strong>, <strong>Low Friction</strong>, এবং <strong>One Small Win at a Time</strong>।</p>
+
+<p>আমি একটি খুব সহজ নীতি ব্যবহার করতাম।</p>
+
+<p><strong>একটি Module = একটি লক্ষ্য (Goal)</strong><br>
+<strong>একটি Lesson = একটি কাজ (Task)</strong></p>
+
+<p>এই একটিমাত্র নিয়ম পুরো Course Structure-কে অনেক সহজ করে দেয়।</p>
+
+<h2>প্রথমে Course Map</h2>
+
+<p>আমি Skill Building Course-কে চারটি স্তরে ভাগ করি।</p>
+
+<pre>COURSE
+
+↓
+
+Module
+
+↓
+
+Lesson
+
+↓
+
+Action</pre>
+
+<p>অর্থাৎ</p>
+
+<p>Course → বড় Skill</p>
+<p>Module → Skill-এর একটা অংশ</p>
+<p>Lesson → একটা নির্দিষ্ট কাজ</p>
+<p>Action → এখনই যা করবে</p>
+
+<h2>একটি Module কী?</h2>
+
+<p>একটি Module শেষ হলে ছাত্রের একটি বাস্তব সমস্যা সমাধান হওয়া উচিত।</p>
+
+<p>যেমন</p>
+
+<p>Module</p>
+
+<p>"AI ব্যবহার করার জন্য ফোন প্রস্তুত করা"</p>
+
+<p>এটা Goal।</p>
+
+<p>এখানে Module শেষ হলে Student বলতে পারবে</p>
+
+<p>"আমার ফোন প্রস্তুত।"</p>
+
+<h2>Lesson কী?</h2>
+
+<p>Lesson মানে</p>
+
+<p>একটা কাজ।</p>
+
+<p>শুধু একটা।</p>
+
+<p>যেমন</p>
+
+<p>❌</p>
+
+<p>Google Docs শেখা</p>
+
+<p>এটা Lesson নয়।</p>
+
+<p>এটা বড় Topic।</p>
+
+<p>বরং</p>
+
+<p>✔</p>
+
+<p>Google Docs Install করা</p>
+
+<p>এটা Lesson।</p>
+
+<p>আবার</p>
+
+<p>✔</p>
+
+<p>Google Docs খুলে প্রথম Document তৈরি করা</p>
+
+<p>এটাও Lesson।</p>
+
+<p>আবার</p>
+
+<p>✔</p>
+
+<p>ChatGPT-এর উত্তর Google Docs-এ Save করা</p>
+
+<p>এটাও Lesson।</p>
+
+<p>প্রতিটি Lesson-এর শেষে Student কিছু একটা করতে পারবে।</p>
+
+<h2>Lesson Structure</h2>
+
+<p>আমি অত্যন্ত ছোট রাখতাম।</p>
+
+<p>মাত্র ৬টি অংশ।</p>
+
+<h3>১. কেন এটা শিখবেন?</h3>
+
+<p>৩০–৬০ সেকেন্ড।</p>
+
+<p>Problem।</p>
+
+<p>যেমন</p>
+
+<p>"ChatGPT-এর উত্তর যদি Save না করেন, পরে সেটা হারিয়ে যেতে পারে।"</p>
+
+<h3>২. আজ কী শিখবেন?</h3>
+
+<p>একটি বাক্য।</p>
+
+<p>যেমন</p>
+
+<p>"আজ আপনি Google Docs-এ একটি নতুন Document তৈরি করবেন।"</p>
+
+<h3>৩. ধাপে ধাপে</h3>
+
+<p>ELI5</p>
+
+<p>Step 1</p>
+
+<p>Step 2</p>
+
+<p>Step 3</p>
+
+<h3>৪. Illustration</h3>
+
+<p>একটি Screenshot</p>
+
+<p>অথবা</p>
+
+<p>একটি Annotation</p>
+
+<h3>৫. এখনই করুন</h3>
+
+<p>ছোট Task।</p>
+
+<p>যেমন</p>
+
+<p>একটা নতুন Doc খুলুন।</p>
+
+<h3>৬. কী শিখলেন?</h3>
+
+<p>এক লাইনের Recap।</p>
+
+<p>ব্যস।</p>
+
+<p>এর বেশি Beginner-এর দরকার নেই।</p>
+
+<h2>Module Structure</h2>
+
+<p>প্রতিটি Module-এরও Structure থাকবে।</p>
+
+<p>যেমন</p>
+
+<pre>Introduction
+
+↓
+
+Lesson 1
+
+↓
+
+Lesson 2
+
+↓
+
+Lesson 3
+
+↓
+
+Mini Practice
+
+↓
+
+Module Summary</pre>
+
+<h2>Content Mapping-এর সবচেয়ে সহজ নিয়ম</h2>
+
+<p>আমি একটা Rule ব্যবহার করি。</p>
+
+<pre>Before
+
+During
+
+After</pre>
+
+<p>যেমন</p>
+
+<p>AI ব্যবহার করার আগে কী লাগবে?</p>
+
+<p>↓</p>
+
+<p>AI ব্যবহার করার সময় কী করবেন?</p>
+
+<p>↓</p>
+
+<p>ব্যবহার করার পরে কী করবেন?</p>
+
+<p>আরও উদাহরণ</p>
+
+<pre>Prepare
+
+Use
+
+Manage</pre>
+
+<p>অথবা</p>
+
+<pre>Input
+
+Process
+
+Output</pre>
+
+<p>যে Skill শেখাচ্ছেন, সেটাকে এই তিন ভাগে ভেঙে ফেলুন।</p>
+
+<p>৯০% Course নিজেরাই Structure হয়ে যাবে।</p>
+
+<h2>Lesson Order-এর Rule</h2>
+
+<p>আমি সবসময়</p>
+
+<p>Dependency অনুযায়ী সাজাই।</p>
+
+<p>যেটা না জানলে পরেরটা করা যাবে না—</p>
+
+<p>সেটা আগে।</p>
+
+<p>যেমন</p>
+
+<pre>Keyboard
+
+↓
+
+Typing
+
+↓
+
+Copy
+
+↓
+
+Paste
+
+↓
+
+ChatGPT</pre>
+
+<p>না যে</p>
+
+<pre>ChatGPT
+
+↓
+
+Keyboard</pre>
+
+<h2>Beginner-এর জন্য Golden Rule</h2>
+
+<pre>এক Lesson
+
+=
+
+এক Skill
+
+=
+
+এক Outcome
+
+=
+
+এক Practice</pre>
+
+<h2>Cognitive Load Rule</h2>
+
+<p>এক Lesson-এ</p>
+
+<p>শুধু</p>
+
+<p>একটা নতুন জিনিস।</p>
+
+<p>দুটো নয়।</p>
+
+<h2>Module Size</h2>
+
+<p>আমি রাখতাম</p>
+
+<p>৪–৬ Lesson।</p>
+
+<p>কারণ</p>
+
+<p>১০ Lesson-এর Module মানসিকভাবে ভারী লাগে।</p>
+
+<h2>Course Mapping Formula</h2>
+
+<p>আমি সম্ভবত এই Formula-টাই ব্যবহার করতাম।</p>
+
+<pre>Need
+
+↓
+
+Goal
+
+↓
+
+Module
+
+↓
+
+Lesson
+
+↓
+
+Action
+
+↓
+
+Practice
+
+↓
+
+Confidence</pre>
+
+<p>খেয়াল করুন,</p>
+
+<p>আমি</p>
+
+<p>Knowledge</p>
+
+<p>দিয়ে শেষ করিনি।</p>
+
+<p>Confidence দিয়ে শেষ করেছি।</p>
+
+<p>কারণ আপনার Audience-এর সবচেয়ে বড় সমস্যা Information-এর অভাব নয়।</p>
+
+<p><strong>তারা বিশ্বাসই করে না যে তারা AI ব্যবহার করতে পারবে।</strong></p>
+
+<p>তাই আমি পুরো Course-টা একটি নীতির উপর দাঁড় করাতাম:</p>
+
+<p><strong>প্রতিটি Lesson শেষে শিক্ষার্থীর মাথায় একটি নতুন তথ্য নয়, বরং একটি নতুন আত্মবিশ্বাস জন্মাতে হবে—"এটা আমি নিজেই করতে পারি।"</strong></p>
+
+<p>যদি এই নীতিটি ঠিক থাকে, তাহলে Module, Lesson, Illustration, Practice—সবকিছুর কাঠামো প্রায় স্বাভাবিকভাবেই গড়ে উঠবে। Knowledge হবে মাধ্যম; Skill হবে ফল; আর Confidence হবে পুরো Course-এর প্রকৃত আউটকাম।</p>
+
+</div>
+</div>
+</body>
+</html>

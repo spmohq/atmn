@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Course Architecture Reference Guidelines</title>
+<style>
+body{margin:0;background:#f5f7fb;font-family:system-ui,-apple-system,"Noto Sans Bengali","Nirmala UI",sans-serif;line-height:1.8;color:#222}
+.wrap{max-width:960px;margin:auto;padding:18px}
+.card{background:#fff;border-radius:16px;padding:22px;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+h1,h2{color:#1d4ed8}
+pre{white-space:pre-wrap;word-break:break-word;background:#f3f4f6;padding:14px;border-radius:10px;overflow:auto}
+@media(max-width:640px){.wrap{padding:10px}.card{padding:16px}body{font-size:16px}}
+</style>
+</head>
+<body>
+<div class="wrap"><div class="card">
+<h1>Course Architecture Reference Guidelines</h1>
+
+<p>হ্যাঁ, তবে আমি একটি ছোট কিন্তু খুব গুরুত্বপূর্ণ refinement করব। কারণ আপনার সারাংশটি প্রায় ঠিক, কিন্তু একটি জায়গায় "Step" শব্দটি দুই অর্থে ব্যবহৃত হচ্ছে।</p>
+
+<p>আমি এটাকে এভাবে সংজ্ঞায়িত করব।</p>
+
+<pre>Course
+│
+├── Goal (একটি নির্দিষ্ট Skill)
+│
+├── Module 1 (Skill-এর প্রথম বড় ধাপ)
+│      ├── Lesson 1 (Task)
+│      ├── Lesson 2 (Task)
+│      ├── Lesson 3 (Task)
+│      └── ...
+│
+├── Module 2 (Skill-এর দ্বিতীয় বড় ধাপ)
+│      ├── Lesson 1 (Task)
+│      ├── Lesson 2 (Task)
+│      └── ...
+│
+├── Module 3
+│
+└── Course Conclusion</pre>
+
+<p>অর্থাৎ—</p>
+
+<p><strong>A specific skill as the goal = Course</strong> ✅</p>
+
+<p>হ্যাঁ।</p>
+
+<hr>
+
+<p><strong>The number of steps = number of modules (apart from course introduction and course conclusion)</strong></p>
+
+<p>আমি এটাকে একটু পরিবর্তন করে বলব—</p>
+
+<p><strong>The number of major stages (or phases) = the number of modules.</strong></p>
+
+<p>কারণ একটি Module-এর ভেতরেও অনেক Step থাকতে পারে।</p>
+
+<p>তাই "Step" শব্দটি Module এবং Lesson—দুটোর জন্যই ব্যবহৃত হতে পারে। এতে পরে বিভ্রান্তি হবে।</p>
+
+<p>আমি বরং বলব—</p>
+
+<ul>
+<li>Course → Skill</li>
+<li>Module → Stage / Phase</li>
+<li>Lesson → Task</li>
+</ul>
+
+<hr>
+
+<p><strong>An individual step = an individual module</strong></p>
+
+<p>আমি বলব—</p>
+
+<p><strong>An individual major stage = an individual module.</strong> ✅</p>
+
+<hr>
+
+<p><strong>Number of tasks of a step = number of lessons under a module</strong></p>
+
+<p>হ্যাঁ, একদম ঠিক।</p>
+
+<hr>
+
+<p><strong>A specific lesson = a specific task</strong></p>
+
+<p>এটাও আমার মতে সবচেয়ে শক্তিশালী নীতি।</p>
+
+<p>একটি Lesson শেষ হলে ছাত্র একটা কাজ করতে পারবে।</p>
+
+<p>Knowledge নয়।</p>
+
+<p>Action।</p>
+
+<h2>Lesson Structure</h2>
+
+<p>আপনি এখানে একটা জিনিস আবিষ্কার করেছেন, যেটা আমার খুব ভালো লেগেছে।</p>
+
+<p>আপনি লিখেছেন—</p>
+
+<p><strong>previous state -> present action -> future state</strong></p>
+
+<p>এটা আসলে Lesson Design-এর একটি খুব শক্তিশালী Mental Model।</p>
+
+<p>আমি এটাকে এভাবে দেখব—</p>
+
+<pre>Past
+
+↓
+
+Present
+
+↓
+
+Future</pre>
+
+<p>অথবা</p>
+
+<pre>Problem
+
+↓
+
+Action
+
+↓
+
+Confidence</pre>
+
+<p>অথবা</p>
+
+<pre>Before
+
+↓
+
+Do
+
+↓
+
+After</pre>
+
+<p>এখন আপনার Lesson Structure-টাকে দেখুন।</p>
+
+<h2>১. কেন এটা শিখবেন?</h2>
+
+<p>Previous State</p>
+
+<p>বর্তমান সমস্যা</p>
+
+<hr>
+
+<h2>২. আজ কী শিখবেন?</h2>
+
+<p>Today's Transformation</p>
+
+<p>আজ কী বদলাবে</p>
+
+<hr>
+
+<h2>৩. ধাপে ধাপে</h2>
+
+<p>Present Action</p>
+
+<p>এখন কী করবেন</p>
+
+<hr>
+
+<h2>৪. Illustration</h2>
+
+<p>Action Support</p>
+
+<p>যাতে ভুল না হয়</p>
+
+<hr>
+
+<h2>৫. এখনই করুন</h2>
+
+<p>Immediate Success</p>
+
+<p>এখনই ছোট Success</p>
+
+<hr>
+
+<h2>৬. কী শিখলেন?</h2>
+
+<p>Future State</p>
+
+<p>এখন আপনি কী পারেন</p>
+
+<h2>এখানেই আমি একটি খুব সুন্দর Pattern দেখতে পাচ্ছি</h2>
+
+<p>আপনার পুরো Course Architecture-টা একই Fractal Pattern অনুসরণ করতে পারে।</p>
+
+<pre>Course
+
+Problem
+↓
+
+Transformation
+↓
+
+Skill
+↓
+
+Confidence</pre>
+
+<pre>Module
+
+Problem
+↓
+
+Tasks
+↓
+
+Capability</pre>
+
+<pre>Lesson
+
+Problem
+↓
+
+Action
+↓
+
+Success</pre>
+
+<p>খেয়াল করুন, <strong>Course, Module এবং Lesson—তিনটিই একই নকশা অনুসরণ করছে।</strong> শুধু স্কেল আলাদা।</p>
+
+<p>আমার মতে এটিই আপনার সবচেয়ে বড় আবিষ্কার।</p>
+
+<p>কারণ এখন আর আপনাকে আলাদা আলাদা Framework মুখস্থ করতে হবে না। <strong>একটি মাত্র Pattern</strong> পুরো Course-এ পুনরাবৃত্তি হবে।</p>
+
+<p>এটা শুধু Beginner Course-এর জন্য নয়; ভবিষ্যতে আপনি যদি ৫০০ Lesson-এর একটি বড় Learning System-ও তৈরি করেন, একই নীতিতে সেটি সংগঠিত করা যাবে। এই সরলতা (simplicity) এবং ধারাবাহিকতাই এটিকে দীর্ঘমেয়াদে শক্তিশালী ও ব্যবহারযোগ্য করে তোলে।</p>
+
+</div></div>
+</body>
+</html>
