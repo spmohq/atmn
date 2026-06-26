@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson Genie - লার্নিং কন্টেন্ট ক্রিয়েটর</title>
+    <style>
+        /* Modern Design & Typography */
+        :root {
+            --primary-color: #1e293b;
+            --accent-color: #2563eb;
+            --bg-color: #f1f5f9;
+            --card-bg: #ffffff;
+            --text-color: #334155;
+            --border-radius: 12px;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            padding-bottom: 60px;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Header Styling */
+        header {
+            padding: 50px 0 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .intro-text {
+            background: #fff;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+            border-left: 6px solid var(--accent-color);
+            font-size: 1.1rem;
+        }
+
+        /* Input Fields Area */
+        .input-section {
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        .example-hint {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-bottom: 10px;
+            font-style: italic;
+            display: block;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 80px;
+            transition: all 0.3s ease;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+            background-color: #fcfcfc;
+        }
+
+        /* Prompt Display Box */
+        .prompt-wrapper {
+            margin-bottom: 40px;
+        }
+
+        .prompt-box {
+            background: #fff;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+
+        .prompt-header {
+            background: var(--primary-color);
+            color: #fff;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prompt-header h3 {
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .prompt-content {
+            padding: 25px;
+            background: #fafafa;
+            color: #1e293b;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 1rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-top: 1px solid #eee;
+            line-height: 1.6;
+        }
+
+        .copy-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #1d4ed8;
+        }
+
+        /* Toast Notification */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #334155;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 30px;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 2rem; }
+            .container { width: 94%; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Lesson Genie</h1>
+            <div class="intro-text">
+                নমস্কার! আপনি যদি আপনার শিক্ষার্থীদের জন্য একটি প্রাণবন্ত এবং গোছানো লেসন তৈরি করতে চান, তবে আপনি একদম সঠিক জায়গায় এসেছেন। নিচের তথ্যগুলো পূরণ করুন, দেখবেন আপনার লেসনটি ধাপে ধাপে একটি শক্তিশালী প্রম্পটে পরিণত হচ্ছে। কাজ শেষ হলে জাস্ট কপি করে ChatGPT-তে ব্যবহার করুন।
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <!-- Input Section -->
+        <div class="input-section">
+            <div class="input-group">
+                <label>কেন এটা শিখবেন? কি Problem?</label>
+                <span class="example-hint">Example: "ChatGPT-এর উত্তর যদি Save না করেন, পরে সেটা হারিয়ে যেতে পারে।"</span>
+                <textarea id="in_why" placeholder="এখানে লিখুন..." oninput="syncPrompts()"></textarea>
+            </div>
+            
+            <div class="input-group">
+                <label>আজ কী শিখবেন?</label>
+                <textarea id="in_what" placeholder="এখানে লিখুন..." oninput="syncPrompts()"></textarea>
+            </div>
+            
+            <div class="input-group">
+                <label>ধাপে ধাপে</label>
+                <textarea id="in_steps" placeholder="এখানে ধাপগুলো লিখুন..." oninput="syncPrompts()"></textarea>
+            </div>
+            
+            <div class="input-group">
+                <label>Illustration: একটি Screenshot অথবা একটি Annotation</label>
+                <textarea id="in_illu" placeholder="এখানে বর্ণনা দিন..." oninput="syncPrompts()"></textarea>
+            </div>
+            
+            <div class="input-group">
+                <label>এক লাইনের Recap</label>
+                <textarea id="in_recap" placeholder="এখানে সারসংক্ষেপ লিখুন..." oninput="syncPrompts()"></textarea>
+            </div>
+        </div>
+
+        <hr style="margin: 40px 0; border: 0; border-top: 1px solid #ddd;">
+
+        <!-- Generated Prompts Area -->
+        
+        <!-- Prompt 1 -->
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>Prompt #1: Lesson Plan</h3>
+                    <button class="copy-btn" onclick="copyText('display1')">কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="display1">১. কেন এটা শিখবেন?
+
+[কেন]
+
+২. আজ কী শিখবেন?
+
+[কি]
+
+৩. ধাপে ধাপে
+
+[কি ভাবে ধাপে ধাপে]
+
+৪. Illustration
+
+[ইলাসট্রেসন]
+
+৫. কী শিখলেন?
+
+[কী শিখলেন]</div>
+            </div>
+        </div>
+
+        <!-- Prompt 2 -->
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>Prompt #2: Terminology</h3>
+                    <button class="copy-btn" onclick="copyText('display2')">কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="display2">Skill = Course
+একটা ধাপ = Module
+একটা নির্দিষ্ট কাজ = Lesson
+লেসন শেষের পরে পরেই, এখনই যা করবে = Action</div>
+            </div>
+        </div>
+
+        <!-- Prompt 3 -->
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>Prompt #3: AI Flow</h3>
+                    <button class="copy-btn" onclick="copyText('display3')">কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="display3">AI ব্যবহার করার আগে কী লাগবে?
+↓
+AI ব্যবহার করার সময় কী করবেন?
+↓
+ব্যবহার করার পরে কী করবেন?</div>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="toast">ক্লিপবোর্ডে কপি হয়েছে!</div>
+
+    <script>
+        const p1Template = `১. কেন এটা শিখবেন?
+
+[কেন]
+
+২. আজ কী শিখবেন?
+
+[কি]
+
+৩. ধাপে ধাপে
+
+[কি ভাবে ধাপে ধাপে]
+
+৪. Illustration
+
+[ইলাসট্রেসন]
+
+৫. কী শিখলেন?
+
+[কী শিখলেন]`;
+
+        function syncPrompts() {
+            const why = document.getElementById('in_why').value || '[কেন]';
+            const what = document.getElementById('in_what').value || '[কি]';
+            const steps = document.getElementById('in_steps').value || '[কি ভাবে ধাপে ধাপে]';
+            const illu = document.getElementById('in_illu').value || '[ইলাসট্রেসন]';
+            const recap = document.getElementById('in_recap').value || '[কী শিখলেন]';
+
+            const updatedP1 = p1Template
+                .replace('[কেন]', why)
+                .replace('[কি]', what)
+                .replace('[কি ভাবে ধাপে ধাপে]', steps)
+                .replace('[ইলাসট্রেসন]', illu)
+                .replace('[কী শিখলেন]', recap);
+
+            document.getElementById('display1').innerText = updatedP1;
+        }
+
+        function copyText(id) {
+            const text = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
