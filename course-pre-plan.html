@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Pre-plan - আপনার কোর্সের রোডম্যাপ</title>
+    <style>
+        /* Modern Design & Typography */
+        :root {
+            --primary-color: #1e293b;
+            --accent-color: #10b981;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #334155;
+            --border-radius: 12px;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            padding-bottom: 60px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Header Styling */
+        header {
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .welcome-card {
+            background: #fff;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+            border-left: 6px solid var(--accent-color);
+        }
+
+        .welcome-card p {
+            font-size: 1.1rem;
+            color: #475569;
+            margin-bottom: 0;
+        }
+
+        /* Prompt Display Box */
+        .prompt-wrapper {
+            margin-top: 20px;
+        }
+
+        .prompt-box {
+            background: #fff;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+
+        .prompt-header {
+            background: var(--primary-color);
+            color: #fff;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prompt-header h3 {
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .prompt-content {
+            padding: 25px;
+            background: #fafafa;
+            color: #1e293b;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 1.05rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-top: 1px solid #eee;
+            line-height: 1.6;
+        }
+
+        .copy-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #059669;
+        }
+
+        .copy-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Footer Message */
+        .footer-note {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+
+        /* Notification Toast */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #334155;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 30px;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Mobile Friendliness */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            .container { width: 94%; }
+            .prompt-content { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Course Pre-plan</h1>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <div class="welcome-card">
+            <p>আপনার কোর্সের বিষয়বস্তু সাজানোর আগে এই ৫টি মূল প্রশ্ন নিজেকে করা প্রয়োজন। এটি আপনার চিন্তাভাবনাকে আরও স্পষ্ট করবে। নিচের প্রম্পটটি কপি করে আপনার কাজের শুরুতেই ব্যবহার করুন।</p>
+        </div>
+
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>Planning Prompt</h3>
+                    <button class="copy-btn" onclick="copyPrompt()">কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="prePlanPrompt">কোন স্কিলটা ডেভেলাপ করতে চাইছি?
+ধাপ গুলো কি কি?
+আর কোন কোন জিনিসগুলো জানা প্রয়োজন?
+সেগুলোর কোন কোনটা শুধু কনসেপ্টটা বুঝিয়ে দিলেই হবে আর কোন কোনটার কনসেপ্টের সঙ্গে ব্যবহারটাও শেখানো প্রয়োজন?
+কোর্সে কোন জায়গায় ও কিভাবে সেই জিনিসগুলো দেওয়া যায়?</div>
+            </div>
+        </div>
+
+        <div class="footer-note">
+            <p>একটি নিখুঁত প্রি-প্ল্যানই আপনার কোর্সের সাফল্যের অর্ধেক পথ তৈরি করে দেয়। শুভকামনা!</p>
+        </div>
+
+    </main>
+
+    <div id="toast">প্রম্পটটি ক্লিপবোর্ডে কপি হয়েছে!</div>
+
+    <script>
+        function copyPrompt() {
+            const text = document.getElementById('prePlanPrompt').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 2000);
+            }).catch(err => {
+                console.error('Copy failed: ', err);
+            });
+        }
+    </script>
+</body>
+</html>
