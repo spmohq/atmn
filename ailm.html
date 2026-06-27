@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Lead Magnet Genie - আপনার ব্যবসার গ্রোথ পার্টনার</title>
+    <style>
+        /* Modern & Clean UI Design */
+        :root {
+            --primary-color: #1e293b;
+            --accent-color: #2563eb;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #334155;
+            --border-radius: 12px;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            padding-bottom: 60px;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Header Styling */
+        header {
+            padding: 50px 0 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .intro-text {
+            background: #fff;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+            border-left: 6px solid var(--accent-color);
+            font-size: 1.1rem;
+        }
+
+        /* Input Section */
+        .input-section {
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-size: 1rem;
+            color: var(--primary-color);
+        }
+
+        textarea, select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1rem;
+            resize: vertical;
+            transition: border-color 0.3s;
+        }
+
+        textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        /* Prompt Display Box */
+        .prompt-wrapper {
+            margin-bottom: 40px;
+        }
+
+        .prompt-box {
+            background: #fff;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid #e1e8ed;
+        }
+
+        .prompt-header {
+            background: var(--primary-color);
+            color: #fff;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prompt-header h3 {
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin: 0;
+        }
+
+        .prompt-content {
+            padding: 25px;
+            background: #fafafa;
+            color: #2c3e50;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.95rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-top: 1px solid #eee;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .copy-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: opacity 0.3s;
+        }
+
+        .copy-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Toast Notification */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            .container { width: 94%; }
+            .input-section { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>AI Lead Magnet Genie</h1>
+            <div class="intro-text">
+                নমস্কার! সঠিক অডিয়েন্সকে আপনার ব্যবসার প্রতি আকৃষ্ট করার জন্য একটি আকর্ষণীয় <strong>Lead Magnet</strong> তৈরি করা খুব জরুরি। আপনি কোন বিষয়ে কন্টেন্ট বানাতে চাইছেন এবং আপনার টার্গেট কারা—সেটা নিচের বক্সে লিখুন। আপনার দেওয়া তথ্যের ওপর ভিত্তি করে নিচের প্রম্পটটি অটোমেটিক আপডেট হয়ে যাবে। এরপর এটি কপি করে ChatGPT-তে দিলেই পেয়ে যাবেন আপনার রেডি-টু-ইউজ লিড ম্যাগনেট।
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <!-- Input Section -->
+        <div class="input-section">
+            <div class="input-group">
+                <label>NICHE / TOPIC:</label>
+                <textarea id="nicheInput" placeholder="যেমন: ডিজিটাল মার্কেটিং, রান্না শেখানো বা ফিটনেস..." oninput="updatePrompt()"></textarea>
+            </div>
+            
+            <div class="input-group">
+                <label>TARGET AUDIENCE:</label>
+                <textarea id="audienceInput" placeholder="কাদের জন্য এটি তৈরি করছেন? যেমন: ছোট ব্যবসায়ী বা শিক্ষার্থী..." oninput="updatePrompt()"></textarea>
+            </div>
+
+            <div class="input-group">
+                <label>LEAD MAGNET FORMAT:</label>
+                <select id="formatInput" onchange="updatePrompt()">
+                    <option value="[A] Mini PDF Guide (10–20 pages, focused and actionable)">[A] Mini PDF Guide</option>
+                    <option value="[B] Checklist / Cheat Sheet (1–3 pages, quick-win format)">[B] Checklist / Cheat Sheet</option>
+                    <option value="[C] Swipe File (collection of templates, formulas, or examples)">[C] Swipe File</option>
+                    <option value="[D] Email Mini-Course (5–7 daily emails with lessons)">[D] Email Mini-Course</option>
+                    <option value="[E] Toolkit / Resource List (curated tools + how to use them)">[E] Toolkit / Resource List</option>
+                    <option value="[F] Quiz / Assessment (questions + personalized results)">[F] Quiz / Assessment</option>
+                    <option value="[G] AI Prompt Vault (collection of niche-specific AI prompts)">[G] AI Prompt Vault</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>OFFER DETAILS (OPTIONAL):</label>
+                <textarea id="offerInput" placeholder="আপনার যদি কোনো পেইড প্রোডাক্ট থাকে, তার বিবরণ এখানে দিন..." oninput="updatePrompt()"></textarea>
+            </div>
+        </div>
+
+        <hr style="margin: 40px 0; border: 0; border-top: 1px solid #ddd;">
+
+        <!-- Prompt Display Area -->
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>Master Prompt for AI</h3>
+                    <button class="copy-btn" onclick="copyToClipboard()">প্রম্পট কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="promptDisplay"></div>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="toast">ক্লিপবোর্ডে কপি হয়েছে!</div>
+
+    <script>
+        const promptTemplate = `Please write the output of the PROMPT below in the most spontaneous and natural sounding modern, everyday conversational Bengali as spoken in Kolkata, West Bengal, India that can be understood by an 21 year old but contains the international standards of language.
+
+Strict Rules:
+
+Must subtly reflect Kolkata conversational cadence through sentence rhythm and phrasing by using slightly formal, polite, and smoothly flowing sentence structures, with balanced pacing and no abrupt or overly casual wording — without slang, regional grammar, or loss of conservative authority.
+
+• Always use the formal “আপনি”, not the informal “তুমি.” The address is formal, but the tone should remain warm, conversational, and approachable.
+• The voice should be bold, direct, also should feel like a close friend and a trusted authority, speaking one-on-one with the reader in a natural, face-to-face style.
+
+PROMPT
+
+You are an expert lead magnet strategist, copywriter, and digital content creator. Your job is to generate complete, high-converting, ready-to-use lead magnets that are designed to attract the right subscribers, deliver real value, and — when a paid offer is provided — strategically warm up readers and position that offer as the natural next step.
+
+Use the following inputs:
+
+NICHE / TOPIC: {NICHE_TOPIC}
+TARGET AUDIENCE: {TARGET_AUDIENCE}
+LEAD MAGNET FORMAT: {FORMAT}
+Choose one: [A] Mini PDF Guide (10–20 pages, focused and actionable) [B] Checklist / Cheat Sheet (1–3 pages, quick-win format) [C] Swipe File (collection of templates, formulas, or examples) [D] Email Mini-Course (5–7 daily emails with lessons) [E] Toolkit / Resource List (curated tools + how to use them) [F] Quiz / Assessment (questions + personalized results) [G] AI Prompt Vault (collection of niche-specific AI prompts)
+LANGUAGE: Bengali as spoken in Kolkata, West Bengal, India that can be understood by an 21 year old but contains the international standards of language.
+OFFER DETAILS (OPTIONAL): {OFFER_DETAILS}
+
+===GLOBAL RULES===
+
+Always write in the LANGUAGE specified above. Keep language clear, direct, and appropriate for the TARGET AUDIENCE. Every piece of content must be specific, actionable, and tied to the niche. No fluff, no filler, no generic advice.
+
+If PAID OFFER ALIGNMENT fields are filled in, use the sales page copy to deeply understand the offer and craft a lead magnet that strategically builds toward it throughout the content. The offer should feel like the natural, logical next step. Weave it in through context, gaps, positioning, and multiple call-to-actions.
+
+If PAID OFFER ALIGNMENT fields are left blank, generate a high-quality standalone lead magnet with no offer references.
+
+Adapt the structure, length, and format of every output section to match the chosen LEAD MAGNET FORMAT. Do not explain what you are doing. Just output the content.
+
+===OUTPUT LENGTH RULES===
+
+Never compress or shorten any section to fit a single response. If the full output doesn’t fit, stop at the end of a complete section and write: “Type ‘continue’ to get the next part.” Wait for ‘continue’ before resuming. No recaps, no repetition. Repeat until the entire output is complete.
+
+===OUTPUT STRUCTURE===
+
+Generate the following sections in order:
+
+=> SECTION 1 — LEAD MAGNET IDENTITY
+
+Lead Magnet Title: A compelling, benefit-driven title that makes people want to download it immediately. Generate 3 title options and mark the strongest one as [RECOMMENDED].
+Subtitle: One sentence that expands on the promise and clarifies who it’s for.
+Lead Magnet Description (50–80 words): A short paragraph explaining what the lead magnet is, who it’s for, and what the reader will gain. This can be used on the opt-in page or in promotional copy.
+Transformation Statement Complete this sentence: “After going through this [format], you will go from ___ to ___.”
+=> SECTION 2 — COMPLETE LEAD MAGNET CONTENT
+
+Generate the full content of the lead magnet, adapted to the chosen FORMAT:
+
+[A] MINI PDF GUIDE
+
+Generate a complete guide with:
+
+A compelling introduction (why this topic matters, what they’ll learn, who this is for)
+5 to 8 chapters/sections, each covering one key concept, strategy, or step
+For each chapter: a clear title, detailed teaching content with explanations and examples, and one actionable takeaway or mini-task
+A conclusion that summarizes the key insights and reinforces the transformation
+If OFFER ALIGNED: a dedicated final section titled “Your Next Step” that naturally bridges to the paid offer, explaining how it takes the reader further
+[B] CHECKLIST / CHEAT SHEET
+
+Generate a complete checklist or cheat sheet with:
+
+A short intro (3–5 sentences) explaining what this checklist covers and how to use it
+15 to 25 actionable checklist items, organized into 3–5 logical categories
+Each item must be specific and immediately actionable (not vague or generic)
+A brief closing note with encouragement
+If OFFER ALIGNED: a “Bonus Tip” or “Go Further” note at the end that naturally introduces the paid offer
+[C] SWIPE FILE
+
+Generate a complete swipe file with:
+
+A short intro explaining what’s inside, how to use the templates/formulas, and how to customize them
+15 to 25 ready-to-use templates, formulas, scripts, or examples (depending on the niche)
+Each swipe must be specific, complete, and immediately usable — not a vague outline
+Organize swipes into 3–5 logical categories
+A closing note with tips for getting the best results
+If OFFER ALIGNED: a section at the end positioning the paid offer as a way to get even more templates, deeper strategies, or done-for-you solutions
+[D] EMAIL MINI-COURSE
+
+Generate a complete email mini-course with:
+
+5 to 7 daily emails
+For each email: — Subject line (generate 2 options, mark the stronger one as [RECOMMENDED]) — Email body: engaging, conversational content that teaches one key lesson per day. Each email should be 200–400 words. — One clear takeaway or action step per email
+Each email must build on the previous one, creating a logical progression
+The final email should summarize the journey and reinforce the transformation
+If OFFER ALIGNED: the last 1–2 emails should naturally introduce the paid offer as the next step, without being pushy
+[E] TOOLKIT / RESOURCE LIST
+
+Generate a complete toolkit with:
+
+A short intro explaining the purpose of the toolkit and how to use it
+15 to 25 tools, resources, platforms, or assets curated for the specific niche and audience
+For each resource: name, what it does, why it’s useful, and a practical tip for using it
+Organize resources into 3–5 logical categories
+A closing section with recommendations on where to start
+If OFFER ALIGNED: include the paid offer naturally within the toolkit as a recommended resource, or add a “Featured Resource” section at the end
+[F] QUIZ / ASSESSMENT
+
+Generate a complete quiz with:
+
+A compelling quiz title and short intro explaining what the quiz reveals
+8 to 12 multiple-choice questions, each with 3–4 answer options
+Questions must be engaging, thought-provoking, and relevant to the niche
+A scoring system (e.g. mostly A’s, mostly B’s, etc.)
+3 to 4 result profiles, each with: a profile name, a detailed description (80–120 words), strengths, areas for improvement, and specific recommendations
+If OFFER ALIGNED: each result profile should include a personalized recommendation that naturally leads to the paid offer as a solution
+[G] AI PROMPT VAULT
+
+Generate a complete prompt vault with:
+
+A short intro explaining what prompts are included, how to use them, and which AI tools they work with
+20 to 30 ready-to-use AI prompts, each with fill-in-the-blanks where relevant
+Each prompt must be specific, detailed, and designed to produce high-quality AI outputs
+Organize prompts into 4–6 logical categories
+For each prompt: a short title, the full prompt text, and a 1-sentence note on what it produces
+A closing section with tips for getting the best results from the prompts
+If OFFER ALIGNED: a final section explaining how the paid offer complements the prompts and takes results to the next level
+==========
+
+Now generate the complete lead magnet following the structure above, using all the inputs provided. Make every section specific, actionable, and immediately usable. Do not add commentary before or after the output.`;
+
+        function updatePrompt() {
+            const niche = document.getElementById('nicheInput').value || "{NICHE_TOPIC}";
+            const audience = document.getElementById('audienceInput').value || "{TARGET_AUDIENCE}";
+            const format = document.getElementById('formatInput').value;
+            const offer = document.getElementById('offerInput').value || "{OFFER_DETAILS}";
+
+            let finalPrompt = promptTemplate
+                .replace("{NICHE_TOPIC}", niche)
+                .replace("{TARGET_AUDIENCE}", audience)
+                .replace("{FORMAT}", format)
+                .replace("{OFFER_DETAILS}", offer);
+
+            document.getElementById('promptDisplay').innerText = finalPrompt;
+        }
+
+        function copyToClipboard() {
+            const text = document.getElementById('promptDisplay').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 2000);
+            });
+        }
+
+        // Initialize display
+        updatePrompt();
+    </script>
+</body>
+</html>
