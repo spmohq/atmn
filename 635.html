@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PinPro Studio | Ultimate 3D Designer</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@400..700&family=Galada&family=Hind+Siliguri:wght@400;700&family=Montserrat:wght@900&family=Noto+Serif+Bengali:wght@400;700&family=Playfair+Display:ital,wght@0,900;1,900&family=Poppins:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Tiro+Bangla:ital@0;1&display=swap" rel="stylesheet">
+    
+    <style>
+        :root { --primary: #E60023; --bg: #0f0f0f; --card: #1a1a1a; --border: #333; --accent: #0078ff; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', 'Hind Siliguri', sans-serif; }
+        
+        body { background: var(--bg); color: #fff; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+        header { background: #000; padding: 0 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; height: 50px; flex-shrink: 0; }
+
+        main { display: grid; grid-template-columns: 300px 1fr 300px; height: calc(100vh - 50px); }
+
+        .sidebar { background: var(--card); padding: 12px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; border-right: 1px solid var(--border); }
+        .sidebar-right { border-right: none; border-left: 1px solid var(--border); }
+
+        .section-title { font-size: 10px; font-weight: 800; color: var(--primary); text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 4px; margin-bottom: 5px; }
+
+        .control-group { background: #222; padding: 10px; border-radius: 8px; border: 1px solid #333; margin-bottom: 5px; }
+        label { font-size: 10px; color: #888; display: flex; justify-content: space-between; margin-bottom: 4px; }
+        label span { color: var(--accent); font-weight: bold; }
+        
+        textarea, input[type="text"] { width: 100%; background: #000; border: 1px solid #444; color: #fff; padding: 8px; border-radius: 5px; font-size: 12px; outline: none; }
+        select { width: 100%; background: #000; border: 1px solid #444; color: #fff; padding: 6px; border-radius: 4px; font-size: 11px; }
+
+        input[type="range"] { width: 100%; accent-color: var(--primary); height: 4px; margin: 8px 0; cursor: pointer; }
+        input[type="color"] { width: 100%; height: 25px; border: none; background: none; cursor: pointer; }
+
+        .toolbar { display: flex; gap: 4px; margin-bottom: 8px; flex-wrap: wrap; }
+        .tool-btn { background: #333; border: 1px solid #444; color: #fff; width: 30px; height: 30px; border-radius: 4px; cursor: pointer; font-size: 11px; display: flex; align-items: center; justify-content: center; }
+        .tool-btn.active { background: var(--accent); border-color: var(--accent); }
+
+        .canvas-container { display: flex; align-items: center; justify-content: center; background: #080808; padding: 10px; overflow: hidden; position: relative; }
+        /* Adjusted aspect-ratio to auto to support dynamic changes */
+        #main-canvas { max-width: 100%; max-height: 100%; box-shadow: 0 0 50px rgba(0,0,0,0.9); background: #000; }
+
+        .btn { padding: 8px 15px; border-radius: 5px; font-weight: 700; cursor: pointer; border: none; font-size: 11px; transition: 0.2s; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-upload { background: #333; color: #aaa; width: 100%; margin-top: 5px; border: 1px dashed #555; }
+
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-thumb { background: #444; border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div style="font-weight: 900; color: var(--primary); font-size: 14px;">PINPRO STUDIO <span style="color:#fff; opacity: 0.5;">ULTIMATE PRO</span></div>
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <label style="margin: 0; color: #fff; font-size: 11px;">RATIO:</label>
+        <select style="width: 100px;" onchange="updateRatio(this.value)">
+            <option value="4:5">Portrait (4:5)</option>
+            <option value="1:1">Square (1:1)</option>
+        </select>
+        <button class="btn" style="background:#333; color:#ccc;" onclick="document.getElementById('file-bg').click()">UPLOAD BG</button>
+        <button class="btn btn-primary" onclick="download()">EXPORT PNG</button>
+    </div>
+</header>
+
+<main>
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar">
+        <div class="section-title">1. Panel Content</div>
+        <div class="control-group">
+            <textarea id="text-input" rows="3" oninput="update('text', this.value)">Modern&#10;Design</textarea>
+            <label>Font Family</label>
+            <select onchange="update('fontFamily', this.value)">
+                <optgroup label="Creative"><option value="Caveat">Caveat (Hand)</option><option value="Galada">Galada (Bengali Style)</option></optgroup>
+                <optgroup label="English"><option value="Poppins">Poppins</option><option value="Montserrat">Montserrat</option><option value="Bebas Neue">Bebas Neue</option></optgroup>
+                <optgroup label="Bengali"><option value="Hind Siliguri">Hind Siliguri</option><option value="Noto Serif Bengali">Noto Serif</option></optgroup>
+            </select>
+            <label style="margin-top:10px;">Alignment & Style</label>
+            <div class="toolbar">
+                <button class="tool-btn" id="btn-bold" onclick="toggleStyle('fontWeight', 'bold', 'normal')">B</button>
+                <button class="tool-btn" id="btn-italic" onclick="toggleStyle('fontStyle', 'italic', 'normal')">I</button>
+                <button class="tool-btn" id="align-left" onclick="setStyle('textAlign', 'left')">L</button>
+                <button class="tool-btn active" id="align-center" onclick="setStyle('textAlign', 'center')">C</button>
+                <button class="tool-btn" id="align-right" onclick="setStyle('textAlign', 'right')">R</button>
+            </div>
+            <div style="display: flex; gap: 8px;">
+                <div style="flex:1"><label>Color</label><input type="color" value="#111111" oninput="update('textColor', this.value)"></div>
+                <div style="flex:1"><label>Size <span id="v-ts">90</span></label><input type="range" min="20" max="250" value="90" oninput="update('textSize', this.value)"></div>
+            </div>
+        </div>
+
+        <div class="section-title">2. Board Aesthetics & Skin</div>
+        <div class="control-group">
+            <label>Board Skin (Texture)</label>
+            <select onchange="handleTexturePreset(this.value)">
+                <option value="none">Solid Matte</option>
+                <option value="paper">Fine Paper</option>
+                <option value="marble">White Marble</option>
+                <option value="glass">Frosted Glass</option>
+            </select>
+            <button class="btn btn-upload" onclick="document.getElementById('file-texture').click()">+ UPLOAD CUSTOM SKIN</button>
+            <div style="display: flex; gap: 8px; margin-top:10px;">
+                <div style="flex:1"><label>Base Color</label><input type="color" value="#ffffff" oninput="update('panelColor', this.value)"></div>
+                <div style="flex:1"><label>Opacity <span id="v-po">1.0</span></label><input type="range" min="0" max="100" value="100" oninput="update('panelOpacity', this.value/100)"></div>
+            </div>
+            <label style="margin-top:5px;">Rounding Radius <span id="v-rad">60</span></label>
+            <input type="range" min="0" max="150" value="60" oninput="update('radius', this.value)">
+        </div>
+
+        <div class="section-title">3. Branding (Logo)</div>
+        <div class="control-group">
+            <button class="btn btn-upload" onclick="document.getElementById('file-icon').click()">+ UPLOAD LOGO</button>
+            <label style="margin-top:8px;">Scale <span id="v-is">100</span></label>
+            <input type="range" min="20" max="500" value="100" oninput="update('iconSize', this.value)">
+            <label>Opacity <span id="v-io">1.0</span></label>
+            <input type="range" min="0" max="100" value="100" oninput="update('iconOpacity', this.value/100)">
+        </div>
+    </aside>
+
+    <!-- CANVAS -->
+    <div class="canvas-container">
+        <canvas id="main-canvas" width="1000" height="1250"></canvas>
+        <input type="file" id="file-bg" hidden onchange="handleFile(event, 'bg')">
+        <input type="file" id="file-icon" hidden onchange="handleFile(event, 'iconImg')">
+        <input type="file" id="file-texture" hidden onchange="handleFile(event, 'panelTexture')">
+    </div>
+
+    <!-- RIGHT SIDEBAR -->
+    <aside class="sidebar sidebar-right">
+        <div class="section-title">4. Global Scene</div>
+        <div class="control-group">
+            <label>Background Dim <span id="v-dim">40%</span></label>
+            <input type="range" min="0" max="100" value="40" oninput="update('bgDim', this.value/100)">
+        </div>
+
+        <div class="section-title">5. 3D Perspective</div>
+        <div class="control-group">
+            <label>Rotate Y (Angle) <span id="v-rot">30°</span></label>
+            <input type="range" min="-75" max="75" value="30" oninput="update('rotY', this.value)">
+            <label>Width <span id="v-w">450</span></label>
+            <input type="range" min="100" max="950" value="450" oninput="update('w', this.value)">
+            <label>Height <span id="v-h">700</span></label>
+            <input type="range" min="100" max="1100" value="700" oninput="update('h', this.value)">
+        </div>
+
+        <div class="section-title">6. Footer Banner</div>
+        <div class="control-group">
+            <label style="display:flex; align-items:center; gap:5px;"><input type="checkbox" checked onchange="update('footerActive', this.checked)"> Enable Footer</label>
+            <label>Height <span id="v-fh">100</span></label>
+            <input type="range" min="40" max="300" value="100" oninput="update('footerHeight', this.value)">
+            <input type="text" value="www.yourwebsite.com" oninput="update('footerText', this.value)">
+            <div style="display: flex; gap: 8px; margin-top:8px;">
+                <div style="flex:1"><label>Text Size <span id="v-fs">35</span></label><input type="range" min="10" max="100" value="35" oninput="update('footerTextSize', this.value)"></div>
+                <div style="flex:1"><label>Opacity <span id="v-fo">1.0</span></label><input type="range" min="0" max="100" value="100" oninput="update('footerOpacity', this.value/100)"></div>
+            </div>
+            <label>Banner Color</label>
+            <input type="color" value="#E60023" oninput="update('footerColor', this.value)">
+        </div>
+    </aside>
+</main>
+
+<script>
+    const canvas = document.getElementById('main-canvas');
+    const ctx = canvas.getContext('2d');
+    const offCanvas = document.createElement('canvas');
+    const offCtx = offCanvas.getContext('2d');
+
+    let state = {
+        text: "Modern\nDesign", textSize: 90, textColor: '#111111', fontFamily: 'Poppins', fontWeight: 'bold', fontStyle: 'normal', textAlign: 'center',
+        panelColor: '#ffffff', panelOpacity: 1.0, radius: 60, panelTexture: null,
+        x: 320, y: 550, w: 450, h: 700, rotY: 30,
+        iconImg: null, iconX: 500, iconY: 200, iconSize: 100, iconOpacity: 1.0,
+        bg: null, bgDim: 0.4,
+        footerActive: true, footerHeight: 100, footerColor: '#E60023', footerOpacity: 1.0, footerText: "www.yourwebsite.com", footerTextSize: 35, footerTextColor: '#ffffff', footerTextX: 500, footerTextY: 1200,
+        showVGuide: false
+    };
+
+    let dragging = false, dragTarget = null, sX, sY;
+
+    // Feature added: Function to toggle aspect ratio
+    function updateRatio(ratio) {
+        const oldH = canvas.height;
+        if(ratio === '1:1') {
+            canvas.height = 1000;
+        } else {
+            canvas.height = 1250;
+        }
+        const diff = canvas.height - oldH;
+        
+        // Auto-adjust element positions relative to new height
+        state.y += diff / 2;
+        state.footerTextY += diff;
+        if(state.iconY > canvas.height) state.iconY = canvas.height - 100;
+        
+        render();
+    }
+
+    function update(key, val) {
+        state[key] = (typeof val === 'string' && !val.startsWith('#') && !isNaN(val)) ? parseFloat(val) : val;
+        const maps = {'textSize':'v-ts','panelOpacity':'v-po','radius':'v-rad','rotY':'v-rot','w':'v-w','h':'v-h','footerHeight':'v-fh','footerTextSize':'v-fs','footerOpacity':'v-fo','iconSize':'v-is','iconOpacity':'v-io'};
+        if(maps[key]) document.getElementById(maps[key]).innerText = val + (key==='rotY'?'°':'');
+        if(key === 'bgDim') document.getElementById('v-dim').innerText = Math.round(val*100) + '%';
+        render();
+    }
+
+    function handleTexturePreset(val) {
+        if(val === 'none') { state.panelTexture = null; render(); }
+        else {
+            const img = new Image();
+            img.crossOrigin = "anonymous";
+            img.src = `https://www.transparenttextures.com/patterns/${val}.png`;
+            img.onload = () => { state.panelTexture = img; render(); };
+        }
+    }
+
+    function toggleStyle(k, a, n) { state[k] = (state[k] === a) ? n : a; render(); }
+    function setStyle(k, v) { 
+        state[k] = v;
+        ['left', 'center', 'right'].forEach(a => document.getElementById('align-' + a)?.classList.remove('active'));
+        document.getElementById('align-' + v)?.classList.add('active');
+        render(); 
+    }
+
+    function render() {
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.clearRect(0, 0, 1000, canvas.height);
+
+        if (state.bg) ctx.drawImage(state.bg, 0, 0, 1000, canvas.height);
+        else { ctx.fillStyle = '#111'; ctx.fillRect(0,0,1000,canvas.height); }
+
+        ctx.fillStyle = "black"; ctx.globalAlpha = state.bgDim; ctx.fillRect(0, 0, 1000, canvas.height); ctx.globalAlpha = 1.0;
+
+        // Texture Mapping Logic (Flat -> 3D)
+        offCanvas.width = state.w; offCanvas.height = state.h;
+        offCtx.clearRect(0, 0, state.w, state.h);
+        
+        // 1. Draw Panel Base Color
+        offCtx.fillStyle = state.panelColor;
+        offCtx.beginPath(); 
+        offCtx.roundRect(0, 0, state.w, state.h, Math.min(state.radius, state.w/2, state.h/2)); 
+        offCtx.fill();
+
+        // 2. Map Skin Texture (Inside rounded corners)
+        if(state.panelTexture) {
+            offCtx.save();
+            offCtx.clip();
+            offCtx.globalAlpha = 0.4;
+            const ptrn = offCtx.createPattern(state.panelTexture, 'repeat');
+            offCtx.fillStyle = ptrn;
+            offCtx.fillRect(0, 0, state.w, state.h);
+            offCtx.restore();
+        }
+
+        // 3. Draw Panel Text
+        offCtx.fillStyle = state.textColor; offCtx.textAlign = state.textAlign; offCtx.textBaseline = 'middle';
+        offCtx.font = `${state.fontStyle} ${state.fontWeight} ${state.textSize}px "${state.fontFamily}"`;
+        const lines = state.text.split('\n');
+        const lineHeight = state.textSize * 1.2;
+        const totalH = (lines.length - 1) * lineHeight;
+        lines.forEach((line, i) => {
+            const curY = (state.h / 2) - (totalH / 2) + (i * lineHeight);
+            let curX = state.w / 2;
+            if (state.textAlign === 'left') curX = 40;
+            if (state.textAlign === 'right') curX = state.w - 40;
+            offCtx.fillText(line, curX, curY);
+        });
+
+        drawWarped();
+
+        // Independent Logo Render
+        if (state.iconImg) {
+            ctx.save();
+            ctx.globalAlpha = state.iconOpacity;
+            ctx.drawImage(state.iconImg, state.iconX - state.iconSize/2, state.iconY - state.iconSize/2, state.iconSize, state.iconSize);
+            ctx.restore();
+        }
+
+        // Footer Banner Render
+        if (state.footerActive) {
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
+            ctx.globalAlpha = state.footerOpacity;
+            ctx.fillStyle = state.footerColor;
+            ctx.fillRect(0, canvas.height - state.footerHeight, 1000, state.footerHeight);
+            if(state.footerText) {
+                ctx.globalAlpha = 1.0; ctx.fillStyle = state.footerTextColor; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                ctx.font = `700 ${state.footerTextSize}px "${state.fontFamily}"`;
+                ctx.fillText(state.footerText, state.footerTextX, state.footerTextY);
+            }
+        }
+
+        if (state.showVGuide) {
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
+            ctx.beginPath(); ctx.setLineDash([10, 10]); ctx.moveTo(500, 0); ctx.lineTo(500, canvas.height); ctx.strokeStyle = '#E60023'; ctx.stroke();
+        }
+        if (dragging) drawHUD();
+    }
+
+    function drawHUD() {
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        let cx = 0, cy = 0;
+        if(dragTarget === 'panel') { cx = state.x; cy = state.y; }
+        else if(dragTarget === 'footerText') { cx = state.footerTextX; cy = state.footerTextY; }
+        else { cx = state.iconX; cy = state.iconY; }
+        let label = (Math.round(cx) === 500) ? "CENTERED" : `X: ${Math.round(cx)} Y: ${Math.round(cy)}`;
+        ctx.fillStyle = "rgba(0,0,0,0.85)"; ctx.beginPath(); ctx.roundRect(cx + 40, cy - 60, 145, 35, 5); ctx.fill();
+        ctx.fillStyle = (Math.round(cx) === 500) ? "#E60023" : "white"; ctx.font = "bold 16px Poppins"; ctx.fillText(label, cx + 52, cy - 40);
+    }
+
+    function drawWarped() {
+        ctx.save(); ctx.globalAlpha = state.panelOpacity;
+        const angle = state.rotY * Math.PI / 180;
+        const focal = 1000;
+        const hw = state.w / 2, hh = state.h / 2;
+        const corners = [{x: -hw, y: -hh}, {x: hw, y: -hh}, {x: hw, y: hh}, {x: -hw, y: hh}];
+        const proj = corners.map(p => {
+            const rx = p.x * Math.cos(angle);
+            const rz = -p.x * Math.sin(angle);
+            const sc = focal / (focal + rz);
+            return { x: state.x + rx * sc, y: state.y + p.y * sc };
+        });
+        for (let i = 0; i < state.w; i++) {
+            const t = i / state.w;
+            const tx = proj[0].x + (proj[1].x - proj[0].x) * t;
+            const tyT = proj[0].y + (proj[1].y - proj[0].y) * t;
+            const tyB = proj[3].y + (proj[2].y - proj[3].y) * t;
+            ctx.drawImage(offCanvas, i, 0, 1, state.h, tx, tyT, 1, tyB - tyT);
+        }
+        ctx.restore();
+    }
+
+    canvas.onmousedown = (e) => {
+        const r = canvas.getBoundingClientRect();
+        const mx = (e.clientX - r.left) * (1000 / r.width);
+        const my = (e.clientY - r.top) * (canvas.height / r.height);
+        if (state.iconImg && Math.abs(mx - state.iconX) < state.iconSize/2 && Math.abs(my - state.iconY) < state.iconSize/2) {
+            dragTarget = 'icon'; dragging = true; sX = mx - state.iconX; sY = my - state.iconY;
+        } else if (state.footerActive && Math.abs(mx - state.footerTextX) < 300 && Math.abs(my - state.footerTextY) < 60) {
+            dragTarget = 'footerText'; dragging = true; sX = mx - state.footerTextX; sY = my - state.footerTextY;
+        } else {
+            dragTarget = 'panel'; dragging = true; sX = mx - state.x; sY = my - state.y;
+        }
+    };
+
+    window.onmousemove = (e) => {
+        if (!dragging) return;
+        const r = canvas.getBoundingClientRect();
+        const mx = (e.clientX - r.left) * (1000 / r.width);
+        const my = (e.clientY - r.top) * (canvas.height / r.height);
+        let nX = mx - sX, nY = my - sY;
+        if (Math.abs(nX - 500) < 15) { nX = 500; state.showVGuide = true; } else { state.showVGuide = false; }
+        if (dragTarget === 'panel') { state.x = nX; state.y = nY; }
+        else if (dragTarget === 'footerText') { state.footerTextX = nX; state.footerTextY = nY; }
+        else { state.iconX = nX; state.iconY = nY; }
+        render();
+    };
+
+    window.onmouseup = () => { dragging = false; dragTarget = null; state.showVGuide = false; render(); };
+
+    function handleFile(e, target) {
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+            const img = new Image();
+            img.onload = () => { state[target] = img; render(); };
+            img.src = ev.target.result;
+        };
+        reader.readAsDataURL(e.target.files[0]);
+    }
+
+    function download() {
+        const link = document.createElement('a'); 
+        link.download = `pinpro-${Date.now()}.png`;
+        link.href = canvas.toDataURL('image/png', 1.0); 
+        link.click();
+    }
+    window.onload = render;
+</script>
+</body>
+</html>
