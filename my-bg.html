@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Prompt Genie - লাক্সারি কোট ইমেজ ক্রিয়েটর</title>
+    <style>
+        /* Modern & Clean Design System */
+        :root {
+            --primary-color: #0f172a;
+            --accent-color: #b45309;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --border-radius: 12px;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            padding-bottom: 60px;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Header Area */
+        header {
+            padding: 50px 0 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .intro-card {
+            background: #fff;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+            border-left: 6px solid var(--accent-color);
+            font-size: 1.1rem;
+        }
+
+        /* Input Section */
+        .input-section {
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            color: var(--primary-color);
+        }
+
+        textarea {
+            width: 100%;
+            padding: 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1.05rem;
+            resize: vertical;
+            min-height: 120px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 8px rgba(180, 83, 9, 0.15);
+        }
+
+        /* Prompt Display Area */
+        .prompt-wrapper {
+            margin-bottom: 40px;
+        }
+
+        .prompt-box {
+            background: #fff;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+
+        .prompt-header {
+            background: var(--primary-color);
+            color: #fff;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prompt-header h3 {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .prompt-content {
+            padding: 25px;
+            background: #fafafa;
+            color: #1e293b;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.95rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-top: 1px solid #eee;
+            max-height: 500px;
+            overflow-y: auto;
+            line-height: 1.6;
+        }
+
+        .copy-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #92400e;
+        }
+
+        /* Notification Toast */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #334155;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 30px;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        /* CTA Consistency */
+        .cta-bottom {
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        /* Mobile Friendliness */
+        @media (max-width: 600px) {
+            header h1 { font-size: 2rem; }
+            .container { width: 94%; }
+            .prompt-content { font-size: 0.95rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Image</h1>
+            <div class="intro-card">
+                নমস্কার! আপনি কি আপনার ফেসবুকের জন্য একদম প্রিমিয়াম লেভেলের 'কোট-ইমেজ' তৈরি করতে চান? আপনার পছন্দের কোটটি নিচের বক্সে লিখুন। আমাদের এই সিস্টেমটি স্বয়ংক্রিয়ভাবে আপনার জন্য একটি নিখুঁত মাস্টার-প্রম্পট তৈরি করে দেবে। এরপর সেটি কপি করে ChatGPT বা অন্য এআই-তে ব্যবহার করলেই আপনি পেয়ে যাবেন এক অনবদ্য ছবি।
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <!-- User Input Area -->
+        <div class="input-section">
+            <label for="quoteInput">আপনার কোটটি (Quote) এখানে লিখুন:</label>
+            <textarea id="quoteInput" placeholder="যেমন: 'সাফল্যের কোনো শর্টকাট নেই'..." oninput="updatePrompt()"></textarea>
+        </div>
+
+        <hr style="margin: 40px 0; border: 0; border-top: 1px solid #ddd;">
+
+        <!-- Output Prompt Section -->
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>জেনারেটেড মাস্টার প্রম্পট</h3>
+                    <button class="copy-btn" onclick="copyPrompt()">প্রম্পট কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="promptDisplay">Please rewrite this prompt and using ultra-realistic natural colours tailor it to the quote used in the prompt:
+
+Act as a world-class Luxury Visual Art Director specializing in emotionally powerful inspirational visual storytelling and a master Bengali Typography & Premium Social Media Design Expert specializing in elite Facebook quote-image execution; create one polished finished square 1:1 Facebook quote image centered around the exact Bengali text “[QUOTE]” preserving every character perfectly with flawless Indian Bengali spelling, pristine script integrity, ultra-crisp typography, exceptional readability, elegant hierarchy, and beautiful visual integration. Develop a rare, unexpected, premium cinematic concept that interprets self-mastery through a breathtaking environmental narrative rather than a literal victory scene: a solitary figure standing at dawn atop an ancient stone observatory high above a sea of rolling clouds in the eastern Himalayas, having completed a long unseen ascent through darkness, symbolizing inner conquest rather than external achievement. The atmosphere should feel deeply reflective, inspiring, and emotionally elevating, with golden first light breaking through layered mountain mist, illuminating the landscape with quiet majesty and profound optimism. Compose the scene with extraordinary depth, natural scale, and immersive environmental storytelling, allowing the vast mountains, drifting clouds, weathered stone textures, and radiant horizon to communicate resilience, discipline, and self-transformation. Maintain a sophisticated visual hierarchy where the landscape and emotional atmosphere lead the viewer’s experience while the quote functions as a refined supporting focal element. Position the Bengali quote elegantly within naturally open negative space created by clouds and light, using premium editorial typography with perfect spacing, balanced line breaks, high contrast, and flawless legibility on mobile devices. Employ a rich color world of luminous gold, soft amber, muted slate-blue, mist silver, and subtle earth tones, avoiding oversaturation while preserving visual impact. Use cinematic volumetric lighting, realistic atmospheric perspective, nuanced textures, premium photographic realism, subtle lens depth, impeccable composition, and luxury-grade finishing. Blend fine-art landscape photography, high-end editorial design, and emotionally resonant storytelling into a scroll-stopping yet authentic Facebook visual that feels timeless, aspirational, sophisticated, and unforgettable. Ensure natural anatomy, believable environmental details, refined typography placement, harmonious spacing, polished contrast, and immaculate production quality. Avoid generic motivational poster aesthetics, stock-photo energy, oversized text, clutter, visual clichés, artificial scenery, cheap effects, excessive glow, distorted Bengali glyphs, malformed letters, broken conjuncts, low-detail backgrounds, repetitive AI patterns, visual noise, muddy colors, unrealistic lighting, and any element that diminishes elegance, authenticity, emotional depth, or premium social-media impact.
+
+RULE (MANDATORY)
+Don't Add the text in the image.</div>
+            </div>
+        </div>
+
+        <div class="cta-bottom">
+            <p>আপনার কন্টেন্ট জার্নি আরও সুন্দর হোক। শুভকামনা!</p>
+        </div>
+
+    </main>
+
+    <div id="toast">ক্লিপবোর্ডে কপি হয়েছে!</div>
+
+    <script>
+        const originalTemplate = `Please rewrite this prompt and using ultra-realistic natural colours tailor it to the quote used in the prompt:
+
+Act as a world-class Luxury Visual Art Director specializing in emotionally powerful inspirational visual storytelling and a master Bengali Typography & Premium Social Media Design Expert specializing in elite Facebook quote-image execution; create one polished finished square 1:1 Facebook quote image centered around the exact Bengali text “[QUOTE]” preserving every character perfectly with flawless Indian Bengali spelling, pristine script integrity, ultra-crisp typography, exceptional readability, elegant hierarchy, and beautiful visual integration. Develop a rare, unexpected, premium cinematic concept that interprets self-mastery through a breathtaking environmental narrative rather than a literal victory scene: a solitary figure standing at dawn atop an ancient stone observatory high above a sea of rolling clouds in the eastern Himalayas, having completed a long unseen ascent through darkness, symbolizing inner conquest rather than external achievement. The atmosphere should feel deeply reflective, inspiring, and emotionally elevating, with golden first light breaking through layered mountain mist, illuminating the landscape with quiet majesty and profound optimism. Compose the scene with extraordinary depth, natural scale, and immersive environmental storytelling, allowing the vast mountains, drifting clouds, weathered stone textures, and radiant horizon to communicate resilience, discipline, and self-transformation. Maintain a sophisticated visual hierarchy where the landscape and emotional atmosphere lead the viewer’s experience while the quote functions as a refined supporting focal element. Position the Bengali quote elegantly within naturally open negative space created by clouds and light, using premium editorial typography with perfect spacing, balanced line breaks, high contrast, and flawless legibility on mobile devices. Employ a rich color world of luminous gold, soft amber, muted slate-blue, mist silver, and subtle earth tones, avoiding oversaturation while preserving visual impact. Use cinematic volumetric lighting, realistic atmospheric perspective, nuanced textures, premium photographic realism, subtle lens depth, impeccable composition, and luxury-grade finishing. Blend fine-art landscape photography, high-end editorial design, and emotionally resonant storytelling into a scroll-stopping yet authentic Facebook visual that feels timeless, aspirational, sophisticated, and unforgettable. Ensure natural anatomy, believable environmental details, refined typography placement, harmonious spacing, polished contrast, and immaculate production quality. Avoid generic motivational poster aesthetics, stock-photo energy, oversized text, clutter, visual clichés, artificial scenery, cheap effects, excessive glow, distorted Bengali glyphs, malformed letters, broken conjuncts, low-detail backgrounds, repetitive AI patterns, visual noise, muddy colors, unrealistic lighting, and any element that diminishes elegance, authenticity, emotional depth, or premium social-media impact.
+
+RULE (MANDATORY)
+Don't Add the text in the image.`;
+
+        function updatePrompt() {
+            const inputVal = document.getElementById('quoteInput').value;
+            const display = document.getElementById('promptDisplay');
+            
+            if (inputVal.trim() === "") {
+                display.innerText = originalTemplate;
+            } else {
+                // Replacing the placeholder with actual user input
+                display.innerText = originalTemplate.replace('[QUOTE]', inputVal);
+            }
+        }
+
+        function copyPrompt() {
+            const text = document.getElementById('promptDisplay').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 2000);
+            }).catch(err => {
+                console.error('Copy failed: ', err);
+            });
+        }
+    </script>
+</body>
+</html>
