@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>প্রম্পট ২ — কন্টেন্ট রোডম্যাপ জেনারেশন</title>
+    <style>
+        /* Modern Design Strategy: Clean, Professional, and Approachable */
+        :root {
+            --primary-slate: #1e293b;
+            --accent-emerald: #059669;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --text-main: #334155;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.8;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        /* Hero / Header Section */
+        header {
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            color: var(--primary-slate);
+            margin-bottom: 15px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .welcome-card {
+            background: var(--white);
+            padding: 28px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+            border-left: 6px solid var(--accent-emerald);
+        }
+
+        .welcome-card p {
+            font-size: 1.15rem;
+            color: var(--text-main);
+            margin-bottom: 0;
+        }
+
+        /* Prompt Display Box */
+        .prompt-wrapper {
+            margin-top: 20px;
+        }
+
+        .prompt-box {
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .prompt-header {
+            background: var(--primary-slate);
+            color: var(--white);
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prompt-header h3 {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .prompt-content {
+            padding: 32px;
+            background: #fafafa;
+            color: #1e293b;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 1rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-top: 1px solid var(--border-color);
+            line-height: 1.6;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        /* Interaction Elements */
+        .copy-btn {
+            background: var(--accent-emerald);
+            color: var(--white);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.2);
+        }
+
+        .copy-btn:hover {
+            background: #047857;
+            transform: translateY(-1px);
+        }
+
+        .copy-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Toast Notification */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-slate);
+            color: var(--white);
+            padding: 14px 28px;
+            border-radius: 40px;
+            font-size: 1rem;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Sticky Footer for Mobile */
+        .sticky-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--white);
+            padding: 16px;
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: center;
+            z-index: 999;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Mobile Friendliness */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            .container { width: 92%; }
+            .prompt-content { font-size: 0.95rem; padding: 20px; }
+            .intro-card { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>প্রম্পট ২ — কন্টেন্ট রোডম্যাপ জেনারেশন</h1>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <div class="welcome-card">
+            <p>আপনার শেখানোর পদ্ধতিকে আরও সুসংগঠিত করার সময় এসেছে। এই প্রম্পটটি আপনার এআই অ্যাসিস্ট্যান্টকে একটি পূর্ণাঙ্গ রোডম্যাপ তৈরি করতে সাহায্য করবে, যাতে আপনার শিক্ষার্থীরা প্রতিটি বিষয় একদম গোড়া থেকে বুঝতে পারেন।</p>
+        </div>
+
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>Content Roadmap Prompt</h3>
+                    <button class="copy-btn" onclick="copyPrompt()">প্রম্পট কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="masterPrompt">Using your previous analysis of the Core Message, generate a strategic content roadmap.
+
+Do "not" reanalyze the Core Message.
+
+Use only the information from your previous response.
+
+Generate three separate bullet lists.
+
+---
+
+1. Foundation Content (Before the Core Message)
+
+List the content topics that should ideally be published before presenting the Core Message.
+
+These topics should:
+
+- prepare the audience's thinking
+- build curiosity
+- establish context
+- challenge incorrect assumptions
+- introduce essential concepts
+- make the audience ready to understand and accept the Core Message
+
+Arrange the ideas from the most foundational to the closest precursor of the Core Message.
+
+---
+
+2. Expansion Content (After the Core Message)
+
+List the content topics that should be published after the Core Message.
+
+These topics should:
+
+- deepen understanding
+- answer likely questions
+- address objections
+- explore practical applications
+- introduce advanced concepts
+- connect the Core Message with related ideas
+- encourage long-term learning and implementation
+
+Arrange the ideas in a logical progression.
+
+---
+
+3. Gap-Filling Content (Prerequisite Knowledge)
+
+Using the "Assisting Awareness / Prerequisite Knowledge / Prerequisite Skills" section from your previous analysis, identify the knowledge gaps that may prevent a typical beginner from fully understanding the Core Message.
+
+Generate content ideas specifically designed to fill those gaps.
+
+These may include:
+
+- beginner concepts
+- explanations of terminology
+- mindset shifts
+- foundational principles
+- practical skills
+- common misconceptions
+- frequently asked questions
+- real-life examples
+- analogies
+- simple exercises
+
+Arrange the topics in the order they should be learned.
+
+---
+
+Additional Requirements
+
+- Think like an experienced curriculum designer and content strategist.
+- Focus on educational progression rather than random topic generation.
+- Avoid duplicate ideas across the three sections.
+- Each bullet point should represent a single content piece.
+- Use concise, descriptive titles instead of full articles.
+- Organize each list from the highest learning priority to the lowest.
+
+---
+
+Final Summary Table
+
+End your response with a Markdown table containing exactly three columns.
+
+| Foundation Content (Before) | Expansion Content (After) | Gap-Filling Content (Prerequisites) |
+|-----------------------------|---------------------------|-------------------------------------|</div>
+            </div>
+        </div>
+
+        <div class="footer-note">
+            <p>আপনার পরিকল্পনার প্রতিটি ধাপ হোক আরও নিখুঁত এবং শিক্ষার্থী-বান্ধব। শুভকামনা!</p>
+        </div>
+    </main>
+
+    <!-- Sticky Footer for Quick Access -->
+    <div class="sticky-footer">
+        <button class="copy-btn" style="width: 80%;" onclick="copyPrompt()">মাস্টার প্রম্পট কপি করুন</button>
+    </div>
+
+    <div id="toast">প্রম্পটটি ক্লিপবোর্ডে কপি হয়েছে!</div>
+
+    <script>
+        function copyPrompt() {
+            const text = document.getElementById('masterPrompt').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 2000);
+            }).catch(err => {
+                console.error('Copy failed: ', err);
+            });
+        }
+    </script>
+</body>
+</html>

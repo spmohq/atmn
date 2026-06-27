@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>প্রম্পট ৩ — কন্টেন্ট সিকোয়েন্সিং ও লার্নিং পাথ</title>
+    <style>
+        /* Design Strategy: Minimal, Human-Centric, and Calm */
+        :root {
+            --primary-slate: #1e293b;
+            --accent-teal: #0d9488;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #334155;
+            --border-color: #e2e8f0;
+            --success-color: #10b981;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.8;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        /* Hero / Header Section */
+        header {
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            color: var(--primary-slate);
+            margin-bottom: 15px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .intro-card {
+            background: var(--card-bg);
+            padding: 28px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+            border-left: 6px solid var(--accent-teal);
+        }
+
+        .intro-card p {
+            font-size: 1.15rem;
+            color: var(--text-main);
+            margin-bottom: 0;
+        }
+
+        /* Prompt Display Box */
+        .prompt-wrapper {
+            margin-top: 20px;
+        }
+
+        .prompt-box {
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .prompt-header {
+            background: var(--primary-slate);
+            color: white;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prompt-header h3 {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .prompt-content {
+            padding: 32px;
+            background: #fafafa;
+            color: #1e293b;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 1rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-top: 1px solid var(--border-color);
+            line-height: 1.6;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        /* Interaction Elements */
+        .copy-btn {
+            background: var(--accent-teal);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(13, 148, 136, 0.2);
+        }
+
+        .copy-btn:hover {
+            background: #0f766e;
+            transform: translateY(-1px);
+        }
+
+        .copy-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Toast Notification */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-slate);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 40px;
+            font-size: 1rem;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Sticky Footer for Mobile Accessibility */
+        .sticky-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            padding: 16px;
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: center;
+            z-index: 999;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            .container { width: 92%; }
+            .prompt-content { font-size: 0.95rem; padding: 20px; }
+            .intro-card { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>প্রম্পট ৩ — কন্টেন্ট সিকোয়েন্সিং ও লার্নিং পাথ</h1>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <div class="intro-card">
+            <p>আপনার কোর্সের সবগুলো বিষয়কে একটি সুন্দর এবং লজিক্যাল লার্নিং জার্নিতে সাজানোর সময় এসেছে। এই প্রম্পটটি আপনার এআই অ্যাসিস্ট্যান্টকে একজন কারিকুলাম ডিজাইনারের মতো ভাবতে সাহায্য করবে, যাতে আপনার শিক্ষার্থীরা একদম শুরু থেকে শেষ পর্যন্ত কোনো বাধা ছাড়াই শিখতে পারেন।</p>
+        </div>
+
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>Learning Path Prompt</h3>
+                    <button class="copy-btn" onclick="copyPrompt()">প্রম্পট কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="masterPrompt">Using your previous two responses (Core Message Analysis and Content Roadmap), create a complete learning path for the audience.
+
+Do "not" reanalyze the Core Message.
+
+Do "not" generate entirely new topics unless absolutely necessary to bridge a learning gap.
+
+Your objective is to organize all previously identified content into the most effective teaching and publishing sequence.
+
+---
+
+Instructions
+
+Arrange every content idea into a logical progression that gradually moves a beginner from having little or no understanding to fully understanding, accepting, and applying the Core Message.
+
+The sequence should minimize confusion, reduce cognitive overload, and build knowledge step by step.
+
+---
+
+Phase 1 — Awareness
+
+Content that helps the audience recognize the problem, challenge existing assumptions, and become curious.
+
+---
+
+Phase 2 — Foundations
+
+Content that teaches the prerequisite concepts, vocabulary, beliefs, and basic skills needed before introducing the Core Message.
+
+---
+
+Phase 3 — Core Understanding
+
+Content that directly introduces and explains the Core Message.
+
+Include supporting explanations, examples, analogies, and reasoning where appropriate.
+
+---
+
+Phase 4 — Application
+
+Content that teaches readers how to apply the Core Message in practical situations.
+
+Include:
+
+- examples
+- case studies
+- exercises
+- checklists
+- frameworks
+- implementation strategies
+
+---
+
+Phase 5 — Expansion
+
+Content that explores advanced ideas, related concepts, deeper insights, exceptions, and frequently asked questions.
+
+---
+
+Phase 6 — Mastery
+
+Content that enables long-term retention and independent thinking.
+
+Include:
+
+- common mistakes
+- advanced applications
+- myths
+- troubleshooting
+- self-assessment
+- reflection questions
+- review content
+- future learning directions
+
+---
+
+Additional Tasks
+
+For every content idea, indicate:
+
+- Learning Priority (High / Medium / Low)
+- Recommended Publishing Order
+- Difficulty Level (Beginner / Intermediate / Advanced)
+- Primary Learning Objective (one sentence)
+- Why this topic appears at this point in the sequence
+
+---
+
+Additional Requirements
+
+- Think like an instructional designer, curriculum architect, and educational psychologist.
+- Follow sound learning progression rather than popularity or marketing trends.
+- Ensure every topic builds naturally on previous topics.
+- Avoid unnecessary repetition.
+- If a prerequisite is missing, insert the minimum additional topic required and clearly mark it as "Newly Added".
+- Maintain a logical progression from awareness to mastery.
+
+---
+
+Final Deliverables
+
+1. Sequential Learning Roadmap
+
+Present all content ideas in publishing order using numbered sections.
+
+---
+
+2. Dependency Map
+
+For each content idea, identify which earlier topics should be understood first.
+
+---
+
+3. Content Priority Matrix
+
+Create a Markdown table with the following columns.
+
+| Publish Order | Content Title | Learning Phase | Difficulty | Priority | Depends On | Learning Objective |
+
+---
+
+4. Final Evaluation
+
+Briefly assess the overall learning path by answering:
+
+- Are there any gaps in the learning sequence?
+- Which topics are the most critical?
+- Which topics can be skipped without affecting understanding?
+- Which topics are likely to cause confusion and therefore need extra emphasis?
+- Is the learning path suitable for a complete beginner? If not, explain what should be added.</div>
+            </div>
+        </div>
+
+        <div class="footer-note">
+            <p>আপনার শেখানোর পদ্ধতিটি শিক্ষার্থীদের কাছে আরও সহজবোধ্য হয়ে উঠুক। শুভকামনা রইল!</p>
+        </div>
+    </main>
+
+    <!-- Simple Sticky Footer for One-Click Accessibility -->
+    <div class="sticky-footer">
+        <button class="copy-btn" style="width: 80%;" onclick="copyPrompt()">মাস্টার প্রম্পট কপি করুন</button>
+    </div>
+
+    <div id="toast">প্রম্পটটি ক্লিপবোর্ডে কপি হয়েছে!</div>
+
+    <script>
+        function copyPrompt() {
+            const text = document.getElementById('masterPrompt').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 2000);
+            }).catch(err => {
+                console.error('Copy failed: ', err);
+            });
+        }
+    </script>
+</body>
+</html>

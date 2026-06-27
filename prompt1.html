@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>প্রম্পট ১ — কোর মেসেজ অ্যানালাইসিস ও নলেজ ম্যাপিং</title>
+    <style>
+        /* Modern Design Strategy: Human-Centric, Professional, & Accessible */
+        :root {
+            --primary-slate: #1e293b;
+            --accent-blue: #3b82f6;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --text-main: #334155;
+            --border-color: #e2e8f0;
+            --success-green: #10b981;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.8;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Hero / Header */
+        header {
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.4rem;
+            color: var(--primary-slate);
+            margin-bottom: 15px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .welcome-card {
+            background: var(--white);
+            padding: 28px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+            border-left: 6px solid var(--accent-blue);
+        }
+
+        .welcome-card p {
+            font-size: 1.15rem;
+            color: var(--text-main);
+            margin-bottom: 0;
+        }
+
+        /* Input Section */
+        .input-section {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            margin-bottom: 40px;
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            color: var(--primary-slate);
+        }
+
+        textarea {
+            width: 100%;
+            padding: 18px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1.05rem;
+            resize: vertical;
+            min-height: 120px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+        }
+
+        /* Prompt Display Area */
+        .prompt-wrapper {
+            margin-top: 20px;
+        }
+
+        .prompt-box {
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .prompt-header {
+            background: var(--primary-slate);
+            color: var(--white);
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prompt-header h3 {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .prompt-content {
+            padding: 32px;
+            background: #fafafa;
+            color: #1e293b;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 1rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-top: 1px solid var(--border-color);
+            line-height: 1.6;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        /* Interaction Elements */
+        .copy-btn {
+            background: var(--success-green);
+            color: var(--white);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+        }
+
+        .copy-btn:hover {
+            background: #059669;
+            transform: translateY(-1px);
+        }
+
+        .copy-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Toast Notification */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-slate);
+            color: var(--white);
+            padding: 14px 28px;
+            border-radius: 40px;
+            font-size: 1rem;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Mobile Friendliness */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            .container { width: 92%; }
+            .prompt-content { font-size: 0.95rem; padding: 20px; }
+            .welcome-card { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>প্রম্পট ১ — কোর মেসেজ অ্যানালাইসিস</h1>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <div class="welcome-card">
+            <p>আপনার কন্টেন্ট বা কোর্সের মূল স্তম্ভটি বিশ্লেষণ করার সময় এসেছে। নিচের ঘরে আপনার 'কোর মেসেজ' বা মূল বার্তাটি লিখুন, দেখবেন আপনার জন্য একটি শক্তিশালী এআই অ্যানালাইসিস প্রম্পট তৈরি হয়ে যাচ্ছে।</p>
+        </div>
+
+        <div class="input-section">
+            <label for="coreMessageInput">আপনার কোর মেসেজ (Core Message) এখানে লিখুন:</label>
+            <textarea id="coreMessageInput" placeholder="যেমন: 'কিভাবে AI ব্যবহার করে আপনার পড়াশোনা বা কাজের গতি বাড়ানো যায়...'" oninput="updatePrompt()"></textarea>
+        </div>
+
+        <hr style="margin: 40px 0; border: 0; border-top: 1px solid #ddd;">
+
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>Master Prompt</h3>
+                    <button class="copy-btn" onclick="copyPrompt()">প্রম্পট কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="masterPrompt">Language & Style Instructions
+
+Please write the output of the prompt below in natural, modern, everyday conversational Bengali as spoken in Kolkata, West Bengal, India. The language should be easily understood by a 21-year-old reader while maintaining international standards of clarity, precision, and readability.
+
+Writing Style
+
+- Write in natural Kolkata Bengali, not a literal translation from English.
+- Use the formal "আপনি" throughout. Never use "তুমি".
+- Maintain a warm, conversational, and approachable tone while preserving the authority of an experienced teacher or subject-matter expert.
+- The writing should feel like a knowledgeable mentor speaking directly to the reader in a one-to-one conversation.
+- Use smooth, well-paced sentence flow that subtly reflects Kolkata conversational rhythm without relying on slang, dialect, or regional grammar.
+- Prefer clear, everyday Bengali vocabulary. Introduce technical or academic terms only when necessary, and explain them in simple language.
+- Preserve the original meaning, structure, and analytical depth of the prompt. Do not omit, oversimplify, or add new requirements.
+- Keep headings, numbering, bullet points, and the final Markdown table exactly as specified in the prompt.
+
+---
+
+PROMPT
+
+Core Message Analysis & Knowledge Mapping
+
+Act as a senior Knowledge Architect, Learning Designer, Domain Expert, and Content Strategist.
+
+Your task is to analyze the Core Message provided below before any content mapping or outline creation begins.
+
+Core Message
+
+"[Insert Your Core Message Here]"
+
+---
+
+Instructions
+
+Carefully analyze the Core Message and identify the underlying knowledge structure required for someone to fully understand, accept, and apply it.
+
+Provide your analysis under the following headings.
+
+1. Core Message
+
+Rewrite the Core Message as a single clear, concise statement while preserving its original meaning.
+
+---
+
+2. Assisting Awareness / Prerequisite Knowledge / Prerequisite Skills
+
+Identify everything a learner should already know, understand, believe, or be capable of before they can genuinely understand or implement the Core Message.
+
+Include:
+
+- prerequisite concepts
+- prerequisite terminology
+- prerequisite beliefs
+- prerequisite awareness
+- prerequisite experiences
+- prerequisite skills
+- common misconceptions that must be corrected first
+
+Organize these in a logical learning order.
+
+---
+
+3. Core Belief
+
+Identify the deepest belief or principle upon which the Core Message depends.
+
+Consider:
+
+- What must someone believe for this message to make sense?
+- What worldview makes this message true?
+- What is the underlying first principle?
+
+Identify one primary Core Belief and explain why it is foundational.
+
+---
+
+4. Domain / Niche of the Core Belief
+
+Identify the broad academic, professional, educational, or practical domain to which the Core Belief belongs.
+
+Explain why this domain is the most appropriate.
+
+---
+
+5. Other Branches of the Domain / Niche
+
+Within the identified domain, list the major branches or subfields.
+
+For each branch, briefly explain what it studies or focuses on.
+
+---
+
+6. Branch / Sub-Niche of the Core Message
+
+Determine exactly where the Core Message fits within the domain.
+
+Identify:
+
+- Primary Branch
+- Sub-Branch
+- Specialized Topic
+- Why this is the best classification
+
+Explain your reasoning.
+
+---
+
+Additional Requirements
+
+- Think from first principles.
+- Clearly distinguish assumptions from conclusions.
+- Avoid vague or generic statements.
+- Be analytical and educational, not merely descriptive.
+- If multiple classifications are possible, explain why you selected the primary one.
+- Mention related disciplines where appropriate.
+
+---
+
+Final Summary Table
+
+End your response with a Markdown table containing exactly six columns.
+
+| Core Message | Assisting Awareness / Prerequisite Knowledge & Skills | Core Belief | Domain / Niche of the Core Belief | Other Branches of the Domain | Branch / Sub-Niche the Core Message Belongs To |</div>
+            </div>
+        </div>
+
+        <div class="footer-note">
+            <p>আপনার কন্টেন্ট জার্নি আরও সফল এবং সুসংগঠিত হয়ে উঠুক। শুভকামনা!</p>
+        </div>
+    </main>
+
+    <div id="toast">প্রম্পটটি ক্লিপবোর্ডে কপি হয়েছে!</div>
+
+    <script>
+        const originalTemplate = `Language & Style Instructions
+
+Please write the output of the prompt below in natural, modern, everyday conversational Bengali as spoken in Kolkata, West Bengal, India. The language should be easily understood by a 21-year-old reader while maintaining international standards of clarity, precision, and readability.
+
+Writing Style
+
+- Write in natural Kolkata Bengali, not a literal translation from English.
+- Use the formal "আপনি" throughout. Never use "তুমি".
+- Maintain a warm, conversational, and approachable tone while preserving the authority of an experienced teacher or subject-matter expert.
+- The writing should feel like a knowledgeable mentor speaking directly to the reader in a one-to-one conversation.
+- Use smooth, well-paced sentence flow that subtly reflects Kolkata conversational rhythm without relying on slang, dialect, or regional grammar.
+- Prefer clear, everyday Bengali vocabulary. Introduce technical or academic terms only when necessary, and explain them in simple language.
+- Preserve the original meaning, structure, and analytical depth of the prompt. Do not omit, oversimplify, or add new requirements.
+- Keep headings, numbering, bullet points, and the final Markdown table exactly as specified in the prompt.
+
+---
+
+PROMPT
+
+Core Message Analysis & Knowledge Mapping
+
+Act as a senior Knowledge Architect, Learning Designer, Domain Expert, and Content Strategist.
+
+Your task is to analyze the Core Message provided below before any content mapping or outline creation begins.
+
+Core Message
+
+"[Insert Your Core Message Here]"
+
+---
+
+Instructions
+
+Carefully analyze the Core Message and identify the underlying knowledge structure required for someone to fully understand, accept, and apply it.
+
+Provide your analysis under the following headings.
+
+1. Core Message
+
+Rewrite the Core Message as a single clear, concise statement while preserving its original meaning.
+
+---
+
+2. Assisting Awareness / Prerequisite Knowledge / Prerequisite Skills
+
+Identify everything a learner should already know, understand, believe, or be capable of before they can genuinely understand or implement the Core Message.
+
+Include:
+
+- prerequisite concepts
+- prerequisite terminology
+- prerequisite beliefs
+- prerequisite awareness
+- prerequisite experiences
+- prerequisite skills
+- common misconceptions that must be corrected first
+
+Organize these in a logical learning order.
+
+---
+
+3. Core Belief
+
+Identify the deepest belief or principle upon which the Core Message depends.
+
+Consider:
+
+- What must someone believe for this message to make sense?
+- What worldview makes this message true?
+- What is the underlying first principle?
+
+Identify one primary Core Belief and explain why it is foundational.
+
+---
+
+4. Domain / Niche of the Core Belief
+
+Identify the broad academic, professional, educational, or practical domain to which the Core Belief belongs.
+
+Explain why this domain is the most appropriate.
+
+---
+
+5. Other Branches of the Domain / Niche
+
+Within the identified domain, list the major branches or subfields.
+
+For each branch, briefly explain what it studies or focuses on.
+
+---
+
+6. Branch / Sub-Niche of the Core Message
+
+Determine exactly where the Core Message fits within the domain.
+
+Identify:
+
+- Primary Branch
+- Sub-Branch
+- Specialized Topic
+- Why this is the best classification
+
+Explain your reasoning.
+
+---
+
+Additional Requirements
+
+- Think from first principles.
+- Clearly distinguish assumptions from conclusions.
+- Avoid vague or generic statements.
+- Be analytical and educational, not merely descriptive.
+- If multiple classifications are possible, explain why you selected the primary one.
+- Mention related disciplines where appropriate.
+
+---
+
+Final Summary Table
+
+End your response with a Markdown table containing exactly six columns.
+
+| Core Message | Assisting Awareness / Prerequisite Knowledge & Skills | Core Belief | Domain / Niche of the Core Belief | Other Branches of the Domain | Branch / Sub-Niche the Core Message Belongs To |`;
+
+        function updatePrompt() {
+            const inputVal = document.getElementById('coreMessageInput').value;
+            const display = document.getElementById('masterPrompt');
+            
+            if (inputVal.trim() === "") {
+                display.innerText = originalTemplate;
+            } else {
+                display.innerText = originalTemplate.replace('[Insert Your Core Message Here]', inputVal);
+            }
+        }
+
+        function copyPrompt() {
+            const text = document.getElementById('masterPrompt').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 2000);
+            }).catch(err => {
+                console.error('Copy failed: ', err);
+            });
+        }
+        
+        // Initial call
+        updatePrompt();
+    </script>
+</body>
+</html>

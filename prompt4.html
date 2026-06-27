@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt 4 — Instructional Design & Teaching Strategy</title>
+    <style>
+        /* Design System for a Calm, Trustworthy Experience */
+        :root {
+            --primary-slate: #1e293b;
+            --accent-blue: #2563eb;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --text-main: #334155;
+            --border-color: #e2e8f0;
+            --success-green: #10b981;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.8;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        /* Hero/Header Section */
+        header {
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            color: var(--primary-slate);
+            margin-bottom: 15px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .intro-card {
+            background: var(--white);
+            padding: 28px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+            border-left: 6px solid var(--accent-blue);
+        }
+
+        .intro-card p {
+            font-size: 1.15rem;
+            color: var(--text-main);
+            margin-bottom: 0;
+        }
+
+        /* Prompt Display Box */
+        .prompt-wrapper {
+            margin-top: 20px;
+        }
+
+        .prompt-box {
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .prompt-header {
+            background: var(--primary-slate);
+            color: var(--white);
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prompt-header h3 {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .prompt-content {
+            padding: 32px;
+            background: #fafafa;
+            color: #1e293b;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 1rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-top: 1px solid var(--border-color);
+            line-height: 1.6;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        /* Interaction Elements */
+        .copy-btn {
+            background: var(--accent-blue);
+            color: var(--white);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        .copy-btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+        }
+
+        .copy-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Toast Notification */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-slate);
+            color: var(--white);
+            padding: 14px 28px;
+            border-radius: 40px;
+            font-size: 1rem;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Sticky Footer CTA for Mobile */
+        .sticky-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--white);
+            padding: 16px;
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: center;
+            z-index: 999;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Mobile Friendliness */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            .container { width: 92%; }
+            .prompt-content { font-size: 0.95rem; padding: 20px; }
+            .intro-card { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>প্রম্পট ৪ — ইনস্ট্রাকশনাল ডিজাইন ও টিচিং স্ট্র্যাটেজি</h1>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <div class="intro-card">
+            <p>আপনার কোর্সের বিষয়গুলো কীভাবে শেখালে শিক্ষার্থীরা সবচেয়ে ভালো বুঝবেন, সেটি নির্ধারণ করার সময় এসেছে। এই প্রম্পটটি আপনার এআই অ্যাসিস্ট্যান্টকে একজন ঝানু শিক্ষক এবং লার্নিং এক্সপার্টের মতো করে প্রতিটি টপিকের জন্য নিখুঁত শিক্ষাদান পদ্ধতি তৈরি করতে সাহায্য করবে।</p>
+        </div>
+
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>Teaching Strategy Prompt</h3>
+                    <button class="copy-btn" onclick="copyPrompt()">প্রম্পট কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="masterPrompt">Using your previous three responses ("Core Message Analysis", "Content Roadmap", and "Learning Path"), design the optimal teaching strategy for every content topic.
+
+Do "not" reanalyze the Core Message.
+
+Do "not" generate a new learning path.
+
+Your objective is to determine "how each topic should be taught" so that a complete beginner can understand it with the least possible confusion and the greatest possible retention.
+
+Think like an expert Instructional Designer, Educational Psychologist, Curriculum Architect, Cognitive Scientist, and Master Teacher.
+
+---
+
+Instructions
+
+For every content topic identified in the Learning Path, provide the following analysis.
+
+---
+
+1. Teaching Objective
+
+State the single most important learning outcome.
+
+Complete this sentence:
+
+> "After studying this topic, the learner should be able to..."
+
+---
+
+2. Bloom's Taxonomy Level
+
+Identify the primary cognitive level.
+
+Choose one:
+
+- Remember
+- Understand
+- Apply
+- Analyze
+- Evaluate
+- Create
+
+Explain why this level is appropriate.
+
+---
+
+3. Why This Topic Matters
+
+Explain why this topic appears at this point in the learning sequence.
+
+Identify:
+
+- what earlier knowledge it builds upon
+- what later topics depend on it
+
+---
+
+4. Common Misconceptions
+
+Identify common misunderstandings, myths, false assumptions, or mental models that beginners often have about this topic.
+
+Explain why these misconceptions occur.
+
+---
+
+5. Knowledge Obstacles
+
+Identify what typically prevents learners from understanding this topic.
+
+Examples include:
+
+- missing prerequisite knowledge
+- confusing terminology
+- cognitive bias
+- incorrect assumptions
+- emotional resistance
+- overgeneralization
+
+---
+
+6. Recommended Teaching Approach
+
+Recommend the most effective teaching method.
+
+Examples include:
+
+- explanation
+- storytelling
+- analogy
+- comparison
+- demonstration
+- worked example
+- case study
+- visual diagram
+- framework
+- question-driven discovery
+- step-by-step walkthrough
+- real-life scenario
+
+Explain why your recommendation is the most suitable.
+
+---
+
+7. Best Real-World Examples
+
+Provide practical examples that make the concept easier to understand.
+
+Use familiar everyday situations whenever possible.
+
+---
+
+8. Best Analogies
+
+Suggest analogies that simplify difficult ideas without sacrificing accuracy.
+
+---
+
+9. Evidence & Supporting Material
+
+Recommend what type of supporting material would strengthen this lesson.
+
+Examples:
+
+- scientific research
+- historical example
+- business example
+- personal story
+- statistics
+- experiment
+- quotation
+- observation
+- case study
+
+---
+
+10. Best Content Format
+
+Recommend the most suitable format.
+
+Choose one or more:
+
+- Facebook Post
+- Facebook Carousel
+- Short Video
+- Long-form Article
+- Podcast
+- Infographic
+- FAQ
+- Story
+- Conversation
+- Checklist
+- Worksheet
+- Quiz
+- Interactive Exercise
+
+Explain why.
+
+---
+
+11. Audience Questions
+
+List the questions a curious beginner is most likely to ask after learning this topic.
+
+---
+
+12. Reflection Question
+
+Provide one thoughtful question that encourages deeper thinking rather than simple memorization.
+
+---
+
+13. Practical Exercise
+
+Design one simple exercise that helps learners apply the concept immediately.
+
+---
+
+14. Learning Check
+
+Suggest one quick method for checking whether the learner has genuinely understood the topic.
+
+Examples:
+
+- explain it in their own words
+- solve a scenario
+- identify mistakes
+- answer a conceptual question
+- teach someone else
+
+---
+
+15. Knowledge Transfer
+
+Identify where else this knowledge can be applied.
+
+Consider applications in:
+
+- work
+- business
+- education
+- relationships
+- decision making
+- parenting
+- communication
+- personal growth
+- everyday life
+
+---
+
+16. Related Topics
+
+List other subjects that naturally connect with this topic and could be explored in future content.
+
+---
+
+Additional Requirements
+
+- Think from first principles.
+- Follow established principles of learning science and instructional design.
+- Optimize for conceptual understanding rather than memorization.
+- Avoid unnecessary jargon.
+- Use the simplest teaching method that preserves accuracy.
+- Ensure every recommendation is appropriate for complete beginners.
+- Minimize cognitive overload.
+- Build confidence before increasing complexity.
+- Distinguish clearly between facts, assumptions, examples, and opinions.
+
+---
+
+Final Deliverables
+
+1. Teaching Strategy Matrix
+
+Create a Markdown table containing the following columns.
+
+| Topic | Teaching Objective | Bloom Level | Teaching Method | Best Content Format | Biggest Misconception | Practical Exercise | Learning Check |
+
+---
+
+2. Instructional Priorities
+
+Identify:
+
+- The five most difficult topics to teach
+- The five topics most likely to be misunderstood
+- The five topics that require the strongest prerequisite knowledge
+- The five topics that deserve the greatest teaching emphasis
+
+Explain your reasoning for each selection.
+
+---
+
+3. Overall Teaching Evaluation
+
+Conclude by evaluating the curriculum as a whole.
+
+Answer the following questions:
+
+- Is the learning progression pedagogically sound?
+- Are there any unnecessary jumps in difficulty?
+- Which topics should be merged?
+- Which topics should be split into smaller lessons?
+- Which concepts deserve multiple teaching approaches?
+- Which topics are most suitable for storytelling?
+- Which topics benefit most from visual explanations?
+- Which topics require repeated reinforcement?
+- What improvements would make this learning journey significantly more effective for a complete beginner?</div>
+            </div>
+        </div>
+
+        <div class="footer-note">
+            <p>আপনার শিক্ষাদান পদ্ধতিকে আরও সহজ এবং সাবলীল করে তুলুন। শুভকামনা!</p>
+        </div>
+    </main>
+
+    <!-- Simple Sticky Footer for One-Click Accessibility -->
+    <div class="sticky-footer">
+        <button class="copy-btn" style="width: 80%;" onclick="copyPrompt()">মাস্টার প্রম্পট কপি করুন</button>
+    </div>
+
+    <div id="toast">প্রম্পটটি ক্লিপবোর্ডে কপি হয়েছে!</div>
+
+    <script>
+        function copyPrompt() {
+            const text = document.getElementById('masterPrompt').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 2000);
+            }).catch(err => {
+                console.error('Copy failed: ', err);
+            });
+        }
+    </script>
+</body>
+</html>
