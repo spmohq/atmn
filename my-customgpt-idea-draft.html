@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My CustomGPT Idea Draft - আপনার আইডিয়ার খসড়া</title>
+    <style>
+        /* Design Strategy: Minimal, Accessible, and Trustworthy */
+        :root {
+            --primary-slate: #1e293b;
+            --accent-indigo: #4f46e5;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --text-main: #334155;
+            --border-color: #e2e8f0;
+            --success-green: #10b981;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.8;
+            padding-bottom: 60px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        /* Header Area */
+        header {
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            color: var(--primary-slate);
+            margin-bottom: 15px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .welcome-card {
+            background: var(--white);
+            padding: 28px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+            border-left: 6px solid var(--accent-indigo);
+        }
+
+        .welcome-card p {
+            font-size: 1.15rem;
+            color: var(--text-main);
+            margin-bottom: 0;
+        }
+
+        /* Section Styling */
+        section {
+            margin-bottom: 50px;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--primary-slate);
+            font-weight: 700;
+        }
+
+        /* Prompt Display Box */
+        .prompt-container {
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .prompt-header {
+            background: var(--primary-slate);
+            color: var(--white);
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prompt-header h3 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .prompt-content {
+            padding: 28px;
+            background: #fafafa;
+            color: #1e293b;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 1rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-top: 1px solid var(--border-color);
+            line-height: 1.6;
+        }
+
+        /* Interaction Elements */
+        .copy-btn {
+            background: var(--accent-indigo);
+            color: var(--white);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #4338ca;
+            transform: translateY(-1px);
+        }
+
+        .copy-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Toast Notification */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-slate);
+            color: var(--white);
+            padding: 14px 28px;
+            border-radius: 40px;
+            font-size: 1rem;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer Message */
+        .footer-note {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+
+        /* Mobile Friendliness */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            .container { width: 94%; }
+            .prompt-content { font-size: 0.95rem; padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>My CustomGPT Idea Draft</h1>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <div class="welcome-card">
+            <p>আপনার কাস্টম এআই তৈরির পরিকল্পনাকে আরও সলিড করতে এই দুটি প্রম্পট ফ্রেমওয়ার্ক আপনাকে সাহায্য করবে। প্রথমটি আপনাকে একটি সঠিক স্ট্রাকচার দেবে এবং দ্বিতীয়টি একটি বাস্তব উদাহরণ হিসেবে কাজ করবে। জাস্ট কপি করুন এবং আপনার প্রজেক্টের কাজে লাগান।</p>
+        </div>
+
+        <!-- Prompt #1 -->
+        <section>
+            <h2>GPT কাঠামোর ফ্রেমওয়ার্ক</h2>
+            <div class="prompt-container">
+                <div class="prompt-header">
+                    <h3>Prompt #1: The Structure</h3>
+                    <button class="copy-btn" onclick="copyText('display1')">কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="display1">Role (Who are you?):	
+কোন বিশেষজ্ঞ হিসেবে কাজ করবে
+Objective (What is the final goal?):	
+চূড়ান্ত সাফল্য কী
+Inputs (What information will you receive?):	
+ইনপুটের সীমা
+Process / Methodology (How should you think?):	
+বিশ্লেষণের ধাপ
+Tasks (What must you produce?):	
+কী কী ডেলিভার করবে
+Output Format (How should the answer look?):	
+উত্তর কীভাবে সাজাবে</div>
+            </div>
+        </section>
+
+        <!-- Prompt #2 -->
+        <section>
+            <h2>আইডিয়া ড্রাফটের উদাহরণ</h2>
+            <div class="prompt-container">
+                <div class="prompt-header">
+                    <h3>Prompt #2: Example Case</h3>
+                    <button class="copy-btn" onclick="copyText('display2')">কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="display2">Title:
+Soft Promo Post GPT
+Description:
+Turns one product or offer idea into a natural free-traffic post that promotes without sounding pushy or salesy.
+What The User Inputs:
+One product, offer, or rough promotional idea.
+Why It Will Sell:
+People want to promote more often, but they're afraid of sounding spammy. This gives them a simple way to post with confidence.</div>
+            </div>
+        </section>
+
+        <div class="footer-note">
+            <p>আপনার ইউনিক CustomGPT তৈরির পথে এক ধাপ এগিয়ে যান। শুভকামনা!</p>
+        </div>
+
+    </main>
+
+    <div id="toast">প্রম্পটটি ক্লিপবোর্ডে কপি হয়েছে!</div>
+
+    <script>
+        function copyText(id) {
+            const text = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 2000);
+            }).catch(err => {
+                console.error('Copy failed: ', err);
+            });
+        }
+    </script>
+</body>
+</html>
