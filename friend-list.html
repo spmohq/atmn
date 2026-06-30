@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook Friend Manager</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #ef6c57; 
+            --bg-light: #f4f7f6;
+            --text-dark: #333;
+            --text-muted: #666;
+            --border-color: #e0e0e0;
+            --white: #ffffff;
+            --fb-blue: #1877F2;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .container {
+            display: flex;
+            flex: 1;
+        }
+
+        aside {
+            width: 240px;
+            background: var(--white);
+            border-right: 1px solid var(--border-color);
+            padding: 20px 0;
+            overflow-y: auto;
+        }
+
+        .sidebar-item {
+            padding: 10px 25px;
+            display: block;
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .sidebar-item:hover {
+            background: #fff5f3;
+            color: var(--primary-color);
+        }
+
+        main {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .friend-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        /* Friend Card Styling */
+        .friend-card {
+            background: white;
+            border-radius: 8px;
+            border-top: 3px solid var(--fb-blue);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .friend-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .profile-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 12px;
+            border: 2px solid #eee;
+        }
+
+        .friend-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .btn {
+            text-decoration: none;
+            font-size: 13px;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: 0.2s;
+        }
+
+        .btn-profile {
+            background-color: #f0f2f5;
+            color: #050505;
+        }
+
+        .btn-profile:hover {
+            background-color: #e4e6eb;
+        }
+
+        .btn-dm {
+            background-color: var(--fb-blue);
+            color: white;
+        }
+
+        .btn-dm:hover {
+            background-color: #166fe5;
+        }
+
+        @media (max-width: 768px) {
+            .container { flex-direction: column; }
+            aside { width: 100%; display: flex; overflow-x: auto; border-right: none; border-bottom: 1px solid var(--border-color); }
+            .sidebar-item { padding: 10px 15px; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <i class="fa-brands fa-facebook"></i> Friend Tracker
+        </div>
+        <div class="nav-links">
+            <a href="#"><i class="fa-regular fa-user"></i> Siva</a>
+            <a href="#"><i class="fa-solid fa-gear"></i> Settings</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <aside>
+            <a href="#" class="sidebar-item">All Friends</a>
+            <a href="#" class="sidebar-item">Close Friends</a>
+            <a href="#" class="sidebar-item">Business Leads</a>
+            <a href="#" class="sidebar-item">Family</a>
+        </aside>
+
+        <main>
+            <div class="toolbar">
+                <h2>Facebook Friends</h2>
+            </div>
+
+            <div class="friend-grid">
+                
+                <!-- Friend 1 -->
+                <div class="friend-card">
+                    <!-- Placeholder image - Replace src with actual FB image URL -->
+                    <img src="https://ui-avatars.com/api/?name=John+Doe&background=random" alt="Profile" class="profile-img">
+                    <span class="friend-name">John Doe</span>
+                    
+                    <div class="action-buttons">
+                        <a href="https://facebook.com/username1" target="_blank" class="btn btn-profile">
+                            <i class="fa-brands fa-facebook"></i> Open Profile
+                        </a>
+                        <a href="https://m.me/username1" target="_blank" class="btn btn-dm">
+                            <i class="fa-solid fa-paper-plane"></i> DM
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Friend 2 -->
+                <div class="friend-card">
+                    <img src="https://scontent.frdp3-1.fna.fbcdn.net/v/t39.30808-1/710176667_122097431787350364_8475886629892171579_n.jpg?stp=dst-jpg_tt6&cstp=mx1200x1200&ctp=s200x200&_nc_cat=105&ccb=1-7&_nc_sid=1d2534&_nc_ohc=-YYyU6W_F4UQ7kNvwFaKQNl&_nc_oc=AdqDmHttny4c5AK90uTOr3alMFX3eUr3LQEdH5PslYDmzKuAOQldmSlNp2zQU2qg3BY&_nc_zt=24&_nc_ht=scontent.frdp3-1.fna&_nc_gid=ypKmwrjOdVC-LCtZtEIRxA&_nc_ss=7b2a8&oh=00_Af-AkRzdsg9L3t0HaDbcYa2tjeotcCdWY2gU-EoVz2Hl3g&oe=6A489552" alt="Profile" class="profile-img">
+                    <span class="friend-name">Jane Smith</span>
+                    
+                    <div class="action-buttons">
+                        <a href="https://facebook.com/username2" target="_blank" class="btn btn-profile">
+                            <i class="fa-brands fa-facebook"></i> Open Profile
+                        </a>
+                        <a href="https://m.me/username2" target="_blank" class="btn btn-dm">
+                            <i class="fa-solid fa-paper-plane"></i> DM
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Friend 3 -->
+                <div class="friend-card">
+                    <img src="https://scontent.frdp2-1.fna.fbcdn.net/v/t39.30808-1/536147970_1289730289476716_7007366785392531465_n.jpg?stp=dst-jpg_tt6&cstp=mx1067x1083&ctp=s200x200&_nc_cat=111&ccb=1-7&_nc_sid=1d2534&_nc_ohc=JoP-5zijfOIQ7kNvwHTiWKe&_nc_oc=Adr8G35DE3a2DltmZx5R495Wj8v4eNamGrIvDWS53guXYakXO2xGk0ZP_xrCeJuxjFg&_nc_zt=24&_nc_ht=scontent.frdp2-1.fna&_nc_gid=M6C-EVrN-khWT8c2m11F_g&_nc_ss=7b2a8&oh=00_Af9oFSX96AemoHThVymKR-_qMMndWdZpQOnb_18uQB8kAw&oe=6A48A7D3" alt="Profile" class="profile-img">
+                    <span class="friend-name">Robert Brown</span>
+                    
+                    <div class="action-buttons">
+                        <a href="https://facebook.com/username3" target="_blank" class="btn btn-profile">
+                            <i class="fa-brands fa-facebook"></i> Open Profile
+                        </a>
+                        <a href="https://m.me/username3" target="_blank" class="btn btn-dm">
+                            <i class="fa-solid fa-paper-plane"></i> DM
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Add More Card -->
+                <div class="friend-card" style="border-style: dashed; border-top-color: #ccc; display: flex; align-items: center; justify-content: center; min-height: 200px;">
+                    <a href="#" style="text-decoration: none; color: #999;">
+                        <i class="fa-solid fa-plus" style="font-size: 24px;"></i>
+                        <p style="margin-top: 10px; font-size: 14px;">Add Friend</p>
+                    </a>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>

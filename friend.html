@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook Friend Card Generator - আপনার প্রোফাইল কার্ড সাজিয়ে নিন</title>
+    <style>
+        /* Modern Design Framework */
+        :root {
+            --fb-blue: #1877F2;
+            --bg-color: #f0f2f5;
+            --card-bg: #ffffff;
+            --text-main: #1c1e21;
+            --text-secondary: #65676b;
+            --border-radius: 12px;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: var(--font-stack);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.8;
+            padding-bottom: 100px;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        /* Header Styling */
+        header {
+            padding: 60px 0 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: var(--text-main);
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .intro-text {
+            background: #fff;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+            border-left: 6px solid var(--fb-blue);
+            font-size: 1.1rem;
+        }
+
+        /* Input Section */
+        .input-card {
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 1rem;
+            color: var(--text-main);
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #dddfe2;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: #f5f6f7;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--fb-blue);
+            background-color: #fff;
+            box-shadow: 0 0 0 2px #e7f3ff;
+        }
+
+        /* Code/Prompt Box Area */
+        .prompt-container {
+            background: #fff;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid #e1e4e8;
+        }
+
+        .prompt-header {
+            background: #1c1e21;
+            color: #fff;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prompt-header span {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+
+        pre {
+            padding: 25px;
+            background: #fafafa;
+            color: #24292e;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.95rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            line-height: 1.5;
+            min-height: 150px;
+        }
+
+        .copy-btn {
+            background: var(--fb-blue);
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: opacity 0.3s;
+        }
+
+        .copy-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Sticky CTA */
+        .sticky-cta {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 500px;
+            background: white;
+            padding: 12px 20px;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .cta-text {
+            font-weight: bold;
+            font-size: 0.9rem;
+            color: var(--text-main);
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 0 10px;
+        }
+
+        #toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 30px;
+            display: none;
+            z-index: 2000;
+        }
+
+        /* Mobile Friendliness */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            .container { width: 94%; }
+            .input-card { padding: 20px; }
+            pre { font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="container">
+        <h1>Facebook Friend</h1>
+        <div class="intro-text">
+            নমস্কার! আপনার বন্ধুদের তথ্যগুলো দিয়ে নিচের ফিল্ডগুলো পূরণ করুন। আপনি যা লিখবেন, তা সরাসরি নিচের কোড বক্সে আপডেট হয়ে যাবে। কাজ শেষ হলে জাস্ট 'Copy' বাটনে ক্লিক করে কোডটি আপনার প্রজেক্টে ব্যবহার করুন।
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="input-card">
+            <div class="input-group">
+                <label>Image URL (ছবির লিঙ্ক)</label>
+                <input type="text" id="imgUrl" placeholder="যেমন: https://example.com/profile.jpg" oninput="generateCode()">
+            </div>
+            <div class="input-group">
+                <label>Name (নাম)</label>
+                <input type="text" id="profileName" placeholder="বন্ধুর নাম লিখুন" oninput="generateCode()">
+            </div>
+            <div class="input-group">
+                <label>Username (ইউজারনেম)</label>
+                <input type="text" id="userName" placeholder="যেমন: siva.mukherjee" oninput="generateCode()">
+            </div>
+        </section>
+
+        <section class="prompt-container">
+            <div class="prompt-header">
+                <span>Generated Code</span>
+                <button class="copy-btn" onclick="copyToClipboard()">Copy Code</button>
+            </div>
+            <pre id="outputCode"></pre>
+        </section>
+    </main>
+
+    <div class="sticky-cta" id="stickyCta">
+        <span class="cta-text">আপনি কি কার্ডটি তৈরি করতে পেরেছেন?</span>
+        <button class="close-btn" onclick="dismissSticky()">×</button>
+    </div>
+
+    <div id="toast">ক্লিপবোর্ডে কপি হয়েছে!</div>
+
+    <script>
+        const template = `                <!-- Friend -->
+                <div class="friend-card">
+                    <img src="[Image URL]" alt="Profile" class="profile-img">
+                    <span class="friend-name">[Name]</span>
+                    
+                    <div class="action-buttons">
+                        <a href="https://facebook.com/[username]" target="_blank" class="btn btn-profile">
+                            <i class="fa-brands fa-facebook"></i> Open Profile
+                        </a>
+                        <a href="https://m.me/[username]" target="_blank" class="btn btn-dm">
+                            <i class="fa-solid fa-paper-plane"></i> DM
+                        </a>
+                    </div>
+                </div>`;
+
+        function generateCode() {
+            const img = document.getElementById('imgUrl').value || '[Image URL]';
+            const name = document.getElementById('profileName').value || '[Name]';
+            const user = document.getElementById('userName').value || '[username]';
+
+            let finalCode = template
+                .replace('[Image URL]', img)
+                .replace('[Name]', name)
+                .replace('[username]', user)
+                .replace('[username]', user); // Replacing the second instance for DM link
+
+            document.getElementById('outputCode').textContent = finalCode;
+        }
+
+        function copyToClipboard() {
+            const text = document.getElementById('outputCode').textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 2000);
+            });
+        }
+
+        function dismissSticky() {
+            document.getElementById('stickyCta').style.display = 'none';
+        }
+
+        // Initialize display
+        generateCode();
+    </script>
+</body>
+</html>
