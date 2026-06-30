@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt for Facebook Post - আপনার সোশ্যাল মিডিয়া গাইড</title>
+    <style>
+        /* Design Strategy: Minimal, Human-Centric, and Approachable */
+        :root {
+            --primary-slate: #1e293b;
+            --accent-blue: #3b82f6;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --text-main: #334155;
+            --border-radius: 12px;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.8;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Header Area */
+        header {
+            padding: 50px 0 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            color: var(--primary-slate);
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .welcome-card {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+            border-left: 6px solid var(--accent-blue);
+        }
+
+        .welcome-card p {
+            font-size: 1.1rem;
+            color: #475569;
+            margin-bottom: 0;
+        }
+
+        /* Input Section */
+        .input-section {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            color: var(--primary-slate);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 60px;
+            transition: all 0.3s ease;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+            background-color: #fcfcfc;
+        }
+
+        /* Output Card Styling */
+        .prompt-wrapper {
+            margin-bottom: 40px;
+        }
+
+        .prompt-box {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+
+        .prompt-header {
+            background: var(--primary-slate);
+            color: #fff;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prompt-header h3 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .prompt-content {
+            padding: 25px;
+            background: #fafafa;
+            color: #1e293b;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 1rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-top: 1px solid #eee;
+            line-height: 1.6;
+        }
+
+        .copy-btn {
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: background 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #2563eb;
+        }
+
+        /* Sticky Feedback */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #334155;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            display: none;
+            z-index: 1100;
+        }
+
+        /* Mobile Friendliness */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            .container { width: 94%; }
+            .prompt-content { font-size: 0.95rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Prompt for Facebook Post</h1>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <div class="welcome-card">
+            <p>আপনার ফেসবুক পোস্টকে আরও আকর্ষণীয় করার জন্য নিচে প্রয়োজনীয় তথ্যগুলো দিন। আমাদের সিস্টেম স্বয়ংক্রিয়ভাবে দুটি প্রম্পট তৈরি করবে: প্রথমটি আপনার কন্টেন্টের বর্ণনা ঠিক করার জন্য এবং দ্বিতীয়টি সরাসরি ব্যবহারের জন্য।</p>
+        </div>
+
+        <!-- Input Section -->
+        <div class="input-section">
+            <div class="input-group">
+                <label>Prompt Name (প্রম্পটের নাম)</label>
+                <textarea id="pName" placeholder="যেমন: Soft Promo Post GPT..."></textarea>
+            </div>
+            <div class="input-group">
+                <label>Description (ছোট বর্ণনা)</label>
+                <textarea id="pDesc" placeholder="যেমন: এই প্রম্পটটি দিয়ে আপনি আপনার প্রোডাক্টের জন্য একটি ন্যাচারাল পোস্ট লিখতে পারবেন..."></textarea>
+            </div>
+            <div class="input-group">
+                <label>Paste the Prompt Here (আপনার মূল প্রম্পটটি এখানে দিন)</label>
+                <textarea id="pMain" placeholder="[এখানে আপনার এআই প্রম্পটটি পেস্ট করুন]"></textarea>
+            </div>
+            <div class="input-group">
+                <label>আপনার নির্দিষ্ট বিষয় বা অফার</label>
+                <textarea id="pTopic" placeholder="যেমন: আপনার অনলাইন কোর্স বা বিশেষ ছাড়..."></textarea>
+            </div>
+        </div>
+
+        <hr style="margin: 40px 0; border: 0; border-top: 1px solid #ddd;">
+
+        <!-- Output Prompt #1 -->
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>Prompt #1: Content Localizer</h3>
+                    <button class="copy-btn" onclick="copyText('display1')">কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="display1"></div>
+            </div>
+        </div>
+
+        <!-- Output Prompt #2 -->
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>Prompt #2: Instructions & Usage</h3>
+                    <button class="copy-btn" onclick="copyText('display2')">কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="display2"></div>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="toast">ক্লিপবোর্ডে কপি হয়েছে!</div>
+
+    <script>
+        const inputs = ['pName', 'pDesc', 'pMain', 'pTopic'];
+
+        const template1 = `BENGALI LOCALIZATION LAYER
+
+Please write the output of the PROMPT below in the most spontaneous, natural-sounding modern conversational Bengali as spoken in Kolkata, West Bengal, India.
+
+The writing should be easy for a 21-year-old to understand while maintaining high editorial quality, clarity, precision, and natural readability.
+
+Strict Rules
+
+- Reflect Kolkata conversational cadence through sentence rhythm and phrasing by using slightly formal, polite, and smoothly flowing sentence structures with balanced pacing. Avoid slang, regional grammar, overly literary wording, or awkward literal translations.
+- Always use the formal **"আপনি"**, never **"তুমি"**.
+- The tone should remain warm, conversational, approachable, confident, and quietly authoritative.
+- Write as if speaking directly to one person in a natural face-to-face conversation.
+- Do **not** translate literally. Rewrite naturally so the output feels as though it was originally written in Bengali.
+- Preserve the original meaning, intent, emotional tone, and persuasive effect without adding, removing, or changing information.
+
+---
+
+PROMPT
+
+You are an expert product copywriter.
+
+Your task is to write a short, warm, customer-facing description for a prompt.
+
+The description should help someone immediately understand what the prompt does and when they would naturally use it.
+
+Do **not** explain the prompt's features.
+Do **not** describe its internal process.
+Do **not** use marketing hype.
+Do **not** sound like documentation.
+
+Instead, write as if you are describing how the prompt helps a real person in everyday life.
+
+Structure
+
+Paragraph 1
+
+Begin by explaining how the prompt helps someone move from their current problem to a better outcome. Focus on the practical or emotional transformation rather than the mechanics.
+
+Paragraph 2
+
+Then describe the kind of real-life situation where someone would naturally reach for this prompt, including the challenge or uncertainty they're experiencing.
+
+Style Guidelines
+
+- Warm and conversational
+- Human and empathetic
+- Calm and confident
+- Short (40–80 words)
+- Easy to read
+- No buzzwords
+- No feature lists
+- No emojis
+- No headings
+- Show the benefit instead of describing the functionality
+
+---
+
+Prompt to describe
+
+[PASTE THE PROMPT HERE]`;
+
+        const template2 = `[Prompt Name]
+
+[Description]
+
+নিচের অংশটি কপি করে চ্যাটজিপিটি (ChatGPT)-তে পেস্ট করুন:
+
+“[PASTE THE PROMPT HERE]” 
+
+---
+
+কীভাবে [Prompt Name] ব্যবহার করবেন (এমনকি আপনি যদি আগে কখনো চ্যাটজিপিটি ব্যবহার না-ও করে থাকেন)?
+
+প্রথম ধাপ: চ্যাটজিপিটি (ফ্রি ভার্সন) খুলুন
+
+আপনাকে কোনো কিছু কেনার দরকার নেই। চ্যাটজিপিটির ফ্রি ভার্সনটিই আপনার জন্য যথেষ্ট।
+
+কীভাবে করবেন, তা নিচে দেওয়া হলো:
+
+• https://chat.openai.com -এ যান।
+• “Sign Up”-এ ক্লিক করুন (অথবা আপনার যদি আগে থেকেই অ্যাকাউন্ট থাকে, তাহলে “Log In” করুন)।
+• আপনার ইমেল বা গুগল অ্যাকাউন্ট ব্যবহার করুন—এটি বেশ দ্রুত এবং সম্পূর্ণ ফ্রি।
+
+একবার আপনি পেজে প্রবেশ করলে, আপনি একটি সাধারণ চ্যাট বক্স দেখতে পাবেন যেখানে লেখা থাকবে:
+
+> “Send a message…”
+
+ঠিক সেখানেই আপনাকে আপনার প্রম্পটটি (prompt) পেস্ট করতে হবে।
+
+---
+
+দ্বিতীয় ধাপ: প্রম্পটটি কপি করে চ্যাটজিপিটিতে পেস্ট করুন
+
+• উপরের সম্পূর্ণ প্রম্পট টেক্সটটি কপি করুন (Ctrl+C অথবা রাইট-ক্লিক → Copy)।
+• আবার চ্যাটজিপিটির উইন্ডোতে ফিরে যান।
+• এটি চ্যাট বক্সে পেস্ট করুন (Ctrl+V অথবা রাইট-ক্লিক → Paste)।
+• এন্টার (Enter) চাপুন অথবা পেপার প্লেন/সেন্ড (send) আইকনে ক্লিক করুন।
+
+চ্যাটজিপিটি তখন আপনার [আপনার নির্দিষ্ট বিষয় বা অফার], আপনার কথা বলার ধরন (tone) বা পরিস্থিতির ওপর ভিত্তি করে একদম আপনার জন্য তৈরি একটি কাস্টম পোস্ট, মেসেজ বা আইডিয়া দিয়ে আপনাকে উত্তর দেবে।`;
+
+        function updateOutputs() {
+            const name = document.getElementById('pName').value || "[Prompt Name]";
+            const desc = document.getElementById('pDesc').value || "[Description]";
+            const main = document.getElementById('pMain').value || "[PASTE THE PROMPT HERE]";
+            const topic = document.getElementById('pTopic').value || "[আপনার নির্দিষ্ট বিষয় বা অফার]";
+
+            // Update display 1
+            document.getElementById('display1').innerText = template1.replace("[PASTE THE PROMPT HERE]", main);
+
+            // Update display 2
+            let res2 = template2
+                .replace(/\[Prompt Name\]/g, name)
+                .replace(/\[Description\]/g, desc)
+                .replace(/\[PASTE THE PROMPT HERE\]/g, main)
+                .replace(/\[আপনার নির্দিষ্ট বিষয় বা অফার\]/g, topic);
+            
+            document.getElementById('display2').innerText = res2;
+        }
+
+        function copyText(id) {
+            const text = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => { toast.style.display = 'none'; }, 2000);
+            });
+        }
+
+        // Add Listeners
+        inputs.forEach(id => {
+            document.getElementById(id).addEventListener('input', updateOutputs);
+        });
+
+        // Init
+        updateOutputs();
+    </script>
+</body>
+</html>
