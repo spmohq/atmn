@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Use The Prompt - ব্যবহার বিধি</title>
+    <style>
+        /* Modern Design Framework */
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-main: #34495e;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.8;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Header Area */
+        header {
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .welcome-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+            border-left: 6px solid var(--accent-color);
+        }
+
+        .welcome-card p {
+            font-size: 1.1rem;
+            color: #475569;
+            margin-bottom: 0;
+        }
+
+        /* Input Fields Section */
+        .input-section {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-size: 1rem;
+            color: var(--primary-color);
+        }
+
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 60px;
+            transition: all 0.3s ease;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.1);
+            background-color: #fcfcfc;
+        }
+
+        /* Prompt Display Boxes */
+        .prompt-wrapper {
+            margin-bottom: 40px;
+        }
+
+        .prompt-box {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+
+        .prompt-header {
+            background: var(--primary-color);
+            color: #fff;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prompt-header h3 {
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .prompt-content {
+            padding: 25px;
+            background: #fafafa;
+            color: #1e293b;
+            font-family: inherit;
+            font-size: 1rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-top: 1px solid #eee;
+            line-height: 1.6;
+        }
+
+        .copy-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #2980b9;
+        }
+
+        /* Sticky CTA for Mobile */
+        .sticky-cta {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 500px;
+            background: #fff;
+            padding: 12px 20px;
+            border-radius: 50px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border: 1px solid #e2e8f0;
+        }
+
+        .cta-text {
+            font-weight: bold;
+            font-size: 0.9rem;
+            color: var(--text-main);
+        }
+
+        .close-cta {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #94a3b8;
+            margin-left: 10px;
+        }
+
+        /* Toast Notification */
+        #toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #334155;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            display: none;
+            z-index: 1100;
+        }
+
+        /* Mobile Friendliness */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            .container { width: 94%; }
+            .prompt-content { font-size: 0.95rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>How to Use The Prompt</h1>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <div class="welcome-card">
+            <p>চ্যাটজিপিটি ব্যবহার করা কোনো কঠিন কাজ নয়। নিচের ঘরগুলোতে আপনার প্রম্পটের নাম এবং আপনার নির্দিষ্ট বিষয়টি লিখুন। আপনার জন্য প্রয়োজনীয় গাইডলাইনটি নিচে রিয়েল-টাইমে আপডেট হয়ে যাবে। কাজ শেষ হলে জাস্ট 'কপি' করে নিন।</p>
+        </div>
+
+        <!-- Input Section -->
+        <div class="input-section">
+            <div class="input-group">
+                <label>Prompt Name (প্রম্পটের নাম)</label>
+                <textarea id="pName" placeholder="যেমন: 'Soft Promo Post GPT'..." oninput="updatePrompts()"></textarea>
+            </div>
+            <div class="input-group">
+                <label>আপনার নির্দিষ্ট বিষয় বা অফার</label>
+                <textarea id="sTopic" placeholder="যেমন: 'আপনার অনলাইন কোর্স বা ইবুক'..." oninput="updatePrompts()"></textarea>
+            </div>
+        </div>
+
+        <hr style="margin: 40px 0; border: 0; border-top: 1px solid #ddd;">
+
+        <!-- Prompt #1 Display -->
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>Prompt #1: Single Prompt Guide</h3>
+                    <button class="copy-btn" onclick="copyText('display1')">কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="display1"></div>
+            </div>
+        </div>
+
+        <!-- Prompt #2 Display -->
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>Prompt #2: PDF/Collection Guide</h3>
+                    <button class="copy-btn" onclick="copyText('display2')">কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="display2"></div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Sticky CTA -->
+    <div class="sticky-cta" id="sticky-cta">
+        <span class="cta-text">প্রম্পট কপি করে কাজ শুরু করুন</span>
+        <button class="close-cta" onclick="dismissSticky()">×</button>
+    </div>
+
+    <div id="toast">ক্লিপবোর্ডে কপি হয়েছে!</div>
+
+    <script>
+        const template1 = `কীভাবে [Prompt Name] ব্যবহার করবেন (এমনকি আপনি যদি আগে কখনো চ্যাটজিপিটি ব্যবহার না-ও করে থাকেন)
+
+প্রথম ধাপ: চ্যাটজিপিটি (ফ্রি ভার্সন) খুলুন
+
+আপনাকে কোনো কিছু কেনার দরকার নেই। চ্যাটজিপিটির ফ্রি ভার্সনটিই আপনার জন্য যথেষ্ট।
+
+কীভাবে করবেন, তা নিচে দেওয়া হলো:
+
+• https://chat.openai.com -এ যান।
+• “Sign Up”-এ ক্লিক করুন (অথবা আপনার যদি আগে থেকেই অ্যাকাউন্ট থাকে, তাহলে “Log In” করুন)।
+• আপনার ইমেল বা গুগল অ্যাকাউন্ট ব্যবহার করুন—এটি বেশ দ্রুত এবং সম্পূর্ণ ফ্রি।
+
+একবার আপনি পেজে প্রবেশ করলে, আপনি একটি সাধারণ চ্যাট বক্স দেখতে পাবেন যেখানে লেখা থাকবে:
+
+> “Send a message…”
+
+ঠিক সেখানেই আপনাকে আপনার প্রম্পটটি (prompt) পেস্ট করতে হবে।
+
+---
+
+দ্বিতীয় ধাপ: প্রম্পটটি কপি করে চ্যাটজিপিটিতে পেস্ট করুন
+
+• নীচের সম্পূর্ণ প্রম্পট টেক্সটটি কপি করুন (Ctrl+C অথবা রাইট-ক্লিক → Copy)।
+• আবার চ্যাটজিপিটির উইন্ডোতে ফিরে যান।
+• এটি চ্যাট বক্সে পেস্ট করুন (Ctrl+V অথবা রাইট-ক্লিক → Paste)।
+• এন্টার (Enter) চাপুন অথবা পেপার প্লেন/সেন্ড (send) আইকনে ক্লিক করুন।
+
+চ্যাটজিপিটি তখন আপনার [আপনার নির্দিষ্ট বিষয় বা অফার], আপনার কথা বলার ধরন (tone) বা পরিস্থিতির ওপর ভিত্তি করে একদম আপনার জন্য তৈরি একটি কাস্টম পোস্ট, মেসেজ বা আইডিয়া দিয়ে আপনাকে উত্তর দেবে।`;
+
+        const template2 = `কীভাবে [Prompt Name] ব্যবহার করবেন (এমনকি আপনি যদি আগে কখনো চ্যাটজিপিটি ব্যবহার না-ও করে থাকেন)
+
+প্রথম ধাপ: চ্যাটজিপিটি (ফ্রি ভার্সন) খুলুন
+
+আপনাকে কোনো কিছু কেনার দরকার নেই। চ্যাটজিপিটির ফ্রি ভার্সনটিই আপনার জন্য যথেষ্ট।
+
+কীভাবে করবেন, তা নিচে দেওয়া হলো:
+
+• https://chat.openai.com -এ যান।
+• “Sign Up”-এ ক্লিক করুন (অথবা আপনার যদি আগে থেকেই অ্যাকাউন্ট থাকে, তাহলে “Log In” করুন)।
+• আপনার ইমেল বা গুগল অ্যাকাউন্ট ব্যবহার করুন—এটি বেশ দ্রুত এবং সম্পূর্ণ ফ্রি।
+
+একবার আপনি পেজে প্রবেশ করলে, আপনি একটি সাধারণ চ্যাট বক্স দেখতে পাবেন যেখানে লেখা থাকবে:
+
+> “Send a message…”
+
+ঠিক সেখানেই আপনাকে আপনার প্রম্পটটি (prompt) পেস্ট করতে হবে।
+
+---
+
+দ্বিতীয় ধাপ: প্রম্পটটি কপি করে চ্যাটজিপিটিতে পেস্ট করুন
+
+• এই পিডিএফটি স্ক্রোল করে আপনি যে প্রম্পটটি ব্যবহার করতে চান, সেটি খুঁজে বের করুন।
+• সম্পূর্ণ প্রম্পট টেক্সটটি কপি করুন (Ctrl+C অথবা রাইট-ক্লিক → Copy)।
+• আবার চ্যাটজিপিটির উইন্ডোতে ফিরে যান।
+• এটি চ্যাট বক্সে পেস্ট করুন (Ctrl+V অথবা রাইট-ক্লিক → Paste)।
+• এন্টার (Enter) চাপুন অথবা পেপার প্লেন/সেন্ড (send) আইকনে ক্লিক করুন।
+
+চ্যাটজিপিটি তখন আপনার [আপনার নির্দিষ্ট বিষয় বা অফার], আপনার কথা বলার ধরন (tone) বা পরিস্থিতির ওপর ভিত্তি করে একদম আপনার জন্য তৈরি একটি কাস্টম পোস্ট, মেসেজ বা আইডিয়া দিয়ে আপনাকে উত্তর দেবে।`;
+
+        function updatePrompts() {
+            const name = document.getElementById('pName').value || "[Prompt Name]";
+            const topic = document.getElementById('sTopic').value || "[আপনার নির্দিষ্ট বিষয় বা অফার]";
+
+            const res1 = template1.replace(/\[Prompt Name\]/g, name).replace(/\[আপনার নির্দিষ্ট বিষয় বা অফার\]/g, topic);
+            const res2 = template2.replace(/\[Prompt Name\]/g, name).replace(/\[আপনার নির্দিষ্ট বিষয় বা অফার\]/g, topic);
+
+            document.getElementById('display1').innerText = res1;
+            document.getElementById('display2').innerText = res2;
+        }
+
+        function copyText(id) {
+            const text = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => { toast.style.display = 'none'; }, 2000);
+            });
+        }
+
+        function dismissSticky() {
+            document.getElementById('sticky-cta').style.display = 'none';
+        }
+
+        // Initialize
+        updatePrompts();
+    </script>
+</body>
+</html>
