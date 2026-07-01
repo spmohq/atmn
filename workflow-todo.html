@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workflow As To-Do</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            font-size: 2rem;
+            border-bottom: 2px solid var(--bg-color);
+            padding-bottom: 10px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        /* Dynamic Multi-line Input Field */
+        textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 16px;
+            resize: none;
+            overflow-y: hidden;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        /* Prompt Display Box */
+        .prompt-display {
+            background-color: #f1f5f9;
+            border-left: 5px solid var(--primary-color);
+            padding: 20px;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            font-family: inherit;
+            font-size: 16px;
+        }
+
+        .copy-btn {
+            margin-top: 10px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .copy-btn:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Workflow As To-Do</h1>
+
+    <!-- Multi-lines dynamic input field -->
+    <div class="section">
+        <label>[Prompt Details]</label>
+        <textarea id="dynamicInput" placeholder="Enter details here..."></textarea>
+    </div>
+
+    <!-- Static Prompt Section -->
+    <div class="section">
+        <label>Prompt:</label>
+        <div class="prompt-display" id="staticPrompt">[Prompt Details]
+
+Share-A-Prompt Business-in-a-Box Workflow:
+
+1. Collect a Prompt
+2. Name the Prompt
+3. Describe the Prompt
+4. Generate Post + How to Use
+5. Rewrite the Post
+6. Generate Product Box
+7. Generate Infographics
+8. Convert Group Post
+9. Post Comment Tags
+10. Post Feature Image (Optional)</div>
+        <button class="copy-btn" onclick="copyPrompt()">Copy Prompt</button>
+    </div>
+</div>
+
+<script>
+    // Logic for dynamic textarea height
+    const textarea = document.getElementById('dynamicInput');
+
+    textarea.addEventListener('input', function() {
+        this.style.height = 'auto';
+        this.style.height = (this.scrollHeight) + 'px';
+    });
+
+    // Copy function for convenience
+    function copyPrompt() {
+        const promptText = document.getElementById('staticPrompt').innerText;
+        navigator.clipboard.writeText(promptText).then(() => {
+            alert('Prompt copied to clipboard!');
+        });
+    }
+</script>
+
+</body>
+</html>
