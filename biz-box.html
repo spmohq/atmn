@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Share-A-Prompt Biz In A Box - আপনার কাজের গাইড</title>
+    <style>
+        /* Design Strategy: Professional, Clean, and Calm */
+        :root {
+            --primary-slate: #1e293b;
+            --accent-blue: #3b82f6;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --text-main: #334155;
+            --border-color: #e2e8f0;
+            --btn-blue: #2563eb;
+            --success-green: #10b981;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.8;
+            padding-bottom: 60px;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Header Area */
+        header {
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-slate);
+            margin-bottom: 10px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .intro-card {
+            background: var(--white);
+            padding: 28px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+            border-left: 6px solid var(--accent-blue);
+        }
+
+        .intro-card p {
+            font-size: 1.15rem;
+            color: var(--text-main);
+            margin-bottom: 0;
+        }
+
+        /* Prompt Content Box */
+        .prompt-wrapper {
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            margin-bottom: 40px;
+        }
+
+        .prompt-header {
+            background: var(--primary-slate);
+            color: #fff;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prompt-header h3 {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .prompt-content {
+            padding: 30px;
+            background: #fafafa;
+            color: #1e293b;
+            font-size: 1rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-top: 1px solid var(--border-color);
+            line-height: 1.7;
+        }
+
+        /* Inline Link and Button Styling */
+        .url-text {
+            color: var(--btn-blue);
+            font-family: 'Consolas', 'Monaco', monospace;
+            display: block;
+            margin-top: 5px;
+            word-break: break-all;
+        }
+
+        .open-url-btn {
+            display: inline-block;
+            background-color: var(--btn-blue);
+            color: white;
+            padding: 8px 18px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin: 10px 0 20px 0;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s;
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+        }
+
+        .open-url-btn:hover {
+            background-color: #1d4ed8;
+            transform: translateY(-1px);
+        }
+
+        .copy-all-btn {
+            background: var(--success-green);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .copy-all-btn:hover {
+            background: #059669;
+        }
+
+        /* Success Toast */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-slate);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 40px;
+            font-size: 1rem;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+    .footer {
+      margin-top: -40px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 40px;
+    }
+
+        /* Mobile Friendliness */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            .container { width: 94%; }
+            .prompt-content { padding: 20px; font-size: 0.95rem; }
+            .intro-card { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Share-A-Prompt Biz In A Box</h1>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <div class="intro-card">
+            <p>নমস্কার! আপনার প্রম্পট শেয়ার করার পুরো প্রসেসটিকে গুছিয়ে ও একেবারে সহজ করে তোলার জন্য এই গাইডটি সাজানো হয়েছে। <br />প্রতিটি ধাপ মনোযোগ দিয়ে দেখুন এবং সরাসরি সংশ্লিষ্ট লিঙ্কে যাওয়ার জন্য 'Open URL' বাটনটি ব্যবহার করুন।</p>
+        </div>
+
+        <div class="prompt-wrapper">
+            <div class="prompt-header">
+                <h3>The Biz Roadmap</h3>
+                <button class="copy-all-btn" onclick="copyPrompt()">টেক্সট কপি করুন</button>
+            </div>
+            
+            <div class="prompt-content" id="masterPrompt"><strong>Image Options</strong>:
+1, Software Box (4:5)
+2, Infographics
+3, fb-post-feature-image
+
+<strong>Action Steps</strong>:
+
+Step#1: Collect A Prompt
+
+Step#2: Name the Prompt
+<button class="open-url-btn" onclick="window.open('https://spmohq.github.io/atmn/name-the-prompt.html', '_blank')">Open URL</button>
+
+Step#3: Describe the prompt [Prompt#1 of]
+<button class="open-url-btn" onclick="window.open('https://spmohq.github.io/atmn/prompt-for-fb-post.html', '_blank')">Open URL</button>
+
+Step#4: Generate the post with how to use [Prompt#2 of]
+<button class="open-url-btn" onclick="window.open('https://spmohq.github.io/atmn/prompt-for-fb-post.html', '_blank')">Open URL</button>
+
+Step#5: Rewrite the post
+<button class="open-url-btn" onclick="window.open('https://spmohq.github.io/atmn/group-post-genie.html', '_blank')">Open URL</button>
+
+Step#6: Generate Product Box (fb-prompt-assets.html)
+<button class="open-url-btn" onclick="window.open('https://spmohq.github.io/atmn/fb-prompt-assets.html', '_blank')">Open URL</button>
+
+Step#7: Generate Infographics (fb-prompt-assets.html)
+<button class="open-url-btn" onclick="window.open('https://spmohq.github.io/atmn/fb-prompt-assets.html', '_blank')">Open URL</button>
+
+Step#8: Convert Group Post
+<button class="open-url-btn" onclick="window.open('https://spmohq.github.io/atmn/group-post-converter.html', '_blank')">Open URL</button>
+
+Step#9: Post Comment Tags
+<button class="open-url-btn" onclick="window.open('https://spmohq.github.io/atmn/post-tags.html', '_blank')">Open URL</button>
+
+Step#10 (Optional): Post Feature Image
+<button class="open-url-btn" onclick="window.open('https://spmohq.github.io/atmn/fb-prompt-assets.html', '_blank')">Open URL</button>
+
+
+<strong>Extra Tools</strong>:
+
+1, Studio:
+<button class="open-url-btn" onclick="window.open('https://dealreach.github.io/pgp/636.html', '_blank')">Open URL</button>
+
+2, Copyright:
+<button class="open-url-btn" onclick="window.open('https://spmohq.github.io/atmn/copyright.html', '_blank')">Open URL</button></div>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px; color: #64748b; font-size: 0.95rem;">
+            <p>আপনার কাজের প্রতিটি পদক্ষেপ হোক আরও নিখুঁত। শুভকামনা রইল!</p>
+        </div>
+    </main>
+
+    <footer class="footer">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+
+    <div id="toast">টেক্সট ক্লিপবোর্ডে কপি হয়েছে!</div>
+
+    <script>
+        function copyPrompt() {
+            // Get text and remove HTML elements (buttons and span tags)
+            const master = document.getElementById('masterPrompt');
+            const clone = master.cloneNode(true);
+            const btns = clone.querySelectorAll('button');
+            btns.forEach(btn => btn.remove());
+            
+            const text = clone.innerText.trim();
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 2000);
+            }).catch(err => {
+                console.error('Copy failed: ', err);
+            });
+        }
+    </script>
+</body>
+</html>
