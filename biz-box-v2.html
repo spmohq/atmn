@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Share-A-Prompt™ Business-in-a-Box</title>
+<style>
+:root{
+--bg:#f4f7fb;--card:#fff;--primary:#1e293b;--accent:#2563eb;--green:#16a34a;
+--border:#dbe5ef;--muted:#64748b;--shadow:0 10px 30px rgba(0,0,0,.08);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:var(--bg);color:#334155;line-height:1.7}
+.hero{background:linear-gradient(135deg,#1e293b,#2563eb);color:#fff;padding:60px 20px}
+.wrap{max-width:960px;margin:auto}
+.hero h1{margin:0;font-size:2.4rem}
+.hero p{max-width:700px;opacity:.95}
+.meta{display:flex;gap:14px;flex-wrap:wrap;margin-top:20px}
+.badge{background:rgba(255,255,255,.15);padding:8px 14px;border-radius:999px}
+.card{background:#fff;margin:30px auto;border-radius:18px;box-shadow:var(--shadow);padding:28px}
+.section{margin-top:28px}
+.section h2{border-bottom:2px solid var(--border);padding-bottom:8px}
+.step{display:flex;gap:18px;padding:18px 0;border-bottom:1px solid #eef2f7}
+.num{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--accent);color:#fff;font-weight:bold;flex:0 0 42px}
+.content{flex:1}
+.time{font-size:.9rem;color:var(--muted)}
+.btns{margin-top:10px;display:flex;gap:10px;flex-wrap:wrap}
+button,a.btn{border:none;background:var(--accent);color:#fff;padding:10px 18px;border-radius:8px;text-decoration:none;font-weight:600;cursor:pointer}
+button:hover,a.btn:hover{filter:brightness(.95)}
+.copy{background:var(--green)}
+footer{text-align:center;color:var(--muted);padding:40px 20px}
+:focus-visible{outline:3px solid orange;outline-offset:2px}
+</style>
+</head>
+<body>
+<header class="hero">
+<div class="wrap">
+<h1>Share‑A‑Prompt™ Business‑in‑a‑Box</h1>
+<p>Your complete publishing workflow—from collecting a prompt to creating assets and publishing professionally.</p>
+<div class="meta">
+<div class="badge">10‑Step Workflow</div>
+<div class="badge">Estimated Time: 15–20 min</div>
+<div class="badge">Version 2.0 • July 2026</div>
+</div>
+</div>
+</header>
+
+<div class="wrap">
+<div class="card">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+<h2 style="margin:0">Workflow Dashboard</h2>
+<button id="copyBtn" class="copy" onclick="copyWorkflow()">📋 Copy Workflow</button>
+</div>
+
+<div class="section">
+<h2>📥 Preparation</h2>
+
+<div class="step"><div class="num">1</div><div class="content"><strong>Collect a Prompt</strong><div class="time">~1 min</div></div></div>
+
+<div class="step"><div class="num">2</div><div class="content"><strong>Name the Prompt</strong><div class="time">~2 min</div>
+<div class="btns"><a class="btn" href="https://spmohq.github.io/atmn/name-the-prompt.html" target="_blank" rel="noopener noreferrer" aria-label="Open Name the Prompt">Open Tool</a></div></div></div>
+</div>
+
+<div class="section">
+<h2>✍️ Content Creation</h2>
+<script>
+const items=[
+["Describe the Prompt","https://spmohq.github.io/atmn/prompt-for-fb-post.html"],
+["Generate Post + How to Use","https://spmohq.github.io/atmn/prompt-for-fb-post.html"],
+["Rewrite the Post","https://spmohq.github.io/atmn/group-post-genie.html"],
+["Generate Product Box","https://spmohq.github.io/atmn/fb-prompt-assets.html"],
+["Generate Infographics","https://spmohq.github.io/atmn/fb-prompt-assets.html"],
+["Convert Group Post","https://spmohq.github.io/atmn/group-post-converter.html"],
+["Post Comment Tags","https://spmohq.github.io/atmn/post-tags.html"],
+["Post Feature Image (Optional)","https://dealreach.github.io/pgp/fb-post-feature-image.html"]
+];
+</script>
+<div id="steps"></div>
+</div>
+
+<div class="section">
+<h2>🛠 Extra Tools</h2>
+<p><a class="btn" href="https://dealreach.github.io/pgp/636.html" target="_blank" rel="noopener noreferrer">Studio</a>
+<a class="btn" href="https://spmohq.github.io/atmn/copyright.html" target="_blank" rel="noopener noreferrer">Copyright</a></p>
+</div>
+</div>
+</div>
+
+<footer>
+<div>Version 2.0 • Last Updated: July 2026</div>
+<div>© 2026 Siva Prasad Mukherjee. All Rights Reserved.</div>
+</footer>
+
+<div id="toast" style="display:none;position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#1e293b;color:#fff;padding:12px 22px;border-radius:999px">Copied!</div>
+
+<script>
+const c=document.getElementById("steps");
+items.forEach((x,i)=>{
+c.insertAdjacentHTML("beforeend",`<div class="step">
+<div class="num">${i+3}</div>
+<div class="content"><strong>${x[0]}</strong><div class="time">~2 min</div>
+<div class="btns"><a class="btn" href="${x[1]}" target="_blank" rel="noopener noreferrer">Open Tool</a></div></div></div>`);
+});
+
+function copyWorkflow(){
+let text="Share-A-Prompt Business-in-a-Box Workflow\n\n";
+text+="1. Collect a Prompt\n2. Name the Prompt\n";
+items.forEach((i,n)=>text+=(n+3)+". "+i[0]+"\n");
+navigator.clipboard.writeText(text).then(()=>{
+const b=document.getElementById("copyBtn");
+b.textContent="✓ Copied";
+const t=document.getElementById("toast");
+t.style.display="block";
+setTimeout(()=>{b.textContent="📋 Copy Workflow";t.style.display="none";},2000);
+});
+}
+</script>
+</body>
+</html>
