@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group Post Converter - আপনার আলোচনার নতুন রূপ</title>
+    <style>
+        /* Modern Design System */
+        :root {
+            --primary-color: #1877f2; /* Facebook Blue */
+            --accent-color: #059669;
+            --bg-color: #f0f2f5;
+            --card-bg: #ffffff;
+            --text-main: #1c1e21;
+            --text-sub: #65676b;
+            --border-radius: 12px;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.8;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Header Area */
+        header {
+            padding: 50px 0 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.4rem;
+            color: var(--text-main);
+            margin-bottom: 10px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .intro-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+            border-left: 6px solid var(--primary-color);
+        }
+
+        .intro-card p {
+            font-size: 1.15rem;
+            color: var(--text-main);
+            margin-bottom: 0;
+        }
+
+        /* Input Section */
+        .input-section {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            color: var(--text-main);
+        }
+
+        textarea {
+            width: 100%;
+            padding: 18px;
+            border: 2px solid #e4e6eb;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1.05rem;
+            resize: vertical;
+            min-height: 150px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(24, 119, 242, 0.1);
+            background-color: #fcfcfc;
+        }
+
+        /* Output Box Styling */
+        .prompt-wrapper {
+            margin-bottom: 40px;
+        }
+
+        .prompt-box {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border: 1px solid #e4e6eb;
+        }
+
+        .prompt-header {
+            background: #1c1e21;
+            color: #fff;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prompt-header h3 {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .prompt-content {
+            padding: 30px;
+            background: #fafafa;
+            color: #1c1e21;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 1rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-top: 1px solid #e4e6eb;
+            line-height: 1.6;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        /* Buttons */
+        .copy-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #166fe5;
+            transform: translateY(-1px);
+        }
+
+        .copy-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Sticky CTA bar for Mobile */
+        .sticky-cta {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #fff;
+            padding: 15px;
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: center;
+            z-index: 1000;
+            border-top: 1px solid #e4e6eb;
+        }
+
+        #toast {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            display: none;
+            z-index: 1100;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        /* Mobile Friendliness */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.9rem; }
+            .container { width: 94%; }
+            .prompt-content { font-size: 0.95rem; padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Group Post Converter</h1>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <div class="intro-card">
+            <p>নমস্কার! আপনি কি আপনার ফেসবুক গ্রুপের কোনো বিশেষ পোস্টকে নিজের টাইমলাইনে শেয়ার করতে চান? নিচের বক্সে গ্রুপের সম্পূর্ণ পোস্টটি পেস্ট করুন। এটি অটোমেটিক আপনার জন্য একটি নিখুঁত মাস্টার-প্রম্পট তৈরি করে দেবে, যা ব্যবহার করে আপনি অডিয়েন্সের সাথে সহজ ও অর্থবহ সম্পর্ক তৈরি করতে পারবেন।</p>
+        </div>
+
+        <!-- Input Area -->
+        <div class="input-section">
+            <label for="groupPostInput">Facebook Group পোস্টটি এখানে পেস্ট করুন:</label>
+            <textarea id="groupPostInput" placeholder="আপনার গ্রুপের পোস্টটি এখানে দিন..." oninput="updatePrompt()"></textarea>
+        </div>
+
+        <hr style="margin: 40px 0; border: 0; border-top: 1px solid #ddd;">
+
+        <!-- Output Area -->
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>Master Prompt</h3>
+                    <button class="copy-btn" onclick="copyPrompt()">প্রম্পট কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="finalPrompt"></div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px; color: var(--text-sub);">
+            <p>আপনার কন্টেন্ট জার্নি আরও সাবলীল এবং মানবিক হয়ে উঠুক। শুভকামনা!</p>
+        </div>
+    </main>
+
+    <!-- Sticky footer for quick action -->
+    <div class="sticky-cta">
+        <button class="copy-btn" style="width: 85%;" onclick="copyPrompt()">মাস্টার প্রম্পট কপি করুন</button>
+    </div>
+
+    <div id="toast">প্রম্পটটি ক্লিপবোর্ডে কপি হয়েছে!</div>
+
+    <script>
+        const promptTemplate = `ROLE
+
+You are an expert Facebook Community Growth Strategist, Social Media Copywriter, Relationship Marketing Specialist, and Audience Psychology Expert.
+
+Your specialty is transforming valuable Facebook Group posts into highly engaging Facebook Timeline posts that naturally spark meaningful conversations and attract the right people into a community—without sounding promotional, manipulative, or sales-driven.
+
+You understand that people join communities because they consistently find thoughtful, useful conversations—not because they are promised free resources.
+
+Your objective is to build trust first, curiosity second, and community last.
+
+---
+
+COMMUNITY IDENTITY
+
+This prompt is written exclusively for the following Facebook Group:
+
+**AI with Siva**
+
+https://www.facebook.com/groups/aiwithsiva/
+
+AI with Siva is a private Facebook community where practical AI prompts, workflows, writing techniques, productivity ideas, and real-world AI experiences are shared in simple Bengali.
+
+The Facebook Timeline serves as the first conversation.
+
+The Facebook Group is simply where that conversation naturally continues.
+
+Never treat the Group as a lead magnet, free resource library, or sales destination.
+
+Instead, position it as a place where people who enjoy practical AI discussions continue learning together.
+
+---
+
+BENGALI LOCALIZATION LAYER
+
+Please write the output of the PROMPT below in the most spontaneous, natural-sounding modern conversational Bengali as spoken in Kolkata, West Bengal, India.
+
+The writing should be easy for a 21-year-old to understand while maintaining high editorial quality, clarity, precision, and natural readability.
+
+Strict Rules
+
+- Reflect Kolkata conversational cadence through sentence rhythm and phrasing by using slightly formal, polite, and smoothly flowing sentence structures with balanced pacing.
+- Avoid slang, regional grammar, awkward literal translations, or overly literary wording.
+- Always use the formal **"আপনি"**. Never use **"তুমি"**.
+- Keep the tone warm, conversational, approachable, thoughtful, confident, and quietly authoritative.
+- Write as if speaking directly to one person in a natural face-to-face conversation.
+- Never translate literally. Rewrite naturally so the content feels as though it was originally written in Bengali.
+- Preserve the original meaning, emotional tone, persuasive effect, and intent without adding, removing, or changing information.
+
+---
+
+TASK
+
+Transform the Facebook Group post provided below into a completely standalone Facebook Timeline post.
+
+The Timeline post must stand on its own.
+
+It must **not** feel like a summary of the Group post.
+
+It must **not** feel like a teaser.
+
+It must **not** feel like an advertisement.
+
+Instead, use the Group post only as inspiration to create a fresh conversation around the same central idea.
+
+The Timeline post should naturally make interested readers think:
+
+> "I'd enjoy reading more thoughtful posts like this."
+
+The decision to join the Group should feel like a natural next step—not the purpose of the post.
+
+---
+
+WRITING PRINCIPLES
+
+The Timeline post should:
+
+- Begin with a relatable observation, everyday situation, reflection, personal experience, or thoughtful question.
+- Focus on one clear idea.
+- Encourage reflection rather than persuasion.
+- Feel like something naturally shared with friends.
+- Build trust through honesty instead of marketing.
+- Sound calm, confident, and authentic.
+- Leave readers with one useful insight or perspective.
+
+---
+
+STRICTLY AVOID
+
+Never:
+
+- Sound like an advertisement.
+- Sound like a sales page.
+- Sound like a lead magnet.
+- Sound like a promotional announcement.
+- Mention that the full content is available elsewhere.
+- Say "Join my group to get this."
+- Say "Link in comments."
+- Say "DM me."
+- Say "Free Prompt."
+- Say "Download."
+- Use artificial curiosity.
+- Use clickbait.
+- Exaggerate benefits.
+- Create false urgency.
+- Pressure readers to join the Group.
+- Mention algorithms, engagement, or reaching more people.
+
+---
+
+COMMUNITY INVITATION
+
+If—and only if—it feels completely natural, conclude the post with a short, warm invitation.
+
+The invitation should feel like an afterthought rather than the purpose of the post.
+
+It should simply mention that you regularly share similar practical AI ideas and thoughtful discussions inside **AI with Siva**.
+
+Readers should feel they are joining an ongoing conversation—not collecting free resources.
+
+When appropriate, place the following URL on a separate line at the very end of the post:
+
+https://www.facebook.com/groups/aiwithsiva/
+
+Never force the invitation if the post feels complete without it.
+
+---
+
+STYLE
+
+The finished post should feel:
+
+- Genuine
+- Human
+- Reflective
+- Helpful
+- Warm
+- Intelligent
+- Calm
+- Trustworthy
+- Conversational
+- Naturally shareable
+
+The writing should never feel optimized for marketing.
+
+It should feel optimized for human connection.
+
+---
+
+OUTPUT REQUIREMENTS
+
+Return only the finished Facebook Timeline post.
+
+Do not explain your reasoning.
+
+Do not include headings.
+
+Do not mention these instructions.
+
+---
+
+FACEBOOK GROUP POST
+
+[Paste the complete Facebook Group post here]`;
+
+        function updatePrompt() {
+            const inputVal = document.getElementById('groupPostInput').value.trim();
+            const display = document.getElementById('finalPrompt');
+            
+            if (inputVal === "") {
+                display.innerText = promptTemplate;
+            } else {
+                // Perform the replacement
+                const updatedContent = promptTemplate.replace("[Paste the complete Facebook Group post here]", inputVal);
+                display.innerText = updatedContent;
+            }
+        }
+
+        function copyPrompt() {
+            const text = document.getElementById('finalPrompt').innerText;
+            if (!text) return;
+
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 2000);
+            }).catch(err => {
+                console.error('Copy failed: ', err);
+            });
+        }
+
+        // Initialize display on load
+        updatePrompt();
+    </script>
+</body>
+</html>

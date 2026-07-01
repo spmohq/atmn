@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Comment Tags - আপনার পোস্টের রিচ বাড়ান</title>
+    <style>
+        /* Design Strategy: Professional, Clean, and Human-Centric */
+        :root {
+            --primary-slate: #1e293b;
+            --accent-blue: #3b82f6;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --text-main: #334155;
+            --border-color: #e2e8f0;
+            --success-teal: #0d9488;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.8;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        /* Header Styling */
+        header {
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            color: var(--primary-slate);
+            margin-bottom: 10px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        header p.sub-header {
+            font-size: 1rem;
+            color: #64748b;
+            font-weight: 500;
+            max-width: 500px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        .welcome-card {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+            border-left: 6px solid var(--accent-blue);
+            margin-top: 30px;
+        }
+
+        .welcome-card p {
+            font-size: 1.1rem;
+            color: var(--text-main);
+            margin-bottom: 0;
+        }
+
+        /* Prompt Box Styling */
+        .prompt-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .prompt-box {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            transition: transform 0.2s ease;
+        }
+
+        .prompt-box:hover {
+            border-color: var(--accent-blue);
+        }
+
+        .prompt-content {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 1.2rem;
+            color: var(--primary-slate);
+            font-weight: 600;
+        }
+
+        .copy-btn {
+            background: var(--bg-light);
+            color: var(--primary-slate);
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: var(--accent-blue);
+            color: white;
+            border-color: var(--accent-blue);
+        }
+
+        .copy-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Toast Notification */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-slate);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Mobile Friendliness */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            .container { width: 92%; }
+            .prompt-content { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Post Comment Tags</h1>
+            <p class="sub-header">(only for genuinely valuable content, such as a new prompt, an important update, or a live session)</p>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <div class="welcome-card">
+            <p>আপনার কন্টেন্টকে সঠিক অডিয়েন্সের কাছে পৌঁছে দিতে নিচের ট্যাগগুলো ব্যবহার করুন। প্রতিটি বক্সের পাশের বাটনে ক্লিক করে ট্যাগটি কপি করে আপনার ফেসবুক কমেন্টে পেস্ট করে দিন।</p>
+        </div>
+
+        <div class="prompt-grid">
+            <!-- Prompt #1 -->
+            <div class="prompt-box">
+                <div class="prompt-content" id="tag1">@followers</div>
+                <button class="copy-btn" onclick="copyText('tag1')">Copy</button>
+            </div>
+
+            <!-- Prompt #2 -->
+            <div class="prompt-box">
+                <div class="prompt-content" id="tag2">#highlightsシ゚</div>
+                <button class="copy-btn" onclick="copyText('tag2')">Copy</button>
+            </div>
+
+            <!-- Prompt #3 -->
+            <div class="prompt-box">
+                <div class="prompt-content" id="tag3">#trendingpost</div>
+                <button class="copy-btn" onclick="copyText('tag3')">Copy</button>
+            </div>
+
+            <!-- Prompt #4 -->
+            <div class="prompt-box">
+                <div class="prompt-content" id="tag4">@friends</div>
+                <button class="copy-btn" onclick="copyText('tag4')">Copy</button>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 50px; color: #94a3b8; font-size: 0.9rem;">
+            <p>আপনার কন্টেন্ট জার্নি আরও প্রভাবশালী হয়ে উঠুক। শুভকামনা!</p>
+        </div>
+
+    </main>
+
+    <div id="toast">ক্লিপবোর্ডে কপি হয়েছে!</div>
+
+    <script>
+        function copyText(id) {
+            const text = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 2000);
+            }).catch(err => {
+                console.error('Copy failed: ', err);
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Name The Prompt - আপনার প্রম্পটের জন্য সেরা নামটি বেছে নিন</title>
+    <style>
+        /* Design Strategy: Professional, Bold, and Clean */
+        :root {
+            --primary-slate: #1e293b;
+            --accent-indigo: #4f46e5;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --text-main: #334155;
+            --border-color: #e2e8f0;
+            --success-teal: #0d9488;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.8;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Header Area */
+        header {
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-slate);
+            margin-bottom: 10px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .intro-card {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+            border-left: 6px solid var(--accent-indigo);
+        }
+
+        .intro-card p {
+            font-size: 1.15rem;
+            color: var(--text-main);
+            margin-bottom: 0;
+        }
+
+        /* Input Section */
+        .input-section {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            margin-bottom: 40px;
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            color: var(--primary-slate);
+        }
+
+        textarea {
+            width: 100%;
+            padding: 18px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1.05rem;
+            resize: vertical;
+            min-height: 180px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-indigo);
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+        }
+
+        /* Prompt Display Box */
+        .prompt-wrapper {
+            margin-bottom: 40px;
+        }
+
+        .prompt-box {
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .prompt-header {
+            background: var(--primary-slate);
+            color: var(--white);
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prompt-header h3 {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .prompt-content {
+            padding: 32px;
+            background: #fafafa;
+            color: #1e293b;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 1rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-top: 1px solid var(--border-color);
+            line-height: 1.6;
+        }
+
+        /* Interaction Elements */
+        .copy-btn {
+            background: var(--accent-indigo);
+            color: var(--white);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #4338ca;
+            transform: translateY(-1px);
+        }
+
+        .copy-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Toast Notification */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-slate);
+            color: var(--white);
+            padding: 14px 28px;
+            border-radius: 40px;
+            font-size: 1rem;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer Note */
+        .footer-note {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 600px) {
+            header h1 { font-size: 2rem; }
+            .container { width: 94%; }
+            .prompt-content { font-size: 0.9rem; padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Name The Prompt</h1>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <div class="intro-card">
+            <p>আপনার তৈরি করা প্রম্পটটির একটি চমৎকার 'মার্কেটেবল' নাম পেতে চান? নিচের বক্সে আপনার প্রম্পটটি লিখুন বা পেস্ট করুন। এটি স্বয়ংক্রিয়ভাবে আপনার এআই (AI) অ্যাসিস্ট্যান্টের জন্য একটি নিখুঁত ইনস্ট্রাকশন সেট তৈরি করে দেবে।</p>
+        </div>
+
+        <div class="input-section">
+            <label for="promptInput">আপনার প্রম্পটটি এখানে দিন:</label>
+            <textarea id="promptInput" placeholder="আপনার প্রম্পটটি এখানে পেস্ট করুন..." oninput="updateDisplay()"></textarea>
+        </div>
+
+        <hr style="margin: 40px 0; border: 0; border-top: 1px solid #ddd;">
+
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>জেনারেটেড প্রম্পট</h3>
+                    <button class="copy-btn" onclick="copyToClipboard()">কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="displayArea"></div>
+            </div>
+        </div>
+
+        <div class="footer-note">
+            <p>আপনার প্রম্পটকে একটি সলিড প্রোডাক্টের নাম দিয়ে আরও প্রফেশনাল করে তুলুন।</p>
+        </div>
+
+    </main>
+
+    <div id="toast">প্রম্পটটি ক্লিপবোর্ডে কপি হয়েছে!</div>
+
+    <script>
+        const originalTemplate = `Role: 
+
+You are an expert AI Prompt Engineer, Prompt Auditor, UX Copywriter, and Product Naming Specialist. You excel at analyzing prompts, identifying their core purpose, evaluating their quality, and creating concise, marketable, self-explanatory product names.
+
+Task:
+
+Please read, review, and name the prompt below.
+
+The name of the prompt must:
+- Be 2–3 words long.
+- Be attractive as a product name.
+- Be self-explanatory, clearly reflecting the prompt's primary purpose.
+- Clearly communicate the core promise of what the prompt helps the user achieve.
+- Be memorable, professional, and easy to understand.
+- Avoid vague, generic, or overly clever names that obscure the prompt's function.
+
+After proposing the name, briefly explain:
+- Why this name fits the prompt.
+- What core promise the name clearly communicates to the user.
+
+PROMPT
+
+[Insert Your Prompt Here]`;
+
+        function updateDisplay() {
+            const inputVal = document.getElementById('promptInput').value.trim();
+            const display = document.getElementById('displayArea');
+            
+            if (inputVal === "") {
+                display.innerText = originalTemplate;
+            } else {
+                display.innerText = originalTemplate.replace('[Insert Your Prompt Here]', inputVal);
+            }
+        }
+
+        function copyToClipboard() {
+            const text = document.getElementById('displayArea').innerText;
+            if (!text) return;
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 2000);
+            });
+        }
+
+        // Initialize display
+        updateDisplay();
+    </script>
+</body>
+</html>

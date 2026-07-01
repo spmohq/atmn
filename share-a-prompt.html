@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Share-A-Prompt - আপনার প্রম্পট শেয়ার করার গাইড</title>
+    <style>
+        /* Modern Design Framework */
+        :root {
+            --primary-slate: #1e293b;
+            --accent-blue: #3b82f6;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --text-main: #334155;
+            --border-color: #e2e8f0;
+            --success-teal: #0d9488;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.8;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        /* Header Area */
+        header {
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-slate);
+            margin-bottom: 10px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .welcome-card {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+            border-left: 6px solid var(--accent-blue);
+        }
+
+        .welcome-card p {
+            font-size: 1.15rem;
+            color: var(--text-main);
+            margin-bottom: 0;
+        }
+
+        /* Section Styling */
+        section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--primary-slate);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Prompt Display Box */
+        .prompt-container {
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .prompt-header {
+            background: var(--primary-slate);
+            color: #fff;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prompt-header h3 {
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .prompt-content {
+            padding: 25px;
+            background: #fafafa;
+            color: #1e293b;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 1rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-top: 1px solid #eee;
+            line-height: 1.6;
+        }
+
+        /* Buttons */
+        .copy-btn {
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #2563eb;
+            transform: translateY(-1px);
+        }
+
+        /* Toast Notification */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #334155;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        /* Mobile Friendliness */
+        @media (max-width: 600px) {
+            header h1 { font-size: 2rem; }
+            .container { width: 94%; }
+            .prompt-content { font-size: 0.95rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Share-A-Prompt</h1>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <div class="welcome-card">
+            <p>আপনার প্রিয় প্রম্পটটি অন্যদের কাছে পৌঁছে দেওয়ার জন্য নিচের অপশনগুলো অনুসরণ করুন। এখানে ইমেজের ধরণ থেকে শুরু করে প্রতিটি ধাপ নিখুঁতভাবে সাজানো আছে। জাস্ট কপি করে আপনার কাজ এগিয়ে নিন।</p>
+        </div>
+
+        <!-- Section 1: Image Options -->
+        <section>
+            <div class="section-title">১. ইমেজের ধরণ (Image Options)</div>
+            <div class="prompt-container">
+                <div class="prompt-header">
+                    <h3>Image Options</h3>
+                    <button class="copy-btn" onclick="copyText('display1')">Copy</button>
+                </div>
+                <div class="prompt-content" id="display1">1, Software Box (4:5)
+2, Infographics
+3, fb-post-feature-image
+
+https://dealreach.github.io/pgp/fb-post-feature-image.html</div>
+            </div>
+        </section>
+
+        <!-- Section 2: Steps -->
+        <section>
+            <div class="section-title">২. কাজের ধাপসমূহ (Steps)</div>
+            <div class="prompt-container">
+                <div class="prompt-header">
+                    <h3>Workflow Steps</h3>
+                    <button class="copy-btn" onclick="copyText('display2')">Copy</button>
+                </div>
+                <div class="prompt-content" id="display2">Step#1: Collect A Prompt
+Step#2: Name the Prompt
+Step#3: Describe the prompt [Insert Prompt#1 of prompt-for-fb-post.html here]
+Step#4: Generate the post with how to use [Insert Prompt#2 of prompt-for-fb-post.html here]
+Step#5: Rewrite the post
+Step#6: Generate Product Box (fb-prompt-assets.html)
+Step#7: Generate Infographics (fb-prompt-assets.html)
+Step#8: Convert Group Post
+Step#9: Post Comment Tags</div>
+            </div>
+        </section>
+
+        <!-- Section 3: Group URL -->
+        <section>
+            <div class="section-title">৩. ফেসবুক গ্রুপ লিঙ্ক (Group URL)</div>
+            <div class="prompt-container">
+                <div class="prompt-header">
+                    <h3>Group URL</h3>
+                    <button class="copy-btn" onclick="copyText('display3')">Copy</button>
+                </div>
+                <div class="prompt-content" id="display3">https://www.facebook.com/groups/aiwithsiva/</div>
+            </div>
+        </section>
+
+        <div style="text-align: center; margin-top: 50px; color: #94a3b8; font-size: 0.9rem;">
+            <p>আপনার শেয়ার করা প্রম্পটটি হয়তো কারো অনেক বড় সমস্যার সমাধান করে দেবে। শুভকামনা!</p>
+        </div>
+
+    </main>
+
+    <div id="toast">ক্লিপবোর্ডে কপি হয়েছে!</div>
+
+    <script>
+        function copyText(id) {
+            const text = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 2000);
+            }).catch(err => {
+                console.error('Copy failed: ', err);
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group Post Genie - আপনার ফেসবুক পোস্টকে প্রাণবন্ত করে তুলুন</title>
+    <style>
+        /* Design Strategy: Minimal, Human-Centric, and Approachable */
+        :root {
+            --primary-slate: #1e293b;
+            --accent-blue: #3b82f6;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --text-main: #334155;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.8;
+            padding-bottom: 100px; /* Space for sticky CTA */
+        }
+
+        .container {
+            width: 92%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Header Area */
+        header {
+            padding: 50px 0 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.4rem;
+            color: var(--primary-slate);
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .welcome-card {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+            border-left: 6px solid var(--accent-blue);
+        }
+
+        .welcome-card p {
+            font-size: 1.1rem;
+            color: #475569;
+            margin-bottom: 0;
+        }
+
+        /* Input Section */
+        .input-section {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+            color: var(--primary-slate);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 120px;
+            transition: all 0.3s ease;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+            background-color: #fcfcfc;
+        }
+
+        /* Prompt Display Boxes */
+        .prompt-wrapper {
+            margin-bottom: 40px;
+        }
+
+        .prompt-box {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+            margin-top: 20px;
+        }
+
+        .prompt-header {
+            background: var(--primary-slate);
+            color: #fff;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prompt-header h3 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .prompt-content {
+            padding: 25px;
+            background: #fafafa;
+            color: #1e293b;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 1rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-top: 1px solid #eee;
+            line-height: 1.6;
+        }
+
+        .copy-btn {
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: background 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #2563eb;
+        }
+
+        /* Sticky CTA */
+        .sticky-cta {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 500px;
+            background: #fff;
+            padding: 12px 20px;
+            border-radius: 50px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border: 1px solid #e2e8f0;
+        }
+
+        .cta-text {
+            font-weight: bold;
+            font-size: 0.9rem;
+            color: var(--text-main);
+        }
+
+        .close-cta {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #94a3b8;
+            margin-left: 10px;
+        }
+
+        /* Toast Feedback */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #334155;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            display: none;
+            z-index: 1100;
+        }
+
+        /* Mobile Friendliness */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.9rem; }
+            .container { width: 94%; }
+            .prompt-content { font-size: 0.95rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Group Post Genie</h1>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <div class="welcome-card">
+            <p>নমস্কার! ফেসবুক গ্রুপে শেয়ার করার জন্য আপনার কন্টেন্টকে আরও বেশি স্টোরিটেলিং এবং এনগেজমেন্ট-মুখী করে তোলার জন্য এই টুলটি আপনাকে সাহায্য করবে। নিচের বক্সে আপনার নির্দিষ্ট তথ্যটি দিন এবং দেখুন কীভাবে আপনার প্রম্পটটি আপডেট হয়ে যাচ্ছে। কাজ শেষ হলে জাস্ট 'কপি' করে নিন।</p>
+        </div>
+
+        <!-- Dynamic Input Section -->
+        <div class="input-section">
+            <label for="pInput">Prompt#2 পেস্ট করুন:</label>
+            <textarea id="pInput" placeholder="[Insert Prompt#2 of prompt-for-fb-post.html here]" oninput="updatePrompts()"></textarea>
+        </div>
+
+        <hr style="margin: 40px 0; border: 0; border-top: 1px solid #ddd;">
+
+        <!-- Output Prompt #1 -->
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>Prompt #1: Custom Tailoring</h3>
+                    <button class="copy-btn" onclick="copyText('display1')">কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="display1">Please tailor the content below to Facebook Post:
+
+[Insert Prompt#2 of prompt-for-fb-post.html here]</div>
+            </div>
+        </div>
+
+        <!-- Output Prompt #2 (Static) -->
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>Prompt #2: Storytelling Focus</h3>
+                    <button class="copy-btn" onclick="copyText('display2')">কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="display2">রূপান্তর কর স্টোরিটেলিং-ভিত্তিক পোস্টে যা সরাসরি বিক্রির বদলে "আমারও এমন হতো..." ধরনের পরিচিত অভিজ্ঞতা দিয়ে শুরু হওয়ায় পাঠককে গল্পের মধ্যে টেনে আনে, যা Facebook-এ সাধারণ তথ্যমূলক পোস্টের তুলনায় বেশি সময় ধরে মনোযোগ ধরে রাখতে সাহায্য করে।</div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Sticky CTA bar -->
+    <div class="sticky-cta" id="sticky-cta">
+        <span class="cta-text">প্রম্পট কপি করে কাজ শুরু করুন</span>
+        <button class="close-cta" onclick="dismissSticky()">×</button>
+    </div>
+
+    <div id="toast">ক্লিপবোর্ডে কপি হয়েছে!</div>
+
+    <script>
+        const template1 = `Please tailor the content below to Facebook Post:\n\n[Insert Prompt#2 of prompt-for-fb-post.html here]`;
+
+        function updatePrompts() {
+            const inputVal = document.getElementById('pInput').value.trim();
+            const display1 = document.getElementById('display1');
+
+            if (inputVal === "") {
+                display1.innerText = "Please tailor the content below to Facebook Post:\n\n[Insert Prompt#2 of prompt-for-fb-post.html here]";
+            } else {
+                display1.innerText = "Please tailor the content below to Facebook Post:\n\n" + inputVal;
+            }
+        }
+
+        function copyText(id) {
+            const text = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => { toast.style.display = 'none'; }, 2000);
+            });
+        }
+
+        function dismissSticky() {
+            document.getElementById('sticky-cta').style.display = 'none';
+        }
+
+        // Initialize display
+        updatePrompts();
+    </script>
+</body>
+</html>
