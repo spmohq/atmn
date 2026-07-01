@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Execution System Tasks - আপনার কাজের গাইড</title>
+    <style>
+        /* Modern Design Framework: Clean, Authoritative, and Human-Centric */
+        :root {
+            --primary-slate: #1e293b;
+            --accent-blue: #3b82f6;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --text-main: #334155;
+            --border-color: #e2e8f0;
+            --btn-blue: #2563eb;
+            --success-green: #10b981;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.8;
+            padding-bottom: 60px;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Header Area */
+        header {
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-slate);
+            margin-bottom: 10px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .intro-card {
+            background: var(--white);
+            padding: 28px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+            border-left: 6px solid var(--accent-blue);
+        }
+
+        .intro-card p {
+            font-size: 1.15rem;
+            color: var(--text-main);
+            margin-bottom: 0;
+        }
+
+        /* Input Section */
+        .input-section {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            margin-bottom: 40px;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 1rem;
+            color: var(--primary-slate);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 18px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1.05rem;
+            resize: vertical;
+            min-height: 80px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+            background-color: #fcfcfc;
+        }
+
+        /* Prompt Content Box */
+        .prompt-wrapper {
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            margin-bottom: 40px;
+        }
+
+        .prompt-header {
+            background: var(--primary-slate);
+            color: #fff;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prompt-header h3 {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .prompt-content {
+            padding: 30px;
+            background: #fafafa;
+            color: #1e293b;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.95rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-top: 1px solid var(--border-color);
+            line-height: 1.7;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        /* Interaction Buttons */
+        .copy-btn {
+            background: var(--success-green);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #059669;
+        }
+
+        /* Toast Notification */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-slate);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 40px;
+            font-size: 1rem;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Mobile Friendliness */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            .container { width: 94%; }
+            .prompt-content { padding: 20px; font-size: 0.9rem; }
+            .intro-card { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Execution System Tasks</h1>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <div class="intro-card">
+            <p>নমস্কার! আপনি যখন কোনো **Execution System™** নিয়ে কাজ করবেন, তখন এই প্রম্পটটি এআই-কে আপনার সিস্টেমের ফিলোসফি এবং কাজের ধরণ বুঝতে সাহায্য করবে। আপনার প্রোডাক্টের নাম এবং নির্দিষ্ট রিকোয়েস্টটি দিন, বাকিটা এই সিস্টেম সামলে নেবে।</p>
+        </div>
+
+        <!-- Dynamic Input Section -->
+        <section class="input-section">
+            <div class="input-group">
+                <label>Product Name (প্রোডাক্টের নাম)</label>
+                <textarea id="prodName" placeholder="যেমন: Writing Assistant System..." oninput="updatePrompt()"></textarea>
+            </div>
+            <div class="input-group">
+                <label>Your Actual Request (আপনার রিকোয়েস্ট)</label>
+                <textarea id="actualReq" placeholder="যেমন: 'এই সিস্টেমের জন্য একটি ৫-ধাপের ওয়ার্কফ্লো তৈরি করো'..." oninput="updatePrompt()"></textarea>
+            </div>
+        </section>
+
+        <hr style="margin: 40px 0; border: 0; border-top: 1px solid #ddd;">
+
+        <!-- Output Prompt Display -->
+        <div class="prompt-wrapper">
+            <div class="prompt-header">
+                <h3>Final Master Prompt</h3>
+                <button class="copy-btn" onclick="copyPrompt()">প্রম্পট কপি করুন</button>
+            </div>
+            
+            <div class="prompt-content" id="masterPrompt"></div>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px; color: #64748b; font-size: 0.95rem;">
+            <p>সঠিক সিস্টেমই আনে স্থায়ী সাফল্য। আপনার প্রজেক্টের জন্য শুভকামনা রইল!</p>
+        </div>
+    </main>
+
+    <div id="toast">টেক্সট ক্লিপবোর্ডে কপি হয়েছে!</div>
+
+    <script>
+        const promptTemplate = `PRODUCT CONTEXT
+
+Please review the uploaded HTML page as the completed, ready-to-deliver product.
+
+The HTML page is the user interface of the product, not the product itself. Treat it as the central execution dashboard that represents the complete product experience.
+
+Before performing the requested task, carefully review the product to understand its:
+
+- Purpose
+- Target User
+- Business Outcome
+- Value Proposition
+- Business Process
+- Workflow
+- User Experience
+- Positioning
+- Overall Product Philosophy
+
+Use your understanding of the product throughout the rest of your response.
+
+---
+
+PRODUCT INFORMATION
+
+Product Name:  
+[Insert Product Name]
+
+Product Category:  
+Execution System™
+
+---
+
+EXECUTION SYSTEM™ (My Framework)
+
+An Execution System™ is my proprietary Business-in-a-Box framework for standardizing and executing a specific business process.
+
+Its purpose is to transform a complex task into a repeatable, guided execution experience so that users can consistently achieve a specific business outcome with minimal confusion, reduced decision fatigue, and greater confidence.
+
+Every Execution System™ consists of four core components:
+
+1. Business Process
+
+The overall objective or business outcome the user wants to accomplish.
+
+2. Workflow
+
+A standardized sequence of execution steps that guides the user from start to finish.
+
+3. Tools
+
+The prompts, templates, HTML utilities, checklists, resources, automations, and other supporting assets required throughout the workflow.
+
+4. Execution Dashboard
+
+A centralized interactive HTML page that orchestrates the entire workflow, provides access to every tool, and guides the user through the complete execution process.
+
+The Execution Dashboard serves as the operating interface of the Execution System™, enabling users to complete the process efficiently, consistently, and with confidence.
+
+---
+
+INTERPRETATION RULES
+
+Whenever I refer to an Execution System™, always interpret it according to the framework defined above.
+
+Do not interpret it as merely:
+
+- An HTML page
+- A workflow
+- A checklist
+- An SOP
+- A collection of prompts
+- A group of tools
+
+Instead, always treat it as a complete product that integrates:
+
+- A Business Process
+- A Standardized Workflow
+- Integrated Tools
+- A Centralized Execution Dashboard
+
+into one cohesive, interactive Business-in-a-Box experience.
+
+Unless I explicitly instruct otherwise, always evaluate, analyze, describe, position, market, or discuss the product from this perspective.
+
+When generating any content about the product, focus on:
+
+- The business outcome it helps users achieve.
+- The transformation it provides.
+- The simplicity and clarity of its execution.
+- The value of having an integrated, repeatable execution system rather than isolated tools or documents.
+
+Never describe or market the product as "just an HTML page." The HTML page is only the interface through which users interact with the complete Execution System™.
+
+---
+
+TASK
+
+After reviewing the uploaded product and understanding the Execution System™ framework, perform the following task:
+
+[Insert your actual request here]`;
+
+        function updatePrompt() {
+            const nameVal = document.getElementById('prodName').value.trim() || "[Insert Product Name]";
+            const reqVal = document.getElementById('actualReq').value.trim() || "[Insert your actual request here]";
+            const display = document.getElementById('masterPrompt');
+
+            let finalContent = promptTemplate
+                .replace("[Insert Product Name]", nameVal)
+                .replace("[Insert your actual request here]", reqVal);
+
+            display.innerText = finalContent;
+        }
+
+        function copyPrompt() {
+            const text = document.getElementById('masterPrompt').innerText;
+            if (!text) return;
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 2000);
+            }).catch(err => {
+                console.error('Copy failed: ', err);
+            });
+        }
+
+        // Initialize display
+        updatePrompt();
+    </script>
+</body>
+</html>
