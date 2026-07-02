@@ -1,0 +1,523 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Offer Infographics</title>
+  <style>
+
+:root {
+  --bg: #f7f4ec;
+  --panel: #ffffff;
+  --panel-2: #f0eadf;
+  --text: #111111;
+  --muted: #4d4d4d;
+  --green: #16a34a;
+  --green-dark: #0f6b32;
+  --green-soft: #dff5e7;
+  --line: #d8d1c4;
+  --shadow: rgba(17,17,17,0.12);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+.wrap {
+  width: min(1180px, 94vw);
+  margin: 0 auto;
+  padding: 34px 0 70px;
+}
+.hero {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  box-shadow: 0 24px 60px var(--shadow);
+  border-radius: 28px;
+  padding: 34px;
+  position: relative;
+  overflow: hidden;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 13px;
+  border: 1px solid var(--green);
+  background: var(--green-soft);
+  color: var(--green-dark);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+h1 {
+  margin: 18px 0 12px;
+  max-width: 900px;
+  font-size: clamp(36px, 7vw, 76px);
+  line-height: 0.92;
+  letter-spacing: -3px;
+  color: var(--text);
+}
+.hero p {
+  margin: 0;
+  max-width: 920px;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.55;
+}
+.control-panel {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  align-items: end;
+}
+.full { grid-column: 1 / -1; }
+label {
+  display: block;
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--green-dark);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+input, select {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: #ffffff;
+  color: var(--text);
+  padding: 0 16px;
+  font-size: 16px;
+  outline: none;
+  font-family: inherit;
+  height: 56px;
+}
+input::placeholder { color: #7a746d; }
+input:focus, select:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 4px rgba(22,163,74,0.12);
+}
+.button-row {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.generate {
+  height: 56px;
+  border: 0;
+  border-radius: 16px;
+  background: var(--green);
+  color: #ffffff;
+  padding: 0 23px;
+  font-size: 15px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: none;
+  transition: transform 0.18s ease, background 0.18s ease;
+  white-space: nowrap;
+}
+.generate:hover {
+  transform: translateY(-2px);
+  background: var(--green-dark);
+}
+.clear-all {
+  height: 56px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: #ffffff;
+  color: var(--text);
+  padding: 0 23px;
+  font-size: 15px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+  white-space: nowrap;
+}
+.clear-all:hover {
+  transform: translateY(-2px);
+  background: var(--green-soft);
+  border-color: var(--green);
+}
+.mode-note {
+  grid-column: 1 / -1;
+  display: none;
+  border: 1px solid var(--green);
+  background: var(--green-soft);
+  color: var(--green-dark);
+  border-radius: 16px;
+  padding: 12px 14px;
+  font-weight: 800;
+  font-size: 14px;
+  line-height: 1.4;
+}
+.mode-note.show { display: block; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 22px;
+}
+.card {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  border-radius: 22px;
+  padding: 18px;
+  box-shadow: 0 14px 34px var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+.card-top {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+.num {
+  flex: 0 0 auto;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--green-soft);
+  color: var(--green-dark);
+  font-weight: 900;
+  border: 1px solid var(--green);
+}
+.card h3 {
+  margin: 0 0 5px;
+  font-size: 18px;
+  letter-spacing: -0.3px;
+  color: var(--text);
+}
+.summary {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+  margin: 0;
+}
+.preview {
+  margin: 12px 0;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: var(--panel-2);
+  padding: 13px;
+  color: #1f1f1f;
+  font-size: 13px;
+  line-height: 1.55;
+  max-height: 108px;
+  overflow: hidden;
+  white-space: pre-wrap;
+}
+.card.open .preview { max-height: none; }
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.btn {
+  height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  background: #ffffff;
+  color: var(--text);
+  font-weight: 850;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+.btn:hover {
+  transform: translateY(-1px);
+  background: var(--green-soft);
+  border-color: var(--green);
+}
+.open-chatgpt {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+.copy {
+  background: var(--green);
+  color: #ffffff;
+  border-color: var(--green);
+}
+.copy:hover {
+  background: var(--green-dark);
+  color: #ffffff;
+  border-color: var(--green-dark);
+}
+.copied {
+  color: #ffffff !important;
+  border-color: var(--green-dark) !important;
+  background: var(--green-dark) !important;
+}
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 22px;
+  transform: translateX(-50%) translateY(120px);
+  background: #ffffff;
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 12px 18px;
+  box-shadow: 0 18px 40px var(--shadow);
+  transition: transform 0.25s ease;
+  z-index: 10;
+  font-weight: 800;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+.footer-link {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 900;
+}
+.footer-link a {
+  color: var(--green-dark);
+  text-decoration: none;
+  border-bottom: 2px solid var(--green);
+  padding-bottom: 3px;
+}
+.footer-link a:hover { color: var(--green); }
+@media (max-width: 980px) {
+  .control-panel { grid-template-columns: 1fr; }
+  .generate { width: 100%; }
+  .clear-all { width: 100%; }
+  .button-row { flex-direction: column; }
+  .grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .hero { padding: 24px; }
+  h1 { letter-spacing: -2px; }
+  .grid { grid-template-columns: 1fr; }
+}
+
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <div class="badge">ZERO Editing Required - 20 Infographic Ads Prompts Built-In - ZERO Restrictions Unlimited Use</div>
+      <h1>Instant Infographic Ads</h1>
+      <p>Super easy to use. Enter your offer title and optional call-to-action. Generate 20 setup prompts. Paste one into ChatGPT, wait for “yes,” then paste your sales page copy or offer description as the next message so ChatGPT creates the finished infographic ad.</p>
+
+      <div class="control-panel">
+        <div>
+          <label for="offerTitleInput">Offer Title</label>
+          <input id="offerTitleInput" type="text" placeholder="Example: Compelling Content" />
+        </div>
+
+        <div>
+          <label for="schemeInput">Color Scheme Options</label>
+          <select id="schemeInput">
+            <option value="Light">Light Color Scheme</option>
+            <option value="Dark">Dark Color Scheme</option>
+          </select>
+        </div>
+
+        <div class="full">
+          <label for="ctaInput">Optional Footer CTA / Watermark</label>
+          <input id="ctaInput" type="text" placeholder="Example: Link To The Sales Page Is In The Comments" />
+        </div>
+
+        <div class="button-row">
+          <button class="generate" id="generateBtn">Generate 20 Prompts</button>
+          <button class="clear-all" id="clearAllBtn" type="button">Clear All</button>
+        </div>
+        <div class="mode-note" id="modeNote"></div>
+      </div>
+    </section>
+
+    <section id="cards" class="grid"></section>
+
+    <footer class="footer-link">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+  </main>
+
+  <div id="toast" class="toast">Prompt copied</div>
+
+  <script>
+    const promptTypes = [
+      { title: "Offer Snapshot Infographic", summary: "Locks ChatGPT into a clean overview layout for what the offer is, who it helps, what buyers get, and the main outcome.", layout: "Use a bold offer-title headline, a short promise subtitle, four labeled snapshot blocks: What It Is, Who It Helps, What You Get, and Main Outcome, plus a bottom proof/value strip and centered footer CTA." },
+      { title: "What’s Included Infographic", summary: "Sets up a deliverable-card visual that makes the offer feel tangible and complete.", layout: "Use a bold headline, a short value subtitle, and a grid or stacked set of included-item cards. Each card should show a real deliverable, asset, module, bonus, prompt, lesson, training, resource, or tool from the sales copy, plus what it helps the buyer do. End with the centered footer CTA." },
+      { title: "Value Stack Infographic", summary: "Frames the offer as a layered stack of assets, bonuses, proof points, and value drivers.", layout: "Use a vertical stack of value layers. Each layer should be a real asset, feature, deliverable, bonus, mechanism, proof point, or value point from the sales copy. Include a bottom complete-package strip and centered footer CTA." },
+      { title: "Transformation Path Infographic", summary: "Sets up a journey-style visual that shows the positive path the buyer takes through the offer.", layout: "Use a top-to-bottom or left-to-right path with 4 to 6 transformation milestones. Each milestone should show what the buyer receives, does, experiences, creates, or gains from the offer. End with the main buyer outcome and centered footer CTA." },
+      { title: "Results Roadmap Infographic", summary: "Creates a roadmap layout that connects offer components to progress and results.", layout: "Use a numbered roadmap with 3 to 6 checkpoints. Each checkpoint should connect a real offer component, feature, module, tool, step, or deliverable to the result it supports. End with a result-focused payoff strip and centered footer CTA." },
+      { title: "Method Infographic", summary: "Turns the offer’s unique mechanism into a proprietary-feeling method or framework visual.", layout: "Use the offer name or extracted method in the center, with 4 to 6 surrounding pillars. Each pillar must represent a real part of the offer mechanism, process, system, or promise. End with a proof/value strip and centered footer CTA." },
+      { title: "3-Step System Infographic", summary: "Makes the offer feel simple by reducing it into three clear usage steps.", layout: "Use exactly three large numbered sections labeled Step 1, Step 2, and Step 3. Step 1 should be the starting action, Step 2 the core offer mechanism or process, and Step 3 the output or result. Use only offer-specific details. End with centered footer CTA." },
+      { title: "Feature to Benefit Infographic", summary: "Creates paired rows that show what buyers get and why each piece matters.", layout: "Use paired feature-to-benefit rows or cards. Left side: real features, assets, modules, prompts, tools, dashboards, lessons, templates, resources, or deliverables from the offer. Right side: the specific buyer benefit each one creates. Use arrows or connectors. End with centered footer CTA." },
+      { title: "Benefit Cluster Infographic", summary: "Groups the offer’s strongest benefits into clean categories.", layout: "Use 3 to 5 benefit clusters. Each cluster should have a category label and 1 to 3 short bullets based on the offer promise, mechanism, deliverables, proof points, or outcome. End with a bottom payoff strip and centered footer CTA." },
+      { title: "Outcome Map Infographic", summary: "Maps offer components to the outcomes they help create.", layout: "Use a map-style layout with offer components as nodes connected to outcomes. Each node must show a real deliverable, mechanism, feature, or asset from the sales copy and the result it supports. End at the main buyer outcome and centered footer CTA." },
+      { title: "Buyer Experience Infographic", summary: "Shows what happens after someone gets the offer, making the purchase feel safe and predictable.", layout: "Use a chronological buyer-experience flow with 4 to 6 stages. Each stage should show what the buyer sees, receives, does, creates, uses, or gains after getting the offer. Add a bottom confidence note and centered footer CTA." },
+      { title: "Fast Start Infographic", summary: "Highlights how easy it is to begin using the offer right away.", layout: "Use a quick-start sequence with 3 to 5 immediate actions. Each action must come from the real offer process, dashboard, prompt, training, tool, resource, module, or deliverable. Show the immediate output or benefit. End with centered footer CTA." },
+      { title: "Quick Win Infographic", summary: "Spotlights the first useful result the buyer can get from the offer.", layout: "Use a quick-win spotlight layout. Name the first useful win, then show 3 to 5 supporting offer-specific assets, steps, features, or deliverables that create that win. Add a result callout and centered footer CTA." },
+      { title: "Implementation Plan Infographic", summary: "Turns the offer into a practical use plan instead of something to merely consume.", layout: "Use phases such as Start, Use, Apply, Improve, and Repeat, or a similar offer-specific sequence. Each phase should show a real action the buyer takes with the offer and the output it creates. End with the centered footer CTA." },
+      { title: "Tool Kit Infographic", summary: "Frames the offer as a practical set of tools, assets, prompts, trainings, or resources.", layout: "Use a toolkit, toolbox, or asset-grid layout. Each tool must be a real prompt, template, training, converter, dashboard, lesson, bonus, resource, feature, or asset from the offer. Each tool should show what it helps the buyer create, fix, speed up, simplify, or improve. End with centered footer CTA." },
+      { title: "Offer Ecosystem Infographic", summary: "Shows how all pieces of the offer work together as one complete system.", layout: "Use a hub-and-spoke ecosystem layout. Put the offer name in the center. Surround it with connected spokes for the main deliverables, bonuses, tools, prompts, trainings, systems, assets, or proof points. Each spoke should show how that part supports the buyer outcome. End with centered footer CTA." },
+      { title: "Module Map Infographic", summary: "Maps the inside structure of the offer into modules, sections, or deliverable cards.", layout: "Use a module-map or section-grid layout. Each card must show a real module, prompt set, converter, lesson, section, resource, offer part, or deliverable from the sales copy, plus a short purpose or outcome label. End with centered footer CTA." },
+      { title: "Use Case Infographic", summary: "Shows different practical ways the buyer can use the offer.", layout: "Use 4 to 6 use-case cards. Each card should show who would use the offer, what they would use it for, and the result it supports. Use only use cases that logically come from the sales copy or offer description. End with centered footer CTA." },
+      { title: "Who It Helps Infographic", summary: "Clarifies the best-fit buyers in a positive, self-recognition layout.", layout: "Use 4 to 6 positive audience-fit cards. Each card must identify a buyer type from the sales copy and what that person wants to accomplish. Do not use negative exclusion framing. Add a self-recognition line and centered footer CTA." },
+      { title: "Purchase Confidence Infographic", summary: "Builds buyer confidence through clarity, proof, simplicity, value, and next step.", layout: "Use 4 to 6 confidence sections such as Clear Promise, Simple Process, Included Deliverables, Proof Points, Easy Start, and Next Step. Each section must use details extracted from the sales copy. End with the centered footer CTA." }
+    ];
+
+    const cardsEl = document.getElementById("cards");
+    const offerTitleInput = document.getElementById("offerTitleInput");
+    const schemeInput = document.getElementById("schemeInput");
+    const ctaInput = document.getElementById("ctaInput");
+    const generateBtn = document.getElementById("generateBtn");
+    const clearAllBtn = document.getElementById("clearAllBtn");
+    const toast = document.getElementById("toast");
+    const modeNote = document.getElementById("modeNote");
+
+    function cleanValue(value, fallback) {
+      const trimmed = value.trim();
+      return trimmed.length ? trimmed : fallback;
+    }
+
+    function buildPrompt(type, offerTitle, scheme, cta) {
+      return `You are going to create one finished offer-specific infographic image, but not yet.
+
+Offer Title:
+[offer title]
+
+Footer CTA:
+[CTA]
+
+Color Scheme:
+[color scheme]
+
+Infographic Type:
+${type.title}
+
+Your job after my next message:
+I will send you sales page copy or an offer description in my next response. Use that text to extract the offer's main promise, what the offer is, who it helps, what the buyer gets, proof/value points, and main outcome. Then immediately create the ACTUAL finished 1080x1350 vertical text-based infographic image.
+
+Design style:
+Use a [color scheme] visual direction.
+Use a premium text-based infographic poster layout with readable text, cards, sections, icons, badges, labels, dividers, proof strips, and a clean centered footer CTA if one is provided.
+
+Required layout for this infographic type:
+${type.layout}
+
+Hard rules for the image you will create after my next message:
+- The image must visibly include the exact offer title: [offer title]
+- Every main section must be about this exact offer.
+- Pull visible copy from the sales page copy or offer description I give next.
+- Do not create generic niche advice.
+- Do not create a random educational infographic.
+- Do not create a photo, portrait, selfie, person, face, lifestyle image, landscape, or decorative image.
+- Do not show multiple image options.
+- Do not ask questions after I send the sales copy.
+- Do not output a written strategy, outline, or image prompt after I send the sales copy.
+- After receiving my next response, immediately generate the finished infographic image.
+
+Footer CTA rule:
+If the footer CTA is provided, place it centered in the footer of the infographic as a subtle readable watermark-style CTA:
+[CTA]
+
+If you understand, respond with exactly:
+yes`.replaceAll("[offer title]", offerTitle).replaceAll("[color scheme]", scheme).replaceAll("[CTA]", cta);
+    }
+
+    function renderCards() {
+      const offerTitle = cleanValue(offerTitleInput.value, "[offer title]");
+      const scheme = cleanValue(schemeInput.value, "Light");
+      const cta = cleanValue(ctaInput.value, "No CTA provided");
+
+      modeNote.textContent = "Step 1 prompts generated. Copy one prompt into ChatGPT. After ChatGPT replies yes, paste the sales page copy or offer description as your next message.";
+      modeNote.classList.add("show");
+
+      cardsEl.innerHTML = "";
+
+      promptTypes.forEach((type, index) => {
+        const prompt = buildPrompt(type, offerTitle, scheme, cta);
+        const card = document.createElement("article");
+        card.className = "card";
+
+        card.innerHTML = `
+          <div class="card-top">
+            <div class="num">${index + 1}</div>
+            <div>
+              <h3>${type.title}</h3>
+              <p class="summary">${type.summary}</p>
+            </div>
+          </div>
+          <div class="preview"></div>
+          <div class="actions">
+            <button class="btn copy">Copy Prompt</button>
+            <a class="btn open-chatgpt" href="https://chatgpt.com" target="_blank" rel="noopener noreferrer">Open ChatGPT</a>
+          </div>
+        `;
+
+        const preview = card.querySelector(".preview");
+        const copyBtn = card.querySelector(".copy");
+        preview.textContent = prompt;
+
+        copyBtn.addEventListener("click", async () => {
+          try {
+            await navigator.clipboard.writeText(prompt);
+            copyBtn.textContent = "Copied";
+            copyBtn.classList.add("copied");
+            showToast("Prompt copied");
+            setTimeout(() => {
+              copyBtn.textContent = "Copy Prompt";
+              copyBtn.classList.remove("copied");
+            }, 1300);
+          } catch (err) {
+            fallbackCopy(prompt);
+            copyBtn.textContent = "Copied";
+            copyBtn.classList.add("copied");
+            showToast("Prompt copied");
+            setTimeout(() => {
+              copyBtn.textContent = "Copy Prompt";
+              copyBtn.classList.remove("copied");
+            }, 1300);
+          }
+        });
+
+        cardsEl.appendChild(card);
+      });
+    }
+
+    function fallbackCopy(text) {
+      const area = document.createElement("textarea");
+      area.value = text;
+      document.body.appendChild(area);
+      area.select();
+      document.execCommand("copy");
+      document.body.removeChild(area);
+    }
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 1400);
+    }
+
+    function clearAll() {
+      offerTitleInput.value = "";
+      schemeInput.value = "Light";
+      ctaInput.value = "";
+      cardsEl.innerHTML = "";
+      modeNote.textContent = "";
+      modeNote.classList.remove("show");
+      offerTitleInput.focus();
+      showToast("Cleared");
+    }
+
+    generateBtn.addEventListener("click", renderCards);
+    clearAllBtn.addEventListener("click", clearAll);
+    offerTitleInput.addEventListener("keydown", (e) => { if (e.key === "Enter") renderCards(); });
+  </script>
+</body>
+</html>
