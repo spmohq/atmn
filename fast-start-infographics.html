@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fast Start Infographics Genie</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient-start: #020617;
+      --bg-gradient-end: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.4);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-primary: #22d3ee;
+      --accent-hover: #67e8f9;
+      --accent-success: #10b981;
+      --code-bg: rgba(0, 0, 0, 0.3);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+      --input-bg: rgba(15, 23, 42, 0.6);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: fixed linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 60px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 850px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 35px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .step-label {
+      display: inline-block;
+      font-weight: 800;
+      font-size: 0.75rem;
+      background: var(--accent-primary);
+      color: #020617;
+      padding: 4px 12px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 15px;
+    }
+
+    .input-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 10px;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 80px;
+      background: var(--input-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 12px;
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    textarea:focus {
+      border-color: var(--accent-primary);
+    }
+
+    .prompt-content {
+      background: var(--code-bg);
+      padding: 30px;
+      border-radius: 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 25px;
+      line-height: 1.6;
+      max-height: 600px;
+      overflow-y: auto;
+    }
+
+    .copy-btn {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+      width: 100%;
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-primary);
+      color: #020617;
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-success);
+      border-color: var(--accent-success);
+      color: white;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 40px;
+      width: 100%;
+    }
+
+    @media (max-width: 768px) {
+      .input-grid { grid-template-columns: 1fr; }
+      h1 { font-size: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Fast Start Infographics Genie</h1>
+    </header>
+
+    <div class="workflow">
+      <!-- Input Section -->
+      <div class="step-card">
+        <span class="step-label">Customization Fields</span>
+        <div class="input-grid">
+          <div class="field-group">
+            <label>Offer Title</label>
+            <textarea id="offerTitle" placeholder="[Offer Title]" oninput="updatePrompt()"></textarea>
+          </div>
+          <div class="field-group">
+            <label>Business Name</label>
+            <textarea id="businessName" placeholder="[Business Name]" oninput="updatePrompt()"></textarea>
+          </div>
+          <div class="field-group">
+            <label>Business Tagline</label>
+            <textarea id="businessTagline" placeholder="[Business Tagline]" oninput="updatePrompt()"></textarea>
+          </div>
+          <div class="field-group">
+            <label>Website URL</label>
+            <textarea id="websiteUrl" placeholder="[Website URL]" oninput="updatePrompt()"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Prompt Section -->
+      <div class="step-card">
+        <span class="step-label">Generated Prompt</span>
+        <div class="prompt-content" id="mainPrompt"></div>
+        <button class="copy-btn" onclick="copyText('mainPrompt', this)">
+          <span>Copy Full Prompt</span>
+        </button>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    const basePrompt = `You are a world-class infographic strategist, editorial information designer, UX visual communicator, AI image generation director, premium branding designer, and Bengali localization expert.
+
+Your task is to create ONE finished, offer-specific infographic image after receiving the content in my next message.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+VARIABLES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Offer Title:
+[Offer Title]
+
+Business Name:
+[Business Name]
+
+Business Tagline:
+[Business Tagline]
+
+Website URL:
+[Website URL]
+
+Color Scheme:
+Light
+
+Infographic Type:
+Fast Start Infographic
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+YOUR WORKFLOW
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Do NOT create the infographic yet.
+
+In my next message I will provide one of the following:
+
+- Sales page
+- Offer description
+- Product details
+- Training information
+- Landing page copy
+- Any other source content
+
+Immediately after receiving that content:
+
+1. Read and understand the entire content.
+2. Extract only the information relevant to the offer.
+3. Rewrite the content specifically for an infographic.
+4. Organize the information into a clear visual hierarchy.
+5. Immediately generate ONE finished infographic image.
+
+Do not ask questions.
+
+Do not produce an outline.
+
+Do not produce an image prompt.
+
+Do not explain your reasoning.
+
+Immediately generate the finished infographic image.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CONTENT EXTRACTION RULES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Extract only information that genuinely exists in the supplied content.
+
+Identify:
+
+- Core promise
+- Target audience
+- What the buyer receives
+- Major deliverables
+- Process or workflow
+- Benefits
+- Transformation
+- Proof or credibility
+- Expected outcome
+
+Never invent information.
+
+Never add generic marketing advice.
+
+Never change the original meaning.
+
+Rewrite the wording to maximize readability inside an infographic rather than copying sentences verbatim.
+
+Prioritize concise, visually scannable copy.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+INFOGRAPHIC STRUCTURE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Create a premium vertical infographic.
+
+Canvas Size:
+1080 × 1350 pixels (4:5)
+
+Use a modern editorial poster layout.
+
+Use clear visual hierarchy.
+
+Use components such as:
+
+- Cards
+- Labels
+- Dividers
+- Callout boxes
+- Badges
+- Information strips
+- Timelines (when appropriate)
+- Checklists (when appropriate)
+- Minimal supporting icons (when appropriate)
+
+Every section must directly relate to the supplied offer.
+
+Never include unrelated educational content.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FAST START INFOGRAPHIC RULES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Create a quick-start sequence consisting of 3–5 immediate actions.
+
+Each action must come directly from the supplied offer.
+
+Examples include:
+
+- Dashboard
+- Module
+- Prompt
+- Worksheet
+- Template
+- Checklist
+- Resource
+- Lesson
+- Framework
+- Tool
+- System
+
+Each step should clearly communicate:
+
+- What the user does
+- What they receive
+- The immediate result
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BENGALI LOCALIZATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Write every visible user-facing word in natural modern conversational Bengali as spoken in Kolkata, West Bengal, India.
+
+Requirements:
+
+- Easy for a 21-year-old to understand
+- Always use formal "আপনি"
+- Warm
+- Conversational
+- Confident
+- Quietly authoritative
+- Naturally rewritten
+- Never translated literally
+- Preserve meaning
+- Preserve emotional tone
+- Preserve persuasive intent
+
+Avoid:
+
+- Bangladeshi wording
+- Slang
+- Awkward literal translations
+- Overly literary language
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+VISUAL STYLE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Create a premium luxury-minimalist infographic with the emotional identity:
+
+"Quiet luxury meets thoughtful modern promotion."
+
+Color palette:
+
+- Champagne Gold (#C89B3C)
+- Metallic Bronze (#8B5E1A)
+- Soft Ivory (#F8F4EC)
+- Cream White (#FFFDF8)
+- Premium Brown (#35271A)
+
+Visual characteristics:
+
+- Editorial
+- Cinematic
+- Elegant
+- Sophisticated
+- Trustworthy
+- Human-centered
+- Premium
+- Warm
+- Minimal
+
+Use:
+
+- Soft cinematic lighting
+- Subtle metallic reflections
+- Gentle luxury gradients
+- Elegant glassmorphism
+- Refined card layouts
+- Tasteful shadows
+- Balanced whitespace
+- Clean composition
+
+Avoid:
+
+- Neon colors
+- Flashy advertising style
+- Clutter
+- Cyberpunk aesthetics
+- Cartoon style
+- Plastic-looking surfaces
+- Cheap gold textures
+- Harsh contrast
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TYPOGRAPHY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Create a strong visual hierarchy.
+
+Prioritize readability above decoration.
+
+Maintain generous spacing.
+
+Keep text concise.
+
+Never overcrowd the layout.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BRANDING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Use "[Business Name]" as the logo/brand name of this infographic.
+
+Place a smaller tagline beneath it:
+
+"Redesign your marketing. Grow your business."
+
+Place the Website URL beneath the tagline:
+
+[Website URL]
+
+IMPORTANT
+
+The logo must be typography only.
+
+Do NOT use:
+
+- Icons
+- Symbols
+- Emblems
+- Illustrations
+- Graphic marks
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+LOGO DESIGN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Place a compact typography-only brand badge at the bottom-center of the infographic.
+
+The badge should contain:
+
+Line 1:
+[Business Name]
+
+Line 2:
+[Business Tagline]
+
+Line 3:
+[Website URL]
+
+Style:
+
+- Modern sans-serif typography
+- Bold business name
+- Smaller tagline
+- Smallest website URL
+- Balanced typography
+- Professional
+- Friendly
+- Trustworthy
+- Flat design
+- No gradients
+- No decorative effects
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+LOGO CONTAINER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Place the typography inside a rounded rectangular badge.
+
+Style:
+
+- Rounded capsule
+- Soft border
+- Light neutral background
+- Subtle shadow
+- Compact size
+- Footer branding element
+- Bottom-center placement
+- Comfortable spacing from the bottom edge
+- Naturally integrated into the overall design
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+HARD RULES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+The generated infographic MUST:
+
+- Visibly include the exact Offer Title.
+- Only discuss the supplied offer.
+- Use only information extracted from the supplied content.
+- Never invent information.
+- Never generate generic niche advice.
+- Never generate unrelated educational content.
+- Never create a decorative poster unrelated to the offer.
+- Never create a portrait, selfie, person, face, landscape, or lifestyle image.
+- Never generate multiple image options.
+- Never output a written explanation after receiving the content.
+- Immediately generate the finished infographic image.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+INITIAL RESPONSE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+If you understand these instructions, respond with exactly:
+
+yes`;
+
+    function updatePrompt() {
+      let updated = basePrompt;
+      
+      const title = document.getElementById('offerTitle').value.trim() || '[Offer Title]';
+      const name = document.getElementById('businessName').value.trim() || '[Business Name]';
+      const tagline = document.getElementById('businessTagline').value.trim() || '[Business Tagline]';
+      const url = document.getElementById('websiteUrl').value.trim() || '[Website URL]';
+
+      updated = updated.split('[Offer Title]').join(title);
+      updated = updated.split('[Business Name]').join(name);
+      updated = updated.split('[Business Tagline]').join(tagline);
+      updated = updated.split('[Website URL]').join(url);
+
+      document.getElementById('mainPrompt').innerText = updated;
+    }
+
+    function copyText(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<span>Copied to Clipboard!</span>`;
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    // Initialize display on load
+    window.onload = updatePrompt;
+  </script>
+</body>
+</html>
