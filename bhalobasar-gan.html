@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bhalobasar Gan - আপনার ফেসবুক পোস্টের খসড়া</title>
+    <style>
+        /* Design Strategy: Clean, Professional, and Strictly Left-Aligned */
+        :root {
+            --primary-slate: #1e293b;
+            --accent-blue: #3b82f6;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --text-main: #334155;
+            --border-color: #e2e8f0;
+            --success-green: #10b981;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.8;
+            padding-bottom: 80px;
+            text-align: left; /* Ensure everything is left-aligned */
+        }
+
+        .container {
+            width: 92%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Header Area */
+        header {
+            padding: 60px 0 30px;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            color: var(--primary-slate);
+            margin-bottom: 10px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .welcome-card {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+            border-left: 6px solid var(--accent-blue);
+        }
+
+        .welcome-card p {
+            font-size: 1.1rem;
+            color: #475569;
+            margin-bottom: 0;
+        }
+
+        /* Prompt Display Box */
+        .prompt-wrapper {
+            margin-bottom: 40px;
+        }
+
+        .prompt-box {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .prompt-header {
+            background: var(--primary-slate);
+            color: #fff;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prompt-header h3 {
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .prompt-content {
+            padding: 30px;
+            background: #fafafa;
+            color: #1e293b;
+            font-family: inherit;
+            font-size: 1.1rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-top: 1px solid #eee;
+            line-height: 1.6;
+        }
+
+        /* Interaction Elements */
+        .copy-btn {
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #2563eb;
+        }
+
+        .copy-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Success Toast */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 20px; /* Aligned to left */
+            background: #334155;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        /* Mobile Friendliness */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            .container { width: 94%; }
+            .prompt-content { font-size: 1rem; padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="container">
+        <h1>Bhalobasar Gan</h1>
+        <div class="welcome-card">
+            <p>নমস্কার! আপনি ফেসবুকে শেয়ার করার জন্য যে টেক্সটটি চেয়েছিলেন, সেটি নিচে একদম নির্ভুলভাবে দেওয়া হলো। কোনো রকম বাড়তি পরিবর্তন ছাড়াই আপনি এটি সরাসরি ব্যবহার করতে পারেন।</p>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>Facebook Post Text</h3>
+                    <button class="copy-btn" onclick="copyPrompt()">টেক্সট কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="fbPrompt">শিবার ভালোলাগা গানের আসর
+===================
+
+বনে নয় মনে মোর
+শিল্পী: সুধীরলাল চক্রবর্তী
+
+[URL]
+
+---
+Copyright © Siva Prasad Mukherjee</div>
+            </div>
+        </div>
+
+        <div style="margin-top: 30px; color: #64748b; font-size: 0.95rem;">
+            <p>আপনার কন্টেন্ট জার্নি আরও সুন্দর হোক। শুভকামনা!</p>
+        </div>
+
+    </main>
+
+    <div id="toast">টেক্সট ক্লিপবোর্ডে কপি হয়েছে!</div>
+
+    <script>
+        function copyPrompt() {
+            const text = document.getElementById('fbPrompt').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 2000);
+            }).catch(err => {
+                console.error('Copy failed: ', err);
+            });
+        }
+    </script>
+</body>
+</html>
