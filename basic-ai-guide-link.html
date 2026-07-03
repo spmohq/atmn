@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic AI Guide Link - আপনার এআই ব্যবহারের গাইড</title>
+    <style>
+        /* Modern Design System: Professional, Reliable, and Clean */
+        :root {
+            --primary-slate: #1e293b;
+            --accent-blue: #3b82f6;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --text-main: #334155;
+            --border-color: #e2e8f0;
+            --btn-blue: #2563eb;
+            --success-green: #10b981;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.8;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Header Area */
+        header {
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            color: var(--primary-slate);
+            margin-bottom: 15px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .welcome-card {
+            background: var(--white);
+            padding: 28px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+            border-left: 6px solid var(--accent-blue);
+        }
+
+        .welcome-card p {
+            font-size: 1.15rem;
+            color: var(--text-main);
+            margin-bottom: 0;
+        }
+
+        /* Prompt Display Box */
+        .prompt-wrapper {
+            margin-top: 20px;
+        }
+
+        .prompt-box {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .prompt-header {
+            background: var(--primary-slate);
+            color: #fff;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prompt-header h3 {
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .prompt-content {
+            padding: 30px;
+            background: #fafafa;
+            color: #1e293b;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 1.1rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-top: 1px solid #eee;
+            line-height: 1.6;
+        }
+
+        /* Interaction Elements */
+        .copy-btn {
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #2563eb;
+        }
+
+        .copy-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Sticky CTA for Mobile */
+        .sticky-cta {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 500px;
+            background: #fff;
+            padding: 12px 20px;
+            border-radius: 50px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border: 1px solid #e2e8f0;
+        }
+
+        .cta-text {
+            font-weight: bold;
+            font-size: 0.9rem;
+            color: var(--text-main);
+        }
+
+        .close-cta {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #94a3b8;
+            margin-left: 10px;
+        }
+
+        /* Success Toast */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #334155;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            display: none;
+            z-index: 1100;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        /* Mobile Friendliness */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            .container { width: 94%; }
+            .prompt-content { font-size: 1rem; padding: 20px; }
+            .welcome-card { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Basic AI Guide Link</h1>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <div class="welcome-card">
+            <p>নমস্কার! আপনি যদি আপনার পরিচিত বা অডিয়েন্সকে এআই প্রম্পট ব্যবহারের সঠিক গাইডটি শেয়ার করতে চান, তবে নিচের দেওয়া টেক্সটটি ব্যবহার করতে পারেন। এখানে সরাসরি লিঙ্কের মাধ্যমে সম্পূর্ণ গাইডলাইনটি পাওয়ার ব্যবস্থা রাখা হয়েছে।</p>
+        </div>
+
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>Guide Prompt</h3>
+                    <button class="copy-btn" onclick="copyPrompt()">কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="guidePrompt">📝AI প্রম্পট কীভাবে ব্যবহার করবেন?
+
+এই পোস্টটা পড়ুন - 
+👉 https://fb.spmukherjee.co.in/how-to-use-ai.html</div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px; color: #64748b; font-size: 0.95rem;">
+            <p>আপনার শেখার এবং শেখানোর যাত্রা আরও সহজ ও অর্থবহ হয়ে উঠুক। শুভকামনা!</p>
+        </div>
+
+    </main>
+
+    <!-- Sticky Dismissible CTA -->
+    <div class="sticky-cta" id="sticky-cta">
+        <span class="cta-text">প্রম্পট কপি করে কাজ শুরু করুন</span>
+        <button class="close-cta" onclick="dismissSticky()">×</button>
+    </div>
+
+    <div id="toast">ক্লিপবোর্ডে কপি হয়েছে!</div>
+
+    <script>
+        function copyPrompt() {
+            const text = document.getElementById('guidePrompt').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 2000);
+            }).catch(err => {
+                console.error('Copy failed: ', err);
+            });
+        }
+
+        function dismissSticky() {
+            document.getElementById('sticky-cta').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
