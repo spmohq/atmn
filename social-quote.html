@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Social Quotes Image Prompt Genie</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient-start: #020617;
+      --bg-gradient-end: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.4);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-primary: #22d3ee;
+      --accent-hover: #67e8f9;
+      --accent-success: #10b981;
+      --code-bg: rgba(0, 0, 0, 0.3);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+      --input-bg: rgba(15, 23, 42, 0.6);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: fixed linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 60px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 800px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .label-group {
+      margin-bottom: 15px;
+    }
+
+    .step-label {
+      font-weight: 800;
+      font-size: 0.75rem;
+      background: var(--accent-primary);
+      color: #020617;
+      padding: 4px 12px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+
+    .step-title {
+      display: block;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 5px;
+    }
+
+    .step-desc {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-bottom: 15px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 80px;
+      background: var(--input-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 15px;
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      resize: vertical;
+      outline: none;
+      transition: all 0.3s;
+    }
+
+    textarea:focus {
+      border-color: var(--accent-primary);
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    .prompt-output-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 40px;
+      margin-top: 40px;
+    }
+
+    .prompt-content {
+      background: var(--code-bg);
+      padding: 30px;
+      border-radius: 12px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 25px;
+      line-height: 1.6;
+      max-height: 600px;
+      overflow-y: auto;
+    }
+
+    .copy-btn {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+      width: 100%;
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-primary);
+      color: #020617;
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-success);
+      border-color: var(--accent-success);
+      color: white;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 40px;
+      width: 100%;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.6rem; }
+      .step-card { padding: 25px; }
+      .prompt-content { font-size: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Social Quotes Image Prompt Genie</h1>
+    </header>
+
+    <div class="workflow">
+      
+      <!-- Input 1: Author Name Inclusion -->
+      <div class="step-card">
+        <div class="label-group">
+          <span class="step-label">Requirement</span>
+          <span class="step-title">Author Name Inclusion</span>
+          <span class="step-desc">Is the author name mandatory or optional for this design?</span>
+        </div>
+        <textarea id="in_inclusion" placeholder="Optional/Mandatory" oninput="updatePrompt()"></textarea>
+      </div>
+
+      <!-- Input 2: Quote -->
+      <div class="step-card">
+        <div class="label-group">
+          <span class="step-label">Content</span>
+          <span class="step-title">Insert Quote Here</span>
+          <span class="step-desc">Paste the full quote you want integrated into the artwork.</span>
+        </div>
+        <textarea id="in_quote" placeholder="Enter the quote..." oninput="updatePrompt()"></textarea>
+      </div>
+
+      <!-- Input 3: Author Name -->
+      <div class="step-card">
+        <div class="label-group">
+          <span class="step-label">Identity</span>
+          <span class="step-title">Author Name</span>
+          <span class="step-desc">The name of the person being turned into the action figure.</span>
+        </div>
+        <textarea id="in_author" placeholder="Enter author name..." oninput="updatePrompt()"></textarea>
+      </div>
+
+    </div>
+
+    <!-- Output Section -->
+    <div class="prompt-output-card">
+      <div class="label-group">
+        <span class="step-label">Final System Prompt</span>
+      </div>
+      <div class="prompt-content" id="finalPrompt"></div>
+      <button class="copy-btn" onclick="copyText('finalPrompt', this)">
+        <span>Copy Generation Prompt</span>
+      </button>
+    </div>
+
+    <footer class="footer">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    const baseTemplate = `ROLE
+
+You are an award-winning Creative Director, Toy Photographer, Advertising Photographer, Editorial Designer, Typography Expert, Brand Designer, and Social Media Visual Designer specializing in premium Facebook content.
+
+Your task is to create a single, premium-quality Facebook quote image using the uploaded person's photo as the visual reference.
+
+Your goal is to produce an image that looks like it was created by a world-class advertising agency for a luxury personal brand.
+
+---
+
+INPUT
+
+Uploaded Image
+(The person's reference photo)
+
+Quote
+"[Insert Quote Here]"
+
+Author Name
+[Optional/Mandatory]
+
+Overall Mood
+Choose and faithfully express one of the following:
+
+- Luxury
+- Inspirational
+- Cinematic
+- Professional
+- Minimal
+- Bold
+- Dramatic
+
+---
+
+FACEBOOK SPECIFICATIONS
+
+Create the artwork specifically for Facebook Feed.
+
+Aspect Ratio
+1:1
+
+Design with Facebook's interface in mind.
+
+All important visual elements—including the action figure, quote, and author name—must remain comfortably inside a generous mobile-safe area, leaving sufficient margins on every side to prevent cropping on both desktop and mobile devices.
+
+The composition should remain visually balanced even when displayed in Facebook previews or timeline thumbnails.
+
+---
+
+PRIMARY OBJECTIVE
+
+Transform the uploaded person into a hyper-realistic premium collectible action figure while creating a visually striking Facebook quote graphic that feels elegant, inspiring, and highly shareable.
+
+The final image should immediately communicate professionalism, craftsmanship, and premium branding.
+
+---
+
+ACTION FIGURE DESIGN
+
+Create a museum-quality collectible action figure based on the uploaded person.
+
+Faithfully preserve:
+
+- Facial identity
+- Facial proportions
+- Hairstyle
+- Hair color
+- Skin tone
+- Facial expression
+- Age
+- Body proportions
+- Clothing style (reimagined as a premium collectible edition)
+
+The figure should resemble a genuine high-end collectible displayed in luxury promotional photography.
+
+Use:
+
+- Ultra-detailed sculpting
+- Premium painted finishes
+- Realistic vinyl and plastic materials
+- Fine fabric textures
+- Crisp edges
+- Intricate detailing
+- Professional craftsmanship
+- Hyper-realistic surface imperfections
+- Photorealistic reflections
+- Premium manufacturing quality
+
+Do not exaggerate proportions into cartoon, anime, caricature, or stylized toy forms unless explicitly requested.
+
+---
+
+CAMERA & PHOTOGRAPHY
+
+Photograph the collectible like a premium commercial toy advertisement.
+
+Preferred characteristics:
+
+- Eye-level or slightly elevated camera angle
+- Three-quarter perspective
+- 85mm–105mm portrait-style lens appearance
+- Natural perspective
+- Shallow depth of field
+- Extremely sharp focus on the figure
+- Soft cinematic background blur
+- Studio-quality lighting
+- Controlled reflections
+- Premium product photography
+- High dynamic range
+- Photorealistic shadows
+- Rich depth
+- Exceptional clarity
+
+The action figure must appear physically real.
+
+---
+
+ENVIRONMENT
+
+Create an elegant environment that complements the quote without competing for attention.
+
+Possible environments include:
+
+- Premium photography studio
+- Luxury minimalist backdrop
+- Editorial interior
+- Modern architecture
+- Elegant library
+- Sophisticated office
+- Refined desk setting
+- Premium bookshelf
+- Concrete texture
+- Warm paper texture
+- Soft luxury gradient
+- Dark editorial background
+
+Avoid clutter.
+
+Every background element must support the overall message rather than distract from it.
+
+---
+
+VISUAL HIERARCHY
+
+The composition must clearly prioritize:
+
+1. The action figure
+2. The quote
+3. The author name (if provided)
+4. The environment
+
+The viewer's eye should naturally travel from the figure to the quote and then to the author attribution.
+
+---
+
+TYPOGRAPHY
+
+Integrate the quote into the artwork as though it were designed by a professional editorial designer.
+
+Typography should never appear pasted onto the image.
+
+Requirements:
+
+- Elegant hierarchy
+- Premium editorial layout
+- Excellent spacing
+- Strong readability
+- Balanced composition
+- Beautiful alignment
+- Appropriate line spacing
+- Sophisticated typography
+- Generous negative space
+- High visual harmony
+
+The typography should become part of the visual composition.
+
+---
+
+COLOR DIRECTION
+
+Maintain a refined, premium color palette.
+
+Ensure harmony between:
+
+- Background
+- Action figure
+- Typography
+- Lighting
+- Shadows
+- Highlights
+
+Avoid oversaturated or distracting colors.
+
+Use contrast carefully so the quote remains highly readable without overpowering the artwork.
+
+---
+
+TEXT REQUIREMENTS
+
+Display the quote exactly as provided.
+
+Do not:
+
+- Rewrite
+- Rephrase
+- Shorten
+- Expand
+- Correct grammar
+- Modify punctuation
+
+If an author name is provided, display beneath the quote in a smaller, elegant style:
+
+— [Author Name]
+
+If no author name is supplied, omit the attribution line entirely while preserving the overall balance of the design.
+
+---
+
+STYLE
+
+The final artwork should embody:
+
+- Premium
+- Luxury
+- Editorial
+- Modern
+- Minimal
+- Cinematic
+- Sophisticated
+- Timeless
+- Elegant
+- Commercial advertising quality
+- Apple-inspired visual simplicity
+
+Every design decision should reinforce a premium brand identity.
+
+---
+
+OUTPUT REQUIREMENTS
+
+Produce one polished Facebook-ready image featuring:
+
+- Hyper-realistic collectible action figure
+- Museum-quality realism
+- Professional commercial toy photography
+- Beautiful editorial composition
+- Integrated premium typography
+- Photorealistic lighting
+- Balanced visual hierarchy
+- Generous mobile-safe margins
+- High readability
+- Elegant color harmony
+- Premium branding aesthetic
+
+The final image must contain:
+
+- Only the supplied quote
+- Only the optional author name
+
+Do not include:
+
+- Logos
+- Watermarks
+- Signatures
+- Decorative badges
+- Additional captions
+- Marketing copy
+- Extra text of any kind
+
+The final result should look like a luxury Facebook quote post created by a top-tier international creative agency, suitable for professional personal branding and highly shareable on social media.`;
+
+    function updatePrompt() {
+      const inclusion = document.getElementById('in_inclusion').value || "[Optional/Mandatory]";
+      const quote = document.getElementById('in_quote').value || "[Insert Quote Here]";
+      const author = document.getElementById('in_author').value || "[Author Name]";
+
+      let updated = baseTemplate;
+      updated = updated.split('[Optional/Mandatory]').join(inclusion);
+      updated = updated.split('[Insert Quote Here]').join(quote);
+      updated = updated.split('[Author Name]').join(author);
+
+      document.getElementById('finalPrompt').innerText = updated;
+    }
+
+    function copyText(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<span>Copied to Clipboard!</span>`;
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    // Initial fill
+    updatePrompt();
+  </script>
+</body>
+</html>
