@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Facebook Post Image Background - Genie</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient-start: #020617;
+      --bg-gradient-end: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.4);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-primary: #22d3ee;
+      --accent-hover: #67e8f9;
+      --accent-success: #10b981;
+      --code-bg: rgba(0, 0, 0, 0.3);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: fixed linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 60px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 800px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      text-transform: uppercase;
+    }
+
+    .prompt-workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .step-header {
+      display: flex;
+      justify-content: flex-start;
+      margin-bottom: 25px;
+    }
+
+    .step-label {
+      font-weight: 800;
+      font-size: 0.8rem;
+      background: var(--accent-primary);
+      color: #020617;
+      padding: 5px 16px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .prompt-content {
+      background: var(--code-bg);
+      padding: 30px;
+      border-radius: 12px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.95rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 25px;
+      line-height: 1.6;
+      max-height: 500px;
+      overflow-y: auto;
+    }
+
+    .copy-btn {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+      width: 100%;
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-primary);
+      color: #020617;
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-success);
+      border-color: var(--accent-success);
+      color: white;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 40px;
+      width: 100%;
+    }
+
+    /* Custom scrollbar for prompt content */
+    .prompt-content::-webkit-scrollbar {
+      width: 8px;
+    }
+    .prompt-content::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .prompt-content::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.6rem; }
+      .step-card { padding: 25px; }
+      .prompt-content { font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Facebook Post Image Background</h1>
+    </header>
+
+    <div class="prompt-workflow">
+      
+      <!-- Prompt #1 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt #1</span>
+        </div>
+        <div class="prompt-content" id="p1">Create ONE ultra-minimalist premium background with a calm, elegant, emotionally soothing atmosphere.
+
+IMPORTANT:
+Generate ONLY ONE single full-frame background image.
+Do NOT create a collage.
+Do NOT divide the canvas into multiple sections.
+Do NOT create multiple frames within the same image.
+
+━━━━━━━━━━━━━━━━━━
+COLOR PALETTE
+━━━━━━━━━━━━━━━━━━
+
+Choose the following dominant palette direction:
+
+- -----------------------------------
+BRAND VISUAL IDENTITY SYSTEM
+-----------------------------------
+
+Use an elegant luxury gold and warm ivory color palette.
+
+Primary visual direction:
+luxurious metallic gold gradient with champagne gold highlights, antique gold midtones, and warm bronze depth.
+
+Gradient reference:
+linear-gradient(
+135deg,
+#F7E7BE 0%,
+#D6B36A 35%,
+#B8862F 65%,
+#F2DEB0 100%
+)
+
+Use:
+- premium metallic gold accents
+- champagne gold gradients
+- warm espresso brown typography
+- soft cream backgrounds
+- subtle bronze shadows
+- refined boutique marketplace aesthetic
+- modern luxury editorial style
+- clean premium UI
+- sophisticated lighting
+- soft warm tones
+- upscale commercial branding
+- minimalist yet rich visual identity
+
+Lighting and rendering style:
+soft luxury lighting,
+champagne gold reflections,
+warm cream background,
+elegant metallic highlights,
+refined shadows,
+premium product presentation.
+
+Typography personality:
+elegant serif headlines paired with modern minimalist sans-serif typography.
+
+Avoid:
+cheap ecommerce aesthetics,
+neon colors,
+oversaturated palettes,
+generic corporate blue,
+clutter,
+tiny unreadable text,
+harsh shadows,
+low-end template styling.
+
+
+Keep the palette:
+soft,
+light,
+bright,
+airy,
+muted,
+elegant,
+premium,
+and emotionally calming.
+
+Avoid oversaturation.
+
+━━━━━━━━━━━━━━━━━━
+VISUAL IDENTITY
+━━━━━━━━━━━━━━━━━━
+
+Soft spiritual editorial luxury, refined modern minimalism, peaceful premium aesthetic, sophisticated visual softness, calming high-end branding style.
+
+The image should feel:
+quiet,
+airy,
+emotionally warm,
+luxurious,
+meditative,
+clean,
+softly feminine,
+spiritually calming,
+editorial,
+premium,
+and visually breathable.
+
+━━━━━━━━━━━━━━━━━━
+LIGHTING
+━━━━━━━━━━━━━━━━━━
+
+Use ultra-soft ambient lighting with:
+- diffused glow
+- feathered shadows
+- atmospheric gradients
+- subtle vignette
+- soft luminous transitions
+- dreamy editorial illumination
+- calming cinematic softness
+
+━━━━━━━━━━━━━━━━━━
+TEXTURE
+━━━━━━━━━━━━━━━━━━
+
+Apply subtle realistic texture such as:
+- fine linen
+- matte paper
+- soft canvas grain
+- watercolor softness
+- silk texture
+- handmade paper texture
+- brushed matte surfaces
+
+Texture must remain ultra refined, soft, minimal, and non-distracting.
+
+━━━━━━━━━━━━━━━━━━
+COMPOSITION
+━━━━━━━━━━━━━━━━━━
+
+Maintain:
+- large clean negative space
+- breathable layout
+- asymmetrical elegance
+- uncluttered premium composition
+- smooth visual flow
+- balanced empty areas for typography
+
+The center area should remain visually calm and open.
+
+━━━━━━━━━━━━━━━━━━
+COMPOSITION STYLE OPTIONS
+━━━━━━━━━━━━━━━━━━
+
+Randomly vary between:
+- floating translucent curves
+- flowing editorial ribbons
+- minimalist botanical corners
+- sacred geometric accents
+- atmospheric gradients
+- delicate metallic line art
+- airy brushstroke motion
+- zen-inspired asymmetry
+- soft glowing corners
+- subtle mandala fragments
+- luxury wave forms
+- abstract organic curves
+
+Use only 1–2 accent systems.
+
+Decorative elements must:
+- stay ultra minimal
+- remain elegant and refined
+- never dominate the composition
+- integrate naturally into the background
+- feel soft and premium
+
+━━━━━━━━━━━━━━━━━━
+QUALITY
+━━━━━━━━━━━━━━━━━━
+
+Ultra realistic.
+Luxury editorial quality.
+Soft premium finish.
+Smooth refined gradients.
+Elegant atmospheric depth.
+Sophisticated modern branding aesthetic.
+
+━━━━━━━━━━━━━━━━━━
+NEGATIVE PROMPT
+━━━━━━━━━━━━━━━━━━
+
+collage,
+multi-panel layout,
+multiple frames,
+grid composition,
+split screen,
+busy composition,
+clutter,
+dark heavy shadows,
+harsh contrast,
+oversaturated colors,
+neon tones,
+complex illustrations,
+crowded elements,
+ornate decoration,
+sharp aggressive shapes,
+noisy textures,
+grunge,
+chaotic patterns,
+heavy objects,
+people,
+furniture,
+text,
+typography,
+logos,
+high visual noise,
+overly detailed artwork.
+
+━━━━━━━━━━━━━━━━━━
+OUTPUT
+━━━━━━━━━━━━━━━━━━
+
+Single image only.
+Portrait 1:1 aspect ratio.
+Ultra-high resolution.
+Elegant minimalist luxury background suitable for premium motivational, spiritual, editorial, or wellness branding content.</div>
+        <button class="copy-btn" onclick="copyText('p1', this)">
+          <span>Copy Prompt #1</span>
+        </button>
+      </div>
+
+      <!-- Prompt #2 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt #2</span>
+        </div>
+        <div class="prompt-content" id="p2">Increase the photorealism, add more natural shadows, shot on a 35mm lens, high-end architectural photography, 8K resolution, photorealistic textures, soft natural sunlight.</div>
+        <button class="copy-btn" onclick="copyText('p2', this)">
+          <span>Copy Prompt #2</span>
+        </button>
+      </div>
+
+      <!-- Prompt #3 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt #3</span>
+        </div>
+        <div class="prompt-content" id="p3">#b8a82f</div>
+        <button class="copy-btn" onclick="copyText('p3', this)">
+          <span>Copy Prompt #3</span>
+        </button>
+      </div>
+
+    </div>
+
+    <footer class="footer">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    function copyText(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<span>Copied to Clipboard!</span>`;
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
