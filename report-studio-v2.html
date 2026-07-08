@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Octane 8K - Ultimate Studio Mockup v4</title>
+    <style>
+        :root {
+            --bg: #050505;
+            --panel: #111111;
+            --accent: #3b82f6;
+            --text: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', -apple-system, sans-serif;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* --- SIDEBAR PANEL --- */
+        .sidebar {
+            width: 350px;
+            background: var(--panel);
+            padding: 20px;
+            border-right: 1px solid #222;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 100;
+            overflow-y: auto;
+        }
+
+        h2 { font-size: 14px; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); margin: 0; }
+        .help { font-size: 11px; color: #666; margin-top: -5px; }
+
+        .group { display: flex; flex-direction: column; gap: 5px; border-bottom: 1px solid #222; padding-bottom: 10px; }
+        label { font-size: 10px; font-weight: 800; color: #888; text-transform: uppercase; }
+
+        input[type="file"] {
+            background: #1a1a1a; padding: 8px; border: 1px dashed #333; border-radius: 4px; color: #888; cursor: pointer; font-size: 11px;
+        }
+
+        input[type="range"] { width: 100%; accent-color: var(--accent); cursor: pointer; }
+        
+        .row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+        input[type="color"] { border: none; width: 25px; height: 25px; background: none; cursor: pointer; }
+
+        .btn-render {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 6px;
+            font-weight: 900;
+            cursor: pointer;
+            margin-top: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.2s;
+        }
+        .btn-render:hover { filter: brightness(1.2); }
+
+        /* --- VIEWPORT --- */
+        #viewport {
+            flex: 1;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+        }
+
+        #viewport canvas {
+            max-width: 90vh;
+            max-height: 90vh;
+            aspect-ratio: 1 / 1;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.5);
+        }
+
+        .tag { position: absolute; bottom: 20px; right: 20px; font-size: 10px; color: rgba(255,255,255,0.1); letter-spacing: 3px; pointer-events: none;}
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <h2>Report Studio Pro</h2>
+        <p class="help">Physical Paper Geometry • 8K Master</p>
+
+        <div class="group">
+            <label>1. Report Cover (PNG/JPG)</label>
+            <input type="file" id="uploadCover" accept="image/*">
+        </div>
+
+        <div class="group">
+            <label>2. Environment / BG Image</label>
+            <input type="file" id="uploadBG" accept="image/*">
+            <div class="row">
+                <label style="font-size: 9px;">Or Solid Color:</label>
+                <input type="color" id="bgColor" value="#111111">
+            </div>
+            <p style="font-size: 9px; color: #555; margin: 0;">Auto-fitted to 1:1 aspect ratio</p>
+        </div>
+
+        <div class="group">
+            <label>3. Layout Angle (YOX)</label>
+            <div class="row">
+                <input type="range" id="rotYOX" min="0" max="30" step="0.5" value="0">
+                <span id="valYOX" style="font-size: 10px; color: var(--accent); min-width: 25px;">0°</span>
+            </div>
+        </div>
+
+        <div class="group">
+            <label>4. 3D Perspective (X/Y Tilt)</label>
+            <label style="font-size: 9px; color:#555">Pitch (X)</label>
+            <input type="range" id="rotX" min="-1.5" max="1.5" step="0.01" value="-0.4">
+            <label style="font-size: 9px; color:#555">Yaw (Y)</label>
+            <input type="range" id="rotY" min="-1.5" max="1.5" step="0.01" value="0.4">
+        </div>
+
+        <div class="group">
+            <label>5. Physics (Thickness/Flex)</label>
+            <label style="font-size: 9px; color:#555">10-Page Thickness</label>
+            <input type="range" id="thickness" min="0.01" max="0.2" step="0.001" value="0.04">
+            <label style="font-size: 9px; color:#555">Paper Bend</label>
+            <input type="range" id="flex" min="0" max="0.2" step="0.01" value="0.06">
+        </div>
+
+        <div class="group">
+            <label>6. Studio Lighting</label>
+            <input type="range" id="light" min="0" max="5" step="0.1" value="2.5">
+        </div>
+
+        <button class="btn-render" id="export">Export 8K Studio PNG</button>
+
+        <div style="font-size: 9px; color: #444; margin-top: auto; line-height: 1.4;">
+            ENGINE: THREE.JS PBR / ACES FILMIC<br>
+            RATIO: 1:1 SQUARE MASTER<br>
+            STAPLED EDGE SIMULATION ACTIVE
+        </div>
+    </div>
+
+    <div id="viewport">
+        <div class="tag">STUDIO RENDER 8K V-BUFFER</div>
+    </div>
+
+    <!-- Three.js Engine -->
+    <script type="importmap">
+        { "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js" } }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+
+        let scene, camera, renderer, reportMesh, shadowFloor;
+        const container = document.getElementById('viewport');
+
+        function init() {
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x111111);
+
+            camera = new THREE.PerspectiveCamera(25, 1, 0.1, 1000);
+            camera.position.set(0, 0, 10);
+
+            renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setSize(800, 800);
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            renderer.toneMapping = THREE.ACESFilmicToneMapping;
+            renderer.toneMappingExposure = 1.1;
+            container.appendChild(renderer.domElement);
+
+            // Lighting Rig
+            const ambient = new THREE.AmbientLight(0xffffff, 0.4);
+            scene.add(ambient);
+
+            const keyLight = new THREE.DirectionalLight(0xffffff, 2.5);
+            keyLight.position.set(5, 5, 10);
+            keyLight.castShadow = true;
+            keyLight.shadow.mapSize.set(4096, 4096);
+            keyLight.shadow.radius = 4;
+            scene.add(keyLight);
+
+            const fillLight = new THREE.PointLight(0xffffff, 1.5);
+            fillLight.position.set(-5, 0, 5);
+            scene.add(fillLight);
+
+            createReport();
+            createShadowFloor();
+            animate();
+        }
+
+        function createReport() {
+            const width = 2.4;
+            const height = 3.39;
+            const segments = 64;
+            
+            const geometry = new THREE.BoxGeometry(width, height, 1, segments, segments, 1);
+            
+            const pageMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.9 }); 
+            const spineMat = new THREE.MeshStandardMaterial({ color: 0xe0e0e0, roughness: 0.7 }); 
+            const coverMat = new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: 0.45, metalness: 0.05 });
+
+            reportMesh = new THREE.Mesh(geometry, [
+                pageMat,  spineMat,  pageMat,  pageMat,  coverMat,  pageMat
+            ]);
+
+            reportMesh.castShadow = true;
+            reportMesh.scale.z = 0.04;
+            reportMesh.rotation.set(-0.4, 0.4, 0);
+            
+            scene.add(reportMesh);
+            updateFlex(0.06);
+        }
+
+        function updateFlex(strength) {
+            const pos = reportMesh.geometry.attributes.position;
+            for (let i = 0; i < pos.count; i++) {
+                let x = pos.getX(i);
+                let bend = Math.pow((x + 1.2) / 2.4, 2) * strength;
+                pos.setZ(i, (pos.getZ(i) > 0 ? 0.5 : -0.5) + bend);
+            }
+            pos.needsUpdate = true;
+            reportMesh.geometry.computeVertexNormals();
+        }
+
+        function createShadowFloor() {
+            const floorGeo = new THREE.PlaneGeometry(30, 30);
+            const floorMat = new THREE.ShadowMaterial({ opacity: 0.35 });
+            shadowFloor = new THREE.Mesh(floorGeo, floorMat);
+            shadowFloor.position.z = -0.25;
+            scene.add(shadowFloor);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        }
+
+        // --- Event Listeners ---
+
+        // Cover Upload
+        document.getElementById('uploadCover').onchange = (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                new THREE.TextureLoader().load(ev.target.result, (tex) => {
+                    tex.colorSpace = THREE.SRGBColorSpace;
+                    reportMesh.material[4].map = tex;
+                    reportMesh.material[4].color.set(0xffffff);
+                    reportMesh.material[4].needsUpdate = true;
+                });
+            };
+            reader.readAsDataURL(file);
+        };
+
+        // Background Image Upload with "Shrink to Fit / Cover" logic
+        document.getElementById('uploadBG').onchange = (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                const img = new Image();
+                img.src = ev.target.result;
+                img.onload = () => {
+                    const tex = new THREE.Texture(img);
+                    
+                    // Logic to fit background image to 1:1 canvas without stretching
+                    const imageAspect = img.width / img.height;
+                    const canvasAspect = 1; // Square target
+
+                    if (imageAspect > canvasAspect) {
+                        // Wide image: match height, crop sides
+                        tex.repeat.set(canvasAspect / imageAspect, 1);
+                        tex.offset.set((1 - (canvasAspect / imageAspect)) / 2, 0);
+                    } else {
+                        // Tall image: match width, crop top/bottom
+                        tex.repeat.set(1, imageAspect / canvasAspect);
+                        tex.offset.set(0, (1 - (imageAspect / canvasAspect)) / 2);
+                    }
+                    
+                    tex.colorSpace = THREE.SRGBColorSpace;
+                    tex.needsUpdate = true;
+                    scene.background = tex;
+                };
+            };
+            reader.readAsDataURL(file);
+        };
+
+        // Layout Angle YOX
+        document.getElementById('rotYOX').oninput = (e) => {
+            const deg = parseFloat(e.target.value);
+            document.getElementById('valYOX').innerText = deg + "°";
+            reportMesh.rotation.z = THREE.MathUtils.degToRad(deg);
+        };
+
+        document.getElementById('bgColor').oninput = (e) => scene.background = new THREE.Color(e.target.value);
+        document.getElementById('rotX').oninput = (e) => reportMesh.rotation.x = parseFloat(e.target.value);
+        document.getElementById('rotY').oninput = (e) => reportMesh.rotation.y = parseFloat(e.target.value);
+        document.getElementById('thickness').oninput = (e) => reportMesh.scale.z = parseFloat(e.target.value);
+        document.getElementById('flex').oninput = (e) => updateFlex(parseFloat(e.target.value));
+        document.getElementById('light').oninput = (e) => {
+            scene.children.forEach(c => { if(c.isDirectionalLight || c.isPointLight) c.intensity = parseFloat(e.target.value); });
+        };
+
+        // 8K Export
+        document.getElementById('export').onclick = () => {
+            const btn = document.getElementById('export');
+            btn.innerText = "RENDERING 8K MASTER...";
+            const size = 7680;
+            renderer.setSize(size, size, false);
+            camera.updateProjectionMatrix();
+            renderer.render(scene, camera);
+            const link = document.createElement('a');
+            link.download = '8k_report_final.png';
+            link.href = renderer.domElement.toDataURL('image/png', 1.0);
+            link.click();
+            renderer.setSize(800, 800, true);
+            btn.innerText = "Export 8K Studio PNG";
+        };
+
+        init();
+    </script>
+</body>
+</html>

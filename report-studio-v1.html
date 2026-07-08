@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3:4 Pro Cover Creator - Multi-Font Support</title>
+    
+    <!-- Google Fonts Library: Including several Bengali-supporting fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Atma:wght@500;700&family=Galada&family=Hind+Siliguri:wght@400;600;700&family=Inter:wght@400;700;900&family=Mina:wght@400;700&family=Noto+Serif+Bengali:wght@400;700&family=Tiro+Bangla&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <style>
+        :root {
+            --bg-ui: #f0f2f5;
+            --panel: #ffffff;
+            --font-selection: 'Hind Siliguri', sans-serif;
+            --accent: #a5e3ef;
+            --logo-w: 120px;
+            --title-size: 46px;
+            --title-width: 100%;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-ui);
+            margin: 0;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* --- SIDEBAR --- */
+        .sidebar {
+            width: 380px;
+            background: var(--panel);
+            padding: 20px;
+            box-shadow: 2px 0 15px rgba(0,0,0,0.1);
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        h2 { font-size: 1.1rem; margin: 0 0 20px 0; padding-bottom: 10px; border-bottom: 2px solid #eee; }
+        .input-group { margin-bottom: 15px; }
+        label { display: block; font-size: 0.7rem; font-weight: 700; color: #666; text-transform: uppercase; margin-bottom: 5px; }
+        
+        input[type="text"], input[type="color"], textarea, select {
+            width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 5px; box-sizing: border-box; 
+            font-family: inherit; font-size: 14px;
+        }
+
+        input[type="range"] { width: 100%; cursor: pointer; margin-top: 5px; }
+        
+        .btn-export {
+            width: 100%; padding: 15px; background: #0f172a; color: white; border: none; border-radius: 5px;
+            font-weight: 700; cursor: pointer; margin-top: 10px; font-size: 16px;
+        }
+        .btn-export:hover { background: #1e293b; }
+
+        /* --- PREVIEW CANVAS --- */
+        .preview-zone {
+            flex: 1; display: flex; align-items: center; justify-content: center; padding: 20px; overflow: auto;
+        }
+
+        #cover-export {
+            width: 525px;
+            height: 700px;
+            background: linear-gradient(135deg, #ffffff 0%, var(--accent) 100%);
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            display: flex;
+            flex-direction: column;
+            padding: 60px;
+            box-sizing: border-box;
+            /* Dynamic Font Control */
+            font-family: var(--font-selection); 
+            color: #1a1a1a;
+            flex-shrink: 0;
+        }
+
+        .border-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+        }
+
+        /* --- CONTENT STYLING --- */
+        .header-content { text-align: center; margin-top: 30px; z-index: 10; min-height: 120px; }
+        
+        #outImg { 
+            width: var(--logo-w); 
+            height: auto; 
+            max-height: 250px;
+            margin: 0 auto 15px; 
+            object-fit: contain; 
+            display: block; 
+        }
+
+        .company-txt { font-size: 16px; font-weight: 500; letter-spacing: 0.5px; }
+
+        .title-wrap { 
+            flex: 1; 
+            display: flex; 
+            align-items: center; 
+            z-index: 10; 
+            padding: 20px 0; 
+        }
+
+        .main-title { 
+            font-size: var(--title-size); 
+            width: var(--title-width);
+            font-weight: 700; 
+            line-height: 1.25; 
+            word-break: break-word; 
+        }
+
+        .footer-wrap { z-index: 10; padding-bottom: 10px; }
+        .author-box { margin-bottom: 25px; }
+        .prep-label { font-size: 15px; color: #334155; margin-bottom: 4px; display: block; }
+        .author-name { font-size: 22px; font-weight: 700; }
+        .contact-txt { font-size: 12px; line-height: 1.6; color: #475569; }
+
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <h2>Cover Editor</h2>
+        
+        <div class="input-group">
+            <label>1. Image / Logo</label>
+            <input type="file" id="inImg" accept="image/*">
+            <label>Logo Size</label>
+            <input type="range" id="inLogoSize" min="40" max="350" value="120">
+        </div>
+
+        <div class="input-group">
+            <label>2. Typography Style</label>
+            <select id="inFont">
+                <option value="'Hind Siliguri', sans-serif">Hind Siliguri (Modern Sans)</option>
+                <option value="'Noto Serif Bengali', serif">Noto Serif (Classic Book Style)</option>
+                <option value="'Tiro Bangla', serif">Tiro Bangla (Formal Serif)</option>
+                <option value="'Mina', sans-serif">Mina (Geometric Sans)</option>
+                <option value="'Galada', cursive">Galada (Decorative)</option>
+                <option value="'Atma', cursive">Atma (Playful/Handwritten)</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label>3. Title Details</label>
+            <textarea id="inTitle" rows="2">ধৃতরাষ্ট্রের সঞ্জয়</textarea>
+            <label>Font Size</label>
+            <input type="range" id="inTitleSize" min="15" max="100" value="46">
+            <label>Box Width (%)</label>
+            <input type="range" id="inTitleWidth" min="30" max="100" value="100">
+        </div>
+
+        <div class="input-group">
+            <label>4. Company & Author</label>
+            <input type="text" id="inCompany" value="Dummy Company" placeholder="Company Name">
+            <input type="text" id="inPrep" value="Prepared by:" style="margin-top:5px;">
+            <input type="text" id="inAuthor" value="শিবপ্রসাদ মুখার্জি" style="margin-top:5px;">
+        </div>
+
+        <div class="input-group">
+            <label>5. Contact Info</label>
+            <textarea id="inContact" rows="3">dummy@email.fict&#10;222 555 7777&#10;dummy.fict</textarea>
+        </div>
+
+        <div class="input-group">
+            <label>6. Background Color</label>
+            <input type="color" id="inColor" value="#a5e3ef">
+        </div>
+
+        <button class="btn-export" onclick="saveImage()">Download High-Res PNG</button>
+    </div>
+
+    <div class="preview-zone">
+        <div id="cover-export">
+            <!-- Smooth SVG Border Overlay -->
+            <svg class="border-overlay" viewBox="0 0 525 700">
+                <path d="M 45 100 V 45 H 480 V 655 H 45 V 600" 
+                      fill="none" 
+                      stroke="black" 
+                      stroke-width="2" 
+                      stroke-linejoin="miter" />
+            </svg>
+
+            <div class="header-content">
+                <img id="outImg" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="">
+                <div class="company-txt" id="outCompany">Dummy Company</div>
+            </div>
+
+            <div class="title-wrap">
+                <div class="main-title" id="outTitle">ধৃতরাষ্ট্রের সঞ্জয়</div>
+            </div>
+
+            <div class="footer-wrap">
+                <div class="author-box">
+                    <span class="prep-label" id="outPrep">Prepared by:</span>
+                    <span class="author-name" id="outAuthor">শিবপ্রসাদ মুখার্জি</span>
+                </div>
+                <div class="contact-txt" id="outContact">
+                    dummy@email.fict<br>
+                    222 555 7777<br>
+                    dummy.fict
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const dom = {
+            inImg: document.getElementById('inImg'),
+            inLogoSize: document.getElementById('inLogoSize'),
+            inFont: document.getElementById('inFont'),
+            inCompany: document.getElementById('inCompany'),
+            inTitle: document.getElementById('inTitle'),
+            inTitleSize: document.getElementById('inTitleSize'),
+            inTitleWidth: document.getElementById('inTitleWidth'),
+            inPrep: document.getElementById('inPrep'),
+            inAuthor: document.getElementById('inAuthor'),
+            inContact: document.getElementById('inContact'),
+            inColor: document.getElementById('inColor'),
+
+            outImg: document.getElementById('outImg'),
+            outCompany: document.getElementById('outCompany'),
+            outTitle: document.getElementById('outTitle'),
+            outPrep: document.getElementById('outPrep'),
+            outAuthor: document.getElementById('outAuthor'),
+            outContact: document.getElementById('outContact'),
+            canvas: document.getElementById('cover-export')
+        };
+
+        // Live Update Function
+        const refresh = () => {
+            dom.outCompany.innerText = dom.inCompany.value;
+            dom.outTitle.innerText = dom.inTitle.value;
+            dom.outPrep.innerText = dom.inPrep.value;
+            dom.outAuthor.innerText = dom.inAuthor.value;
+            dom.outContact.innerHTML = dom.inContact.value.replace(/\n/g, '<br>');
+            
+            // Apply CSS Custom Properties
+            dom.canvas.style.setProperty('--accent', dom.inColor.value);
+            dom.canvas.style.setProperty('--logo-w', dom.inLogoSize.value + 'px');
+            dom.canvas.style.setProperty('--title-size', dom.inTitleSize.value + 'px');
+            dom.canvas.style.setProperty('--title-width', dom.inTitleWidth.value + '%');
+            dom.canvas.style.setProperty('--font-selection', dom.inFont.value);
+        };
+
+        // Bind events to all inputs
+        [dom.inCompany, dom.inTitle, dom.inPrep, dom.inAuthor, dom.inContact, dom.inColor, dom.inLogoSize, dom.inTitleSize, dom.inTitleWidth, dom.inFont].forEach(input => {
+            input.addEventListener('input', refresh);
+        });
+
+        // Image Handling
+        dom.inImg.onchange = (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (f) => dom.outImg.src = f.target.result;
+                reader.readAsDataURL(file);
+            }
+        };
+
+        // Export Function
+        function saveImage() {
+            const btn = document.querySelector('.btn-export');
+            const originalText = btn.innerText;
+            btn.innerText = "Generating...";
+            
+            html2canvas(dom.canvas, {
+                scale: 4, // 4x scale for high resolution
+                useCORS: true,
+                logging: false,
+                backgroundColor: null
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'custom-book-cover.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+                btn.innerText = originalText;
+            });
+        }
+
+        // Run initial refresh to apply defaults
+        refresh();
+    </script>
+</body>
+</html>
