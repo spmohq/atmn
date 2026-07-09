@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Trust-Building Content Genie</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient-start: #020617;
+      --bg-gradient-end: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.4);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-primary: #22d3ee;
+      --accent-hover: #67e8f9;
+      --accent-success: #10b981;
+      --code-bg: rgba(0, 0, 0, 0.3);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+      --input-bg: rgba(15, 23, 42, 0.6);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: fixed linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 60px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 850px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .label-group {
+      margin-bottom: 15px;
+    }
+
+    .step-label {
+      font-weight: 800;
+      font-size: 0.75rem;
+      background: var(--accent-primary);
+      color: #020617;
+      padding: 4px 12px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 120px;
+      background: var(--input-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 20px;
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      font-size: 1.1rem;
+      resize: vertical;
+      outline: none;
+      transition: all 0.3s;
+    }
+
+    textarea:focus {
+      border-color: var(--accent-primary);
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    .prompt-output-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 40px;
+      margin-top: 10px;
+    }
+
+    .prompt-content {
+      background: var(--code-bg);
+      padding: 30px;
+      border-radius: 12px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.95rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 25px;
+      line-height: 1.6;
+      max-height: 600px;
+      overflow-y: auto;
+    }
+
+    /* Custom scrollbar */
+    .prompt-content::-webkit-scrollbar {
+      width: 8px;
+    }
+    .prompt-content::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .prompt-content::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+
+    .copy-btn {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+      padding: 16px 32px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+      width: 100%;
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-primary);
+      color: #020617;
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-success);
+      border-color: var(--accent-success);
+      color: white;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 40px;
+      width: 100%;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.8rem; }
+      .step-card { padding: 25px; }
+      .prompt-content { font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Trust-Building</h1>
+    </header>
+
+    <div class="workflow">
+      
+      <!-- Input Section -->
+      <div class="step-card">
+        <div class="label-group">
+          <span class="step-label">Core Philosophy</span>
+        </div>
+        <textarea id="beliefInput" placeholder="Enter your Core Belief here (e.g., 'True learning happens through failure, not just information' or 'AI should assist thought, not replace it')..." oninput="updatePrompt()"></textarea>
+      </div>
+
+      <!-- Output Section -->
+      <div class="prompt-output-card">
+        <div class="label-group">
+          <span class="step-label">Generated Strategy Prompt</span>
+        </div>
+        <div class="prompt-content" id="finalPrompt"></div>
+        <button class="copy-btn" onclick="copyText('finalPrompt', this)">
+          <span>Copy Full Prompt</span>
+        </button>
+      </div>
+
+    </div>
+
+    <footer class="footer">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    const baseTemplate = `ROLE
+
+You are an expert Facebook Content Strategist, Brand Psychologist, Audience Researcher, Trust-Based Marketing Specialist, and Organic Community Growth Expert.
+
+LANGUAGE & LOCALIZATION LAYER
+
+All written content must be produced in natural Bengali (India) for readers from Kolkata, West Bengal.
+
+The language should sound like how an educated Bengali naturally speaks and writes today while maintaining high editorial quality.
+
+Writing Style
+
+Write in the most spontaneous, natural, and conversational Bengali (India) possible.
+
+The writing should be immediately understandable to an average 21-year-old reader without sacrificing depth, intelligence, or clarity.
+
+Use modern everyday Bengali while maintaining international standards of writing quality, structure, readability, and coherence.
+
+Tone of Voice
+
+Maintain a voice that is:
+
+- Warm and approachable
+- Confident and authoritative
+- Bold and direct
+- Thought-provoking
+- Conversational rather than academic
+- Educational rather than promotional
+
+The reader should feel as though a trusted mentor or knowledgeable friend is speaking directly to them in a genuine face-to-face conversation.
+
+Cultural Localization
+
+Subtly reflect the conversational rhythm and sentence flow commonly heard in Kolkata, West Bengal.
+
+Achieve this naturally through pacing, sentence construction, and word choice.
+
+Do not imitate dialects or use exaggerated regional expressions.
+
+The writing should feel authentically Bengali (India), not translated.
+
+Formal Address
+
+Always address the reader as "আপনি".
+
+Never use "তুমি", "তোরা", "তুই", or other informal forms of address.
+
+Maintain respect without becoming distant or overly formal.
+
+Style Constraints
+
+- Never sound like a literal translation from English.
+- Never use Bangladeshi vocabulary, spelling, or sentence construction.
+- Avoid slang and internet jargon unless explicitly requested.
+- Avoid unnecessarily literary, archaic, or Sanskrit-heavy language.
+- Avoid robotic, repetitive, or AI-like phrasing.
+- Prefer short-to-medium-length sentences with natural variation in rhythm.
+- Prioritize clarity over ornamentation.
+- Write exactly as an experienced Bengali educator, writer, or content creator would naturally communicate with a modern audience.
+
+OBJECTIVE
+
+Design a comprehensive Facebook Trust-Building Content Pillar Framework based on the following Core Belief.
+
+Core Belief:
+
+"[Insert Core Belief]"
+
+Assume this belief represents a fundamentally different—and more effective—way of thinking, living, solving problems, or achieving desired outcomes.
+
+The purpose is NOT to sell products.
+
+The purpose is to help Facebook users gradually discover, understand, trust, and eventually believe this Core Belief.
+
+Your goal is to create content that naturally earns attention, engagement, trust, shares, saves, and meaningful discussions while consistently reinforcing the Core Belief.
+
+---
+
+FACEBOOK CONTENT PHILOSOPHY
+
+Facebook is the platform where people first encounter the Core Belief.
+
+Each post should communicate one small part of the belief rather than attempting to explain everything.
+
+Every post should accomplish at least one of the following:
+
+- Challenge an existing assumption.
+- Explain a common problem.
+- Reveal a hidden insight.
+- Tell a relatable story.
+- Demonstrate a simple truth.
+- Show evidence.
+- Inspire reflection.
+- Encourage discussion.
+- Increase trust in the Core Belief.
+
+The goal is not immediate conversion.
+
+The goal is gradual belief-building.
+
+---
+
+REQUIREMENTS
+
+Create a complete Facebook Trust-Building Content Pillar Framework.
+
+Identify every major category of content needed to build trust around the Core Belief.
+
+Within each category, generate multiple Facebook post ideas.
+
+Each idea should represent a single Facebook post—not a campaign.
+
+Organize the framework logically so that it naturally moves readers from curiosity to understanding and from understanding to belief.
+
+Avoid promotional or sales-oriented content.
+
+Focus on education, credibility, relatability, and conversation.
+
+---
+
+OUTPUT FORMAT
+
+For every Facebook content idea, use the following table.
+
+| Facebook Post Idea | Audience Experience | Audience Emotion | Old Belief | Core Insight | Suggested Visual | Engagement CTA |
+|--------------------|--------------------|------------------|------------|--------------|------------------|----------------|
+
+Definitions:
+
+Facebook Post Idea
+A concise description of the individual post.
+
+Audience Experience
+A relatable everyday situation the audience has experienced.
+
+Audience Emotion
+The primary emotion triggered by that situation.
+
+Old Belief
+The existing assumption, misconception, or conventional wisdom that the post challenges.
+
+Core Insight
+The small truth or lesson that reinforces the Core Belief.
+
+Suggested Visual
+A photo, infographic, illustration, comparison, screenshot, diagram, quote card, or simple demonstration that strengthens the message.
+
+Engagement CTA
+A natural conversation starter such as:
+- asking a question,
+- inviting opinions,
+- encouraging people to share experiences,
+- prompting reflection,
+- requesting examples.
+
+Avoid sales CTAs.
+
+---
+
+QUALITY STANDARDS
+
+The framework should:
+
+- cover every important trust-building angle,
+- progressively strengthen belief,
+- create opportunities for meaningful engagement,
+- establish authority without appearing promotional,
+- be reusable across months of Facebook publishing,
+- generate content that is highly shareable and discussion-worthy,
+- help transform casual Facebook readers into people who trust the Core Belief.
+
+The output should be comprehensive, well-organized, and suitable as the foundation of a long-term Facebook content strategy.`;
+
+    function updatePrompt() {
+      const beliefValue = document.getElementById('beliefInput').value || "[Insert Core Belief]";
+      
+      // Global replace for [Insert Core Belief]
+      let updated = baseTemplate.split('[Insert Core Belief]').join(beliefValue);
+
+      document.getElementById('finalPrompt').innerText = updated;
+    }
+
+    function copyText(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<span>Copied to Clipboard!</span>`;
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    // Initialize display on page load
+    updatePrompt();
+  </script>
+</body>
+</html>
