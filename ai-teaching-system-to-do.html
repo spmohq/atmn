@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Teaching System — To-Do Checklist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient-start: #020617;
+      --bg-gradient-end: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.4);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-primary: #22d3ee;
+      --accent-hover: #67e8f9;
+      --accent-success: #10b981;
+      --code-bg: rgba(0, 0, 0, 0.3);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: fixed linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 60px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 850px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .prompt-workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .step-header {
+      display: flex;
+      justify-content: flex-start;
+      margin-bottom: 25px;
+    }
+
+    .step-label {
+      font-weight: 800;
+      font-size: 0.8rem;
+      background: var(--accent-primary);
+      color: #020617;
+      padding: 5px 16px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .prompt-content {
+      background: var(--code-bg);
+      padding: 30px;
+      border-radius: 12px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.95rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 25px;
+      line-height: 1.6;
+      max-height: 650px;
+      overflow-y: auto;
+    }
+
+    /* Custom scrollbar */
+    .prompt-content::-webkit-scrollbar {
+      width: 8px;
+    }
+    .prompt-content::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .prompt-content::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+
+    .copy-btn {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+      width: 100%;
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-primary);
+      color: #020617;
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-success);
+      border-color: var(--accent-success);
+      color: white;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 40px;
+      width: 100%;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.6rem; }
+      .step-card { padding: 25px; }
+      .prompt-content { font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>AI Teaching System — To-Do Checklist</h1>
+    </header>
+
+    <div class="prompt-workflow">
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Full Checklist</span>
+        </div>
+        <div class="prompt-content" id="p1">Phase 1 — Prepare the Source Material
+
+P1-T01: Choose the chapter/topic.
+P1-T02: Collect the complete source material (PDF, textbook, notes, etc.).
+P1-T03: Upload the source material to NotebookLM.
+
+
+
+Phase 2 — Build the Teaching Foundation
+
+P2-T01: Generate the Teaching Analysis + Teaching Blueprint.
+P2-T02: Review the output.
+P2-T03: Save the Teaching Blueprint.
+P2-T04: Generate the Mathematics Visual Style DNA.
+P2-T05: Review the Style DNA.
+P2-T06: Save the Style DNA for future reuse.
+
+
+
+Phase 3 — Organize the Knowledge
+
+Teacher Mind Map
+
+P3-T01: Generate the Teacher Mind Map.
+P3-T02: Review the Teacher Mind Map.
+P3-T03: Save the Teacher Mind Map.
+
+Student Mind Map
+
+P3-T04: Generate the Student Mind Map.
+P3-T05: Review the Student Mind Map.
+P3-T06: Save the Student Mind Map.
+
+Formula Mind Map
+
+P3-T07: Generate the Formula Mind Map.
+P3-T08: Review the Formula Mind Map.
+P3-T09: Save the Formula Mind Map.
+
+
+
+Phase 4 — Generate Classroom Resources
+
+P4-T01: Generate Revision Flash Cards.
+P4-T02: Save the Flash Cards.
+P4-T03: Generate the Classroom Assessment Quiz.
+P4-T04: Save the Quiz.
+P4-T05: Generate the Instructional Infographic.
+P4-T06: Save the Infographic.
+P4-T07: Generate the Slide Deck / Presentation.
+P4-T08: Save the Presentation.
+
+
+
+Phase 5 — Create Teaching Materials (Gemini)
+
+P5-T01: Copy the Teaching Blueprint from NotebookLM.
+P5-T02: Paste it into Gemini.
+P5-T03: Generate the complete Lesson Plan.
+P5-T04: Save the Lesson Plan.
+P5-T05: Generate the Teaching Strategy for Weak Learners.
+P5-T06: Save the Weak Learners strategy.
+P5-T07: Generate the Teaching Strategy for Average Learners.
+P5-T08: Save the Average Learners strategy.
+P5-T09: Generate the Teaching Strategy for Advanced Learners.
+P5-T10: Save the Advanced Learners strategy.
+P5-T11: Generate the Board Exam Revision Kit.
+P5-T12: Verify all required sections are included.
+P5-T13: Save the Revision Kit.
+P5-T14: Generate Classroom Activities.
+P5-T15: Save the Classroom Activities.
+
+
+
+Phase 6 — Create Premium Visuals (Google Flow)
+
+Formula Visual
+
+P6-T01: Export the Formula Mind Map.
+P6-T02: Copy the Visual Style DNA.
+P6-T03: Upload the Formula Mind Map to Google Flow.
+P6-T04: Paste the Style DNA into the prompt.
+P6-T05: Generate the Premium Formula Visual.
+P6-T06: Save the final Formula Visual.
+
+Teacher Visual
+
+P6-T07: Export the Teacher Mind Map.
+P6-T08: Upload the Teacher Mind Map to Google Flow.
+P6-T09: Paste the Style DNA into the prompt.
+P6-T10: Generate the Premium Teacher Visual.
+P6-T11: Save the final Teacher Visual.
+
+Additional Premium Visuals
+
+P6-T12: Generate the Visual Production Script in Gemini.
+P6-T13: Copy the Production Script.
+P6-T14: Paste the Production Script into Google Flow.
+P6-T15: Paste the Visual Style DNA into the prompt.
+P6-T16: Generate the Premium Visuals.
+P6-T17: Save the final Premium Visuals.
+
+
+
+Phase 7 — Final Deliverables
+
+P7-T01: Verify the Lesson Plan is complete.
+P7-T02: Verify the Teacher Mind Map is complete.
+P7-T03: Verify the Student Mind Map is complete.
+P7-T04: Verify the Formula Mind Map is complete.
+P7-T05: Verify the Flash Cards are complete.
+P7-T06: Verify the Classroom Quiz is complete.
+P7-T07: Verify the Instructional Infographic is complete.
+P7-T08: Verify the Presentation is complete.
+P7-T09: Verify the Revision Kit is complete.
+P7-T10: Verify the Classroom Activities are complete.
+P7-T11: Verify the Premium Formula Visual is complete.
+P7-T12: Verify the Premium Teacher Visual is complete.
+P7-T13: Verify the Additional Premium Visuals are complete.
+
+
+
+Phase 8 — Quality Assurance (QA)
+
+P8-T01: Verify all files are saved.
+P8-T02: Verify the naming convention is followed.
+P8-T03: Verify visual consistency across all assets.
+P8-T04: Check that no required resource is missing.
+P8-T05: Store everything in the project folder.
+
+
+
+Phase 9 — Classroom Delivery
+
+P9-T01: Introduce the chapter using the Premium Visuals.
+P9-T02: Teach using the Lesson Plan.
+P9-T03: Present the Slide Deck.
+P9-T04: Conduct the Classroom Activities.
+P9-T05: Conduct Revision using the Flash Cards.
+P9-T06: Conduct the Classroom Assessment Quiz.
+P9-T07: Share the Revision Kit.
+P9-T08: Collect student feedback.
+
+
+
+Phase 10 — Reuse the System
+
+P10-T01: Duplicate the project.
+P10-T02: Replace the source chapter.
+P10-T03: Restart the workflow from P1-T01.</div>
+        <button class="copy-btn" onclick="copyText('p1', this)">
+          <span>Copy Checklist</span>
+        </button>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    function copyText(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<span>Copied to Clipboard!</span>`;
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
