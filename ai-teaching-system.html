@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Teaching System | Prompt Genie</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient-start: #020617;
+      --bg-gradient-end: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.4);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-primary: #22d3ee;
+      --accent-hover: #67e8f9;
+      --accent-success: #10b981;
+      --code-bg: rgba(0, 0, 0, 0.3);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: fixed linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 60px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .prompt-workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 35px;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      transition: border-color 0.3s ease;
+    }
+
+    .step-card:hover {
+        border-color: rgba(34, 211, 238, 0.3);
+    }
+
+    .step-header {
+      display: flex;
+      justify-content: flex-start;
+      margin-bottom: 25px;
+    }
+
+    .step-label {
+      font-weight: 800;
+      font-size: 0.8rem;
+      background: var(--accent-primary);
+      color: #020617;
+      padding: 5px 16px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .prompt-content {
+      background: var(--code-bg);
+      padding: 30px;
+      border-radius: 12px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.95rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 25px;
+      line-height: 1.6;
+      max-height: 500px;
+      overflow-y: auto;
+    }
+
+    /* Custom scrollbar */
+    .prompt-content::-webkit-scrollbar {
+      width: 8px;
+    }
+    .prompt-content::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .prompt-content::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+
+    .copy-btn {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+      width: 100%;
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-primary);
+      color: #020617;
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-success);
+      border-color: var(--accent-success);
+      color: white;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 40px;
+      width: 100%;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.8rem; }
+      .step-card { padding: 25px; }
+      .prompt-content { font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>AI Teaching System</h1>
+    </header>
+
+    <div class="prompt-workflow">
+      
+      <!-- Prompt 1 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt 1: Teacher Analysis & Teaching Blueprint</span>
+        </div>
+        <div class="prompt-content" id="p1">You are an experienced CBSE Mathematics teacher with 25 years of classroom teaching experience.
+
+Analyze this Statistics chapter deeply.
+
+Do not summarize.
+
+Instead, identify the teaching structure.
+
+Return your response using the following headings.
+
+1. Learning Objectives
+2. Prerequisite Knowledge
+3. Main Concepts
+4. Important Formula List
+5. Concept Dependency Map
+6. Common Student Misconceptions
+7. Frequently Confused Topics
+8. Real Life Examples used in teaching
+9. Visual Concepts that should be illustrated
+10. Activities teachers can perform in classroom
+11. Memory Tricks
+12. Exam Important Areas
+13. HOTS Concepts
+14. One Page Chapter Overview
+
+Keep everything teacher-friendly.
+
+Use tables wherever appropriate.</div>
+        <button class="copy-btn" onclick="copyText('p1', this)">
+          <span>Copy Prompt 1</span>
+        </button>
+      </div>
+
+      <!-- Prompt 2 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt 2: Mathematics Visual Style DNA</span>
+        </div>
+        <div class="prompt-content" id="p2">You are an Educational Visual Designer.
+
+Create a reusable Visual Style DNA for teaching CBSE Class 10 Mathematics.
+
+The style should make Mathematics easy, engaging and memorable for school students.
+
+Return the response using these sections.
+
+1. Color Palette
+   - Primary
+   - Secondary
+   - Accent
+
+2. Typography Style
+
+3. Icon Style
+
+4. Illustration Style
+
+5. Shape Language
+
+6. Mathematical Symbols Style
+
+7. Diagram Style
+
+8. Infographic Style
+
+9. Classroom Presentation Style
+
+10. Poster Style
+
+11. Mind Map Style
+
+12. Visual Hierarchy
+
+13. Educational Mood
+
+14. Background Style
+
+15. Animation Style Suggestions
+
+The output should be reusable across NotebookLM, Gemini and Google Flow.
+
+Focus on professional educational visuals rather than decorative artwork.</div>
+        <button class="copy-btn" onclick="copyText('p2', this)">
+          <span>Copy Prompt 2</span>
+        </button>
+      </div>
+
+      <!-- Prompt 3 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt 3: Teacher Mind Map</span>
+        </div>
+        <div class="prompt-content" id="p3">Create a Teacher Mind Map for the CBSE Class 10 Statistics chapter.
+
+Requirements:
+
+• Focus on teaching flow instead of textbook order.
+• Show concept hierarchy.
+• Show prerequisite concepts.
+• Connect formulas with related concepts.
+• Highlight common misconceptions.
+• Mark exam-important topics.
+• Include classroom teaching sequence.
+
+The output should help a teacher quickly revise the complete chapter before entering the classroom.</div>
+        <button class="copy-btn" onclick="copyText('p3', this)">
+          <span>Copy Prompt 3</span>
+        </button>
+      </div>
+
+      <!-- Prompt 4 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt 4: Student Mind Map</span>
+        </div>
+        <div class="prompt-content" id="p4">Create a Student Mind Map for CBSE Class 10 Statistics.
+
+Requirements:
+
+• Use simple language.
+
+• Show concept relationships visually.
+
+• Keep formulas separate.
+
+• Add memory keywords.
+
+• Show real-life examples.
+
+• Highlight commonly confused concepts.
+
+The mind map should help students revise the chapter quickly before examinations.</div>
+        <button class="copy-btn" onclick="copyText('p4', this)">
+          <span>Copy Prompt 4</span>
+        </button>
+      </div>
+
+      <!-- Prompt 5 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt 5: Formula Mind Map</span>
+        </div>
+        <div class="prompt-content" id="p5">Create a Formula Mind Map for the CBSE Class 10 Statistics chapter.
+
+Requirements:
+
+• Include every important formula.
+
+• Show dependencies between formulas.
+
+• Connect formulas to related concepts.
+
+• Highlight when each formula should be used.
+
+• Include common calculation mistakes.
+
+• Keep the layout clean and highly visual.
+
+This mind map should become the master formula reference for the chapter.</div>
+        <button class="copy-btn" onclick="copyText('p5', this)">
+          <span>Copy Prompt 5</span>
+        </button>
+      </div>
+
+      <!-- Prompt 6 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt 6: Revision Flashcards</span>
+        </div>
+        <div class="prompt-content" id="p6">Create revision flashcards for the CBSE Class 10 Statistics chapter.
+
+Requirements:
+
+• Cover all important concepts.
+
+• Include formulas wherever required.
+
+• Keep the front side short.
+
+• Make the back side explanatory.
+
+• Include common mistakes.
+
+• Include one real-life example whenever possible.
+
+Design these flashcards for quick classroom revision and last-minute exam preparation.</div>
+        <button class="copy-btn" onclick="copyText('p6', this)">
+          <span>Copy Prompt 6</span>
+        </button>
+      </div>
+
+      <!-- Prompt 7 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt 7: Classroom Assessment Quiz</span>
+        </div>
+        <div class="prompt-content" id="p7">Create a classroom assessment quiz for CBSE Class 10 Statistics.
+
+Requirements:
+
+• Mix conceptual and numerical questions.
+
+• Include easy, medium and difficult questions.
+
+• Cover Mean, Median, Mode, Frequency Distribution and Ogive.
+
+• Add one HOTS question.
+
+• Add one real-life case-based question.
+
+The quiz should help teachers quickly evaluate conceptual understanding.</div>
+        <button class="copy-btn" onclick="copyText('p7', this)">
+          <span>Copy Prompt 7</span>
+        </button>
+      </div>
+
+      <!-- Prompt 8 Content -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt 8: Visual Concept Layout</span>
+        </div>
+        <div class="prompt-content" id="p8a">Create a classroom infographic for the CBSE Class 10 Statistics chapter.
+
+The infographic should:
+
+• Explain Mean, Median and Mode visually.
+
+• Show formula summary.
+
+• Include step-by-step calculation flow.
+
+• Highlight common mistakes.
+
+• Use icons, charts and visual hierarchy.
+
+The design should be suitable for classroom display and student revision.</div>
+        <button class="copy-btn" onclick="copyText('p8a', this)">
+          <span>Copy Prompt 8 Content</span>
+        </button>
+      </div>
+
+      <!-- Prompt 8 Header (As listed in user request) -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt 8: Classroom Infographic</span>
+        </div>
+        <div class="prompt-content" id="p8b">Prompt 8: Classroom Infographic</div>
+        <button class="copy-btn" onclick="copyText('p8b', this)">
+          <span>Copy Prompt 8 Header</span>
+        </button>
+      </div>
+
+      <!-- Prompt 9 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt 9: Detailed Classroom Presentation</span>
+        </div>
+        <div class="prompt-content" id="p9">Create a detailed classroom presentation for the CBSE Class 10 Statistics chapter.
+
+Requirements:
+
+• One concept per slide.
+
+• Clear learning objectives.
+
+• Visual explanation of formulas.
+
+• Worked examples.
+
+• Practice questions after every major topic.
+
+• Summary slide.
+
+• Revision slide.
+
+The presentation should be ready to use in a classroom without major editing.</div>
+        <button class="copy-btn" onclick="copyText('p9', this)">
+          <span>Copy Prompt 9</span>
+        </button>
+      </div>
+
+      <!-- Prompt 10 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt 10: 40-Minute Classroom Lesson Plan</span>
+        </div>
+        <div class="prompt-content" id="p10">[PASTE Teacher Analysis and Teaching Blueprint below]
+
+You are an experienced CBSE Mathematics teacher.
+
+Using the Teacher Analysis and Teaching Blueprint below, create a complete 40-minute classroom lesson plan.
+
+Include:
+• Learning Objectives
+• Classroom Opening (5 min)
+• Teaching Flow
+• Teacher Talking Points
+• Worked Examples
+• Student Questions
+• Practice Activity
+• Common Misconceptions
+• Blackboard Writing Sequence
+• Homework
+• Exit Ticket
+
+Design the lesson for a mixed-ability Class 10 classroom.</div>
+        <button class="copy-btn" onclick="copyText('p10', this)">
+          <span>Copy Prompt 10</span>
+        </button>
+      </div>
+
+      <!-- Prompt 11 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt 11: Three Teaching Strategies</span>
+        </div>
+        <div class="prompt-content" id="p11">Using the same Statistics chapter, create three different teaching strategies.
+
+1. Weak Students
+2. Average Students
+3. Advanced Students
+
+For each group provide:
+• Teaching Approach
+• Classroom Example
+• Practice Questions
+• Common Mistakes
+• Assessment Strategy</div>
+        <button class="copy-btn" onclick="copyText('p11', this)">
+          <span>Copy Prompt 11</span>
+        </button>
+      </div>
+
+      <!-- Prompt 12 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt 12: Board Exam Revision Kit</span>
+        </div>
+        <div class="prompt-content" id="p12">Create a Board Exam Revision Kit for the CBSE Class 10 Statistics chapter.
+
+Include:
+• One Page Revision Notes
+• Formula Sheet
+• Common Mistakes
+• Last Minute Tips
+• Frequently Asked Questions
+• 5 Most Important Numerical Problems
+• 5 Conceptual Questions
+
+Keep the language simple and student friendly.</div>
+        <button class="copy-btn" onclick="copyText('p12', this)">
+          <span>Copy Prompt 12</span>
+        </button>
+      </div>
+
+      <!-- Prompt 13 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt 13: Five Classroom Activities</span>
+        </div>
+        <div class="prompt-content" id="p13">Design five engaging classroom activities for teaching the Statistics chapter.
+
+Requirements:
+• Suitable for CBSE Class 10
+• Low preparation required
+• Classroom friendly
+• Group activities
+• Real-life examples
+• Learning objective for each activity</div>
+        <button class="copy-btn" onclick="copyText('p13', this)">
+          <span>Copy Prompt 13</span>
+        </button>
+      </div>
+
+      <!-- Prompt 14 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt 14: Formula Mind Map → Premium 3D Educational Knowledge System</span>
+        </div>
+        <div class="prompt-content" id="p14">Transform this Formula Mind Map into a premium 3D educational knowledge system.
+
+MATHEMATICS VISUAL STYLE DNA
+
+[Paste Style DNA]
+
+Requirements
+
+• Preserve the exact formula hierarchy.
+
+• Create interconnected mathematical knowledge nodes.
+
+• Every formula should appear as a glowing knowledge card.
+
+• Show visual connections between related formulas.
+
+• Use clean educational typography.
+
+• Blue academic color palette.
+
+• White minimal background.
+
+• Premium presentation quality.
+
+• Designed for classroom projection.
+
+Aspect Ratio 16:9</div>
+        <button class="copy-btn" onclick="copyText('p14', this)">
+          <span>Copy Prompt 14</span>
+        </button>
+      </div>
+
+      <!-- Prompt 15 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt 15: Teacher Mind Map → Premium Isometric Educational Knowledge System</span>
+        </div>
+        <div class="prompt-content" id="p15">Transform this Teacher Mind Map into a premium isometric educational knowledge system.
+
+MATHEMATICS VISUAL STYLE DNA
+
+[Paste Style DNA]
+
+Requirements
+
+• Preserve hierarchy.
+
+• Create connected learning zones.
+
+• Show concept progression.
+
+• Use educational icons.
+
+• Premium classroom dashboard design.
+
+• Presentation quality.
+
+Aspect Ratio 16:9</div>
+        <button class="copy-btn" onclick="copyText('p15', this)">
+          <span>Copy Prompt 15</span>
+        </button>
+      </div>
+
+      <!-- Prompt 16 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt 16: Premium Educational Comparison Infographic</span>
+        </div>
+        <div class="prompt-content" id="p16">Create a premium educational comparison infographic.
+
+INPUT
+
+[Paste Gemini Comparison]
+
+MATHEMATICS VISUAL STYLE DNA
+
+[Paste]
+
+Requirements
+
+• Three-column comparison.
+
+• Large educational icons.
+
+• Formula section.
+
+• Real-life examples.
+
+• Common mistakes.
+
+• Modern educational design.
+
+Aspect Ratio 16:9</div>
+        <button class="copy-btn" onclick="copyText('p16', this)">
+          <span>Copy Prompt 16</span>
+        </button>
+      </div>
+
+      <!-- Prompt 17 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt 17: Premium Classroom Revision Poster</span>
+        </div>
+        <div class="prompt-content" id="p17">Create a premium classroom revision poster.
+
+INPUT
+
+[Revision Kit]
+
+MATHEMATICS VISUAL STYLE DNA
+
+[Paste]
+
+Requirements
+
+• Strong visual hierarchy.
+
+• Formula section.
+
+• Quick revision section.
+
+• Common mistakes.
+
+• Exam tips.
+
+• Premium printable design.
+
+Aspect Ratio 16:9</div>
+        <button class="copy-btn" onclick="copyText('p17', this)">
+          <span>Copy Prompt 17</span>
+        </button>
+      </div>
+
+      <!-- Prompt 18 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt 18: Redesign Educational Presentation into a Premium Classroom Presentation</span>
+        </div>
+        <div class="prompt-content" id="p18">Redesign this educational presentation into a premium classroom presentation.
+
+INPUT
+
+[NotebookLM Slides]
+
+MATHEMATICS VISUAL STYLE DNA
+
+[Paste]
+
+Requirements
+
+• Better visual hierarchy.
+
+• Premium educational graphics.
+
+• Consistent icons.
+
+• Modern classroom presentation.
+
+• Professional typography.
+
+• Blue educational theme.
+
+Aspect Ratio 16:9</div>
+        <button class="copy-btn" onclick="copyText('p18', this)">
+          <span>Copy Prompt 18</span>
+        </button>
+      </div>
+
+    </div>
+
+    <footer class="footer">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    function copyText(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<span>Copied to Clipboard!</span>`;
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
