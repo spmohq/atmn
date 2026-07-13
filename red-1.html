@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link Manager - Create New Link</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #f4f7f9;
+            --card-bg: #ffffff;
+            --header-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            --accent-blue: #4f46e5;
+            --accent-gradient: linear-gradient(90deg, #6366f1, #4f46e5);
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --border-color: #e5e7eb;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary-bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .header {
+            background: var(--header-gradient);
+            padding: 40px 50px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
+            text-transform: capitalize;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: #94a3b8;
+        }
+
+        .content {
+            padding: 40px 50px;
+        }
+
+        .section-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .section-title::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: var(--border-color);
+            margin-left: 15px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 35px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full { grid-column: span 2; }
+
+        label {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+        }
+
+        label .req { color: #f97316; margin-left: 4px; }
+        label .info-icon {
+            background: #e5e7eb;
+            color: #9ca3af;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            margin-left: 8px;
+            cursor: help;
+        }
+
+        input, select, textarea {
+            padding: 12px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 14px;
+            color: var(--text-main);
+            transition: all 0.2s;
+            background: #fff;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+            font-family: monospace;
+            background: #f9fafb;
+        }
+
+        .hint {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+
+        .footer {
+            padding: 0 50px 40px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .btn-create {
+            background: var(--accent-gradient);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.4);
+        }
+
+        .btn-create:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.5);
+        }
+
+        @media (max-width: 600px) {
+            .form-grid { grid-template-columns: 1fr; }
+            .form-group.full { grid-column: span 1; }
+            .header, .content, .footer { padding: 30px 20px; }
+            .header h1 { font-size: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Create New Link</h1>
+        <p>Configure a new short link with redirect settings and optional metadata.</p>
+    </div>
+
+    <div class="content">
+        <div class="section-title">Core Settings</div>
+        
+        <div class="form-grid">
+            <div class="form-group">
+                <label>Target URL <span class="req">*</span> <span class="info-icon">?</span></label>
+                <input type="url" id="targetUrl" placeholder="https://example.com/your-long-url" required>
+            </div>
+            <div class="form-group">
+                <label>Short Code <span class="req">*</span> <span class="info-icon">?</span></label>
+                <input type="text" id="shortCode" placeholder="e.g. summer-sale" required>
+            </div>
+            <div class="form-group full">
+                <label>Redirect Type <span class="info-icon">?</span></label>
+                <select id="redirectType">
+                    <option value="301">Permanent Redirect (301)</option>
+                    <option value="302">Temporary Redirect (302)</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="section-title">Tracking</div>
+        
+        <div class="form-group full">
+            <label>Retargeting Code <span class="info-icon">?</span></label>
+            <textarea id="pixelCode" placeholder="<!-- Paste tracking pixels or scripts here -->"></textarea>
+            <p class="hint">Accepts raw HTML/JS snippet. Runs before redirect.</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        <button class="btn-create" onclick="generateBridgePage()">
+            <span>+</span> Create Link
+        </button>
+    </div>
+</div>
+
+<script>
+    function generateBridgePage() {
+        const targetUrl = document.getElementById('targetUrl').value;
+        const shortCode = document.getElementById('shortCode').value || 'link';
+        const pixelCode = document.getElementById('pixelCode').value;
+
+        if (!targetUrl) {
+            alert("Please enter a Target URL");
+            return;
+        }
+
+        // Base64 encode the URL to hide it from plain text search
+        const encodedUrl = btoa(targetUrl);
+
+        const bridgeTemplate = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    ${pixelCode}
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0f172a;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            padding: 20px;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 24px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        .icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+        h2 { margin-bottom: 10px; font-size: 22px; }
+        p { color: #94a3b8; font-size: 14px; margin-bottom: 30px; line-height: 1.5; }
+        .btn {
+            background: linear-gradient(90deg, #6366f1, #4f46e5);
+            color: white;
+            border: none;
+            padding: 16px 30px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s;
+            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.4);
+        }
+        .btn:active { transform: scale(0.98); }
+        .lang-switcher {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .lang-switcher span {
+            font-size: 12px;
+            color: #64748b;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="icon">🔗</div>
+        <h2 id="title">You are almost there!</h2>
+        <p id="desc">Click the button below to proceed to your destination. By clicking, you consent to the redirect.</p>
+        <button class="btn" id="btn" onclick="proceed()">Continue to Link</button>
+        
+        <div class="lang-switcher">
+            <span onclick="setLang('en')">English</span>
+            <span onclick="setLang('bn')">বাংলা</span>
+            <span onclick="setLang('hi')">हिन्दी</span>
+        </div>
+    </div>
+
+    <script>
+        const translations = {
+            en: {
+                title: "You are almost there!",
+                desc: "Click the button below to proceed to your destination. By clicking, you consent to the redirect.",
+                btn: "Continue to Link"
+            },
+            bn: {
+                title: "আপনি প্রায় পৌঁছে গেছেন!",
+                desc: "আপনার গন্তব্যে এগিয়ে যেতে নিচের বোতামে ক্লিক করুন। ক্লিক করার মাধ্যমে, আপনি পুনঃনির্দেশে সম্মতি দিচ্ছেন।",
+                btn: "লিঙ্কে যান"
+            },
+            hi: {
+                title: "आप लगभग वहाँ हैं!",
+                desc: "अपने गंतव्य पर जाने के लिए नीचे दिए गए बटन पर क्लिक करें। क्लिक करके, आप रीडायरेक्ट के लिए अपनी सहमति देते हैं।",
+                btn: "लिंक पर जाएँ"
+            }
+        };
+
+        function setLang(lang) {
+            document.getElementById('title').innerText = translations[lang].title;
+            document.getElementById('desc').innerText = translations[lang].desc;
+            document.getElementById('btn').innerText = translations[lang].btn;
+        }
+
+        // Auto detect language
+        const userLang = navigator.language.substring(0, 2);
+        if (translations[userLang]) setLang(userLang);
+
+        function proceed() {
+            const secret = "${encodedUrl}";
+            window.location.href = atob(secret);
+        }
+    <\/script>
+</body>
+</html>`;
+
+        // Download the file
+        const blob = new Blob([bridgeTemplate], { type: 'text/html' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `${shortCode}.html`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
+</script>
+
+</body>
+</html>

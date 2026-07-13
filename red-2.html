@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link Creator - Content OS Style</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* UI Creator Styles - Inspired by the Image */
+        :root {
+            --ui-bg: #f4f7f9;
+            --ui-header: linear-gradient(135deg, #020617 0%, #1e293b 100%);
+            --accent: #2563eb;
+            --accent-hover: #1d4ed8;
+            --border: #e5e7eb;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--ui-bg); display: flex; justify-content: center; padding: 40px 20px; }
+
+        .container { 
+            width: 100%; max-width: 850px; background: white; border-radius: 16px; 
+            overflow: hidden; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); 
+        }
+
+        .header { background: var(--ui-header); padding: 40px 50px; color: white; }
+        .header h1 { font-size: 32px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px; }
+        .header p { color: #94a3b8; font-size: 14px; }
+
+        .content { padding: 40px 50px; }
+        .section-divider { 
+            font-size: 12px; font-weight: 700; color: #9ca3af; text-transform: uppercase; 
+            letter-spacing: 1px; display: flex; align-items: center; margin: 30px 0 20px 0; 
+        }
+        .section-divider::after { content: ""; flex: 1; height: 1px; background: var(--border); margin-left: 15px; }
+
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .full-width { grid-column: span 2; }
+
+        label { display: block; font-size: 14px; font-weight: 600; color: var(--text-main); margin-bottom: 8px; }
+        label .req { color: #f97316; margin-left: 3px; }
+        label .info { background: #e5e7eb; color: #9ca3af; border-radius: 50%; width: 16px; height: 16px; display: inline-flex; align-items: center; justify-content: center; font-size: 10px; margin-left: 6px; cursor: help; }
+
+        input, select, textarea { 
+            width: 100%; padding: 12px 16px; border: 1px solid var(--border); border-radius: 10px; 
+            font-size: 14px; transition: all 0.2s; background: #fff; font-family: inherit;
+        }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
+
+        .hint { font-size: 12px; color: var(--text-muted); margin-top: 8px; }
+
+        .footer { padding: 0 50px 40px; display: flex; justify-content: flex-end; }
+        .btn-submit { 
+            background: var(--accent); color: white; border: none; padding: 14px 28px; 
+            border-radius: 10px; font-weight: 600; font-size: 15px; cursor: pointer; 
+            display: flex; align-items: center; gap: 8px; transition: background 0.2s;
+        }
+        .btn-submit:hover { background: var(--accent-hover); }
+
+        @media (max-width: 600px) {
+            .form-grid { grid-template-columns: 1fr; }
+            .full-width { grid-column: span 1; }
+            .header, .content, .footer { padding: 25px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Create New Link</h1>
+        <p>Configure a new short link with redirect settings and optional metadata.</p>
+    </div>
+
+    <div class="content">
+        <div class="section-divider">Core Settings</div>
+        <div class="form-grid">
+            <div>
+                <label>Target URL <span class="req">*</span> <span class="info">?</span></label>
+                <input type="url" id="targetUrl" placeholder="https://example.com/long-link" required>
+            </div>
+            <div>
+                <label>Short Code <span class="req">*</span> <span class="info">?</span></label>
+                <input type="text" id="shortCode" placeholder="e.g. summer-sale" required>
+            </div>
+            <div class="full-width">
+                <label>Redirect Type <span class="info">?</span></label>
+                <select id="redirectType">
+                    <option value="301">Permanent Redirect (301)</option>
+                    <option value="302">Temporary Redirect (302)</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="section-divider">Tracking</div>
+        <div class="full-width">
+            <label>Retargeting Code <span class="info">?</span></label>
+            <textarea id="pixelCode" placeholder="<!-- Paste tracking pixels or scripts here -->"></textarea>
+            <p class="hint">Accepts raw HTML/JS snippet. Runs before redirect.</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        <button class="btn-submit" onclick="generateBridge()">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"></path></svg>
+            Create Link
+        </button>
+    </div>
+</div>
+
+<script>
+    function generateBridge() {
+        const targetUrl = document.getElementById('targetUrl').value;
+        const shortCode = document.getElementById('shortCode').value || 'redirect';
+        const pixel = document.getElementById('pixelCode').value;
+
+        if (!targetUrl) { alert("Please enter a Target URL"); return; }
+
+        // Security: Encode URL so it's not visible in source code easily
+        const secret = btoa(targetUrl);
+
+        const bridgeHTML = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    ${pixel}
+    <style>
+        /* Applied Brand Colors from Content OS Style */
+        :root {
+            --bg: #f4f6f9;
+            --surface: #ffffff;
+            --primary: #2563eb;
+            --primaryHover: #1d4ed8;
+            --text: #1f2937;
+            --textLight: #6b7280;
+            --border: #e5e7eb;
+            --radius: 14px;
+            --shadow: 0 10px 30px rgba(0,0,0,.08);
+        }
+
+        body {
+            font-family: 'Inter', "Segoe UI", Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .card {
+            background: var(--surface);
+            padding: 40px 30px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .icon-box {
+            width: 64px;
+            height: 64px;
+            background: #eff6ff;
+            color: var(--primary);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px auto;
+        }
+
+        h2 { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+        p { color: var(--textLight); line-height: 1.6; margin-bottom: 32px; font-size: 15px; }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.2s;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        .btn:hover { background: var(--primaryHover); transform: translateY(-1px); }
+        .btn:active { transform: translateY(0); }
+
+        .lang-nav {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+        }
+
+        .lang-nav span {
+            font-size: 13px;
+            color: var(--primary);
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .lang-nav span:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="icon-box">
+            <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+        </div>
+        <h2 id="title">Redirecting You</h2>
+        <p id="desc">You are being sent to an external link. Please click the button below to confirm your consent and proceed.</p>
+        
+        <!-- No href attribute to hide URL on hover -->
+        <button class="btn" id="mainBtn" onclick="go()">Continue to Link</button>
+
+        <div class="lang-nav">
+            <span onclick="setLang('en')">English</span>
+            <span onclick="setLang('bn')">বাংলা</span>
+            <span onclick="setLang('hi')">हिन्दी</span>
+        </div>
+    </div>
+
+    <script>
+        const content = {
+            en: { t: "Redirecting You", d: "You are being sent to an external link. Please click the button below to confirm your consent and proceed.", b: "Continue to Link" },
+            bn: { t: "পুনঃনির্দেশ করা হচ্ছে", d: "আপনাকে একটি বাহ্যিক লিঙ্কে পাঠানো হচ্ছে। আপনার সম্মতি নিশ্চিত করতে এবং এগিয়ে যেতে নিচের বোতামে ক্লিক করুন।", b: "লিঙ্কে এগিয়ে যান" },
+            hi: { t: "आपको रीडायरेक्ट किया जा रहा है", d: "आपको एक बाहरी लिंक पर भेजा जा रहा है। अपनी सहमति की पुष्टि करने और आगे बढ़ने के लिए कृपया नीचे दिए गए बटन पर क्लिक करें।", b: "लिंक पर जारी रखें" }
+        };
+
+        function setLang(l) {
+            document.getElementById('title').innerText = content[l].t;
+            document.getElementById('desc').innerText = content[l].d;
+            document.getElementById('mainBtn').innerText = content[l].b;
+        }
+
+        // Auto-detect browser language
+        const userLang = navigator.language.split('-')[0];
+        if (content[userLang]) setLang(userLang);
+
+        function go() {
+            const data = "${secret}";
+            window.location.href = atob(data);
+        }
+    <\/script>
+</body>
+</html>`;
+
+        const blob = new Blob([bridgeHTML], { type: 'text/html' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `${shortCode}.html`;
+        link.click();
+    }
+</script>
+
+</body>
+</html>
