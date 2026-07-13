@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Product Review | Prompt Genie</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient-start: #020617;
+      --bg-gradient-end: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.4);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-primary: #22d3ee;
+      --accent-hover: #67e8f9;
+      --accent-success: #10b981;
+      --code-bg: rgba(0, 0, 0, 0.3);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+      --input-bg: rgba(15, 23, 42, 0.6);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: fixed linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 60px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 850px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      text-transform: uppercase;
+    }
+
+    .workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .label-group {
+      margin-bottom: 15px;
+    }
+
+    .step-label {
+      font-weight: 800;
+      font-size: 0.75rem;
+      background: var(--accent-primary);
+      color: #020617;
+      padding: 4px 12px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    .field-title {
+      display: block;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 100px;
+      background: var(--input-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 15px;
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      resize: vertical;
+      outline: none;
+      transition: all 0.3s;
+    }
+
+    textarea:focus {
+      border-color: var(--accent-primary);
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    .prompt-output-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 35px;
+    }
+
+    .prompt-content {
+      background: var(--code-bg);
+      padding: 30px;
+      border-radius: 12px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 25px;
+      line-height: 1.5;
+      max-height: 500px;
+      overflow-y: auto;
+    }
+
+    .prompt-content::-webkit-scrollbar {
+      width: 8px;
+    }
+    .prompt-content::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .prompt-content::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+
+    .copy-btn {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+      padding: 14px 32px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+      width: 100%;
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-primary);
+      color: #020617;
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-success);
+      border-color: var(--accent-success);
+      color: white;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 40px;
+      width: 100%;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.8rem; }
+      .step-card, .prompt-output-card { padding: 20px; }
+      .prompt-content { font-size: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Product Review</h1>
+    </header>
+
+    <div class="workflow">
+      
+      <!-- Input Section -->
+      <div class="step-card">
+        <div class="label-group">
+          <span class="step-label">Product Name Input</span>
+          <span class="field-title">[product name]</span>
+          <textarea id="pNameInput" placeholder="Enter product name..."></textarea>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="label-group">
+          <span class="step-label">Product Details Input</span>
+          <span class="field-title">[details for the said product]</span>
+          <textarea id="pDetailsInput" placeholder="Enter product details..." style="min-height: 180px;"></textarea>
+        </div>
+      </div>
+
+      <!-- Prompt 1 -->
+      <div class="prompt-output-card">
+        <span class="step-label">PROMPT 1</span>
+        <div class="prompt-content" id="p1Display"></div>
+        <button class="copy-btn" onclick="copyText('p1Display', this)">
+          <span>Copy Prompt 1</span>
+        </button>
+      </div>
+
+      <!-- Prompt 2 -->
+      <div class="prompt-output-card">
+        <span class="step-label">PROMPT 2</span>
+        <div class="prompt-content" id="p2Display"></div>
+        <button class="copy-btn" onclick="copyText('p2Display', this)">
+          <span>Copy Prompt 2</span>
+        </button>
+      </div>
+
+      <!-- Prompt 3 -->
+      <div class="prompt-output-card">
+        <span class="step-label">PROMPT 3 (FOR NEW PRODUCTS)</span>
+        <div class="prompt-content" id="p3Display"></div>
+        <button class="copy-btn" onclick="copyText('p3Display', this)">
+          <span>Copy Prompt 3</span>
+        </button>
+      </div>
+
+      <!-- Prompt 4 -->
+      <div class="prompt-output-card">
+        <span class="step-label">PROMPT 4</span>
+        <div class="prompt-content" id="p4Display"></div>
+        <button class="copy-btn" onclick="copyText('p4Display', this)">
+          <span>Copy Prompt 4</span>
+        </button>
+      </div>
+
+      <!-- Prompt 5 -->
+      <div class="prompt-output-card">
+        <span class="step-label">PROMPT 5</span>
+        <div class="prompt-content" id="p5Display"></div>
+        <button class="copy-btn" onclick="copyText('p5Display', this)">
+          <span>Copy Prompt 5</span>
+        </button>
+      </div>
+
+    </div>
+
+    <footer class="footer">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    const p1Template = `ROLE
+
+You are an expert Product Review Writer, Consumer Research Analyst, Copywriter, and Technical Product Evaluator. Your job is to write accurate, balanced, informative, and engaging product reviews that help readers make informed purchasing decisions.
+
+BENGALI LOCALIZATION LAYER
+
+Please write the output of the PROMPT below in the most spontaneous, natural-sounding modern conversational Bengali as spoken in Kolkata, West Bengal, India.
+
+The writing should be easy for a 21-year-old to understand while maintaining high editorial quality, clarity, precision, and natural readability.
+
+Strict Rules
+
+- Reflect Kolkata conversational cadence through sentence rhythm and phrasing by using slightly formal, polite, and smoothly flowing sentence structures with balanced pacing. Avoid slang, regional grammar, overly literary wording, or awkward literal translations.
+- Always use the formal "আপনি", never "তুমি".
+- The tone should remain warm, conversational, approachable, confident, and quietly authoritative.
+- Write as if speaking directly to one person in a natural face-to-face conversation.
+- Do "not" translate literally. Rewrite naturally so the output feels as though it was originally written in Bengali.
+- Preserve the original meaning, intent, emotional tone, and persuasive effect without adding, removing, or changing information.
+
+TASK
+
+Please write a comprehensive review of "[product name]", including:
+
+- Introduction
+- Features
+- Benefits
+- Pros
+- Cons
+- Final Thoughts
+
+Use the information below as your primary source.
+
+DETAILS FOR THE SAID PRODUCT
+
+[details for the said product]`;
+
+    const p2Template = `ROLE
+
+You are an expert Product Comparison Specialist, Consumer Research Analyst, Copywriter, and Product Evaluation Expert. Your job is to compare products objectively, highlighting meaningful differences to help readers choose the best option for their needs.
+
+BENGALI LOCALIZATION LAYER
+
+Please write the output of the PROMPT below in the most spontaneous, natural-sounding modern conversational Bengali as spoken in Kolkata, West Bengal, India.
+
+The writing should be easy for a 21-year-old to understand while maintaining high editorial quality, clarity, precision, and natural readability.
+
+Strict Rules
+
+- Reflect Kolkata conversational cadence through sentence rhythm and phrasing by using slightly formal, polite, and smoothly flowing sentence structures with balanced pacing. Avoid slang, regional grammar, overly literary wording, or awkward literal translations.
+- Always use the formal "আপনি", never "তুমি".
+- The tone should remain warm, conversational, approachable, confident, and quietly authoritative.
+- Write as if speaking directly to one person in a natural face-to-face conversation.
+- Do "not" translate literally. Rewrite naturally so the output feels as though it was originally written in Bengali.
+- Preserve the original meaning, intent, emotional tone, and persuasive effect without adding, removing, or changing information.
+
+TASK
+
+Please write a product review comparing "[product name]" with "[product name]" in terms of:
+
+- Quality
+- Features
+- Benefits
+- Price
+- Value for Money
+- Which Product Is Best For Different Types of Buyers
+- Final Verdict
+
+Use the information below as your primary source.
+
+DETAILS FOR THE SAID PRODUCT
+
+[details for the said product]`;
+
+    const p3Template = `ROLE
+
+You are an expert Product Launch Reviewer, Consumer Research Analyst, Product Copywriter, and Technical Product Evaluator. Your job is to create informative product reviews based solely on the available product information, without inventing or assuming real-world user experiences.
+
+BENGALI LOCALIZATION LAYER
+
+Please write the output of the PROMPT below in the most spontaneous, natural-sounding modern conversational Bengali as spoken in Kolkata, West Bengal, India.
+
+The writing should be easy for a 21-year-old to understand while maintaining high editorial quality, clarity, precision, and natural readability.
+
+Strict Rules
+
+- Reflect Kolkata conversational cadence through sentence rhythm and phrasing by using slightly formal, polite, and smoothly flowing sentence structures with balanced pacing. Avoid slang, regional grammar, overly literary wording, or awkward literal translations.
+- Always use the formal "আপনি", never "তুমি".
+- The tone should remain warm, conversational, approachable, confident, and quietly authoritative.
+- Write as if speaking directly to one person in a natural face-to-face conversation.
+- Do "not" translate literally. Rewrite naturally so the output feels as though it was originally written in Bengali.
+- Preserve the original meaning, intent, emotional tone, and persuasive effect without adding, removing, or changing information.
+
+TASK
+
+Please study the text below and write a detailed product review that includes:
+
+- Introduction
+- Features
+- Benefits
+- Pros
+- Cons
+- Final Thoughts
+
+Base your review only on the information provided below.
+
+DETAILS FOR THE SAID PRODUCT
+
+[details for the said product]`;
+
+    const p4Template = `ROLE
+
+You are an expert Review Copywriter, Storytelling Specialist, and Consumer Experience Writer. Your job is to write authentic, relatable first-person product reviews that feel natural and believable while remaining consistent with the provided product information.
+
+BENGALI LOCALIZATION LAYER
+
+Please write the output of the PROMPT below in the most spontaneous, natural-sounding modern conversational Bengali as spoken in Kolkata, West Bengal, India.
+
+The writing should be easy for a 21-year-old to understand while maintaining high editorial quality, clarity, precision, and natural readability.
+
+Strict Rules
+
+- Reflect Kolkata conversational cadence through sentence rhythm and phrasing by using slightly formal, polite, and smoothly flowing sentence structures with balanced pacing. Avoid slang, regional grammar, overly literary wording, or awkward literal translations.
+- Always use the formal "আপনি", never "তুমি".
+- The tone should remain warm, conversational, approachable, confident, and quietly authoritative.
+- Write as if speaking directly to one person in a natural face-to-face conversation.
+- Do "not" translate literally. Rewrite naturally so the output feels as though it was originally written in Bengali.
+- Preserve the original meaning, intent, emotional tone, and persuasive effect without adding, removing, or changing information.
+
+TASK
+
+Write a review in the first person, pretending you have purchased and used "[product name]".
+
+Your review should naturally describe:
+
+- Why you bought it
+- Your first impressions
+- Your experience using it
+- What you liked
+- Any drawbacks
+- Whether you would recommend it
+- Final thoughts
+
+Here are the product details:
+
+[details for the said product]`;
+
+    const p5Template = `ROLE
+
+You are an expert Personal Experience Writer, Storytelling Copywriter, and Content Marketing Specialist. Your job is to write engaging first-person articles that feel authentic, relatable, and persuasive while remaining faithful to the provided product information.
+
+BENGALI LOCALIZATION LAYER
+
+Please write the output of the PROMPT below in the most spontaneous, natural-sounding modern conversational Bengali as spoken in Kolkata, West Bengal, India.
+
+The writing should be easy for a 21-year-old to understand while maintaining high editorial quality, clarity, precision, and natural readability.
+
+Strict Rules
+
+- Reflect Kolkata conversational cadence through sentence rhythm and phrasing by using slightly formal, polite, and smoothly flowing sentence structures with balanced pacing. Avoid slang, regional grammar, overly literary wording, or awkward literal translations.
+- Always use the formal "আপনি", never "তুমি".
+- The tone should remain warm, conversational, approachable, confident, and quietly authoritative.
+- Write as if speaking directly to one person in a natural face-to-face conversation.
+- Do "not" translate literally. Rewrite naturally so the output feels as though it was originally written in Bengali.
+- Preserve the original meaning, intent, emotional tone, and persuasive effect without adding, removing, or changing information.
+
+TASK
+
+Write a short article that shares a personal experience with readers.
+
+Write it in the first person, pretending you:
+
+- Bought the product
+- Used the product
+- Experienced its features
+- Achieved its intended results
+- Learned something from the experience
+- Would recommend (or not recommend) it based on your experience
+
+Make the article natural, conversational, and engaging.
+
+Here are the details for the article:
+
+[details for the said product]`;
+
+    const nameInput = document.getElementById('pNameInput');
+    const detailsInput = document.getElementById('pDetailsInput');
+
+    function updatePrompts() {
+      const name = nameInput.value || "[product name]";
+      const details = detailsInput.value || "[details for the said product]";
+
+      const displays = [
+        { id: 'p1Display', template: p1Template },
+        { id: 'p2Display', template: p2Template },
+        { id: 'p3Display', template: p3Template },
+        { id: 'p4Display', template: p4Template },
+        { id: 'p5Display', template: p5Template }
+      ];
+
+      displays.forEach(d => {
+        let content = d.template.split('[product name]').join(name);
+        content = content.split('[details for the said product]').join(details);
+        document.getElementById(d.id).innerText = content;
+      });
+    }
+
+    nameInput.addEventListener('input', updatePrompts);
+    detailsInput.addEventListener('input', updatePrompts);
+
+    function copyText(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<span>Copied to Clipboard!</span>`;
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    // Initial trigger
+    updatePrompts();
+  </script>
+</body>
+</html>
