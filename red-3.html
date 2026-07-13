@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Link Console</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap" rel="stylesheet">
+    <style>
+        /* CREATOR UI STYLES (Imitating the provided image with a luxury twist) */
+        :root {
+            --ui-dark: #0f172a;
+            --gold: #C89B3C;
+            --bronze: #8B5E1A;
+            --ivory: #F8F4EC;
+            --brown: #35271A;
+            --accent-grad: linear-gradient(135deg, #8B5E1A 0%, #C89B3C 100%);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #f1f5f9; 
+            display: flex; 
+            justify-content: center; 
+            padding: 40px 20px;
+            color: #334155;
+        }
+
+        .container { 
+            width: 100%; 
+            max-width: 850px; 
+            background: white; 
+            border-radius: 24px; 
+            overflow: hidden; 
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15); 
+        }
+
+        .header { 
+            background: linear-gradient(135deg, #020617 0%, #1e293b 100%); 
+            padding: 50px; 
+            color: white; 
+            position: relative;
+        }
+        .header h1 { 
+            font-family: 'Playfair Display', serif;
+            font-size: 36px; 
+            font-weight: 800; 
+            letter-spacing: -1px; 
+            margin-bottom: 10px;
+        }
+        .header p { color: #94a3b8; font-size: 15px; font-weight: 400; }
+
+        .content { padding: 40px 50px; }
+        .section-label { 
+            font-size: 12px; 
+            font-weight: 700; 
+            color: #94a3b8; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            display: flex; 
+            align-items: center; 
+            margin: 30px 0 20px 0; 
+        }
+        .section-label::after { content: ""; flex: 1; height: 1px; background: #e2e8f0; margin-left: 15px; }
+
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+        .full { grid-column: span 2; }
+
+        label { display: block; font-size: 14px; font-weight: 600; color: #1e293b; margin-bottom: 10px; }
+        label .req { color: #f59e0b; margin-left: 3px; }
+
+        input, select, textarea { 
+            width: 100%; padding: 15px; border: 1.5px solid #e2e8f0; border-radius: 12px; 
+            font-size: 15px; transition: 0.3s; background: #f8fafc; font-family: inherit;
+        }
+        input:focus { outline: none; border-color: var(--bronze); background: white; box-shadow: 0 0 0 4px rgba(139, 94, 26, 0.1); }
+
+        .footer { padding: 0 50px 50px; display: flex; justify-content: flex-end; }
+        
+        .btn-create { 
+            background: var(--accent-grad); 
+            color: white; 
+            border: none; 
+            padding: 16px 35px; 
+            border-radius: 14px; 
+            font-weight: 700; 
+            font-size: 16px; 
+            cursor: pointer; 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 20px -5px rgba(139, 94, 26, 0.4);
+        }
+        .btn-create:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 20px 30px -10px rgba(139, 94, 26, 0.5); }
+
+        @media (max-width: 600px) {
+            .grid { grid-template-columns: 1fr; }
+            .full { grid-column: span 1; }
+            .header, .content, .footer { padding: 30px 25px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Create New Link</h1>
+        <p>Craft a high-end, responsive bridge experience for your target audience.</p>
+    </div>
+
+    <div class="content">
+        <div class="section-label">Core Settings</div>
+        <div class="grid">
+            <div>
+                <label>Target URL <span class="req">*</span></label>
+                <input type="url" id="targetUrl" placeholder="https://your-luxury-destination.com" required>
+            </div>
+            <div>
+                <label>Short Code <span class="req">*</span></label>
+                <input type="text" id="shortCode" placeholder="e.g. exclusive-access" required>
+            </div>
+            <div class="full">
+                <label>Redirect Type</label>
+                <select id="redirectType">
+                    <option value="301">Glossy Fade Redirect (Permanent)</option>
+                    <option value="302">Temporary Access (302)</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="section-label">Tracking & Scripts</div>
+        <div class="full">
+            <label>Retargeting Snippet</label>
+            <textarea id="pixelCode" placeholder="<!-- Insert tracking pixels here -->"></textarea>
+        </div>
+    </div>
+
+    <div class="footer">
+        <button class="btn-create" onclick="generateGlossyBridge()">
+            <span style="font-size: 20px;">+</span> Create Luxury Bridge
+        </button>
+    </div>
+</div>
+
+<script>
+    function generateGlossyBridge() {
+        const targetUrl = document.getElementById('targetUrl').value;
+        const shortCode = document.getElementById('shortCode').value || 'link';
+        const pixel = document.getElementById('pixelCode').value;
+
+        if (!targetUrl) { alert("Target URL is required."); return; }
+
+        // Obscure the URL via Base64
+        const secret = btoa(targetUrl);
+
+        const glossyTemplate = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proceed to Invitation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    ${pixel}
+    <style>
+        :root {
+            --gold: #C89B3C;
+            --bronze: #8B5E1A;
+            --ivory: #F8F4EC;
+            --cream: #FFFDF8;
+            --brown: #35271A;
+            --gloss-grad: linear-gradient(135deg, #8B5E1A 0%, #C89B3C 50%, #8B5E1A 100%);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--ivory);
+            background-image: radial-gradient(circle at 50% -20%, #ffffff 0%, var(--ivory) 80%);
+            color: var(--brown);
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .glossy-card {
+            background: var(--cream);
+            width: 100%;
+            max-width: 500px;
+            padding: 60px 40px;
+            border-radius: 30px;
+            text-align: center;
+            position: relative;
+            box-shadow: 
+                0 30px 60px -12px rgba(53, 39, 26, 0.15),
+                inset 0 1px 1px rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(200, 155, 60, 0.2);
+            overflow: hidden;
+        }
+
+        /* The Gloss Effect Overlay */
+        .glossy-card::before {
+            content: "";
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: linear-gradient(45deg, transparent 45%, rgba(255,255,255,0.4) 50%, transparent 55%);
+            transform: rotate(-20deg);
+            pointer-events: none;
+        }
+
+        .brand-icon {
+            width: 70px; height: 70px;
+            background: var(--gloss-grad);
+            border-radius: 20px;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
+            box-shadow: 0 10px 20px rgba(139, 94, 26, 0.3);
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            color: var(--brown);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #5a4a3a;
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+
+        .btn-action {
+            display: block;
+            width: 100%;
+            background: var(--gloss-grad);
+            background-size: 200% auto;
+            color: white;
+            border: none;
+            padding: 20px;
+            border-radius: 18px;
+            font-size: 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: 0.5s;
+            box-shadow: 0 15px 30px -5px rgba(139, 94, 26, 0.4);
+        }
+
+        .btn-action:hover {
+            background-position: right center;
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px -10px rgba(139, 94, 26, 0.5);
+        }
+
+        .lang-footer {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(139, 94, 26, 0.1);
+        }
+
+        .lang-footer span {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--gold);
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .lang-footer span:hover { color: var(--bronze); }
+
+        @media (max-width: 480px) {
+            .glossy-card { padding: 45px 25px; border-radius: 20px; }
+            h2 { font-size: 26px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="glossy-card">
+        <div class="brand-icon">✧</div>
+        <h2 id="tx_title">Proceeding Securely</h2>
+        <p id="tx_desc">You are about to enter a private destination. Please click below to provide consent and continue your journey.</p>
+        
+        <button class="btn-action" id="tx_btn" onclick="nav()">Enter Destination</button>
+
+        <div class="lang-footer">
+            <span onclick="set('en')">English</span>
+            <span onclick="set('bn')">বাংলা</span>
+            <span onclick="set('hi')">हिन्दी</span>
+        </div>
+    </div>
+
+    <script>
+        const content = {
+            en: { t: "Proceeding Securely", d: "You are about to enter a private destination. Please click below to provide consent and continue your journey.", b: "Enter Destination" },
+            bn: { t: "নিরাপদে প্রবেশ করুন", d: "আপনি একটি ব্যক্তিগত গন্তব্যে প্রবেশ করতে চলেছেন। এগিয়ে যেতে আপনার সম্মতি প্রদান করুন।", b: "গন্তব্যে প্রবেশ করুন" },
+            hi: { t: "सुरक्षित रूप से आगे बढ़ें", d: "आप एक निजी गंतव्य में प्रवेश करने वाले हैं। अपनी सहमति देने और जारी रखने के लिए नीचे क्लिक करें।", b: "गंतव्य में प्रवेश करें" }
+        };
+
+        function set(l) {
+            document.getElementById('tx_title').innerText = content[l].t;
+            document.getElementById('tx_desc').innerText = content[l].d;
+            document.getElementById('tx_btn').innerText = content[l].b;
+        }
+
+        // Detect language
+        const userLang = navigator.language.split('-')[0];
+        if(content[userLang]) set(userLang);
+
+        function nav() {
+            const path = "${secret}";
+            window.location.href = atob(path);
+        }
+    <\/script>
+</body>
+</html>`;
+
+        // Download logic
+        const blob = new Blob([glossyTemplate], { type: 'text/html' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `${shortCode}.html`;
+        a.click();
+    }
+</script>
+
+</body>
+</html>
