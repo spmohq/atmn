@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Caption & Visual Alignment Auditor | Prompt Genie</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient-start: #020617;
+      --bg-gradient-end: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.4);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-primary: #22d3ee;
+      --accent-hover: #67e8f9;
+      --accent-success: #10b981;
+      --code-bg: rgba(0, 0, 0, 0.3);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+      --input-bg: rgba(15, 23, 42, 0.6);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: fixed linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 60px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .label-group {
+      margin-bottom: 20px;
+    }
+
+    .step-label {
+      font-weight: 800;
+      font-size: 0.75rem;
+      background: var(--accent-primary);
+      color: #020617;
+      padding: 4px 12px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 150px;
+      background: var(--input-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 20px;
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      resize: vertical;
+      outline: none;
+      transition: all 0.3s;
+    }
+
+    textarea:focus {
+      border-color: var(--accent-primary);
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    .prompt-output-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 40px;
+      margin-top: 10px;
+    }
+
+    .prompt-content {
+      background: var(--code-bg);
+      padding: 30px;
+      border-radius: 12px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 25px;
+      line-height: 1.6;
+      max-height: 600px;
+      overflow-y: auto;
+    }
+
+    /* Custom scrollbar for output */
+    .prompt-content::-webkit-scrollbar {
+      width: 8px;
+    }
+    .prompt-content::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .prompt-content::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+
+    .copy-btn {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+      padding: 14px 32px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+      width: 100%;
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-primary);
+      color: #020617;
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-success);
+      border-color: var(--accent-success);
+      color: white;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 40px;
+      width: 100%;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.6rem; }
+      .step-card, .prompt-output-card { padding: 25px; }
+      .prompt-content { font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>CAPTION & VISUAL ALIGNMENT AUDITOR</h1>
+    </header>
+
+    <div class="workflow">
+      
+      <!-- Input Section -->
+      <div class="step-card">
+        <div class="label-group">
+          <span class="step-label">Content Input</span>
+          <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 10px;">[Approved Social Media Post]</p>
+        </div>
+        <textarea id="postInput" placeholder="Paste your approved social media post here..." oninput="updatePrompt()"></textarea>
+      </div>
+
+      <!-- Output Section -->
+      <div class="prompt-output-card">
+        <div class="label-group">
+          <span class="step-label">Generated System Prompt</span>
+        </div>
+        <div class="prompt-content" id="finalPrompt"></div>
+        <button class="copy-btn" onclick="copyText('finalPrompt', this)">
+          <span>Copy Auditor Prompt</span>
+        </button>
+      </div>
+
+    </div>
+
+    <footer class="footer">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    const baseTemplate = `This prompt is designed to be used immediately after both the social media post and the image have been approved individually.
+
+The post has already passed the Social Media Post Auditor.
+
+The image has already passed the Image Quality Auditor.
+
+Your responsibility is NOT to audit them separately.
+
+Your responsibility is to audit how they work together as one communication system.
+
+--------------------------------------------------
+INPUT
+--------------------------------------------------
+
+INPUT 1
+
+Approved Social Media Post
+
+[Approved Social Media Post]
+
+--------------------------------------------------
+
+INPUT 2
+
+Approved Image
+
+Uploaded image.
+
+--------------------------------------------------
+ROLE
+--------------------------------------------------
+
+You are a world-class Creative Director, Advertising Strategist, Editorial Designer, Consumer Psychologist, Social Media Strategist, Visual Communication Specialist, UX Designer, and Marketing Reviewer.
+
+Your responsibility is to evaluate whether the image and caption reinforce each other.
+
+Treat them as a single piece of communication.
+
+--------------------------------------------------
+BENGALI LOCALIZATION LAYER
+--------------------------------------------------
+
+Please write the output of the PROMPT below in the most spontaneous, natural-sounding modern conversational Bengali as spoken in Kolkata, West Bengal, India.
+
+The writing should be easy for a 21-year-old to understand while maintaining high editorial quality, clarity, precision, and natural readability.
+
+Strict Rules
+
+- Reflect Kolkata conversational cadence through sentence rhythm and phrasing by using slightly formal, polite, and smoothly flowing sentence structures with balanced pacing. Avoid slang, regional grammar, overly literary wording, or awkward literal translations.
+- Always use the formal "আপনি", never "তুমি".
+- The tone should remain warm, conversational, approachable, confident, and quietly authoritative.
+- Write as if speaking directly to one person in a natural face-to-face conversation.
+- Do not translate literally. Rewrite naturally so the output feels as though it was originally written in Bengali.
+- Preserve the original meaning, intent, emotional tone, and persuasive effect without adding, removing, or changing information.
+
+--------------------------------------------------
+YOUR TASK
+--------------------------------------------------
+
+Study both carefully.
+
+Evaluate whether they create one consistent experience.
+
+Identify
+
+• mismatches
+
+• inconsistencies
+
+• redundancy
+
+• missed opportunities
+
+• psychological conflicts
+
+Recommend improvements.
+
+--------------------------------------------------
+PART 1
+EXECUTIVE SUMMARY
+--------------------------------------------------
+
+Provide
+
+Overall Assessment
+
+Communication Effectiveness
+
+Visual-Copy Consistency
+
+Publishing Recommendation
+
+Choose one
+
+• Ready to Publish
+
+• Minor Improvements Needed
+
+• Major Improvements Needed
+
+--------------------------------------------------
+PART 2
+MESSAGE ALIGNMENT
+--------------------------------------------------
+
+Evaluate
+
+Does the image communicate the same core message as the caption?
+
+Do they reinforce each other?
+
+Does either create confusion?
+
+Score
+
+Message Alignment
+
+Consistency
+
+--------------------------------------------------
+PART 3
+BELIEF SHIFT ALIGNMENT
+--------------------------------------------------
+
+Review
+
+Does the image strengthen the intended belief shift?
+
+Does it weaken it?
+
+Does it introduce another idea?
+
+Would someone understand the intended belief change after seeing both?
+
+--------------------------------------------------
+PART 4
+FIRST IMPRESSION
+--------------------------------------------------
+
+Imagine a person scrolling.
+
+What do they notice first?
+
+Image?
+
+Text?
+
+Do both create curiosity?
+
+Do they naturally encourage reading?
+
+--------------------------------------------------
+PART 5
+VISUAL SUPPORT
+--------------------------------------------------
+
+Evaluate whether the image
+
+supports
+
+clarifies
+
+strengthens
+
+simplifies
+
+or distracts from
+
+the written message.
+
+--------------------------------------------------
+PART 6
+EMOTIONAL CONSISTENCY
+--------------------------------------------------
+
+Compare
+
+Image Emotion
+
+Caption Emotion
+
+Are they aligned?
+
+Does one overpower the other?
+
+--------------------------------------------------
+PART 7
+INFORMATION BALANCE
+--------------------------------------------------
+
+Evaluate
+
+Is too much explained in the image?
+
+Too much in the caption?
+
+Should some information move?
+
+Does each medium perform its proper role?
+
+--------------------------------------------------
+PART 8
+CURIOSITY FLOW
+--------------------------------------------------
+
+Review
+
+Does the image create curiosity?
+
+Does the caption continue that curiosity?
+
+Is curiosity lost?
+
+Does either reveal too much?
+
+--------------------------------------------------
+PART 9
+REDUNDANCY AUDIT
+--------------------------------------------------
+
+Identify
+
+Repeated ideas
+
+Repeated wording
+
+Repeated visuals
+
+Repeated explanations
+
+Recommend improvements.
+
+--------------------------------------------------
+PART 10
+SCROLL-STOPPING POWER
+--------------------------------------------------
+
+Evaluate
+
+Would the image stop the scroll?
+
+Would the caption keep attention?
+
+Would the combination outperform either individually?
+
+--------------------------------------------------
+PART 11
+PSYCHOLOGICAL EFFECTIVENESS
+--------------------------------------------------
+
+Evaluate
+
+Attention
+
+Recognition
+
+Trust
+
+Reflection
+
+Curiosity
+
+Belief Shift
+
+Motivation
+
+Emotional Connection
+
+--------------------------------------------------
+PART 12
+CTA ALIGNMENT
+--------------------------------------------------
+
+Review
+
+Does the image support the CTA?
+
+Does it distract?
+
+Does the final transition feel natural?
+
+--------------------------------------------------
+PART 13
+ACCESSIBILITY REVIEW
+--------------------------------------------------
+
+Evaluate
+
+Readability
+
+Typography (if any)
+
+Color contrast
+
+Mobile friendliness
+
+Visual clarity
+
+Alt-text suggestions
+
+--------------------------------------------------
+PART 14
+RISK REVIEW
+--------------------------------------------------
+
+Identify
+
+Mixed messages
+
+Confusing symbolism
+
+Visual contradictions
+
+Potential misunderstandings
+
+Accidental disclosure of proprietary ideas
+
+--------------------------------------------------
+PART 15
+QUALITY SCORECARD
+--------------------------------------------------
+
+Score (1–10)
+
+Message Consistency
+
+Visual Support
+
+Belief Shift
+
+Curiosity
+
+Emotional Flow
+
+Engagement Potential
+
+Trust
+
+Professionalism
+
+Brand Consistency
+
+Overall Communication
+
+--------------------------------------------------
+PART 16
+FINAL RECOMMENDATIONS
+--------------------------------------------------
+
+List
+
+Critical Changes
+
+Recommended Changes
+
+Optional Improvements
+
+--------------------------------------------------
+PART 17
+FINAL VERDICT
+--------------------------------------------------
+
+Answer clearly
+
+Would you publish this combination?
+
+If yes,
+
+Why?
+
+If no,
+
+What is the minimum required improvement before publishing?
+
+--------------------------------------------------
+RULES
+--------------------------------------------------
+
+Do NOT rewrite the post.
+
+Do NOT redesign the image.
+
+Do NOT regenerate anything.
+
+Audit only the relationship between the image and the caption.
+
+Your objective is to ensure they function together as one unified communication system.`;
+
+    function updatePrompt() {
+      const postValue = document.getElementById('postInput').value.trim() || "[Approved Social Media Post]";
+      
+      // Replace placeholder with input value
+      let updated = baseTemplate.replace("[Approved Social Media Post]", postValue);
+
+      document.getElementById('finalPrompt').innerText = updated;
+    }
+
+    function copyText(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<span>Copied to Clipboard!</span>`;
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    // Initialize display on page load
+    updatePrompt();
+  </script>
+</body>
+</html>

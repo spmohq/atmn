@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Social Media Post Architect | Prompt Genie</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient-start: #020617;
+      --bg-gradient-end: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.4);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-primary: #22d3ee;
+      --accent-hover: #67e8f9;
+      --accent-success: #10b981;
+      --code-bg: rgba(0, 0, 0, 0.3);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+      --input-bg: rgba(15, 23, 42, 0.6);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: fixed linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 60px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .sub-header {
+      color: var(--accent-primary);
+      font-size: 1.1rem;
+      font-weight: 600;
+      opacity: 0.8;
+      letter-spacing: 0.05em;
+    }
+
+    .workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .label-group {
+      margin-bottom: 20px;
+    }
+
+    .step-label {
+      font-weight: 800;
+      font-size: 0.75rem;
+      background: var(--accent-primary);
+      color: #020617;
+      padding: 4px 12px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 120px;
+      background: var(--input-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 20px;
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      resize: vertical;
+      outline: none;
+      transition: all 0.3s;
+    }
+
+    textarea:focus {
+      border-color: var(--accent-primary);
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    .prompt-output-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 40px;
+      margin-top: 10px;
+    }
+
+    .prompt-content {
+      background: var(--code-bg);
+      padding: 30px;
+      border-radius: 12px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.95rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 25px;
+      line-height: 1.6;
+      max-height: 600px;
+      overflow-y: auto;
+    }
+
+    /* Custom scrollbar for output */
+    .prompt-content::-webkit-scrollbar {
+      width: 8px;
+    }
+    .prompt-content::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .prompt-content::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+
+    .copy-btn {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+      padding: 14px 32px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+      width: 100%;
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-primary);
+      color: #020617;
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-success);
+      border-color: var(--accent-success);
+      color: white;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 40px;
+      width: 100%;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.6rem; }
+      .step-card, .prompt-output-card { padding: 25px; }
+      .prompt-content { font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>SOCIAL MEDIA POST ARCHITECT</h1>
+      <p class="sub-header">Standalone Reusable Follow-up Prompt Template</p>
+    </header>
+
+    <div class="workflow">
+      
+      <!-- Input Section -->
+      <div class="step-card">
+        <div class="label-group">
+          <span class="step-label">Input</span>
+        </div>
+        <textarea id="ideaInput" placeholder="Paste your selected content idea here..." oninput="updatePrompt()"></textarea>
+      </div>
+
+      <!-- Output Section -->
+      <div class="prompt-output-card">
+        <div class="label-group">
+          <span class="step-label">Generated System Prompt</span>
+        </div>
+        <div class="prompt-content" id="finalPrompt"></div>
+        <button class="copy-btn" onclick="copyText('finalPrompt', this)">
+          <span>Copy Architectural Prompt</span>
+        </button>
+      </div>
+
+    </div>
+
+    <footer class="footer">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    const baseTemplate = `This prompt is designed to be used immediately after the "Belief-Shift Content Strategist."
+
+The previous response already contains the complete strategic analysis.
+
+Use that information as context.
+
+Do NOT repeat the research.
+
+Do NOT re-analyze the technique.
+
+Only design the outline for ONE selected content idea.
+
+--------------------------------------------------
+INPUT
+--------------------------------------------------
+
+Selected Content Idea
+
+[Selected Content Idea]
+
+--------------------------------------------------
+ROLE
+--------------------------------------------------
+
+You are a world-class Social Media Strategist, Consumer Psychologist, Storytelling Expert, Educational Content Designer, Copy Strategist, and Content Architect.
+
+Your job is NOT to write the final post.
+
+Your job is to design a high-performing content blueprint that another writing system can later convert into a complete social media post.
+
+--------------------------------------------------
+BENGALI LOCALIZATION LAYER
+--------------------------------------------------
+
+Please write the output of the PROMPT below in the most spontaneous, natural-sounding modern conversational Bengali as spoken in Kolkata, West Bengal, India.
+
+The writing should be easy for a 21-year-old to understand while maintaining high editorial quality, clarity, precision, and natural readability.
+
+Strict Rules
+
+- Reflect Kolkata conversational cadence through sentence rhythm and phrasing by using slightly formal, polite, and smoothly flowing sentence structures with balanced pacing. Avoid slang, regional grammar, overly literary wording, or awkward literal translations.
+- Always use the formal "আপনি", never "তুমি".
+- The tone should remain warm, conversational, approachable, confident, and quietly authoritative.
+- Write as if speaking directly to one person in a natural face-to-face conversation.
+- Do not translate literally. Rewrite naturally so the output feels as though it was originally written in Bengali.
+- Preserve the original meaning, intent, emotional tone, and persuasive effect without adding, removing, or changing information.
+
+--------------------------------------------------
+YOUR TASK
+--------------------------------------------------
+
+Study the selected content idea.
+
+Identify its core belief shift.
+
+Infer the audience's current thinking.
+
+Infer the desired new thinking.
+
+Then create a complete post architecture.
+
+--------------------------------------------------
+OUTPUT
+--------------------------------------------------
+
+1. Core Strategy
+
+• Content Objective
+
+• Primary Belief Being Challenged
+
+• Desired New Belief
+
+• Psychological Trigger
+
+• Audience Awareness Stage
+
+• Intended Emotional Journey
+
+--------------------------------------------------
+
+2. Reader Journey
+
+Describe how the reader should move through the post.
+
+Beginning
+
+↓
+
+Attention
+
+↓
+
+Curiosity
+
+↓
+
+Recognition
+
+↓
+
+Reflection
+
+↓
+
+Belief Shift
+
+↓
+
+Motivation
+
+↓
+
+Action
+
+--------------------------------------------------
+
+3. Message Hierarchy
+
+Primary Message
+
+Supporting Message
+
+Evidence
+
+Insight
+
+Reflection
+
+Takeaway
+
+--------------------------------------------------
+
+4. Hook Ideas
+
+Generate 15 unique hook ideas.
+
+Use different styles such as
+
+• Question
+
+• Bold Statement
+
+• Surprise
+
+• Contrarian
+
+• Observation
+
+• Myth
+
+• Story
+
+• Data
+
+• Pattern Interrupt
+
+• Emotional
+
+--------------------------------------------------
+
+5. Outline Structure
+
+Generate a detailed outline.
+
+Section 1
+
+Purpose
+
+Key Point
+
+Desired Reader Emotion
+
+--------------------------------------------------
+
+Section 2
+
+Purpose
+
+Key Point
+
+Desired Reader Emotion
+
+Continue until the outline naturally ends.
+
+--------------------------------------------------
+
+6. Story Opportunities
+
+Suggest multiple story angles.
+
+Personal Story
+
+Customer Story
+
+Observation
+
+Analogy
+
+Historical
+
+Scientific
+
+Everyday Situation
+
+Conversation
+
+--------------------------------------------------
+
+7. Analogy Ideas
+
+Generate multiple analogies that naturally explain the concept without revealing the proprietary technique.
+
+--------------------------------------------------
+
+8. Reflection Questions
+
+Generate thoughtful questions that encourage the audience to challenge their existing beliefs.
+
+--------------------------------------------------
+
+9. Objection Handling
+
+Identify objections that may arise while reading.
+
+For each objection provide
+
+Objection
+
+Why it happens
+
+How the outline should address it
+
+--------------------------------------------------
+
+10. CTA Strategy
+
+Recommend the most appropriate CTA.
+
+Do NOT write the CTA.
+
+Only explain
+
+Objective
+
+Reader mindset
+
+Desired next step
+
+--------------------------------------------------
+
+11. Visual Suggestions
+
+Recommend
+
+Image idea
+
+Carousel idea
+
+Diagram idea
+
+Illustration idea
+
+Video concept
+
+--------------------------------------------------
+
+12. Engagement Opportunities
+
+Suggest places where readers are likely to
+
+Pause
+
+Think
+
+Comment
+
+Share
+
+Save
+
+--------------------------------------------------
+
+13. Things NOT to Say
+
+Identify information that should remain exclusive to the private platform.
+
+List
+
+• Implementation details
+
+• Proprietary framework
+
+• Step-by-step process
+
+• Advanced techniques
+
+• Premium insights
+
+--------------------------------------------------
+
+RULES
+
+Do NOT write the final post.
+
+Do NOT teach the technique.
+
+Do NOT reveal implementation.
+
+Do NOT explain the practical process.
+
+Create only the blueprint.
+
+The outline should maximize belief change, curiosity, trust, and readiness to learn more while protecting the proprietary method.`;
+
+    function updatePrompt() {
+      const ideaValue = document.getElementById('ideaInput').value.trim() || "[Selected Content Idea]";
+      
+      // Replace the placeholder with input value
+      let updated = baseTemplate.replace("[Selected Content Idea]", ideaValue);
+
+      document.getElementById('finalPrompt').innerText = updated;
+    }
+
+    function copyText(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<span>Copied to Clipboard!</span>`;
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    // Initialize display on page load
+    updatePrompt();
+  </script>
+</body>
+</html>

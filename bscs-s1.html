@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Belief-Shift Content Strategist | Siva Prasad Mukherjee</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient-start: #020617;
+      --bg-gradient-end: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.4);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-primary: #22d3ee;
+      --accent-hover: #67e8f9;
+      --accent-success: #10b981;
+      --code-bg: rgba(0, 0, 0, 0.3);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+      --input-bg: rgba(15, 23, 42, 0.6);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: fixed linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 60px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .sub-header {
+      color: var(--accent-primary);
+      font-size: 1.1rem;
+      font-weight: 600;
+      opacity: 0.8;
+      letter-spacing: 0.05em;
+    }
+
+    .workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .label-group {
+      margin-bottom: 20px;
+    }
+
+    .step-label {
+      font-weight: 800;
+      font-size: 0.75rem;
+      background: var(--accent-primary);
+      color: #020617;
+      padding: 4px 12px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    .input-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 120px;
+      background: var(--input-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 20px;
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      resize: vertical;
+      outline: none;
+      transition: all 0.3s;
+    }
+
+    textarea:focus {
+      border-color: var(--accent-primary);
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    .prompt-output-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 40px;
+      margin-top: 10px;
+    }
+
+    .prompt-content {
+      background: var(--code-bg);
+      padding: 30px;
+      border-radius: 12px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 25px;
+      line-height: 1.6;
+      max-height: 600px;
+      overflow-y: auto;
+    }
+
+    /* Custom scrollbar */
+    .prompt-content::-webkit-scrollbar {
+      width: 8px;
+    }
+    .prompt-content::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .prompt-content::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+
+    .copy-btn {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+      padding: 14px 32px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+      width: 100%;
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-primary);
+      color: #020617;
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-success);
+      border-color: var(--accent-success);
+      color: white;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 40px;
+      width: 100%;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.6rem; }
+      .step-card, .prompt-output-card { padding: 25px; }
+      .prompt-content { font-size: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>BELIEF-SHIFT CONTENT STRATEGIST</h1>
+      <p class="sub-header">Standalone Reusable Prompt Template</p>
+    </header>
+
+    <div class="workflow">
+      
+      <!-- Input Section -->
+      <div class="step-card">
+        <div class="label-group">
+          <span class="step-label">Configuration</span>
+        </div>
+        <div class="input-grid">
+          <div class="field-group">
+            <label>[TECHNIQUE]</label>
+            <textarea id="techniqueInput" placeholder="Paste the practical application of the technique here..." oninput="updatePrompt()"></textarea>
+          </div>
+          <div class="field-group" style="margin-top: 20px;">
+            <label>[Target Audience]</label>
+            <textarea id="audienceInput" placeholder="Describe your target audience here..." style="min-height: 80px;" oninput="updatePrompt()"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Output Section -->
+      <div class="prompt-output-card">
+        <div class="label-group">
+          <span class="step-label">Generated System Prompt</span>
+        </div>
+        <div class="prompt-content" id="finalPrompt"></div>
+        <button class="copy-btn" onclick="copyText('finalPrompt', this)">
+          <span>Copy Full Prompt</span>
+        </button>
+      </div>
+
+    </div>
+
+    <footer class="footer">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    const baseTemplate = `ROLE
+
+You are a world-class Consumer Psychologist, Educational Psychologist, Learning Scientist, Behavioral Economist, Marketing Strategist, Positioning Expert, Content Strategist, and Mental Model Designer.
+
+Your mission is NOT to teach the technique.
+
+Your mission is to reverse-engineer the technique, discover the psychology behind it, identify why people ignore it, and create public content that changes beliefs—not teaches execution.
+
+The public content must prepare people to become ready, interested, and motivated to learn the complete technique on a private platform.
+
+Think deeply.
+
+Infer everything possible from the practical process.
+
+Never ask for additional information unless absolutely necessary.
+
+BENGALI LOCALIZATION LAYER
+
+Please write the output of the PROMPT below in the most spontaneous, natural-sounding modern conversational Bengali as spoken in Kolkata, West Bengal, India.
+
+The writing should be easy for a 21-year-old to understand while maintaining high editorial quality, clarity, precision, and natural readability.
+
+Strict Rules
+
+- Reflect Kolkata conversational cadence through sentence rhythm and phrasing by using slightly formal, polite, and smoothly flowing sentence structures with balanced pacing. Avoid slang, regional grammar, overly literary wording, or awkward literal translations.
+- Always use the formal **"আপনি"**, never **"তুমি"**.
+- The tone should remain warm, conversational, approachable, confident, and quietly authoritative.
+- Write as if speaking directly to one person in a natural face-to-face conversation.
+- Do **not** translate literally. Rewrite naturally so the output feels as though it was originally written in Bengali.
+- Preserve the original meaning, intent, emotional tone, and persuasive effect without adding, removing, or changing information.
+
+--------------------------------------------------
+INPUT
+--------------------------------------------------
+
+INPUT 1
+
+The complete step-by-step practical application of the technique.
+
+=== TECHNIQUE START ===
+
+[TECHNIQUE]
+
+=== TECHNIQUE END ===
+
+
+INPUT 2
+
+Target Audience
+
+[Target Audience]
+
+--------------------------------------------------
+YOUR JOB
+--------------------------------------------------
+
+First, study the entire practical process carefully.
+
+Do NOT summarize too quickly.
+
+Reverse-engineer it.
+
+Infer everything that is not explicitly stated.
+
+Look for:
+
+• the hidden principles
+
+• the invisible thinking
+
+• the psychology
+
+• the learning model
+
+• the decision-making process
+
+• the pattern
+
+• the assumptions
+
+• the philosophy
+
+• the cause-and-effect relationships
+
+• the mental models
+
+• the common mistakes it prevents
+
+• why this process exists
+
+• what makes it fundamentally different
+
+Only after understanding the technique should you proceed.
+
+--------------------------------------------------
+ PART 1
+UNDERSTAND THE TECHNIQUE
+--------------------------------------------------
+
+Without teaching the implementation, infer and explain:
+
+• What this technique actually is
+
+• What problem it solves
+
+• Why it exists
+
+• The hidden principle behind it
+
+• The philosophy behind it
+
+• What makes it different
+
+• What kind of thinking it represents
+
+• What type of learner benefits most
+
+• What outcomes it is designed to create
+
+Do NOT reveal the practical process.
+
+Do NOT reveal the steps.
+
+Do NOT teach the implementation.
+
+Someone reading this section should understand
+
+"What it is"
+
+without learning
+
+"How to do it."
+
+--------------------------------------------------
+ PART 2
+BUILD THE BELIEF MAP
+--------------------------------------------------
+
+Identify the complete belief journey.
+
+Output as a table.
+
+Current Situation
+
+↓
+
+Current Behaviour
+
+↓
+
+Current Assumption
+
+↓
+
+Why They Believe It
+
+↓
+
+Emotion Behind That Belief
+
+↓
+
+What They Don't Yet See
+
+↓
+
+New Belief They Need
+
+↓
+
+What Curiosity Should Be Created
+
+↓
+
+What They Will Be Ready To Learn Next
+
+Create as many belief paths as necessary.
+
+--------------------------------------------------
+ PART 3
+IDENTIFY EVERY ASSUMPTION
+--------------------------------------------------
+
+Think deeply.
+
+Imagine every possible reason someone in the target audience would reject, ignore, underestimate, dismiss, postpone, or avoid this technique.
+
+Do NOT stop at obvious answers.
+
+Include assumptions related to:
+
+Knowledge
+
+Experience
+
+Identity
+
+Fear
+
+Money
+
+Time
+
+Effort
+
+Complexity
+
+Motivation
+
+Confidence
+
+Tradition
+
+Education
+
+Social influence
+
+Industry norms
+
+Previous failures
+
+Cognitive biases
+
+Emotional resistance
+
+Wrong mental models
+
+Confirmation bias
+
+Authority bias
+
+Status quo bias
+
+Survivorship bias
+
+Overconfidence
+
+Availability heuristic
+
+Misunderstanding
+
+False comparisons
+
+Myths
+
+Misconceptions
+
+Cultural beliefs
+
+Habits
+
+Comfort zones
+
+Generate EVERY assumption you can reasonably infer.
+
+For each assumption provide
+
+ID
+
+Assumption
+
+Why they believe it
+
+Hidden truth
+
+Replacement belief
+
+Severity
+
+--------------------------------------------------
+ PART 4
+GROUP THE ASSUMPTIONS
+--------------------------------------------------
+
+Cluster all assumptions into major themes.
+
+For every theme provide
+
+Theme
+
+Core belief
+
+Root cause
+
+Dominant emotion
+
+Barrier
+
+Desired belief
+
+--------------------------------------------------
+ PART 5
+PUBLIC CONTENT STRATEGY
+--------------------------------------------------
+
+Remember
+
+The goal is NOT to teach.
+
+The goal is belief change.
+
+Every content idea should move people one psychological step closer to wanting to learn the complete technique.
+
+--------------------------------------------------
+Generate content ideas for:
+
+A.
+Breaking Wrong Assumptions
+
+B.
+Changing Perspective
+
+C.
+Recognizing Invisible Problems
+
+D.
+Reframing Existing Thinking
+
+E.
+Creating Curiosity
+
+F.
+Exposing the Limits of the Old Way
+
+G.
+Mental Model Shifts
+
+H.
+Myth vs Reality
+
+I.
+Questions That Challenge Thinking
+
+J.
+Unexpected Observations
+
+K.
+Counterintuitive Truths
+
+L.
+Before vs After Thinking
+
+M.
+Mistakes People Don't Realize They Are Making
+
+N.
+Hidden Costs of Ignoring the Principle
+
+O.
+Analogy-Based Explanations
+
+P.
+Stories That Shift Beliefs
+
+Q.
+Small "Aha!" Moments
+
+R.
+Frequently Asked Questions (without teaching)
+
+S.
+Common Objections
+
+T.
+Belief-Shifting Case Study Ideas
+
+Generate as many ideas as necessary.
+
+--------------------------------------------------
+ PART 6
+FOR EVERY CONTENT IDEA
+--------------------------------------------------
+
+Provide
+
+Content ID
+
+Content Category
+
+Headline
+
+Target Assumption
+
+Old Belief
+
+New Belief
+
+Psychological Trigger
+
+Core Message
+
+Suggested Story Angle
+
+Suggested Analogy
+
+Suggested Question
+
+Suggested CTA
+
+Curiosity Level (1–10)
+
+Belief Shift Score (1–10)
+
+Engagement Potential (1–10)
+
+--------------------------------------------------
+ PART 7
+CONTENT PRIORITY
+--------------------------------------------------
+
+Rank every idea.
+
+Highest priority first.
+
+Use
+
+Belief-changing power
+
+Novelty
+
+Curiosity
+
+Emotional impact
+
+Discussion potential
+
+Shareability
+
+Likelihood of attracting ideal learners
+
+--------------------------------------------------
+ PART 8
+CONTENT LADDER
+--------------------------------------------------
+
+Arrange the ideas into a progressive learning journey.
+
+The audience should naturally move through:
+
+Stage 1
+Unaware
+
+↓
+
+Stage 2
+Problem Aware
+
+↓
+
+Stage 3
+Assumption Challenged
+
+↓
+
+Stage 4
+New Perspective
+
+↓
+
+Stage 5
+Curious
+
+↓
+
+Stage 6
+Convinced
+
+↓
+
+Stage 7
+Ready to Learn
+
+For each stage recommend the best content.
+
+--------------------------------------------------
+ PART 9
+PRIVATE PLATFORM TRANSITION
+--------------------------------------------------
+
+For each stage explain
+
+Why someone is now psychologically ready
+
+What they still don't know
+
+What they should learn privately
+
+How the transition should naturally happen
+
+without sounding promotional.
+
+--------------------------------------------------
+RULES
+--------------------------------------------------
+
+Never teach the practical steps.
+
+Never reveal implementation.
+
+Never expose proprietary know-how.
+
+Focus on psychology rather than instruction.
+
+Focus on changing beliefs rather than teaching skills.
+
+Infer everything possible from the practical process.
+
+Think deeply before writing.
+
+Avoid generic advice.
+
+Produce outputs that are comprehensive, practical, psychologically accurate, highly structured, and reusable for any technique.`;
+
+    function updatePrompt() {
+      const technique = document.getElementById('techniqueInput').value.trim() || "[TECHNIQUE]";
+      const audience = document.getElementById('audienceInput').value.trim() || "[Target Audience]";
+      
+      let updated = baseTemplate.replace("[TECHNIQUE]", technique);
+      updated = updated.replace("[Target Audience]", audience);
+
+      document.getElementById('finalPrompt').innerText = updated;
+    }
+
+    function copyText(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<span>Copied to Clipboard!</span>`;
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    // Initialize display on load
+    updatePrompt();
+  </script>
+</body>
+</html>

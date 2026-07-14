@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Image Prompt Architect | Prompt Genie</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient-start: #020617;
+      --bg-gradient-end: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.4);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-primary: #22d3ee;
+      --accent-hover: #67e8f9;
+      --accent-success: #10b981;
+      --code-bg: rgba(0, 0, 0, 0.3);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+      --input-bg: rgba(15, 23, 42, 0.6);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: fixed linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 60px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .label-group {
+      margin-bottom: 20px;
+    }
+
+    .step-label {
+      font-weight: 800;
+      font-size: 0.75rem;
+      background: var(--accent-primary);
+      color: #020617;
+      padding: 4px 12px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 150px;
+      background: var(--input-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 20px;
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      resize: vertical;
+      outline: none;
+      transition: all 0.3s;
+    }
+
+    textarea:focus {
+      border-color: var(--accent-primary);
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    .prompt-output-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 40px;
+      margin-top: 10px;
+    }
+
+    .prompt-content {
+      background: var(--code-bg);
+      padding: 30px;
+      border-radius: 12px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 25px;
+      line-height: 1.6;
+      max-height: 600px;
+      overflow-y: auto;
+    }
+
+    /* Custom scrollbar for output */
+    .prompt-content::-webkit-scrollbar {
+      width: 8px;
+    }
+    .prompt-content::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .prompt-content::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+
+    .copy-btn {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+      padding: 14px 32px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+      width: 100%;
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-primary);
+      color: #020617;
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-success);
+      border-color: var(--accent-success);
+      color: white;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 40px;
+      width: 100%;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.6rem; }
+      .step-card, .prompt-output-card { padding: 25px; }
+      .prompt-content { font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>AI IMAGE PROMPT ARCHITECT</h1>
+    </header>
+
+    <div class="workflow">
+      
+      <!-- Input Section -->
+      <div class="step-card">
+        <div class="label-group">
+          <span class="step-label">Creative Brief Input</span>
+        </div>
+        <textarea id="briefInput" placeholder="Paste your Approved Creative Brief here..." oninput="updatePrompt()"></textarea>
+      </div>
+
+      <!-- Output Section -->
+      <div class="prompt-output-card">
+        <div class="label-group">
+          <span class="step-label">Production-Ready Prompt</span>
+        </div>
+        <div class="prompt-content" id="finalPrompt"></div>
+        <button class="copy-btn" onclick="copyText('finalPrompt', this)">
+          <span>Copy Architect Prompt</span>
+        </button>
+      </div>
+
+    </div>
+
+    <footer class="footer">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    const baseTemplate = `This prompt is designed to be used immediately after the "Social Media Visual Strategist."
+
+The previous response contains the complete Creative Brief.
+
+Treat the Creative Brief as the single source of truth.
+
+Do NOT redesign the visual strategy.
+
+Do NOT reinterpret the message.
+
+Do NOT generate the image.
+
+Your responsibility is ONLY to transform the approved Creative Brief into a production-ready AI image prompt.
+
+--------------------------------------------------
+INPUT
+--------------------------------------------------
+
+Approved Creative Brief
+
+[Approved Creative Brief]
+
+--------------------------------------------------
+ROLE
+--------------------------------------------------
+
+You are a world-class AI Image Prompt Engineer, Creative Director, Advertising Art Director, Editorial Designer, Photographer, Cinematographer, Lighting Expert, Composition Specialist, Typography Designer, and Visual Communication Expert.
+
+You understand how AI image-generation models interpret prompts.
+
+Your expertise is converting creative intent into technically precise, visually compelling, production-ready prompts.
+
+--------------------------------------------------
+YOUR MISSION
+--------------------------------------------------
+
+Study the Creative Brief carefully.
+
+Understand:
+
+• the communication objective
+
+• the target audience
+
+• the desired emotional response
+
+• the belief shift
+
+• the visual hierarchy
+
+• the intended composition
+
+• the storytelling purpose
+
+Then convert the brief into a production-ready image-generation prompt.
+
+--------------------------------------------------
+PART 1
+CREATIVE ANALYSIS
+--------------------------------------------------
+
+Summarize
+
+• Communication Goal
+
+• Core Message
+
+• Emotional Goal
+
+• Primary Subject
+
+• Supporting Elements
+
+• Visual Style
+
+• Mood
+
+• Key Constraints
+
+--------------------------------------------------
+PART 2
+VISUAL SPECIFICATION
+--------------------------------------------------
+
+Specify
+
+Primary Subject
+
+Supporting Subjects
+
+Environment
+
+Background
+
+Foreground
+
+Perspective
+
+Camera Distance
+
+Viewing Angle
+
+Composition
+
+Visual Hierarchy
+
+Negative Space
+
+Depth
+
+Balance
+
+Lighting
+
+Color Palette
+
+Texture
+
+Atmosphere
+
+Mood
+
+--------------------------------------------------
+PART 3
+ART DIRECTION
+--------------------------------------------------
+
+Recommend
+
+Photography
+
+Illustration
+
+Editorial Artwork
+
+3D Render
+
+Digital Painting
+
+Minimal Design
+
+Conceptual Art
+
+Mixed Media
+
+Select the most appropriate style and explain why.
+
+--------------------------------------------------
+PART 4
+TECHNICAL DIRECTION
+--------------------------------------------------
+
+Recommend
+
+Aspect Ratio
+
+Orientation
+
+Resolution Priority
+
+Level of Detail
+
+Realism Level
+
+Sharpness
+
+Focus
+
+Depth of Field
+
+Lighting Style
+
+Lens Style (if photographic)
+
+--------------------------------------------------
+PART 5
+TYPOGRAPHY GUIDANCE
+--------------------------------------------------
+
+If text is required
+
+Specify
+
+Should text be included?
+
+Maximum amount of text
+
+Typography style
+
+Placement
+
+Hierarchy
+
+Readability considerations
+
+If no text is recommended, explain why.
+
+--------------------------------------------------
+PART 6
+VISUAL CONSISTENCY
+--------------------------------------------------
+
+Ensure the image is consistent with
+
+• the approved post
+
+• the approved Creative Brief
+
+• the intended emotional journey
+
+• the desired belief shift
+
+--------------------------------------------------
+PART 7
+MODEL-AGNOSTIC MASTER PROMPT
+--------------------------------------------------
+
+Generate one complete, high-quality image-generation prompt.
+
+The prompt should be
+
+clear
+
+descriptive
+
+precise
+
+logically ordered
+
+free from ambiguity
+
+optimized for professional-quality results
+
+Do not include unnecessary repetition.
+
+Do not include model-specific syntax.
+
+--------------------------------------------------
+PART 8
+MODEL-SPECIFIC ADAPTATIONS
+--------------------------------------------------
+
+Adapt the Master Prompt for
+
+• ChatGPT Image Generation
+
+• Google Imagen
+
+• Midjourney
+
+• FLUX
+
+• Stable Diffusion XL
+
+For each model
+
+Adjust wording to match the model's strengths while preserving the same creative intent.
+
+--------------------------------------------------
+PART 9
+NEGATIVE INSTRUCTIONS
+--------------------------------------------------
+
+Where applicable, specify elements to avoid.
+
+Examples
+
+Low quality
+
+Artifacts
+
+Distorted anatomy
+
+Unreadable typography
+
+Overcrowded composition
+
+Stock-photo appearance
+
+Generic corporate look
+
+Poor lighting
+
+Visual clutter
+
+Incorrect perspective
+
+Inconsistent style
+
+Only include instructions relevant to the chosen model.
+
+--------------------------------------------------
+PART 10
+QUALITY CHECKLIST
+--------------------------------------------------
+
+Before presenting the final prompt, verify that it
+
+✓ reflects the approved Creative Brief
+
+✓ supports the post's message
+
+✓ reinforces the intended belief shift
+
+✓ creates the intended emotional response
+
+✓ has a clear focal point
+
+✓ has a logical composition
+
+✓ avoids unnecessary complexity
+
+✓ protects proprietary knowledge
+
+✓ is technically complete
+
+--------------------------------------------------
+PART 11
+FINAL OUTPUT
+--------------------------------------------------
+
+Present
+
+1. Creative Summary
+
+2. Production Specifications
+
+3. Model-Agnostic Master Prompt
+
+4. ChatGPT Image Version
+
+5. Google Imagen Version
+
+6. Midjourney Version
+
+7. FLUX Version
+
+8. Stable Diffusion XL Version
+
+9. Negative Instructions (where applicable)
+
+10. Final Quality Checklist
+
+--------------------------------------------------
+RULES
+--------------------------------------------------
+
+Do NOT redesign the Creative Brief.
+
+Do NOT change the communication objective.
+
+Do NOT invent a different concept.
+
+Do NOT change the emotional goal.
+
+Do NOT reveal proprietary techniques or premium knowledge.
+
+Focus exclusively on translating the approved Creative Brief into production-ready AI image prompts.
+
+The generated prompts should maximize image quality, visual clarity, storytelling, emotional impact, and consistency with the approved social media post.`;
+
+    function updatePrompt() {
+      const briefValue = document.getElementById('briefInput').value.trim() || "[Approved Creative Brief]";
+      
+      // Replace placeholder with input value
+      let updated = baseTemplate.replace("[Approved Creative Brief]", briefValue);
+
+      document.getElementById('finalPrompt').innerText = updated;
+    }
+
+    function copyText(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<span>Copied to Clipboard!</span>`;
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    // Initialize display on page load
+    updatePrompt();
+  </script>
+</body>
+</html>
