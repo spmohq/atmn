@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Course Design Steps | Prompt Genie</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient-start: #020617;
+      --bg-gradient-end: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.4);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-primary: #22d3ee;
+      --accent-hover: #67e8f9;
+      --accent-success: #10b981;
+      --code-bg: rgba(0, 0, 0, 0.3);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: fixed linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 60px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .prompt-workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 35px;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .step-header {
+      display: flex;
+      justify-content: flex-start;
+      margin-bottom: 25px;
+    }
+
+    .step-label {
+      font-weight: 800;
+      font-size: 0.8rem;
+      background: var(--accent-primary);
+      color: #020617;
+      padding: 5px 16px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .prompt-content {
+      background: var(--code-bg);
+      padding: 30px;
+      border-radius: 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 1.05rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 25px;
+      line-height: 1.6;
+      max-height: 500px;
+      overflow-y: auto;
+    }
+
+    /* Custom scrollbar */
+    .prompt-content::-webkit-scrollbar {
+      width: 8px;
+    }
+    .prompt-content::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .prompt-content::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+
+    .copy-btn {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+      width: 100%;
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-primary);
+      color: #020617;
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-success);
+      border-color: var(--accent-success);
+      color: white;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 40px;
+      width: 100%;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.6rem; }
+      .step-card { padding: 25px; }
+      .prompt-content { font-size: 0.95rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Course Design Steps</h1>
+    </header>
+
+    <div class="prompt-workflow">
+      
+      <!-- Prompt #1 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt #1: Idea Review</span>
+        </div>
+        <div class="prompt-content" id="p1">Please review and rate this idea:
+
+[Idea]</div>
+        <button class="copy-btn" onclick="copyText('p1', this)">
+          <span>Copy Prompt</span>
+        </button>
+      </div>
+
+      <!-- Prompt #2 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt #2: Module Strategy</span>
+        </div>
+        <div class="prompt-content" id="p2">এই আইডিয়াটা বাস্তবে এবং এ আই-র সাহায্য নিয়ে কিভাবে proper process -এর মাধ্যমে প্রয়োগ করতে হয় - তা নিয়ে আমি একটা বাংলা মাধ্যমের কোর্স বানাতে চাই। 
+কী শিখব? → Lesson Overview
+পুরো সিস্টেমে কোথায় আছি? → Proper Process
+কী দিয়ে শুরু করব এবং কী তৈরি হবে? → Input → Process → Output
+AI কীভাবে সাহায্য করবে? → AI Prompt Library
+বাস্তবে কীভাবে করব? → Live Demonstration
+এখন কী কী করব? → To-Do List
+নিজে প্রয়োগ করব কীভাবে? → Assignment
+এই ৭-ধাপের ফ্রেমওয়ার্কটি কোর্সের প্রতিটি লেসনে একইভাবে ব্যবহার করা হবে।
+কোর্সটাতে কতগুলো মডিউল রাখতে হবে?
+Module-র নাম ও টাইটেল দাও - সঙ্গে কি ডেলিভার করবে তা বলে দাও। 
+শেষে একটা টেবল-এ পুরো সামারিটা দিয়ে দাও।
+My purpose is fixed: "[Purpose]" ও তাতে এ আই -র হেল্প নেওয়া।
+
+--------------------------------------------------
+Course Design Policy
+--------------------------------------------------
+
+Design this course as Version 1.0.
+
+The goal is to create a complete, practical, and immediately usable course—not a perfect or exhaustive one.
+
+Prioritize clarity, simplicity, and implementation over completeness.
+
+Do not over-engineer the curriculum by adding unnecessary modules, lessons, frameworks, or advanced concepts unless they are essential to achieving the course objective.
+
+Every recommendation, lesson, framework, prompt, example, and assignment must directly support the course purpose.
+
+Assume that:
+- Learners can ask questions through the support community.
+- Minor gaps can be addressed through support.
+- The course will be improved and expanded in future versions based on real learner feedback.
+
+When uncertain, always choose the simpler structure that best helps learners achieve the intended outcome.
+
+Focus on helping learners get results, not on making the course encyclopedic.
+
+If you suggest adding any new module, lesson, framework, or process, first justify why it is essential for achieving the course objective. If it is not essential, do not include it.</div>
+        <button class="copy-btn" onclick="copyText('p2', this)">
+          <span>Copy Prompt</span>
+        </button>
+      </div>
+
+      <!-- Prompt #3 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt #3: Finalize Lesson List</span>
+        </div>
+        <div class="prompt-content" id="p3">এবার Nটি Module (Introduction + ৫টি Core Module + Conclusion)-এর সব Lesson-এর নাম ও ক্রম (Lesson List) ফাইনাল করো। 
+শেষে একটা টেবল-এ পুরো সামারিটা দিয়ে দাও। টেবিলে মডিউল অনুসারে লেসনগুলো উল্লেখ করতে ভুলবে না।
+
+--------------------------------------------------
+Course Design Policy
+--------------------------------------------------
+
+Design this course as Version 1.0.
+
+The goal is to create a complete, practical, and immediately usable course—not a perfect or exhaustive one.
+
+Prioritize clarity, simplicity, and implementation over completeness.
+
+Do not over-engineer the curriculum by adding unnecessary modules, lessons, frameworks, or advanced concepts unless they are essential to achieving the course objective.
+
+Every recommendation, lesson, framework, prompt, example, and assignment must directly support the course purpose.
+
+Assume that:
+- Learners can ask questions through the support community.
+- Minor gaps can be addressed through support.
+- The course will be improved and expanded in future versions based on real learner feedback.
+
+When uncertain, always choose the simpler structure that best helps learners achieve the intended outcome.
+
+Focus on helping learners get results, not on making the course encyclopedic.
+
+If you suggest adding any new module, lesson, framework, or process, first justify why it is essential for achieving the course objective. If it is not essential, do not include it.</div>
+        <button class="copy-btn" onclick="copyText('p3', this)">
+          <span>Copy Prompt</span>
+        </button>
+      </div>
+
+      <!-- Prompt #4 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt #4: Detailed Lesson Summary</span>
+        </div>
+        <div class="prompt-content" id="p4">তাহলে সবগুলো মডিউলের সবগুলো লেসনের একটা সামারি দাও, টেবিলের আকারে, যাতে এইগুলো স্পষ্ট ফুটে ওঠে:
+কী শিখব? → Lesson Overview
+পুরো সিস্টেমে কোথায় আছি? → Proper Process
+কী দিয়ে শুরু করব এবং কী তৈরি হবে? → Input → Process → Output
+AI কীভাবে সাহায্য করবে? → AI Prompt Library
+বাস্তবে কীভাবে করব? → Live Demonstration
+এখন কী কী করব? → To-Do List
+নিজে প্রয়োগ করব কীভাবে? → Assignment
+তুমি পার্টে পার্টে দাও। একটা মডিউলের জন্য একটা পার্ট বানাও
+
+--------------------------------------------------
+Course Design Policy
+--------------------------------------------------
+
+Design this course as Version 1.0.
+
+The goal is to create a complete, practical, and immediately usable course—not a perfect or exhaustive one.
+
+Prioritize clarity, simplicity, and implementation over completeness.
+
+Do not over-engineer the curriculum by adding unnecessary modules, lessons, frameworks, or advanced concepts unless they are essential to achieving the course objective.
+
+Every recommendation, lesson, framework, prompt, example, and assignment must directly support the course purpose.
+
+Assume that:
+- Learners can ask questions through the support community.
+- Minor gaps can be addressed through support.
+- The course will be improved and expanded in future versions based on real learner feedback.
+
+When uncertain, always choose the simpler structure that best helps learners achieve the intended outcome.
+
+Focus on helping learners get results, not on making the course encyclopedic.
+
+If you suggest adding any new module, lesson, framework, or process, first justify why it is essential for achieving the course objective. If it is not essential, do not include it.</div>
+        <button class="copy-btn" onclick="copyText('p4', this)">
+          <span>Copy Prompt</span>
+        </button>
+      </div>
+
+    </div>
+
+    <footer class="footer">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    function copyText(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<span>Copied to Clipboard!</span>`;
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
