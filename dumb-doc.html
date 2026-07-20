@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dumb Doc Workflow | AI Prompts</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', 'Hind Siliguri', sans-serif;
+            background: radial-gradient(circle at top right, #eef2ff, #f8fafc);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 20px 10px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #4f46e5, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+        }
+
+        header p { color: var(--text-muted); font-size: 0.9rem; }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: 1fr;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease;
+        }
+
+        /* Compact Workflow Style */
+        .workflow-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .wf-item {
+            background: #fff;
+            border: 1px solid var(--border);
+            padding: 10px;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .wf-item span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            font-size: 0.7rem;
+        }
+
+        /* Prompt Cards */
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .card-header h2 {
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .prompt-container {
+            position: relative;
+            background: #1e293b;
+            border-radius: 10px;
+            padding: 15px;
+            border: 1px solid #334155;
+        }
+
+        .prompt {
+            color: #e2e8f0;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.85rem;
+            white-space: pre-wrap;
+            height: 180px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #475569 transparent;
+        }
+
+        /* Buttons */
+        .copy-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .copy-btn:hover { background: var(--primary-hover); }
+        .copy-btn.copied { background: #10b981; }
+
+        /* Responsive Desktop */
+        @media (min-width: 768px) {
+            .grid { grid-template-columns: repeat(2, 1fr); }
+            .workflow-card { grid-column: span 2; }
+            header h1 { font-size: 2.5rem; }
+        }
+
+        /* Custom Scrollbar */
+        .prompt::-webkit-scrollbar { width: 5px; }
+        .prompt::-webkit-scrollbar-thumb { background: #475569; border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Dumb Doc AI Library</h1>
+        <p>আপনার চিন্তাকে সুসংগঠিত করুন AI এর সহায়তায়</p>
+    </header>
+
+    <div class="grid">
+        <!-- Workflow Card -->
+        <div class="card workflow-card">
+            <div class="card-header">
+                <h2>📌 Workflow Step-by-Step</h2>
+            </div>
+            <div class="workflow-list">
+                <div class="wf-item"><span>1</span>নতুন ডক তৈরি</div>
+                <div class="wf-item"><span>2</span>উদ্দেশ্য লিখুন</div>
+                <div class="wf-item"><span>3</span>মনে যা আসে লিখুন</div>
+                <div class="wf-item"><span>4</span>তথ্য যোগ করুন</div>
+                <div class="wf-item"><span>5</span>AI দিয়ে Brain Dump করুন</div>
+                <div class="wf-item"><span>6</span>AI দিয়ে Gap Analysis করুন</div>
+                <div class="wf-item"><span>7</span>Smart Document তৈরি করুন</div>
+            </div>
+        </div>
+
+        <!-- Prompt 1 -->
+        <div class="card">
+            <div class="card-header">
+                <h2>🤖 01. Interviewer</h2>
+                <button class="copy-btn" onclick="copyPrompt('prompt1', this)">
+                    Copy
+                </button>
+            </div>
+            <div class="prompt-container">
+                <pre class="prompt" id="prompt1">আমি [বিষয়] নিয়ে একটি Dumb Doc তৈরি করছি।
+
+আপনি একজন অভিজ্ঞ Knowledge Extraction Coach হিসেবে কাজ করুন।
+
+আপনার কাজ হলো আমার মাথায় থাকা তথ্য, অভিজ্ঞতা, পর্যবেক্ষণ, প্রশ্ন, ধারণা এবং মতামত বের করে আনতে আমাকে Interview করা।
+
+নিয়ম:
+- একবারে একটি প্রশ্ন করবেন।
+- সহজ থেকে জটিল প্রশ্নে এগোবেন।
+- আমার আগের উত্তরের ওপর ভিত্তি করে পরের প্রশ্ন করবেন।
+- কোনো তথ্য নিজে থেকে বানাবেন না।
+- আমার উত্তরগুলো এমনভাবে সংগ্রহ করতে সাহায্য করুন যাতে শেষে একটি সমৃদ্ধ Dumb Doc তৈরি হয়।
+
+শুরু করুন।</pre>
+            </div>
+        </div>
+
+        <!-- Prompt 2 -->
+        <div class="card">
+            <div class="card-header">
+                <h2>🔍 02. Auditor</h2>
+                <button class="copy-btn" onclick="copyPrompt('prompt2', this)">
+                    Copy
+                </button>
+            </div>
+            <div class="prompt-container">
+                <pre class="prompt" id="prompt2">নিচে আমার [বিষয়]-সংক্রান্ত Dumb Doc দেওয়া হলো।
+
+[DUMB_DOC]
+
+আপনি একজন Knowledge Auditor হিসেবে কাজ করুন।
+
+এই ডকটি বিশ্লেষণ করে একটি রিপোর্ট তৈরি করুন।
+
+রিপোর্টে বলুন—
+
+১. কোন গুরুত্বপূর্ণ বিষয় অনুপস্থিত
+২. কোথায় আরও উদাহরণ যোগ করা উচিত
+৩. কোন প্রশ্নগুলোর উত্তর এখনও নেই
+৪. কোন অংশ অস্পষ্ট বা অসম্পূর্ণ
+৫. কোন তথ্য যাচাই করা দরকার
+৬. কোন অংশ ভবিষ্যতে আলাদা সেকশনে ভাগ করা যেতে পারে
+
+গুরুত্বপূর্ণ নিয়ম:
+- নতুন তথ্য তৈরি করবেন না।
+- শুধু বিদ্যমান ডকের ভিত্তিতে ঘাটতি, অস্পষ্টতা এবং উন্নতির সুযোগ চিহ্নিত করুন।
+- রিপোর্টটি অগ্রাধিকার অনুযায়ী সাজান।</pre>
+            </div>
+        </div>
+
+        <!-- Prompt 3 -->
+        <div class="card">
+            <div class="card-header">
+                <h2>📄 03. Architect</h2>
+                <button class="copy-btn" onclick="copyPrompt('prompt3', this)">
+                    Copy
+                </button>
+            </div>
+            <div class="prompt-container">
+                <pre class="prompt" id="prompt3">নিচে আমার [বিষয়]-সংক্রান্ত Dumb Doc দেওয়া হলো।
+
+[DUMB_DOC]
+
+আপনি একজন Knowledge Architect হিসেবে কাজ করুন।
+
+এই Dumb Doc-কে বিশ্লেষণ করে একটি সুসংগঠিত Smart Document তৈরি করুন।
+
+নির্দেশনা:
+- সম্পর্কিত তথ্য একত্রে গ্রুপ করুন।
+- যৌক্তিক ক্রমে সেকশন ও সাব-সেকশন তৈরি করুন।
+- পুনরাবৃত্ত তথ্য একীভূত করুন।
+- মূল ধারণাগুলো স্পষ্টভাবে উপস্থাপন করুন।
+- যেখানে তথ্যের ঘাটতি আছে, সেখানে "[আরও তথ্য প্রয়োজন]" লিখে চিহ্নিত করুন।
+- কোনো নতুন তথ্য যোগ করবেন না বা অনুমান করবেন না।
+- মূল অর্থ অক্ষুণ্ণ রেখে ডকটি ব্যবহারযোগ্য, পরিষ্কার এবং ভবিষ্যৎ উন্নয়নের উপযোগী করে সাজান।</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function copyPrompt(id, button) {
+        const text = document.getElementById(id).innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            const originalText = button.innerHTML;
+            button.innerText = "✓ Copied";
+            button.classList.add("copied");
+            setTimeout(() => {
+                button.innerHTML = "Copy";
+                button.classList.remove("copied");
+            }, 2000);
+        });
+    }
+</script>
+
+</body>
+</html>
