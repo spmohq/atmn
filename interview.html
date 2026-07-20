@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Interview | System Map</title>
+  <link rel="icon" href="spm.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript" language="javascript"> 
+    $(function () { $(this).bind("contextmenu", function (e) { e.preventDefault(); }); }); 
+</script>
+<script>
+    document.onkeydown = function(e) {
+        if (e.ctrlKey && (e.keyCode === 85 )) {
+            return false;
+        }
+    };
+</script>
+
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '354458495335117');
+fbq('track', 'PageView');
+fbq('track','ViewContent');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=354458495335117&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+
+  <style>
+    :root {
+      --bg-gradient-start: #020617;
+      --bg-gradient-end: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.4);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-primary: #22d3ee;
+      --accent-hover: #67e8f9;
+      --accent-success: #10b981;
+      --code-bg: rgba(0, 0, 0, 0.3);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: fixed linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 60px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 800px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 30px;
+      text-transform: uppercase;
+    }
+
+    .nav-buttons {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-bottom: 50px;
+    }
+
+    .nav-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 20px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    .nav-btn:hover {
+      background: rgba(34, 211, 238, 0.1);
+      border-color: var(--accent-primary);
+      transform: translateY(-2px);
+      color: var(--accent-primary);
+    }
+
+    .prompt-workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .step-header {
+      display: flex;
+      justify-content: flex-start;
+      margin-bottom: 25px;
+    }
+
+    .step-label {
+      font-weight: 800;
+      font-size: 0.8rem;
+      background: var(--accent-primary);
+      color: #020617;
+      padding: 5px 16px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .input-label {
+      display: block;
+      margin-bottom: 12px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--accent-primary);
+      text-transform: uppercase;
+    }
+
+    textarea {
+      width: 100%;
+      background: var(--code-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 20px;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      line-height: 1.6;
+      resize: vertical;
+      min-height: 120px;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    textarea:focus {
+      border-color: var(--accent-primary);
+    }
+
+    .prompt-content {
+      background: var(--code-bg);
+      padding: 30px;
+      border-radius: 12px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.95rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 25px;
+      line-height: 1.6;
+    }
+
+    .copy-btn {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+      width: 100%;
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-primary);
+      color: #020617;
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-success);
+      border-color: var(--accent-success);
+      color: white;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 40px;
+      width: 100%;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.8rem; }
+      .step-card { padding: 25px; }
+      .prompt-content { font-size: 0.85rem; }
+      .nav-buttons { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+  <div class="container">
+    <header>
+      <h1>Interview</h1>
+      <div class="nav-buttons">
+        <a href="https://docs.new/" target="_blank" class="nav-btn">New Doc for SBS</a>
+        <a href="https://spmohq.github.io/atmn/sbs-to-topic.html" target="_blank" class="nav-btn">SBS to Topic</a>
+        <a href="https://spmohq.github.io/atmn/activity-to-topic.html" target="_blank" class="nav-btn">Activity To Topic</a>
+      </div>
+    </header>
+
+    <div class="prompt-workflow">
+      <!-- Dynamic Input Card -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Input Hierarchy</span>
+        </div>
+        <div class="input-group">
+          <label class="input-label" for="hierarchyInput">[Insert hierarchy here]</label>
+          <textarea id="hierarchyInput" placeholder="Paste your hierarchy (Umbrella, Branches, Sub-branches) here..." oninput="updatePrompt()"></textarea>
+        </div>
+      </div>
+
+      <!-- Prompt #1 Card -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt #1: Interview Coach</span>
+        </div>
+        <div class="prompt-content" id="p1"></div>
+        <button class="copy-btn" onclick="copyText('p1', this)">
+          <span>Copy Prompt #1</span>
+        </button>
+      </div>
+
+      <!-- Prompt #2 Card -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt #2: Ghostwrite Answer</span>
+        </div>
+        <div class="prompt-content" id="p2">এই প্রশ্নের উত্তরটা তুমিই লিখে দাও</div>
+        <button class="copy-btn" onclick="copyText('p2', this)">
+          <span>Copy Prompt #2</span>
+        </button>
+      </div>
+
+      <!-- Prompt #3 Card -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt #3: Next Step</span>
+        </div>
+        <div class="prompt-content" id="p3">proceed to the next step</div>
+        <button class="copy-btn" onclick="copyText('p3', this)">
+          <span>Copy Prompt #3</span>
+        </button>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    function updatePrompt() {
+      const hierarchyValue = document.getElementById('hierarchyInput').value || '[Insert hierarchy here]';
+
+      const prompt1Template = `একটি single umbrella topic-কে কেন্দ্র করে তার branches এবং sub-branches নিয়ে একটি Dumb Doc (Knowledge Dump Document) তৈরি করছি। নিচে সেই hierarchy দেওয়া হয়েছে।
+
+আপনি একজন অভিজ্ঞ Knowledge Extraction Coach হিসেবে কাজ করুন।
+
+আপনার কাজ হলো আমার মাথায় থাকা তথ্য, অভিজ্ঞতা, পর্যবেক্ষণ, প্রশ্ন, ধারণা এবং মতামত Interview-এর মাধ্যমে ধাপে ধাপে বের করে আনতে সাহায্য করা, যাতে শেষে একটি সমৃদ্ধ এবং ব্যবহারযোগ্য Dumb Doc তৈরি হয়।
+
+নিয়ম:
+
+• নিচের hierarchy-কে Interview-এর কাঠামো হিসেবে ব্যবহার করবেন।
+• একবারে শুধুমাত্র একটি প্রশ্ন করবেন।
+• সহজ প্রশ্ন দিয়ে শুরু করে ধীরে ধীরে আরও গভীর প্রশ্নে এগোবেন।
+• প্রতিটি পরবর্তী প্রশ্ন আমার আগের উত্তরের ভিত্তিতে করবেন।
+• কোনো তথ্য, উদাহরণ বা ব্যাখ্যা নিজে থেকে বানাবেন না।
+• কোনো branch বা sub-branch বাদ দেবেন না; প্রয়োজন অনুযায়ী প্রতিটি বিষয় নিয়ে প্রশ্ন করবেন।
+• আমার উত্তরগুলো এমনভাবে সংগ্রহ করবেন যাতে শেষে একটি সম্পূর্ণ, সুসংগঠিত এবং সমৃদ্ধ Dumb Doc তৈরি হয়।
+
+শুরু করুন।
+
+Hierarchy:
+
+${hierarchyValue}`;
+
+      document.getElementById('p1').innerText = prompt1Template;
+    }
+
+    function copyText(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<span>Copied to Clipboard!</span>`;
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    // Initialize display on load
+    window.onload = updatePrompt;
+  </script>
+</body>
+</html>
