@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Understand The Keywords</title>
+  <style>
+    :root {
+      /* COLOUR PALETTE - Radical Reports Style */
+      --primary: #204d4f;      /* Deep Teal - Primary */
+      --secondary: #426a6c;    /* Muted Teal - Secondary */
+      --accent: #739395;       /* Sage Teal - Accent */
+      --border-clr: #a9c1c2;   /* Soft Mint - Borders */
+      --light-bg: #dbeeef;     /* Pale Mint - Background */
+      
+      --ink: #1e2b2c;
+      --muted: #426a6c;
+      --paper: #ffffff;
+      --page-bg: var(--light-bg);
+      --line: var(--border-clr);
+      --shadow: 0 10px 30px rgba(32, 77, 79, 0.08);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--page-bg);
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    .page-wrap {
+      width: min(900px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 40px 0 80px;
+    }
+
+    /* HEADER */
+    .hero {
+      text-align: left;
+      margin-bottom: 40px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border-clr);
+    }
+
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--primary);
+      text-transform: uppercase;
+    }
+
+    .subtitle {
+      margin: 0;
+      font-size: 16px;
+      max-width: 700px;
+      color: var(--secondary);
+      line-height: 1.6;
+    }
+
+    /* CARDS */
+    .section-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      margin-bottom: 30px;
+    }
+
+    .section-head {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      padding: 24px;
+      background: #fcfdfe;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .step-icon {
+      flex: 0 0 auto;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      font-size: 18px;
+      font-weight: 800;
+      color: #fff;
+      background: var(--primary);
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: 20px;
+      color: var(--primary);
+      letter-spacing: -0.02em;
+    }
+
+    .section-head p {
+      margin: 2px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .section-body { padding: 24px; }
+
+    label {
+      display: block;
+      margin: 0 0 6px;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: var(--secondary);
+    }
+
+    textarea {
+      width: 100%;
+      border: 1px solid var(--border-clr);
+      background: #fff;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font: inherit;
+      color: var(--ink);
+      outline: none;
+      transition: all 0.2s ease;
+      margin-bottom: 16px;
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(32, 77, 79, 0.08);
+    }
+
+    #generatedPrompt {
+      background: #f9fbfc;
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      font-size: 13px;
+      min-height: 400px;
+      color: var(--primary);
+    }
+
+    /* BUTTONS */
+    .button-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+
+    button, .link-button {
+      appearance: none;
+      border: 0;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 24px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      transition: all 0.2s ease;
+    }
+
+    .primary-btn { color: #fff; background: var(--primary); }
+    .primary-btn:hover { background: var(--secondary); transform: translateY(-1px); }
+
+    .secondary-btn { color: var(--primary); background: #fff; border: 1px solid var(--border-clr); }
+    .secondary-btn:hover { background: #f0f6f6; }
+
+    .copy-btn { color: #fff; background: var(--accent); }
+    .copy-btn:hover { background: var(--secondary); }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      left: 50%; bottom: 30px; transform: translateX(-50%);
+      background: var(--primary); color: #fff;
+      padding: 8px 16px; border-radius: 8px; font-size: 13px;
+      opacity: 0; transition: 0.3s; pointer-events: none;
+      z-index: 1000;
+    }
+    .toast.show { opacity: 1; }
+
+    footer {
+      margin-top: 60px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-wrap">
+    <header class="hero">
+      <h1>Understand The Keywords</h1>
+      <p class="subtitle">Analyze search demand and delivery requirements for a list of keywords using localized Bengali human insights.</p>
+    </header>
+
+    <!-- INPUT SECTION -->
+    <section class="section-card">
+      <div class="section-head">
+        <div class="step-icon">🔍</div>
+        <div>
+          <h2>Keyword Input</h2>
+          <p>Provide your list of keywords to decode the searcher's intent.</p>
+        </div>
+      </div>
+      <div class="section-body">
+        <label for="keywordsInput">[List of Keywords]</label>
+        <textarea id="keywordsInput" placeholder="Paste your keywords here (one per line)..."></textarea>
+
+        <div class="button-row">
+          <button class="primary-btn" onclick="buildPrompt()">Generate Analysis Prompt</button>
+          <button class="copy-btn" onclick="copyText()">Copy Final Prompt</button>
+          <a class="link-button secondary-btn" href="https://chatgpt.com/" target="_blank">Open ChatGPT</a>
+          <button class="secondary-btn" onclick="clearAll()">Clear</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- OUTPUT SECTION -->
+    <section class="section-card">
+      <div class="section-head">
+        <div class="step-icon">📝</div>
+        <div>
+          <h2>Final Strategy Prompt</h2>
+          <p>This prompt is designed to produce a detailed delivery analysis in conversational Bengali.</p>
+        </div>
+      </div>
+      <div class="section-body">
+        <textarea id="generatedPrompt" readonly placeholder="Your generated prompt will appear here..."></textarea>
+      </div>
+    </section>
+
+    <footer>
+      Copyright &copy; <script>document.write(new Date().getFullYear())</script> Understand The Keywords. All Rights Reserved.
+    </footer>
+  </div>
+
+  <div id="toast" class="toast">Copied to clipboard</div>
+
+  <script>
+    function buildPrompt() {
+      const keywords = document.getElementById('keywordsInput').value || "[EMPTY KEYWORD LIST]";
+
+      // THE PROMPT TEMPLATE - PRESERVED EXACTLY
+      const promptTemplate = `KEYWORDS
+${keywords}
+
+CONTEXT
+
+এই প্রম্পটের আউটপুট থেকে আমি যেটা বুঝতে চাইছি তাহল – ডিম্যান্ড অব ডেলিভারিটা বুঝতে চাইছি.
+
+– সার্ফাররা কি চাইছে ও সে চাওয়ার ভিতরে তার কোন খোঁজটা প্রতিফলিত হচ্ছে 
+- কোন চাওয়াটা কোন কীওয়ার্ডের সাহায্য নিয়ে চাইছে?
+- কোন কীওয়ার্ড সার্চারের মনের কোন খোঁজ ও কোন প্রশ্নকে রিপ্রেজেন্ট করছে?
+- সেই প্রশ্নের উত্তরে কোন কোন পয়েন্ট উল্লেখ করতে হবে ও কোন chronological order-এ সেই পয়েন্টগুলো সাজাতে হবে?
+
+BENGALI LOCALIZATION LAYER
+
+Please write the output of the PROMPT below in the most spontaneous, natural-sounding modern conversational Bengali as spoken in Kolkata, West Bengal, India.
+
+The writing should be easy for a 21-year-old to understand while maintaining high editorial quality, clarity, precision, and natural readability.
+
+Strict Rules
+
+- Reflect Kolkata conversational cadence through sentence rhythm and phrasing by using slightly formal, polite, and smoothly flowing sentence structures with balanced pacing. Avoid slang, regional grammar, overly literary wording, or awkward literal translations.
+- Always use the formal "আপনি", never "তুমি".
+- The tone should remain warm, conversational, approachable, confident, and quietly authoritative.
+- Write as if speaking directly to one person in a natural face-to-face conversation.
+- Do not translate literally. Rewrite naturally so the output feels as though it was originally written in Bengali.
+- Preserve the original meaning, intent, emotional tone, and persuasive effect without adding, removing, or changing information.
+
+TASK
+
+1, এই পয়েন্টগুলো এখনও আমার কাছে Crystal Clear হয়নি – আমাকে এই পয়েন্টগুলো উদাহরণ সহযোগে বিস্তারিত ভাবে বুঝিয়ে দাও।
+2, এই পয়েন্টগুলোর সংক্ষিপ্তসার আমাকে একটা লিস্টে সাজিয়ে দাও।
+3, বিস্তারিত এই উত্তরের শেষেএকটা পাঁচ column-র Special Table দাও –
+। কীওয়ার্ড । কীওয়ার্ডটা কোন প্রশ্নকে রিপ্রেজেন্ট করছে । সে এখন কোন Stage-এ আছে? | সেই প্রশ্নের উত্তরে কি ডেলিভার করতে হবে । সেই ডেলিভারিতে কোন কোন পয়েন্ট উল্লেখ করতে হবে ও কোন chronological order-এ সেই পয়েন্টগুলো সাজাতে হবে ।`;
+
+      document.getElementById('generatedPrompt').value = promptTemplate;
+    }
+
+    async function copyText() {
+      const el = document.getElementById('generatedPrompt');
+      if (!el.value) return;
+      await navigator.clipboard.writeText(el.value);
+      const t = document.getElementById('toast');
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2000);
+    }
+
+    function clearAll() {
+      document.getElementById('keywordsInput').value = '';
+      document.getElementById('generatedPrompt').value = '';
+    }
+  </script>
+</body>
+</html>
