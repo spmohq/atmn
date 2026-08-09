@@ -1,0 +1,1398 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ice Cold Traffic</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+:root {
+  --black: #0a0a0a;
+  --dark: #111111;
+  --card: #161616;
+  --border: #242424;
+  --ice: #a8d8ea;
+  --ice-dim: #6ab4cc;
+  --white: #f0f0f0;
+  --muted: #666;
+  --fb: #1877F2;
+  --ig: #E1306C;
+  --orange: #F77737;
+  --green: #00c87a;
+}
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+  padding-bottom: 80px;
+}
+
+/* HEADER */
+.header {
+  background: var(--dark);
+  border-bottom: 1px solid var(--border);
+  padding: 36px 24px 32px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.header::before {
+  content: 'ICE COLD TRAFFIC';
+  position: absolute;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 11rem;
+  color: rgba(168,216,234,0.03);
+  white-space: nowrap;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  letter-spacing: 0.05em;
+}
+
+.header-eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ice-dim);
+  margin-bottom: 12px;
+}
+
+.header h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3.5rem, 9vw, 6.5rem);
+  letter-spacing: 0.06em;
+  line-height: 0.95;
+  color: var(--white);
+}
+
+.header h1 span {
+  color: var(--ice);
+  display: block;
+}
+
+.header-sub {
+  margin-top: 14px;
+  font-size: 0.88rem;
+  color: var(--muted);
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+/* CONTAINER */
+.container {
+  max-width: 950px;
+  margin: 0 auto;
+  padding: 36px 20px 0;
+}
+
+/* INPUT CARD */
+.input-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.input-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ice-dim);
+  margin-bottom: 8px;
+  display: block;
+}
+
+.input-desc {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+input[type=text], textarea {
+  width: 100%;
+  background: var(--black);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.92rem;
+  padding: 12px 14px;
+  outline: none;
+  transition: border-color 0.15s;
+  line-height: 1.6;
+}
+input[type=text]::placeholder, textarea::placeholder { color: #444; }
+input[type=text]:focus, textarea:focus { border-color: var(--ice-dim); }
+#offer-name { margin-bottom: 16px; }
+#offer-desc { min-height: 160px; resize: vertical; }
+
+.btn-generate {
+  display: block;
+  width: 100%;
+  margin-top: 16px;
+  padding: 17px;
+  background: var(--ice);
+  color: var(--black);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem;
+  letter-spacing: 0.1em;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+.btn-generate:hover { background: #c2e8f5; }
+.btn-generate:active { transform: scale(0.99); }
+
+.btn-clear {
+  padding: 17px 22px;
+  background: transparent;
+  color: var(--muted);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color 0.15s, color 0.15s;
+}
+.btn-clear:hover { border-color: #555; color: var(--white); }
+
+/* DIVIDER */
+.divider { height: 1px; background: var(--border); margin: 32px 0; }
+
+/* OUTPUT SECTION */
+#output-section { display: none; }
+
+.output-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.output-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.08em;
+  color: var(--ice);
+}
+
+
+.btn-copy-all:hover { background: var(--ice-dim); color: var(--black); }
+
+
+.prompt-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.prompt-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  cursor: pointer;
+  user-select: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s;
+}
+
+.prompt-card.open .prompt-card-header {
+  border-bottom-color: var(--border);
+}
+
+.prompt-card-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.prompt-tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+.tag-content  { background: rgba(168,216,234,0.12); color: var(--ice); }
+.tag-social   { background: rgba(24,119,242,0.15); color: #6ea8fe; }
+.tag-ad       { background: rgba(247,119,55,0.15); color: var(--orange); }
+.tag-review   { background: rgba(0,200,122,0.15); color: var(--green); }
+.tag-keywords { background: rgba(255,215,0,0.12); color: #f5c842; }
+
+.prompt-card-name {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--white);
+}
+
+.prompt-card-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-copy-card {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.btn-copy-card:hover { border-color: var(--ice-dim); color: var(--ice-dim); }
+.btn-copy-card.copied { border-color: var(--green); color: var(--green); }
+
+.chevron {
+  width: 16px;
+  height: 16px;
+  color: var(--muted);
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+.prompt-card.open .chevron { transform: rotate(180deg); }
+
+.prompt-card-body {
+  display: none;
+  padding: 18px;
+}
+.prompt-card.open .prompt-card-body { display: block; }
+
+.prompt-textarea {
+  width: 100%;
+  min-height: 280px;
+  background: var(--black);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: #ccc;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  line-height: 1.8;
+  padding: 14px 16px;
+  resize: vertical;
+  outline: none;
+}
+
+/* AI BUTTONS */
+.ai-bar {
+  margin-top: 24px;
+  padding: 18px 20px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--ice-dim);
+  border-radius: 8px;
+}
+.ai-bar-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+.ai-btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.ai-btn {
+  padding: 9px 16px;
+  border-radius: 5px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  color: var(--white);
+  background: var(--dark);
+  text-decoration: none;
+  transition: border-color 0.15s, color 0.15s;
+  cursor: pointer;
+}
+.ai-btn:hover { border-color: var(--ice-dim); color: var(--ice); }
+
+footer {
+  text-align: center;
+  padding: 40px 20px 0;
+  font-size: 0.75rem;
+  color: #333;
+}
+footer a { color: #444; text-decoration: none; }
+footer a:hover { color: var(--muted); }
+
+@media(max-width:600px){
+  .header h1 { font-size: 3.2rem; }
+  .ai-btns .ai-btn { flex: 1 1 calc(50% - 4px); text-align: center; }
+  .prompt-card-name { font-size: 0.82rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-eyebrow">Ice Cold Traffic System</div>
+  <h1>Ice <span>Cold Traffic</span></h1>
+  <p class="header-sub">Paste your offer. Generate marketing material and ice cold traffic instantly.</p>
+</div>
+
+<div class="container">
+
+  <div class="input-card">
+    <label class="input-label" for="offer-name">Offer Name</label>
+    <input type="text" id="offer-name" placeholder="e.g. The 6-Figure Freelancer Blueprint">
+
+    <label class="input-label" for="offer-desc">Offer Description / Sales Page Copy</label>
+    <p class="input-desc">Paste your full sales page, offer description, or bullet points. The more detail, the better the output.</p>
+    <textarea id="offer-desc" placeholder="Paste your offer description or sales page copy here..."></textarea>
+
+    <label class="input-label" for="offer-url" style="margin-top:16px;">Traffic Destination URL</label>
+    <p class="input-desc">The page you want to send traffic to — included automatically in every prompt.</p>
+    <input type="text" id="offer-url" placeholder="e.g. https://yoursite.com/offer">
+
+    <div style="display:flex;gap:10px;margin-top:16px;">
+      <button class="btn-generate" style="margin-top:0;flex:1;" onclick="generateAll()">❄ GENERATE ALL TRAFFIC PROMPTS</button>
+      <button class="btn-clear" onclick="clearAll()">Clear</button>
+    </div>
+  </div>
+
+  <div id="output-section">
+    <div class="divider"></div>
+
+    <div class="output-header">
+      <div class="output-title">Your Traffic Prompts</div>
+
+    </div>
+
+    <div class="prompt-grid" id="prompt-grid"></div>
+
+    <div class="ai-bar">
+      <div class="ai-bar-label">Paste into your preferred AI tool →</div>
+      <div class="ai-btns">
+        <a class="ai-btn" href="https://chat.openai.com" target="_blank">ChatGPT</a>
+        <a class="ai-btn" href="https://claude.ai/new" target="_blank">Claude</a>
+        <a class="ai-btn" href="https://gemini.google.com" target="_blank">Gemini</a>
+        <a class="ai-btn" href="https://www.perplexity.ai" target="_blank">Perplexity</a>
+        <a class="ai-btn" href="https://chat.deepseek.com" target="_blank">DeepSeek</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <a href="https://www.facebook.com/groups/spmcustomergroup" target="_blank">Siva's Private Facebook Group</a>
+</footer>
+
+<script>
+const PROMPTS = [
+  {
+    id: 'keywords',
+    name: 'Get Traffic-Getting Keywords',
+    tag: 'Keywords',
+    tagClass: 'tag-keywords',
+    template: `You are an expert SEO strategist and paid traffic specialist. Your job is to generate 25 high-intent long-tail keywords for the offer below that will attract cold traffic who are actively searching for a solution — and who are close to buying.
+
+These keywords will be used to:
+- Rank blog posts and YouTube videos in search
+- Target Google and YouTube ads
+- Create Pinterest pins and Medium articles
+- Find audiences who are one click away from needing this offer
+
+OFFER:
+[offer]
+
+KEYWORD CRITERIA — every keyword must pass all three tests:
+1. SEARCH INTENT: Someone typing this is either in pain, comparing options, or ready to buy
+2. SPECIFICITY: 3-6 words minimum — no broad single-word or two-word keywords
+3. COMMERCIAL VALUE: The person searching this is a realistic buyer for this offer
+
+DELIVER 25 KEYWORDS ACROSS THESE 5 CATEGORIES (5 per category):
+
+CATEGORY 1 — PROBLEM-AWARE KEYWORDS
+The searcher knows they have a problem but hasn't found the solution yet. They're frustrated and looking for answers.
+Example format: "why can't I [achieve desired result]", "[problem] getting worse no matter what I try"
+
+CATEGORY 2 — SOLUTION-AWARE KEYWORDS
+The searcher knows solutions exist and is actively comparing them. They want the best option.
+Example format: "best [solution type] for [specific person]", "[solution] vs [alternative] which works faster"
+
+CATEGORY 3 — BUYING-INTENT KEYWORDS
+The searcher is ready to spend money. They just need to find the right offer.
+Example format: "buy [product type] for [outcome]", "best [product] program that actually works", "[niche] course for beginners that gets results"
+
+CATEGORY 4 — QUESTION-BASED KEYWORDS
+Exact questions people type into Google and YouTube. High click-through rate when your content answers them directly.
+Example format: "how do I [achieve result] without [common obstacle]", "what is the fastest way to [desired outcome]"
+
+CATEGORY 5 — HIGH-URGENCY PAIN KEYWORDS
+The searcher is at peak frustration. They've tried other things. They need a solution now.
+Example format: "tried everything still can't [achieve result]", "how to finally [result] after years of failing"
+
+OUTPUT FORMAT — deliver exactly this for each keyword:
+
+1. [KEYWORD]
+   Intent: [One sentence on exactly who is searching this and what they want]
+   Best used for: [Blog post / YouTube video / Google Ad / Pinterest / Medium article]
+   Conversion potential: [High / Medium] + one sentence why
+
+After all 25, add:
+
+TOP 5 PICKS — the 5 keywords most likely to drive traffic that converts to buyers:
+For each: keyword + the single best content format to target it + what the title of that content should be`
+  },
+  {
+    id: 'review',
+    name: 'Product Review',
+    tag: 'Review',
+    tagClass: 'tag-review',
+    template: `You are an expert SEO content writer and conversion copywriter. Your job is to write a long-form product review that ranks in Google search, gets clicked, and converts cold readers into buyers — people who have never heard of this offer before and need to be convinced from zero.
+
+This review will be published as a standalone blog post or article. It needs to do three things:
+1. Rank for buyer-intent search terms related to this offer
+2. Build enough trust with a cold reader that they believe the product delivers
+3. End with a CTA that makes clicking through to [URL] feel like the obvious next step
+
+OFFER:
+[offer]
+
+REVIEW STRUCTURE — follow this exactly:
+
+HEADLINE (provide 3 options):
+- One SEO-optimized: targets "[product name] review" or "[product type] that works" searches
+- One curiosity-driven: makes a cold reader stop scrolling
+- One hybrid: SEO keywords + emotional hook in the same title
+
+META DESCRIPTION (155 characters):
+Summarize the review's core promise — written to maximize click-through from search results
+
+OPENING HOOK (first 100 words — this determines if they keep reading):
+- Do NOT open with "I purchased this product" or "In this review I'll cover"
+- Open with the result, the transformation, or the moment everything changed
+- The reader should feel like they're already inside the story before they realize it's a review
+- Establish the core pain or desire in the first 2 sentences
+
+PRODUCT OVERVIEW (100-150 words):
+- What it is, who made it, who it's for
+- Write this for someone with zero context — cold traffic has never heard of it
+- Include the primary keyword naturally
+
+THE PROBLEM IT SOLVES (100-150 words):
+- Describe the pain, frustration, or desire this product addresses
+- Be specific — name the exact situation the reader is likely in
+- Make the reader feel understood before you introduce the solution
+
+WHAT'S INSIDE / HOW IT WORKS (150-200 words):
+- Walk through the key components, modules, or features
+- Frame every feature as a benefit — what it does FOR the reader
+- Use specific details — vague claims kill trust with cold traffic
+
+RESULTS & PROOF (100-150 words):
+- Describe realistic, specific outcomes the buyer can expect
+- Use numbers, timeframes, and concrete before/after language where possible
+- Avoid unbelievable claims — cold traffic is skeptical
+
+WHY IT'S DIFFERENT (100 words):
+- What makes this better or different from other options
+- Address the #1 objection a cold reader would have before buying
+
+FINAL VERDICT (50-75 words):
+- Direct recommendation — no hedging, no "it depends"
+- Who this is perfect for, stated plainly
+
+CALL TO ACTION:
+- Send the reader to [URL]
+- Create urgency or curiosity without fake scarcity
+- Make the next step feel obvious and low-risk
+- Do NOT say "click here" — write a CTA that sells the click
+
+SEO REQUIREMENTS:
+- Naturally include the product name and 2-3 buyer-intent keyword phrases throughout
+- Use subheadings that could rank as featured snippets
+- Total length: 700-900 words
+
+BONUS — provide at the end:
+- 3 pull-quote highlights (1 sentence each) that could be used as ad copy or social proof
+- 2 alternative CTAs with different angles (urgency vs. curiosity)`
+  },
+  {
+    id: 'facebook',
+    name: 'Facebook Post',
+    tag: 'Social',
+    tagClass: 'tag-social',
+    template: `You are an expert social media copywriter and cold traffic conversion specialist. Your job is to write a Facebook post that stops a complete stranger mid-scroll, earns their trust, and drives them to click through to [URL] — without ever feeling like an ad.
+
+Cold traffic on Facebook has never heard of this offer. They didn't come to buy anything. Your post needs to feel like something a real person wrote — not a marketer — while doing the full job of a conversion asset.
+
+OFFER:
+[offer]
+
+FACEBOOK POST STRUCTURE — follow this exactly:
+
+HOOK LINE (1 sentence — this is everything):
+- This is the line that shows before "See More" — if it doesn't stop the scroll, nothing else matters
+- Do NOT open with a question, "I want to share something", or the product name
+- Open with a specific relatable situation, an uncomfortable truth, or a pattern interrupt
+- Write 5 hook line options — the user will choose the strongest one
+
+BODY (120-200 words):
+- Start by agitating the pain or desire — make the reader feel understood before introducing anything
+- Build the case naturally: problem → failed attempts → why this is different
+- Introduce the offer as the logical solution — not as an announcement
+- Use short paragraphs (2-3 lines max) mixed with an occasional single punchy line
+- Every paragraph should make the next one impossible not to read
+- Avoid: "I'm excited to share", "game changer", "this changed my life", "you need this"
+- Write like a person thinking out loud — not a marketer presenting a product
+
+CALL TO ACTION (2-3 sentences):
+- Send them to [URL]
+- Make the click feel low-risk and high-reward
+- Create curiosity or urgency — not pressure
+- Do NOT say "click the link below" — write a CTA that sells the destination
+
+SEO & REACH NOTES:
+- Suggest the best time to post for maximum organic reach
+- Suggest 3 audience targeting interests if running this as a paid ad
+- Suggest 1 image or video concept that would pair with this post to maximize engagement
+
+ALSO PROVIDE:
+- 3 alternative hook lines with different angles (pain / curiosity / social proof)
+- 1 shortened version (under 80 words) optimized for mobile-first cold audiences`
+  },
+  {
+    id: 'linkedin',
+    name: 'LinkedIn Story',
+    tag: 'Social',
+    tagClass: 'tag-social',
+    template: `You are an expert LinkedIn content strategist and B2B conversion copywriter. Your job is to write a LinkedIn story post that attracts cold professional traffic through organic reach and search, builds credibility fast, and drives readers to click through to [URL].
+
+LinkedIn cold traffic is skeptical and time-poor. They scroll past anything that feels promotional, vague, or generic. They stop for stories with specific results, counterintuitive insights, and content that makes them feel like the writer understands their exact situation.
+
+OFFER:
+[offer]
+
+LINKEDIN POST STRUCTURE — follow this exactly:
+
+HEADLINE / OPENING LINE (1-2 lines — appears before "see more"):
+- Must create an immediate reason to keep reading
+- Use a specific result, a surprising number, a counterintuitive statement, or drop mid-story
+- Do NOT open with "I'm excited to share", "Grateful to announce", or a question
+- Write 4 opening line options with different angles
+
+STORY ARC (200-280 words):
+Follow this exact structure:
+- THE SITUATION: Set the scene — who, what problem, what was at stake. Be specific.
+- THE STRUGGLE: What had already been tried and failed. Name the frustration specifically.
+- THE TURNING POINT: What changed — introduce the offer as the mechanism, not as a product pitch
+- THE RESULT: Specific, credible outcome. Use numbers, timeframes, or concrete before/after language.
+- THE LESSON: One clear takeaway the reader can use — this is what gets shared and saves
+
+FORMATTING RULES:
+- One idea per line — LinkedIn rewards white space
+- No paragraphs longer than 3 lines
+- Bold the single most important line in the post
+- Use line breaks strategically to create scroll momentum
+- Length: 200-300 words total including opening line
+
+CALL TO ACTION (2-3 lines):
+- Transition naturally from the lesson to the offer
+- Send them to [URL] with a reason that feels like a recommendation, not a pitch
+- Create curiosity about what they'll find — not pressure to buy
+
+SEO & DISCOVERABILITY:
+- Suggest 5 LinkedIn hashtags (mix of broad professional + niche topic)
+- Suggest the best post category/topic tag for maximum reach
+- Write a suggested LinkedIn article title if this post were expanded into a full article
+
+ALSO PROVIDE:
+- 1 comment prompt — a question to add as the first comment to boost engagement
+- 2 alternative CTAs: one direct, one soft recommendation style`
+  },
+  {
+    id: 'instagram',
+    name: 'Instagram Post',
+    tag: 'Social',
+    tagClass: 'tag-social',
+    template: `You are an expert Instagram content strategist and cold traffic conversion specialist. Your job is to write an Instagram caption that stops cold traffic mid-scroll, builds instant connection, and drives them to click the link in bio to visit [URL].
+
+Instagram cold traffic is visual-first and attention-starved. They decide in under 2 seconds whether to keep reading. The caption does the conversion work — but only if the first line earns the next one.
+
+OFFER:
+[offer]
+
+INSTAGRAM CAPTION STRUCTURE — follow this exactly:
+
+FIRST LINE (appears before "more" — this is the scroll-stopper):
+- Maximum 125 characters
+- Must create immediate curiosity, recognition, or tension
+- Do NOT open with a question, an emoji string, or the product name
+- The reader should feel called out or intrigued before they even tap "more"
+- Write 5 first-line options with different angles
+
+CAPTION BODY (after "more" — 100-180 words):
+- Open by deepening the hook — reward them for tapping more
+- Agitate the core pain or desire with specificity — make them feel understood
+- Introduce the offer naturally as the solution — not as a product announcement
+- Use short punchy sentences — Instagram is read on a phone, often standing up
+- Build to the CTA — every line should make the next unavoidable
+- Avoid: generic motivation, "link in bio", "DM me for details", exclamation overload
+
+CALL TO ACTION (2-3 lines):
+- Direct them to [URL] via the link in bio
+- Make the reason to click specific — what will they find, why does it matter right now
+- Create curiosity or urgency without pressure or fake scarcity
+
+HASHTAG STRATEGY (provide exactly 15):
+- 3 broad hashtags (1M+ posts) — for discovery
+- 7 mid-range hashtags (50K-500K posts) — for targeted reach
+- 5 niche hashtags (under 50K posts) — for engaged community traffic
+- Place them as a separate block after the caption, not inside it
+
+VISUAL DIRECTION:
+- Describe the ideal image or video that would pair with this caption
+- Include: subject, setting, mood, style (candid/cinematic/lifestyle etc.)
+- Explain why this visual would stop the scroll for this specific audience
+
+ALSO PROVIDE:
+- 1 Reel concept (15-30 seconds) that could drive traffic to the same offer
+- 2 story slide sequences (3 slides each) designed to swipe-through and click link`
+  },
+  {
+    id: 'medium',
+    name: 'Medium Post',
+    tag: 'Content',
+    tagClass: 'tag-content',
+    template: `You are an expert content marketer and SEO writer specializing in Medium distribution. Your job is to write a Medium article that ranks in Google search, gets curated and distributed by Medium's algorithm, and converts cold readers into buyers at [URL] — people who arrived from search and have zero awareness of this offer.
+
+Medium cold traffic arrives from Google or Medium's own recommendation engine. They came for information, not to buy. Your article needs to deliver genuine value, build authority, and make clicking through to [URL] feel like the natural next step — not an ad.
+
+OFFER:
+[offer]
+
+MEDIUM ARTICLE STRUCTURE — follow this exactly:
+
+TITLE (provide 3 options):
+- One pure SEO title: targets a high-intent search phrase, includes the core keyword
+- One curiosity/emotion title: makes someone browsing Medium stop and click
+- One hybrid: SEO keyword + emotional hook combined in one title
+- Each title should be 50-70 characters for optimal display
+
+SUBTITLE (1 sentence):
+- Expands the title promise — gives the reader a specific reason to start reading
+- Include a secondary keyword naturally
+
+META DESCRIPTION (155 characters):
+- Written to maximize click-through from Google search results
+- Lead with the reader's desired outcome, not the product
+
+OPENING SECTION (150-200 words — determines if they keep reading):
+- Do NOT open with "In this article I will..." or a definition
+- Open with a story, a surprising statistic, or a counterintuitive statement that challenges what the reader believes
+- Establish the core problem or desire within the first paragraph
+- End the opening with an open loop — a question or tension that the article will resolve
+
+PROBLEM SECTION (150-200 words):
+- Name the exact frustration the reader is experiencing
+- Explain why common solutions fail — this builds credibility and trust
+- Use specific language that makes the reader feel you understand their situation
+
+INSIGHT / SHIFT SECTION (200-250 words):
+- Introduce a new way of thinking about the problem
+- This is where you position the offer's core mechanism as the key insight
+- Deliver real value here — Medium readers will leave if they feel baited
+- Use subheadings to break this section up for skimmability
+
+SOLUTION SECTION (150-200 words):
+- Introduce the offer as the practical application of the insight
+- Frame it as a resource or tool, not an advertisement
+- Describe what it does and who it's for in plain specific language
+- Include a natural link to [URL] here — not as a CTA, as a reference
+
+PROOF / RESULTS SECTION (100-150 words):
+- Describe realistic outcomes the reader can expect
+- Use specifics: numbers, timeframes, before/after scenarios
+- Keep claims credible — Medium readers distrust hype
+
+CONCLUSION + CTA (100-150 words):
+- Summarize the core insight in 2-3 sentences
+- Make the recommendation to visit [URL] feel like a logical conclusion, not a sales push
+- End with a question that invites comments — Medium's algorithm rewards engagement
+
+SEO REQUIREMENTS:
+- Suggest 5 target keywords to use naturally throughout the article
+- Suggest 3 Medium tags (publication categories) for maximum distribution
+- Total article length: 900-1200 words
+
+ALSO PROVIDE:
+- 1 suggested pull quote to use as a Medium highlight (drives shares)
+- 2 internal link suggestions — other article topics that could link to this one
+- Suggested author bio (3 sentences) that builds credibility for this specific offer niche`
+  },
+  {
+    id: 'blog',
+    name: 'Blog Post',
+    tag: 'Content',
+    tagClass: 'tag-content',
+    template: `You are an expert SEO content strategist and conversion copywriter. Your job is to write a blog post that ranks on page one of Google for buyer-intent keywords, attracts cold traffic who are actively searching for a solution, and converts them into buyers at [URL] — without ever feeling like a sales page.
+
+This blog post will live on a website or blog. Cold traffic arrives from search — they typed a question into Google and your post showed up. They have zero awareness of this offer. Your post needs to answer their question better than anyone else, build enough trust to be credible, and make clicking through to [URL] the obvious next move.
+
+OFFER:
+[offer]
+
+BLOG POST STRUCTURE — follow this exactly:
+
+TITLE (provide 3 options):
+- One pure SEO title: includes the primary keyword, written for search intent
+- One click-bait title: creates curiosity or promises a specific outcome
+- One hybrid: primary keyword + emotional hook or specific number
+- Ideal length: 50-60 characters
+
+META DESCRIPTION (150-155 characters):
+- Summarizes what the reader will get — written to maximize organic CTR
+- Include the primary keyword and a benefit or outcome
+
+FEATURED IMAGE ALT TEXT:
+- SEO-optimized description of the ideal featured image for this post
+
+OPENING SECTION — The Hook (150-200 words):
+- Do NOT open with "In this post I'll show you" or a dictionary definition
+- Open by naming the exact problem, situation, or question the reader just searched for
+- Make them feel like this post was written specifically for them
+- End with a clear promise: what they will know or be able to do by the end
+
+SECTION 2 — Why This Is Harder Than It Should Be (150-200 words):
+- Name the common solutions people have already tried and why they fall short
+- This positions the offer as something genuinely different
+- Use specific language — vague frustration doesn't build trust
+
+SECTION 3 — The Key Insight (200-250 words):
+- Introduce the core mechanism or approach that makes this offer work
+- Teach something real and specific — this is what earns trust with cold traffic
+- Use a subheading that could rank as a Google featured snippet
+- Naturally reference the offer as the tool or system behind this insight
+
+SECTION 4 — How It Works / What To Do (200-250 words):
+- Walk the reader through the practical application
+- Frame the offer as the shortcut or accelerator — not the only way, but the fastest
+- Include a contextual link to [URL] here — as a recommendation, not a CTA
+
+SECTION 5 — Proof & Results (150-200 words):
+- Describe realistic, specific outcomes a buyer can expect
+- Use numbers, timeframes, and concrete before/after scenarios
+- Keep claims believable — skeptical cold traffic will bounce at exaggeration
+
+CONCLUSION + CTA (100-150 words):
+- Summarize the single most important insight from the post
+- Make the recommendation to visit [URL] feel earned and logical
+- CTA should create curiosity about what's at [URL] — not pressure
+- Do NOT end with "I hope you found this helpful"
+
+SEO REQUIREMENTS:
+- Primary keyword: suggest the single best keyword to target
+- Secondary keywords: suggest 4 supporting keywords to use naturally
+- Suggested internal linking opportunities: 2 other blog post topics that should link to this
+- Suggested external links: 2 authoritative sources to cite for credibility
+- Ideal word count: 1,200-1,800 words
+- Suggest schema markup type (HowTo / FAQ / Article / Review)
+
+ON-PAGE SEO CHECKLIST — include these in the post:
+- Primary keyword in title, first 100 words, one subheading, and meta description
+- At least one subheading phrased as a question (targets featured snippets)
+- FAQ section at the end with 3 questions and answers (boosts featured snippet chances)
+
+ALSO PROVIDE:
+- Pinterest pin title + description (for driving additional traffic to this post)
+- Email subject line to promote this post to a list
+- Social share caption (Twitter/X) to amplify reach`
+  },
+  {
+    id: 'short-video',
+    name: 'Short Form Video',
+    tag: 'Content',
+    tagClass: 'tag-content',
+    template: `You are an expert short-form video scriptwriter and cold traffic strategist. Your job is to write short video scripts for TikTok, Facebook/Instagram Reels, and YouTube Shorts that stop cold traffic mid-scroll in the first 2 seconds, deliver a hook so strong they can't look away, and drive them to click through to [URL].
+
+Cold traffic on short-form video is the hardest audience to convert. They're in entertainment mode, not buying mode. The only way to win is to open with something so specific, relatable, or surprising that they forget they were scrolling — and by the time the offer appears, it feels like the answer they were already looking for.
+
+OFFER:
+[offer]
+
+DELIVER 3 COMPLETE SCRIPT VARIATIONS — each targeting a different hook angle:
+
+VARIATION 1 — PROBLEM HOOK (leads with pain):
+Opens by naming a specific frustration the viewer has right now
+
+VARIATION 2 — RESULT HOOK (leads with outcome):
+Opens with a specific result or transformation — stated as fact, not promise
+
+VARIATION 3 — PATTERN INTERRUPT HOOK (leads with something unexpected):
+Opens with a counterintuitive statement, surprising fact, or unexpected visual direction that stops the scroll purely through curiosity
+
+FOR EACH VARIATION PROVIDE:
+
+HOOK (0-3 seconds — spoken words only):
+- Maximum 10 words
+- Must work as the first thing the viewer hears AND sees on screen
+- Do NOT start with "Hey guys", "So I wanted to share", or a question
+- The viewer should feel called out or intensely curious before they can decide to scroll past
+- Write the hook as a single punchy declarative statement or mid-situation drop-in
+
+BODY (3-45 seconds — 60-100 spoken words):
+- Build tension around the core problem immediately after the hook
+- Use conversational, slightly imperfect language — not a polished script
+- Introduce the offer as the discovery or solution — not as a product pitch
+- Every sentence must create a reason to watch the next one
+- Include one "open loop" moment — a statement that creates curiosity about what comes next
+- Speak directly to one specific person, not a broad audience
+
+CTA (45-60 seconds — 15-25 spoken words):
+- Direct them to [URL] — link in bio or pinned comment
+- Make the reason to click specific and immediate — what will they find right now
+- Create urgency through relevance, not fake scarcity
+- End on a curiosity gap if possible — make NOT clicking feel like missing out
+
+ON-SCREEN TEXT OVERLAYS (for each section):
+- Hook overlay: the exact text to show on screen during the first 3 seconds
+- Body overlays: 2-3 key phrases to flash on screen during the body
+- CTA overlay: the exact text + visual direction for the final frame
+
+VISUAL/SCENE DIRECTION (for each variation):
+- Opening shot: what the viewer sees in the first frame
+- Pacing: fast cuts / slow burn / talking head / B-roll mix
+- Mood: energetic / calm / urgent / relatable
+- One prop, location, or visual element that makes this feel authentic not produced
+
+SEO & DISCOVERABILITY:
+- Suggest 5 hashtags for TikTok/Reels (mix of trending + niche)
+- Suggest the best posting time for each platform
+- Suggest 1 trending audio style that fits this content type
+
+ALSO PROVIDE:
+- A/B test recommendation: which 2 variations to test first and why
+- Thumbnail frame description: the single best frame to use as the video thumbnail`
+  },
+  {
+    id: 'long-video',
+    name: 'Long Form Video',
+    tag: 'Content',
+    tagClass: 'tag-content',
+    template: `You are an expert YouTube scriptwriter, SEO strategist, and cold traffic conversion specialist. Your job is to write a complete long-form YouTube video script that ranks in YouTube and Google search, hooks cold traffic who have never heard of this offer, delivers enough value to build trust, and converts viewers into buyers at [URL].
+
+YouTube cold traffic arrives from search or recommendations. They typed a question or clicked a thumbnail — they want a real answer, not a pitch. Your script needs to deliver genuine value, position the offer as the logical solution, and make clicking through to [URL] feel like the obvious next step before the video even ends.
+
+OFFER:
+[offer]
+
+COMPLETE VIDEO SCRIPT — follow this structure exactly:
+
+TITLE (provide 3 options):
+- One pure SEO title: includes the exact keyword phrase people are searching, 50-65 characters
+- One curiosity/click-bait title: leads with a surprising outcome or counterintuitive angle
+- One hybrid: primary keyword + emotional hook or specific result in the same title
+- For each title, suggest the ideal thumbnail concept (text overlay + visual)
+
+VIDEO DESCRIPTION (for YouTube — 250 words):
+- First 2 lines must include the primary keyword and a compelling reason to watch — this shows before "show more"
+- Include a direct link to [URL] in the first 3 lines
+- Summarize what the video covers (for search indexing)
+- Include 3-5 keyword-rich sentences naturally throughout
+- End with a soft CTA to [URL] and a subscribe prompt
+- List timestamps for each section (fill in after script is complete)
+
+TAGS (provide 15):
+- Mix of broad topic tags, specific keyword tags, and long-tail question tags
+
+SCRIPT — TARGET LENGTH: 10-15 MINUTES (1,500-2,200 spoken words)
+
+[SECTION 1 — HOOK: 0:00-0:45]
+- Open with the payoff, a bold claim, or drop mid-situation — earn the next 30 seconds immediately
+- Do NOT open with "Hey what's up guys, welcome back to my channel"
+- State exactly what the viewer will get from watching this video — make it specific
+- Create an open loop: tease the most valuable insight coming later in the video
+- Write 3 alternative hook openings with different angles
+
+[SECTION 2 — CREDIBILITY BRIDGE: 0:45-2:00]
+- Establish why the viewer should trust what's coming
+- Use a specific result, experience, or insight — not generic credentials
+- Connect your authority directly to the viewer's problem
+- Keep it short — cold traffic will skip if this runs long
+
+[SECTION 3 — PROBLEM AGITATION: 2:00-4:00]
+- Name the exact frustration the viewer came to solve
+- Explain why common solutions fail — be specific and honest
+- Make the viewer feel understood — this is the trust-building section
+- Include a pattern interrupt (surprising fact, counterintuitive statement) to re-engage attention
+
+[SECTION 4 — THE CORE VALUE (main teaching): 4:00-9:00]
+- Deliver the genuine insight, framework, or method — this is the reason they watched
+- Break into 3-4 clear sub-points with natural transitions
+- Weave the offer in as the tool, system, or shortcut behind what you're teaching — not as an ad
+- Include a "mid-roll CTA" at approximately the 5-6 minute mark:
+  * Brief mention of [URL]
+  * One sentence on what they'll find there
+  * Then immediately return to the content — do not linger on the pitch
+
+[SECTION 5 — PROOF AND RESULTS: 9:00-11:00]
+- Describe specific, realistic outcomes tied to the method just taught
+- Use numbers, timeframes, and before/after scenarios
+- Connect the proof directly to the offer — position [URL] as where they go to get these results
+
+[SECTION 6 — CLOSE AND CTA: 11:00-END]
+- Summarize the single most important insight from the video in 2-3 sentences
+- Transition naturally to the offer — make it feel earned, not bolted on
+- CTA to [URL]: specific, curious, low-pressure — tell them exactly what they'll find and why now
+- Secondary CTA: subscribe + comment prompt (ask a specific question to boost engagement)
+- End screen copy: what to say over the end screen cards
+
+PATTERN INTERRUPTS — include at least 3 throughout the script:
+- Mark each with [PATTERN INTERRUPT] in the script
+- These are moments designed to re-engage viewers who are drifting
+- Can be: a surprising statement, a visual change, a direct question to the viewer, or a bold claim
+
+B-ROLL AND VISUAL NOTES:
+- Mark suggested B-roll moments throughout with [B-ROLL: description]
+- Suggest 3 on-screen graphic moments (text overlays, charts, or callouts) that reinforce key points
+
+SEO OPTIMIZATION:
+- Primary keyword to use in title, description, first 30 seconds of script, and at least 2 subheadings
+- 4 secondary keywords to weave naturally throughout
+- Suggest 2 end screen video recommendations (topics that keep viewers in your funnel)
+- Suggest 1 pinned comment to post immediately after publishing
+
+ALSO PROVIDE:
+- Email subject line to send this video to a list
+- Tweet/X thread opener to promote this video organically
+- 3 timestamps to highlight as YouTube chapters for maximum search visibility`
+  },
+  {
+    id: 'google-ad',
+    name: 'Google Ad',
+    tag: 'Ad',
+    tagClass: 'tag-ad',
+    template: `You are an expert Google Ads copywriter and paid search strategist. Your job is to write Google Search Ad copy that captures cold traffic at the exact moment they're searching for a solution — people who have never heard of this offer but are actively looking for what it delivers — and drives them to click through to [URL].
+
+Google cold traffic is intent-driven. They typed something into Google because they have a problem or desire right now. Your ads need to match that intent precisely, earn the click over every other result on the page, and set the right expectation for what they'll find at [URL].
+
+OFFER:
+[offer]
+
+CAMPAIGN STRATEGY — before writing any ads:
+- Identify the single strongest buying-intent angle for this offer
+- Identify the #1 objection a cold searcher would have before clicking
+- Identify the most specific, credible result this offer delivers
+
+DELIVER 5 COMPLETE AD VARIATIONS — each targeting a different angle:
+
+VARIATION 1 — PAIN-POINT MATCH:
+Mirrors the exact frustration the searcher typed into Google
+
+VARIATION 2 — RESULT-FOCUSED:
+Leads with the most specific, credible outcome the offer delivers
+
+VARIATION 3 — CURIOSITY/INTRIGUE:
+Creates a knowledge gap — they have to click to get the answer
+
+VARIATION 4 — SOCIAL PROOF / AUTHORITY:
+Leads with numbers, results, or credibility signals
+
+VARIATION 5 — OBJECTION CRUSHER:
+Directly addresses and dismantles the #1 reason someone wouldn't click
+
+FOR EACH VARIATION PROVIDE — respect character limits exactly:
+
+HEADLINE 1 (max 30 characters):
+- Problem or desire — matches search intent directly
+- Include the primary keyword if it fits naturally
+
+HEADLINE 2 (max 30 characters):
+- Core benefit or differentiator — what makes this offer the right answer
+
+HEADLINE 3 (max 30 characters):
+- CTA or urgency — tells them exactly what to do and why now
+
+DESCRIPTION 1 (max 90 characters):
+- Expands the headline benefit with specificity
+- Include a secondary keyword naturally
+- End with a soft CTA or benefit reinforcement
+
+DESCRIPTION 2 (max 90 characters):
+- Handle the #1 objection or add a credibility signal
+- Create a reason to click NOW rather than continuing to search
+
+DISPLAY URL PATH (2 fields, max 15 characters each):
+- Reinforce the keyword and destination — e.g. /Weight-Loss /Free-Guide
+
+AD EXTENSIONS — provide for each variation:
+- 3 sitelink extensions (title + 2-line description each): additional pages or benefits to show
+- 2 callout extensions (max 25 characters each): short benefit or credibility snippets
+- 1 structured snippet (header + 4 values): e.g. "Features: Fast, Proven, Simple, Guaranteed"
+
+KEYWORD STRATEGY:
+- 5 exact match keywords: [keyword] — highest intent, tightest targeting
+- 5 phrase match keywords: "keyword phrase" — broader but still intent-driven
+- 5 broad match modified keywords: strong candidates for discovery
+- 5 negative keywords: searches to exclude to prevent wasted spend
+
+BIDDING & QUALITY SCORE NOTES:
+- Suggest the best bidding strategy for cold traffic (maximize clicks vs. target CPA)
+- Note which headline/description combinations will score highest for relevance
+- Suggest landing page elements at [URL] that would improve Quality Score
+
+ALSO PROVIDE:
+- 1 remarketing ad variation: for people who clicked [URL] but didn't buy
+- A/B test recommendation: which 2 variations to run first and what to measure`
+  },
+  {
+    id: 'social-ad',
+    name: 'Social Ad',
+    tag: 'Ad',
+    tagClass: 'tag-ad',
+    template: `You are an expert Facebook and Instagram paid advertising copywriter and cold traffic conversion specialist. Your job is to write paid social ad copy that stops cold traffic mid-scroll, earns trust from a complete stranger in under 3 seconds, and drives them to click through to [URL] and buy.
+
+Cold paid social traffic is the hardest audience to convert. They didn't search for anything. They weren't looking for a solution. They were looking at photos of their friends when your ad interrupted them. Every word of your copy needs to earn its place — starting with the very first line they see before they can decide to scroll past.
+
+OFFER:
+[offer]
+
+CAMPAIGN STRATEGY — establish this before writing any ads:
+- The single sharpest pain point this offer solves (what keeps the ideal buyer up at night)
+- The most specific, believable result this offer delivers
+- The #1 reason a cold stranger wouldn't click (and how to pre-empt it)
+- The emotional state of the ideal buyer right before they buy
+
+DELIVER 5 COMPLETE AD VARIATIONS — each a different angle and creative approach:
+
+VARIATION 1 — PAIN AGITATION:
+Opens by naming a specific frustration so precisely the reader thinks you're talking directly to them
+
+VARIATION 2 — STORY-LED:
+Opens mid-situation — drops the reader into a relatable moment before revealing the offer
+
+VARIATION 3 — RESULT-FIRST:
+Opens with the most specific, credible outcome — stated as fact, not promise
+
+VARIATION 4 — SOCIAL PROOF:
+Opens with a result, number, or transformation that creates instant credibility with a cold audience
+
+VARIATION 5 — CURIOSITY / PATTERN INTERRUPT:
+Opens with something unexpected — a counterintuitive statement, a surprising fact, or a bold claim that makes scrolling past feel impossible
+
+FOR EACH VARIATION PROVIDE:
+
+PRIMARY TEXT — ABOVE THE FOLD (first 125 characters — shows before "See More"):
+- This is the scroll-stopper — if this doesn't hook them, nothing else matters
+- Do NOT start with the brand name, a question, or "Are you tired of..."
+- Must create immediate recognition, tension, or curiosity
+- Write as if a real person typed it — not a marketer
+
+PRIMARY TEXT — FULL (150-250 words total):
+- Line 1 deepens the hook — rewards them for stopping
+- Lines 2-4: agitate the problem with specificity — make them feel understood
+- Lines 5-7: introduce the offer as the discovery or solution — not as a pitch
+- Lines 8-10: build desire — specific outcomes, what changes, what becomes possible
+- Final lines: CTA that drives to [URL] — specific, curious, low-pressure
+- Use short paragraphs (2-3 lines max) — this is read on a phone
+- No exclamation overload, no "game changer", no "life-changing"
+
+HEADLINE (27 characters max):
+- The single most compelling benefit or curiosity hook
+- Should work standalone — someone who only reads the headline should still want to click
+
+LINK DESCRIPTION (27 characters max):
+- Supporting detail, urgency, or objection handle
+- Complements the headline — doesn't repeat it
+
+CTA BUTTON: choose the best option for this variation (Learn More / Shop Now / Get Offer / Download / Sign Up) + explain why
+
+CREATIVE DIRECTION:
+- Image concept: subject, setting, mood, style — designed to stop the scroll for this specific audience
+- Video concept (15-30 second alternative): opening frame, pacing, key moment, closing frame
+- What to avoid visually for this audience
+
+TARGETING SUGGESTIONS:
+- 5 interest targeting audiences most likely to convert for this offer
+- 1 lookalike audience seed recommendation
+- Age range + gender recommendation with reasoning
+
+ALSO PROVIDE:
+- Retargeting ad variation: for people who visited [URL] but didn't buy — different angle, higher urgency
+- A/B test recommendation: which 2 variations to run first, what creative to pair with each, and what metric to optimize for in the first 72 hours`
+  },
+  {
+    id: 'native-ad',
+    name: 'Native Ad',
+    tag: 'Ad',
+    tagClass: 'tag-ad',
+    template: `You are an expert native advertising copywriter and cold traffic conversion strategist. Your job is to write native ad copy that blends seamlessly into editorial content feeds — Taboola, Outbrain, MGID, Revcontent — stops cold traffic who are in content consumption mode, and drives them to click through to [URL] and buy.
+
+Native cold traffic is the most passive audience in digital advertising. They're reading articles, watching news, consuming content — they are not shopping and they are not looking for anything. Your native ad has to look and feel like the next piece of content in their feed while doing the full conversion job of a paid ad. The moment it feels like an ad, they scroll past.
+
+OFFER:
+[offer]
+
+CAMPAIGN STRATEGY — establish before writing:
+- The content category this audience is most likely reading when they see this ad (health, finance, lifestyle, news, entertainment)
+- The emotional state of a cold reader who would click this ad
+- The editorial angle that makes this offer feel like news or discovery rather than a pitch
+- The single most clickable hook for a completely cold, passive audience
+
+DELIVER 4 COMPLETE NATIVE AD VARIATIONS — each a different editorial format:
+
+VARIATION 1 — NEWS/DISCOVERY FORMAT:
+Reads like a breaking news story or recent discovery — creates urgency through newsworthiness
+
+VARIATION 2 — ADVERTORIAL FORMAT:
+Reads like a first-person article or editorial opinion piece — builds trust through narrative
+
+VARIATION 3 — LIST/TIPS FORMAT:
+Reads like a "top tips" or "X things you should know" article — high CTR through curiosity and completeness
+
+VARIATION 4 — STORY/TRANSFORMATION FORMAT:
+Reads like a human interest story — leads with a specific person's transformation, reveals the offer as the mechanism
+
+FOR EACH VARIATION PROVIDE:
+
+HEADLINE (65-85 characters — the most critical element in native advertising):
+- Must look like editorial content — not an ad headline
+- Creates a curiosity gap that can only be closed by clicking
+- Do NOT use: "Click here", "You won't believe", exclamation marks, or obvious ad language
+- The reader should think "I want to read that article" not "that's an ad"
+- Write 3 headline options for each variation (A/B/C test options)
+
+THUMBNAIL IMAGE DESCRIPTION:
+- Describe the ideal image to pair with this headline
+- Native images that convert: real people (not stock), before/after implied, emotion-forward
+- Specify: subject, setting, expression, what makes it feel authentic not promotional
+- Explain why this image creates curiosity for this specific audience
+
+TEASER TEXT (optional — 50-70 characters, shown below headline on some platforms):
+- One line that deepens the curiosity gap created by the headline
+- Should feel like the subtitle of an article, not ad copy
+
+LANDING PAGE BRIDGE (the first 200 words a reader sees after clicking — critical for native):
+- Native traffic clicks expecting an article — if they land on a sales page immediately, they bounce
+- Write the opening of an advertorial landing page that continues the editorial feel of the ad
+- Transition naturally from the headline's promise into the offer
+- Build credibility before mentioning the product
+- End this section with a "curiosity bridge" that makes scrolling down feel necessary
+
+FULL ADVERTORIAL OUTLINE (for the complete landing page at [URL]):
+- Headline that continues from the native ad
+- Section 1: Story or problem that the target reader recognizes immediately
+- Section 2: Why common solutions fail — builds credibility
+- Section 3: The discovery or insight — introduces the offer as news
+- Section 4: Proof and results — specific, believable, no hype
+- Section 5: CTA — feels like a recommendation, not a close
+
+PLATFORM NOTES:
+- Best native ad network for this offer (Taboola / Outbrain / MGID / Revcontent) + reasoning
+- Recommended bid strategy for cold traffic
+- Audience targeting suggestions (content categories + demographic)
+- Blacklist recommendation: content categories to exclude to avoid irrelevant clicks
+
+ALSO PROVIDE:
+- Compliance check: flag any claims that might be rejected by native ad networks
+- Retargeting sequence: 3 follow-up native ad headlines for people who clicked but didn't buy
+- A/B test recommendation: which headline variation to run first and what CTR to aim for`
+  },
+  {
+    id: 'solo-email',
+    name: 'Solo Ad Email',
+    tag: 'Ad',
+    tagClass: 'tag-ad',
+    template: `You are an expert email copywriter and solo ad specialist. Your job is to write solo ad emails that convert cold traffic — people on someone else's list who have never heard of this offer, never asked to hear about it, and will delete it in under 3 seconds if the opening doesn't earn their attention.
+
+Solo ad traffic is the most skeptical cold traffic that exists. These readers get emailed offers every single day. They have seen every hook, every promise, and every pitch. The only emails that convert are the ones that feel like a genuine recommendation from someone who actually tried something and wants to share it — not a marketer blasting a link.
+
+OFFER:
+[offer]
+
+DESTINATION URL: [URL]
+
+CAMPAIGN STRATEGY — establish before writing:
+- The single strongest reason someone on a cold list would care about this offer right now
+- The most credible, specific result this offer delivers — stated in plain language
+- The #1 reason a skeptical cold reader would delete this email before clicking
+- What the email needs to feel like: a recommendation from a trusted friend, not an ad
+
+SUBJECT LINES — provide 8 options across these angles:
+
+CURIOSITY (2 options): creates a knowledge gap they need to close
+BENEFIT (2 options): states the specific result directly — no fluff
+STORY (2 options): opens a narrative they want to follow
+PATTERN INTERRUPT (2 options): says something unexpected that stops the delete reflex
+
+Subject line rules:
+- 35-50 characters for maximum mobile open rates
+- No ALL CAPS, no excessive punctuation, no emoji unless it fits naturally
+- Should feel like it came from a person, not a broadcast system
+- Preview text suggestion for each subject line (40-90 characters shown in inbox)
+
+DELIVER 2 COMPLETE EMAIL VARIATIONS:
+
+VARIATION 1 — STORY-LED:
+Opens mid-situation — a specific relatable moment that the reader recognizes immediately
+Builds through the story to the offer as the natural conclusion
+
+VARIATION 2 — BENEFIT-LED:
+Opens with the most specific, credible result first
+Builds the case for why this result is achievable and why this offer is the vehicle
+
+FOR EACH EMAIL PROVIDE:
+
+OPENING LINE (first sentence — the preview line after the subject):
+- If the subject line got the open, this line determines if they keep reading
+- Must deepen the hook from the subject line — reward them for opening
+- Do NOT open with "I hope this email finds you well", "My name is", or "I wanted to share"
+- Maximum 15 words — punchy, specific, impossible to ignore
+- Write 3 alternative opening lines for each variation
+
+EMAIL BODY (150-220 words):
+- Paragraph 1 (3-4 lines): establish the problem or situation with specificity — make them feel understood
+- Paragraph 2 (3-4 lines): agitate — why this keeps happening, why common solutions don't work
+- Paragraph 3 (3-4 lines): introduce the offer as a discovery or recommendation — not a pitch
+- Paragraph 4 (2-3 lines): describe the specific result — what changes, what becomes possible
+- Every paragraph must make the next one feel necessary
+- Write like a human being, not a marketer — slightly imperfect, conversational, direct
+- No bullet points — this is a personal email, not a sales page
+- No hype words: "game changer", "life changing", "revolutionary", "incredible opportunity"
+
+PRIMARY CTA (1-2 sentences):
+- Single link to [URL] — no multiple links, no confusion
+- Make the reason to click specific: what will they find, why does it matter today
+- Curiosity or urgency — not pressure or fake scarcity
+- Do NOT say "click here" or "check this out" — write a CTA that sells the destination
+
+P.S. LINE (1-2 sentences):
+- The most read part of any email after the subject line
+- Use a completely different angle from the main CTA: urgency, social proof, or a curiosity hook
+- Include [URL] again — many readers scroll straight to the P.S.
+- Should make someone who skimmed the email want to go back and read it
+
+EMAIL TECHNICAL REQUIREMENTS:
+- Suggested sender name format (first name only vs. first + last vs. brand name) — which converts best for solo traffic
+- Ideal email length note: explain why this length was chosen for solo ad audiences
+- Spam trigger words to avoid: list 5 words or phrases in this email that could trigger spam filters + suggested replacements
+- Best send time for solo ad traffic
+
+ALSO PROVIDE:
+- Follow-up email (sent 24 hours later to non-clickers): different angle, shorter, higher urgency
+- Click-through optimization tip: one change to [URL] landing page that would improve conversion from solo traffic specifically`
+  }
+];
+
+let generatedPrompts = {};
+
+function buildPrompt(template, offerName, offerDesc, offerUrl) {
+  const offerText = offerName
+    ? `OFFER NAME: ${offerName}\n\nOFFER DESCRIPTION:\n${offerDesc}`
+    : offerDesc;
+  const urlLine = offerUrl ? offerUrl : '[YOUR URL HERE]';
+  return template.replace('[offer]', offerText).replace(/\[URL\]/g, urlLine);
+}
+
+function generateAll() {
+  const offerName = document.getElementById('offer-name').value.trim();
+  const offerDesc = document.getElementById('offer-desc').value.trim();
+  const offerUrl = document.getElementById('offer-url').value.trim();
+
+  if (!offerDesc) {
+    const ta = document.getElementById('offer-desc');
+    ta.style.borderColor = '#E1306C';
+    ta.focus();
+    setTimeout(() => { ta.style.borderColor = ''; }, 1400);
+    return;
+  }
+
+  generatedPrompts = {};
+  const grid = document.getElementById('prompt-grid');
+  grid.innerHTML = '';
+
+  PROMPTS.forEach((p, i) => {
+    const prompt = buildPrompt(p.template, offerName, offerDesc, offerUrl);
+    generatedPrompts[p.id] = prompt;
+
+    const card = document.createElement('div');
+    card.className = 'prompt-card';
+    card.id = `card-${p.id}`;
+    card.innerHTML = `
+      <div class="prompt-card-header" onclick="toggleCard('${p.id}')">
+        <div class="prompt-card-left">
+          <span class="prompt-tag ${p.tagClass}">${p.tag}</span>
+          <span class="prompt-card-name">${p.name}</span>
+        </div>
+        <div class="prompt-card-right">
+          <button class="btn-copy-card" id="copy-${p.id}" onclick="event.stopPropagation(); copyCard('${p.id}')">Copy</button>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+      </div>
+      <div class="prompt-card-body">
+        <textarea class="prompt-textarea" id="ta-${p.id}" readonly>${prompt}</textarea>
+      </div>`;
+
+    grid.appendChild(card);
+
+    // Open first card by default
+    if (i === 0) toggleCard(p.id);
+  });
+
+  const outputSection = document.getElementById('output-section');
+  outputSection.style.display = 'block';
+
+  setTimeout(() => {
+    outputSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 80);
+}
+
+function toggleCard(id) {
+  const card = document.getElementById(`card-${id}`);
+  card.classList.toggle('open');
+}
+
+function copyCard(id) {
+  const text = generatedPrompts[id];
+  if (!text) return;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById(`copy-${id}`);
+    const orig = btn.textContent;
+    btn.textContent = 'Copied ✓';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 2200);
+  });
+}
+
+
+function clearAll() {
+  document.getElementById('offer-name').value = '';
+  document.getElementById('offer-desc').value = '';
+  document.getElementById('offer-url').value = '';
+  document.getElementById('output-section').style.display = 'none';
+  document.getElementById('prompt-grid').innerHTML = '';
+  generatedPrompts = {};
+  document.getElementById('offer-name').focus();
+}
+</script>
+</body>
+</html>
