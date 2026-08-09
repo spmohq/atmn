@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Search Intent Analyst - Question Identifier</title>
+  <style>
+    :root {
+      /* COLOUR PALETTE OVERRIDE (Radical Reports Style) */
+      --primary: #204d4f;      /* Deep Teal - Primary */
+      --secondary: #426a6c;    /* Muted Teal - Secondary */
+      --accent: #739395;       /* Sage Teal - Accent */
+      --border-clr: #a9c1c2;   /* Soft Mint - Borders */
+      --light-bg: #dbeeef;     /* Pale Mint - Background */
+      
+      --ink: #1e2b2c;
+      --muted: #426a6c;
+      --paper: #ffffff;
+      --page-bg: var(--light-bg);
+      --line: var(--border-clr);
+      --shadow: 0 10px 30px rgba(32, 77, 79, 0.08);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--page-bg);
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    .page-wrap {
+      width: min(900px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 40px 0 80px;
+    }
+
+    /* MINIMALIST HEADER */
+    .hero {
+      text-align: left;
+      margin-bottom: 40px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border-clr);
+    }
+
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--primary);
+    }
+
+    .subtitle {
+      margin: 0;
+      font-size: 16px;
+      max-width: 700px;
+      color: var(--secondary);
+      line-height: 1.6;
+    }
+
+    /* CARDS */
+    .section-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .section-head {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      padding: 24px;
+      background: #fcfdfe;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .step-number {
+      flex: 0 0 auto;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      font-size: 18px;
+      font-weight: 800;
+      color: #fff;
+      background: var(--primary);
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: 20px;
+      color: var(--primary);
+      letter-spacing: -0.02em;
+    }
+
+    .section-head p {
+      margin: 2px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .section-body { padding: 24px; }
+
+    label {
+      display: block;
+      margin: 0 0 6px;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: var(--secondary);
+    }
+
+    textarea {
+      width: 100%;
+      border: 1px solid var(--border-clr);
+      background: #fff;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font: inherit;
+      color: var(--ink);
+      outline: none;
+      transition: all 0.2s ease;
+      margin-bottom: 16px;
+    }
+
+    textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(32, 77, 79, 0.08);
+    }
+
+    textarea#contentInput {
+        min-height: 120px;
+    }
+
+    textarea#finalPrompt {
+        min-height: 350px;
+        background: #f9fbfc;
+        font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    /* BUTTONS */
+    .button-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+
+    button, .link-button {
+      appearance: none;
+      border: 0;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      transition: all 0.2s ease;
+    }
+
+    .primary-btn { color: #fff; background: var(--primary); }
+    .primary-btn:hover { background: var(--secondary); transform: translateY(-1px); }
+
+    .copy-btn { color: #fff; background: var(--accent); }
+    .copy-btn:hover { background: var(--secondary); }
+
+    .secondary-btn { color: var(--primary); background: #fff; border: 1px solid var(--border-clr); }
+
+    .toast {
+      position: fixed;
+      left: 50%; bottom: 30px; transform: translateX(-50%);
+      background: var(--primary); color: #fff;
+      padding: 8px 16px; border-radius: 8px; font-size: 13px;
+      opacity: 0; transition: 0.3s; pointer-events: none;
+      z-index: 1000;
+    }
+    .toast.show { opacity: 1; }
+
+    footer {
+      margin-top: 60px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-wrap">
+    <header class="hero">
+      <h1>Identify The Underlying Question in a Content</h1>
+      <p class="subtitle">Extract the psychological search intent from any content title or headline.</p>
+    </header>
+
+    <!-- STEP 1: INPUT -->
+    <section class="section-card">
+      <div class="section-head">
+        <div class="step-number">1</div>
+        <div>
+          <h2>Content / Title Input</h2>
+          <p>Paste the content or title you want to analyze.</p>
+        </div>
+      </div>
+      <div class="section-body">
+        <label for="contentInput">[CONTENT / CONTENT TITLE]</label>
+        <textarea id="contentInput" placeholder="e.g. 10 Best Ways to Grow Your Pinterest Account in 2024" oninput="buildPrompt()"></textarea>
+
+        <div class="button-row">
+          <button class="secondary-btn" onclick="clearAll()">Clear Field</button>
+          <a class="link-button primary-btn" href="https://chatgpt.com/" target="_blank">Open ChatGPT</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 2: PROMPT GENERATION -->
+    <section class="section-card">
+      <div class="section-head">
+        <div class="step-number">2</div>
+        <div>
+          <h2>Final Strategy Prompt</h2>
+          <p>Copy and paste this into your AI tool.</p>
+        </div>
+      </div>
+      <div class="section-body">
+        <textarea id="finalPrompt" readonly></textarea>
+        <div class="button-row">
+          <button class="copy-btn" onclick="copyText()">Copy Prompt</button>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.
+    </footer>
+  </div>
+
+  <div id="toast" class="toast">Copied to clipboard</div>
+
+  <script>
+    function buildPrompt() {
+      const content = document.getElementById('contentInput').value.trim() || "[CONTENT / CONTENT TITLE]";
+
+      // PROMPT PRESERVED EXACTLY AS REQUESTED
+      const promptTemplate = `ROLE
+
+You are an expert Search Intent Analyst. Your job is to identify the underlying question that a piece of content is intended to answer. Think from the perspective of the person who would search for this information, and express the search intent as a clear, natural question.
+
+CONTEXT
+
+A keyword represents a question—someone asking for specific information.
+
+Content is the delivery that answers the question represented by the keyword.
+
+TASK
+
+Identify the corresponding question that the following Content / Content Title is intended to answer.
+
+CONTENT / CONTENT TITLE
+
+${content}`;
+
+      document.getElementById('finalPrompt').value = promptTemplate;
+    }
+
+    async function copyText() {
+      const el = document.getElementById('finalPrompt');
+      if (!el.value) return;
+      await navigator.clipboard.writeText(el.value);
+      const t = document.getElementById('toast');
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2000);
+    }
+
+    function clearAll() {
+      document.getElementById('contentInput').value = '';
+      buildPrompt();
+    }
+
+    // Initialize the prompt box on load
+    window.onload = buildPrompt;
+  </script>
+</body>
+</html>
