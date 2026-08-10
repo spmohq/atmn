@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Headline of Pin - Generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient-start: #020617;
+      --bg-gradient-end: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.4);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-primary: #22d3ee;
+      --accent-hover: #67e8f9;
+      --accent-success: #10b981;
+      --accent-danger: #f43f5e;
+      --code-bg: rgba(0, 0, 0, 0.3);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: fixed linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 40px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 800px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .header-btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 12px 24px;
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: all 0.3s;
+      margin-bottom: 10px;
+    }
+
+    .header-btn:hover {
+      background: var(--accent-primary);
+      color: #020617;
+      transform: translateY(-2px);
+    }
+
+    .input-section {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 30px;
+      margin-bottom: 40px;
+      backdrop-filter: blur(12px);
+    }
+
+    .input-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .field-group label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    textarea {
+      width: 100%;
+      background: var(--code-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 15px;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      min-height: 80px;
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    textarea:focus {
+      border-color: var(--accent-primary);
+    }
+
+    .prompt-workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .step-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    .step-label {
+      font-weight: 800;
+      font-size: 0.75rem;
+      background: var(--accent-primary);
+      color: #020617;
+      padding: 5px 16px;
+      border-radius: 6px;
+      text-transform: uppercase;
+    }
+
+    .prompt-content {
+      background: var(--code-bg);
+      padding: 30px;
+      border-radius: 12px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.95rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 25px;
+      line-height: 1.6;
+      word-break: break-word;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 15px;
+      flex-direction: column;
+    }
+
+    .btn {
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+      width: 100%;
+      text-decoration: none;
+      border: none;
+    }
+
+    .copy-btn {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-primary);
+      color: #020617;
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-success);
+      border-color: var(--accent-success);
+      color: white;
+    }
+
+    .clear-btn {
+      background: transparent;
+      border: 1px solid var(--accent-danger);
+      color: var(--accent-danger);
+      padding: 6px 16px;
+      border-radius: 8px;
+      font-size: 0.7rem;
+      font-weight: 800;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: 0.2s;
+    }
+    
+    .clear-btn:hover {
+      background: var(--accent-danger);
+      color: white;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 40px;
+      width: 100%;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.8rem; }
+      .step-card { padding: 25px; }
+      .prompt-content { font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Headline of Pin</h1>
+      <a href="https://spmohq.github.io/atmn/pin-creator.html" target="_blank" class="header-btn">Pin Creator</a>
+    </header>
+
+    <!-- INPUT FIELDS -->
+    <div class="input-section">
+      <div class="step-header">
+        <span class="step-label" style="background: #94a3b8;">Dynamic Inputs</span>
+        <button class="clear-btn" onclick="clearAll()">Clear All</button>
+      </div>
+      <div class="input-grid">
+        <div class="field-group">
+          <label>(Name it -> From)</label>
+          <textarea id="in-from" placeholder="Describe the starting situation..." oninput="syncPrompts()"></textarea>
+        </div>
+        <div class="field-group">
+          <label>(Name it -> To)</label>
+          <textarea id="in-to" placeholder="Describe the desired result..." oninput="syncPrompts()"></textarea>
+        </div>
+        <div class="field-group">
+          <label>(Name it -> Using)</label>
+          <textarea id="in-using" placeholder="Tool / Process / Method..." oninput="syncPrompts()"></textarea>
+        </div>
+        <div class="field-group">
+          <label>(Name it -> Generated Title)</label>
+          <textarea id="in-title" placeholder="Enter Generated Title..." oninput="syncPrompts()"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="prompt-workflow">
+      
+      <!-- Prompt #1 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt #1: Transformation Extractor</span>
+        </div>
+        <div class="prompt-content" id="p1">Analyze the uploaded content and identify the primary transformation it promises, teaches, enables, or helps the reader achieve.
+
+Your task is to extract the transformation from the actual uploaded content, not to invent or improve it.
+
+Extract These Three Elements
+
+From:  
+Identify the reader's starting situation, problem, limitation, struggle, or current state.
+
+To:  
+Identify the reader's desired result, outcome, improvement, capability, or transformed state.
+
+Using:  
+Identify the specific tool, process, method, framework, system, strategy, technique, resource, or mechanism the content uses to help the reader move from From to To.
+
+Extraction Rules
+
+- Base the extraction strictly on the uploaded content.
+- Identify the main or central transformation, not minor benefits or secondary outcomes.
+- Focus on the transformation experienced by the reader/user, not the features of the content itself.
+- The From and To statements must represent two meaningfully different states.
+- The To statement should describe a concrete outcome or benefit whenever the content supports one.
+- For Using, identify the actual mechanism taught or provided by the content.
+- Do not invent results, benefits, tools, numbers, timeframes, or claims that are not supported by the uploaded content.
+- Do not confuse an activity with a transformation. For example, “create 10 Pinterest pins” is an activity, while “generate consistent Pinterest traffic” may be the resulting transformation.
+- If the content contains multiple transformations, identify the single most important transformation that represents the core promise of the content.
+- Preserve the meaning of the source content rather than rewriting it into promotional language.
+- Do not create a headline or sales copy at this stage.
+
+Output Format
+
+From: [Starting situation, problem, limitation, or current state]
+
+To: [Desired result, outcome, improvement, or transformed state]
+
+Using: [Tool, process, method, framework, system, strategy, or mechanism]
+
+Final Instruction
+
+Return only the three extracted fields in the exact format above. Do not provide explanations, analysis, alternatives, or commentary.</div>
+        <div class="button-group">
+          <button class="btn copy-btn" onclick="copyText('p1', this)">Copy Prompt</button>
+        </div>
+      </div>
+
+      <!-- Prompt #2 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt #2: Headline Generator</span>
+        </div>
+        <div class="prompt-content" id="p2"></div>
+        <div class="button-group">
+          <button class="btn copy-btn" onclick="copyText('p2', this)">Copy Prompt</button>
+        </div>
+      </div>
+
+      <!-- Prompt #3 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt #3: Subtitle Finder</span>
+        </div>
+        <div class="prompt-content" id="p3"></div>
+        <div class="button-group">
+          <button class="btn copy-btn" onclick="copyText('p3', this)">Copy Prompt</button>
+        </div>
+      </div>
+
+      <!-- Prompt #4 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt #4: Takeaways & Tools</span>
+        </div>
+        <div class="prompt-content" id="p4">Identify the following from the uploaded document for the readers:
+
+1, Top three takeaways
+2, Top three tips
+3, Top three tools</div>
+        <div class="button-group">
+          <button class="btn copy-btn" onclick="copyText('p4', this)">Copy Prompt</button>
+        </div>
+      </div>
+
+    </div>
+
+    <footer class="footer">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    const p2Template = `Create one benefit-focused headline/question from the transformation details provided below.
+
+Input
+
+From:  
+[FROM]
+
+To:  
+[TO]
+
+Using:  
+[USING]
+
+Task
+
+Turn the transformation into a clear, benefit-driven “How to” headline.
+
+The headline must:
+
+- Focus primarily on the desired result in the “To” field.
+- Express the result as a specific, meaningful benefit to the reader.
+- Mention the Tool / Process / Method as the mechanism for achieving that benefit.
+- Use the “From” field only to understand the transformation, not necessarily in the final headline.
+- Avoid vague benefits such as “improve,” “grow,” or “get better” unless they are made specific by the provided information.
+- Do not merely describe what the tool does; describe what the reader can achieve with it.
+- Keep the headline concise and natural.
+- Do not invent benefits, results, tools, features, or claims that are not supported by the input.
+
+Preferred Format
+
+How to [achieve the desired benefit/result] using [Tool / Process / Method]?
+
+Example
+
+From:  
+No consistent traffic
+
+To:  
+Consistent free traffic
+
+Using:  
+Free Q-Finder Tool
+
+Output:  
+How to Attract Consistent Free Traffic Using the Free Q-Finder Tool?
+
+Output Rule
+
+Return only the final headline. Do not provide explanations, alternatives, analysis, or commentary.`;
+
+    const p3Template = `Identify the following from the uploaded document for the readers:
+
+RULE (MANDATORY)
+
+"Subtitle" reinforces the promise made in the title by explaining why the title matters to the reader and what value the reader can expect.
+
+TASK
+
+Based on the uploaded document, identify the best subtitle for the following title:
+
+[TITLE]`;
+
+    function syncPrompts() {
+      const from = document.getElementById('in-from').value || "[Describe the user's current situation, problem, limitation, or starting point]";
+      const to = document.getElementById('in-to').value || "[Describe the desired result, outcome, improvement, or transformation]";
+      const using = document.getElementById('in-using').value || "[Tool / Process / Method / System used to achieve the result]";
+      const title = document.getElementById('in-title').value || "[Title]";
+
+      // Sync Prompt 2
+      let p2Content = p2Template.replace('[FROM]', from).replace('[TO]', to).replace('[USING]', using);
+      document.getElementById('p2').innerText = p2Content;
+
+      // Sync Prompt 3
+      let p3Content = p3Template.replace('[TITLE]', title);
+      document.getElementById('p3').innerText = p3Content;
+    }
+
+    function clearAll() {
+      document.getElementById('in-from').value = '';
+      document.getElementById('in-to').value = '';
+      document.getElementById('in-using').value = '';
+      document.getElementById('in-title').value = '';
+      syncPrompts();
+    }
+
+    function copyText(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<span>Copied to Clipboard!</span>`;
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    // Initialize
+    window.onload = syncPrompts;
+  </script>
+</body>
+</html>
