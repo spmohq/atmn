@@ -55,6 +55,7 @@
             margin-bottom: 25px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             border-top: 5px solid var(--secondary);
+            position: relative;
         }
 
         .block-name {
@@ -67,7 +68,7 @@
             display: block;
         }
 
-        .block-text {
+        .block-content {
             white-space: pre-wrap;
             font-size: 1.05rem;
             color: #2c3e50;
@@ -103,7 +104,7 @@
             .block {
                 padding: 15px;
             }
-            .block-text {
+            .block-content {
                 font-size: 1rem;
             }
         }
@@ -119,7 +120,7 @@
         <!-- Block #1 -->
         <div class="block">
             <span class="block-name">Example</span>
-            <div class="block-text" id="text-block-1">মনের কথা – অনুভূতির কথা – অভিজ্ঞতা গুলোর কথা শেয়ার করো।
+            <div class="block-content" id="block-1">মনের কথা – অনুভূতির কথা – অভিজ্ঞতা গুলোর কথা শেয়ার করো।
 
 তোমার অ্যাচিভমেন্টগুলো শেয়ার করো – কিভাবে অ্যাচিভ করলে সেটা শেয়ার করো।
 
@@ -136,8 +137,18 @@ Enjoyable কাজ।
 এ আই কে বলো যা লিখলে সেটার পয়েন্টগুলোকে  অর্গানাইজ  করে দিতে। 
 এবার সেই এ আই-র অর্গানাইজ করা স্ট্রাকচার ও আউটলাইন-কে অনুসরণ করে তুমি তোমার বক্তব্যটা গুছিয়ে লেখো ও পাবলিশ করে দাও।
 
-তুমি যদি এ আইকে দিয়ে পয়েন্টগুলোকে সুচারু রূপে  অর্গানাইজ করতে আমি যে প্রম্পটটা ব্যবহার করি সেটা ট্রাই করতে চাও, আমাকে DM করো, আমি তোমাকে সেটা পাঠিয়ে দেবো।</div>
-            <button class="copy-btn" onclick="copyToClipboard('text-block-1', this)">Copy Prompt</button>
+তুমি যদি এই আইকে দিয়ে পয়েন্টগুলোকে সুচারু রূপে  অর্গানাইজ করতে আমি যে প্রম্পটটা ব্যবহার করি সেটা ট্রাই করতে চাও, আমাকে DM করো, আমি তোমাকে সেটা পাঠিয়ে দেবো।</div>
+            <button class="copy-btn" onclick="copyToClipboard('block-1', this)">Copy Prompt</button>
+        </div>
+
+        <!-- Block #2 -->
+        <div class="block">
+            <span class="block-name">Text Box</span>
+            <div class="block-content" id="block-2">কি
+কেন
+কি করে করবে?
+CTA: তুমি যদি এ আইকে দিয়ে পয়েন্টগুলোকে সুচারু রূপে অর্গানাইজ করিয়ে নিতে আমি যে প্রম্পটটা ব্যবহার করি সেটা ট্রাই করতে চাও, আমাকে DM কোরো, আমি তোমাকে সেটা পাঠিয়ে দেবো।</div>
+            <button class="copy-btn" onclick="copyToClipboard('block-2', this)">Copy Prompt</button>
         </div>
     </div>
 
@@ -153,7 +164,7 @@ Enjoyable কাজ।
                     btn.style.backgroundColor = "#c88a58";
                 }, 2000);
             }).catch(err => {
-                console.error('Failed to copy: ', err);
+                console.error('Failed to copy text: ', err);
             });
         }
     </script>
