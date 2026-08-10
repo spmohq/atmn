@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speak Your Mind - Example</title>
+    <style>
+        :root {
+            --primary: #161e73;
+            --accent: #c88a58;
+            --secondary: #8ea88b;
+            --light-grey: #bbbbbb;
+            --dark-grey: #aaaaaa;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-grey);
+            margin: 0;
+            padding: 0;
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: var(--white);
+            width: 100%;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            padding: 0 15px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 700px;
+            margin-bottom: 50px;
+        }
+
+        .block {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border-top: 5px solid var(--secondary);
+        }
+
+        .block-name {
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--dark-grey);
+            padding-bottom: 5px;
+            display: block;
+        }
+
+        .block-text {
+            white-space: pre-wrap;
+            font-size: 1.05rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            word-wrap: break-word;
+        }
+
+        .copy-btn {
+            background-color: var(--accent);
+            color: var(--white);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+            display: inline-block;
+        }
+
+        .copy-btn:hover {
+            background-color: var(--primary);
+        }
+
+        .copy-btn:active {
+            transform: scale(0.98);
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.4rem;
+            }
+            .block {
+                padding: 15px;
+            }
+            .block-text {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Speak Your Mind - Example</h1>
+    </header>
+
+    <div class="container">
+        <!-- Block #1 -->
+        <div class="block">
+            <span class="block-name">Example</span>
+            <div class="block-text" id="text-block-1">মনের কথা – অনুভূতির কথা – অভিজ্ঞতা গুলোর কথা শেয়ার করো।
+
+তোমার অ্যাচিভমেন্টগুলো শেয়ার করো – কিভাবে অ্যাচিভ করলে সেটা শেয়ার করো।
+
+লোকে তোমার ফিদা হবে, তোমার মেথড ট্রাই করবে, তোমার টুল বা টেকনিক কিনবে।
+
+এইটাই সহজ ও স্বাভাবিক কাজ।
+Enjoyable কাজ।
+এটা করে তৃপ্তিও পাবে।
+
+কি করে করবে?
+
+মনে যা আসছে লেখো, একটা মাইক্রোসফট ওয়ার্ড ফাইলে বা গুগল ডকে।
+
+এ আই কে বলো যা লিখলে সেটার পয়েন্টগুলোকে  অর্গানাইজ  করে দিতে। 
+এবার সেই এ আই-র অর্গানাইজ করা স্ট্রাকচার ও আউটলাইন-কে অনুসরণ করে তুমি তোমার বক্তব্যটা গুছিয়ে লেখো ও পাবলিশ করে দাও।
+
+তুমি যদি এ আইকে দিয়ে পয়েন্টগুলোকে সুচারু রূপে  অর্গানাইজ করতে আমি যে প্রম্পটটা ব্যবহার করি সেটা ট্রাই করতে চাও, আমাকে DM করো, আমি তোমাকে সেটা পাঠিয়ে দেবো।</div>
+            <button class="copy-btn" onclick="copyToClipboard('text-block-1', this)">Copy Prompt</button>
+        </div>
+    </div>
+
+    <script>
+        function copyToClipboard(elementId, btn) {
+            const text = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = btn.innerText;
+                btn.innerText = "Copied!";
+                btn.style.backgroundColor = "#8ea88b";
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.style.backgroundColor = "#c88a58";
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+    </script>
+
+</body>
+</html>
