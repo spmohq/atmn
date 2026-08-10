@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Strategy Table</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .prompt-box {
+            position: relative;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background: #fff;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: #1d4ed8;
+        }
+
+        /* Mobile Responsive Table */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            margin: 20px 0;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 900px; /* Ensures readability on mobile via scroll */
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+            vertical-align: top;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: #f1f5f9;
+            font-weight: 700;
+            color: #334155;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        td:last-child, th:last-child {
+            border-right: none;
+        }
+
+        blockquote {
+            border-left: 4px solid var(--primary-color);
+            margin: 20px 0;
+            padding: 10px 20px;
+            background: #eff6ff;
+            font-style: italic;
+        }
+
+        h3 {
+            margin-top: 30px;
+            color: #0f172a;
+        }
+
+        strong {
+            color: #000;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 5px;
+            }
+            .container {
+                padding: 15px;
+                margin: 10px auto;
+            }
+            td, th {
+                padding: 10px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Copy Prompt Button for the whole content -->
+    <div class="prompt-box" id="main-content">
+        <button class="copy-btn" onclick="copyPrompt('content-text')">Copy Prompt</button>
+        <div id="content-text">
+            <p>Yes. The table is essentially defining the **role, objective, content depth, reader journey, and information boundary** of each content format. I would complete it like this:</p>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th><strong>Blog Post</strong></th>
+                            <th><strong>Article</strong></th>
+                            <th><strong>Pin</strong></th>
+                            <th><strong>Facebook Post</strong></th>
+                            <th><strong>Google Slide</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>TASK</strong></td>
+                            <td>Write a blog post to teach this method or concept or tool and its necessity.</td>
+                            <td>Write an article, tailored to Medium.com, to introduce this method or concept or tool and its necessity.</td>
+                            <td>Create a Pinterest Pin that introduces the method, concept, or tool and creates curiosity about why it is necessary.</td>
+                            <td>Write a Facebook post that attracts attention, builds curiosity about the method, concept, or tool and its necessity, and makes readers ready to take action.</td>
+                            <td>Create a Google Slide presentation that introduces the method, concept, or tool, explains why it matters, and directs the audience to learn or apply it through the Blog Post.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Objective</strong></td>
+                            <td>একটি নির্দিষ্ট সমস্যার সমাধান করা, কোনো দক্ষতা শেখানো বা একটি কাঙ্ক্ষিত ফলাফল অর্জনে পাঠককে ধাপে ধাপে সাহায্য করা।</td>
+                            <td>কোনো বিষয়, ধারণা, ঘটনা বা সমস্যাকে তথ্য, বিশ্লেষণ ও যুক্তির মাধ্যমে গভীরভাবে ব্যাখ্যা করা, যাতে পাঠক বিষয়টি পরিষ্কারভাবে বুঝতে পারেন।</td>
+                            <td>দ্রুত একটি সমস্যার সঙ্গে পাঠককে পরিচিত করা, কাঙ্ক্ষিত ফলাফলের আকাঙ্ক্ষা তৈরি করা এবং Blog Post-এ যাওয়ার আগ্রহ তৈরি করা।</td>
+                            <td>পাঠকের attention নেওয়া, সমস্যাটিকে relatable করে তোলা, curiosity তৈরি করা এবং Blog Post পড়ার বা পরবর্তী পদক্ষেপ নেওয়ার ইচ্ছা তৈরি করা।</td>
+                            <td>একটি বিষয়কে সংক্ষিপ্ত, visual এবং সহজে বোঝার মতোভাবে উপস্থাপন করা, যাতে audience মূল ধারণা বুঝতে পারেন এবং বিস্তারিত জানার জন্য Blog Post-এ যান।</td>
+                        </tr>
+                        <tr>
+                            <td><strong>A Special Note</strong></td>
+                            <td>জানার চেয়ে করার ওপর বেশি জোর। পাঠক যেন লেখা পড়ে বাস্তবে কিছু করতে পারেন। এটি সাধারণত Action-Oriented এবং Solution-Focused।</td>
+                            <td>জানার, বোঝার এবং perspective তৈরি করার ওপর বেশি জোর। এটি Educational, Analytical এবং Insight-Oriented।</td>
+                            <td><strong>কম কথায় বেশি curiosity।</strong> সম্পূর্ণ শেখানো নয়; এমন একটি clear promise তৈরি করা, যাতে পাঠক আরও জানতে click করেন।</td>
+                            <td><strong>Attention → Relevance → Curiosity → Action।</strong> সম্পূর্ণ সমাধান দেওয়ার পরিবর্তে পাঠককে পরবর্তী ধাপে যেতে motivated করা।</td>
+                            <td><strong>Visual learning over detailed explanation।</strong> এক slide-এ একটি মূল idea; presentation-এর কাজ হলো বুঝিয়ে আগ্রহ তৈরি করা, সম্পূর্ণ teaching material হওয়া নয়।</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Outline Structure</strong></td>
+                            <td>শিরোনাম → ভূমিকা → সমস্যা → ধাপে ধাপে সমাধান → উদাহরণ/টিপস → সারাংশ → Call to Action (CTA)</td>
+                            <td>শিরোনাম → Hook/Introduction → Context → Problem → Explanation/Analysis → Method/Concept → Examples/Insights → Key Takeaways → Conclusion → CTA/Next Step</td>
+                            <td>Hook/Headline → Problem or Desired Result → Method/Concept/Tool → Key Benefit → Curiosity Gap → CTA/Link</td>
+                            <td>Hook → Problem/Observation → Why It Matters → New Idea/Method → Curiosity/Insight → Benefit → CTA</td>
+                            <td>Title Slide → Problem → Why It Matters → Key Concept → How It Works → Key Steps/Framework → Example/Visual → Key Takeaway → CTA → Blog Post</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Content Journey</strong></td>
+                            <td>Problem → Understanding → Learning → Applying → Result</td>
+                            <td>Curiosity → Understanding → Context → Insight → Perspective → Interest in learning more</td>
+                            <td>Attention → Recognition → Curiosity → Click</td>
+                            <td>Attention → Relatability → Curiosity → Desire → Action</td>
+                            <td>Attention → Understanding → Visual Explanation → Curiosity → Blog Post</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Post Content Activity</strong></td>
+                            <td>Apply its teachings in practice</td>
+                            <td>Visit: Blog Post</td>
+                            <td>Visit: Blog Post</td>
+                            <td>Visit: Blog Post</td>
+                            <td>Visit: Blog Post</td>
+                        </tr>
+                        <tr>
+                            <td><strong>What to reveal in the content</strong></td>
+                            <td><strong>The complete practical method:</strong> what it is, why it matters, how it works, step-by-step process, examples, prompts/instructions where necessary, common mistakes, and enough detail for the reader to implement it.</td>
+                            <td><strong>The idea and the insight behind it:</strong> what it is, why it matters, the problem it addresses, how it changes the reader's understanding, important principles, selected examples, and enough information to establish credibility and interest.</td>
+                            <td><strong>The problem + promise + concept:</strong> identify the problem, introduce the method/concept/tool, highlight the key benefit or transformation, and create enough curiosity to encourage the click.</td>
+                            <td><strong>The problem + insight + promise:</strong> show why the problem matters, introduce the new way of thinking/method/tool, reveal one or two useful insights, and make the reader want the complete solution.</td>
+                            <td><strong>The essential visual story:</strong> problem, concept, key mechanism, major steps, transformation/benefit, and a clear reason to visit the Blog Post for the complete implementation.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>What not to reveal in the content</strong></td>
+                            <td>Do not unnecessarily hide the actual solution. The Blog Post is the <strong>teaching destination</strong>, so it should not deliberately withhold essential implementation information merely to force a click elsewhere.</td>
+                            <td>Do not reproduce the complete Blog Post step-by-step implementation. Avoid turning the Article into a duplicate of the main teaching resource.</td>
+                            <td>Do not reveal the complete method, detailed steps, full prompts, complete framework, or entire solution. The Pin should <strong>sell the click, not teach the method</strong>.</td>
+                            <td>Do not give the entire step-by-step solution, complete framework, or all implementation details. Avoid making the Blog Post unnecessary.</td>
+                            <td>Do not put the complete tutorial, detailed instructions, long explanations, or every implementation detail into the slides. Keep the presentation concise and make the Blog Post the detailed learning destination.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>The core distinction</h3>
+
+            <p>You can think of the five formats as one <strong>content funnel</strong>:</p>
+
+            <p><strong>Pin → Facebook Post → Article/Google Slide → Blog Post → Application</strong></p>
+
+            <p>Or, more precisely:</p>
+
+            <ul>
+                <li><strong>Pin:</strong> <em>“This problem exists—and there may be a better way.”</em></li>
+                <li><strong>Facebook Post:</strong> <em>“You should pay attention to this problem and this new idea.”</em></li>
+                <li><strong>Article:</strong> <em>“Let me help you understand the idea and why it matters.”</em></li>
+                <li><strong>Google Slide:</strong> <em>“Let me show you the idea visually and simply.”</em></li>
+                <li><strong>Blog Post:</strong> <em>“Now let me teach you exactly how to do it.”</em></li>
+            </ul>
+
+            <p>The most important rule is therefore:</p>
+
+            <blockquote>
+                <strong>Do not make every content format a shortened copy of the Blog Post. Each format should perform a different job in moving the reader toward the Blog Post and, ultimately, toward application.</strong>
+            </blockquote>
+        </div>
+    </div>
+</div>
+
+<script>
+    function copyPrompt(elementId) {
+        const text = document.getElementById(elementId).innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            const btn = event.target;
+            const originalText = btn.innerText;
+            btn.innerText = "Copied!";
+            setTimeout(() => {
+                btn.innerText = originalText;
+            }, 2000);
+        }).catch(err => {
+            console.error('Failed to copy: ', err);
+        });
+    }
+</script>
+
+</body>
+</html>
