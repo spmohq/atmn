@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knowledge Base Schema</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --border-color: #ddd;
+            --bg-color: #f9f9f9;
+            --text-color: #333;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        h1, h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--bg-color);
+            padding-bottom: 10px;
+        }
+
+        p, ul, li {
+            margin-bottom: 1rem;
+        }
+
+        /* Table Styling */
+        .table-container {
+            width: 100%;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: var(--bg-color);
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+
+        /* Mobile Responsiveness for Tables */
+        @media screen and (max-width: 800px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+
+            /* Hide table headers (but keep accessible) */
+            thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+
+            tr {
+                margin-bottom: 1.5rem;
+                border: 1px solid var(--border-color);
+                box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            }
+
+            td {
+                border: none;
+                border-bottom: 1px solid #eee;
+                position: relative;
+                padding-left: 50% !important;
+                white-space: normal;
+                text-align: left;
+            }
+
+            td:before {
+                position: absolute;
+                top: 12px;
+                left: 12px;
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap;
+                font-weight: bold;
+                color: var(--primary-color);
+                content: attr(data-label);
+            }
+
+            td:last-child {
+                border-bottom: 0;
+            }
+        }
+        
+        /* Adjust alignment for the small summary table */
+        .summary-table td:last-child {
+            text-align: right;
+        }
+        @media screen and (max-width: 800px) {
+            .summary-table td:last-child {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <p>I think that's an excellent direction. However, this is no longer just a table—it's becoming a **knowledge base** or **reference library**.</p>
+
+    <p>Rather than trying to create a 50-row table all at once, I'd design it with a schema that can scale to 100+ framing angles without becoming inconsistent.</p>
+
+    <p>Here's the schema I'd recommend.</p>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Framing Angle</th>
+                    <th>Purpose</th>
+                    <th>Cognitive Goal</th>
+                    <th>Emotional Trigger</th>
+                    <th>Best Used When</th>
+                    <th>Suitable Content Formats</th>
+                    <th>Suitable Hook Types</th>
+                    <th>Suitable CTA Types</th>
+                    <th>Ideal Framework / Structure</th>
+                    <th>Funnel Stage</th>
+                    <th>Complexity</th>
+                    <th>Typical Length</th>
+                    <th>Works Well With</th>
+                    <th>AI Prompt Cue</th>
+                    <th>Example Headline</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-label="Category">&nbsp;</td>
+                    <td data-label="Framing Angle">&nbsp;</td>
+                    <td data-label="Purpose">&nbsp;</td>
+                    <td data-label="Cognitive Goal">&nbsp;</td>
+                    <td data-label="Emotional Trigger">&nbsp;</td>
+                    <td data-label="Best Used When">&nbsp;</td>
+                    <td data-label="Suitable Content Formats">&nbsp;</td>
+                    <td data-label="Suitable Hook Types">&nbsp;</td>
+                    <td data-label="Suitable CTA Types">&nbsp;</td>
+                    <td data-label="Ideal Framework / Structure">&nbsp;</td>
+                    <td data-label="Funnel Stage">&nbsp;</td>
+                    <td data-label="Complexity">&nbsp;</td>
+                    <td data-label="Typical Length">&nbsp;</td>
+                    <td data-label="Works Well With">&nbsp;</td>
+                    <td data-label="AI Prompt Cue">&nbsp;</td>
+                    <td data-label="Example Headline">&nbsp;</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p>This gives every framing angle a consistent "profile".</p>
+
+    <h2>Sample entries</h2>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Framing Angle</th>
+                    <th>Purpose</th>
+                    <th>Cognitive Goal</th>
+                    <th>Emotional Trigger</th>
+                    <th>Best Used When</th>
+                    <th>Suitable Content Formats</th>
+                    <th>Suitable Hook Types</th>
+                    <th>Suitable CTA Types</th>
+                    <th>Ideal Framework / Structure</th>
+                    <th>Funnel Stage</th>
+                    <th>Complexity</th>
+                    <th>Typical Length</th>
+                    <th>Works Well With</th>
+                    <th>AI Prompt Cue</th>
+                    <th>Example Headline</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-label="Category">Belief Shift</td>
+                    <td data-label="Framing Angle">Myth</td>
+                    <td data-label="Purpose">Replace a false belief with a more accurate one.</td>
+                    <td data-label="Cognitive Goal">Correct understanding</td>
+                    <td data-label="Emotional Trigger">Surprise</td>
+                    <td data-label="Best Used When">Audience believes common misinformation.</td>
+                    <td data-label="Suitable Content Formats">Carousel, Blog, Short Video</td>
+                    <td data-label="Suitable Hook Types">Myth Hook, Contrarian Hook</td>
+                    <td data-label="Suitable CTA Types">Share, Save</td>
+                    <td data-label="Ideal Framework / Structure">Myth → Reality → Evidence → Lesson</td>
+                    <td data-label="Funnel Stage">Awareness</td>
+                    <td data-label="Complexity">Beginner</td>
+                    <td data-label="Typical Length">Short</td>
+                    <td data-label="Works Well With">Evidence, Story</td>
+                    <td data-label="AI Prompt Cue">Identify a common myth and explain why it is false.</td>
+                    <td data-label="Example Headline">Myth: More information always leads to better decisions.</td>
+                </tr>
+                <tr>
+                    <td data-label="Category">Analytical</td>
+                    <td data-label="Framing Angle">Comparison</td>
+                    <td data-label="Purpose">Help the audience evaluate alternatives objectively.</td>
+                    <td data-label="Cognitive Goal">Clarify differences</td>
+                    <td data-label="Emotional Trigger">Curiosity</td>
+                    <td data-label="Best Used When">Two similar ideas are often confused.</td>
+                    <td data-label="Suitable Content Formats">Carousel, Blog</td>
+                    <td data-label="Suitable Hook Types">Comparison Hook</td>
+                    <td data-label="Suitable CTA Types">Comment, Save</td>
+                    <td data-label="Ideal Framework / Structure">Option A → Option B → Recommendation</td>
+                    <td data-label="Funnel Stage">Consideration</td>
+                    <td data-label="Complexity">Beginner</td>
+                    <td data-label="Typical Length">Medium</td>
+                    <td data-label="Works Well With">Distinction</td>
+                    <td data-label="AI Prompt Cue">Compare the two approaches fairly and explain when each works best.</td>
+                    <td data-label="Example Headline">Traditional Learning vs Visual Learning</td>
+                </tr>
+                <tr>
+                    <td data-label="Category">Narrative</td>
+                    <td data-label="Framing Angle">Story</td>
+                    <td data-label="Purpose">Make an abstract idea memorable through a real situation.</td>
+                    <td data-label="Cognitive Goal">Understanding</td>
+                    <td data-label="Emotional Trigger">Empathy</td>
+                    <td data-label="Best Used When">Teaching principles through experience.</td>
+                    <td data-label="Suitable Content Formats">Video, Blog, Post</td>
+                    <td data-label="Suitable Hook Types">Story Hook</td>
+                    <td data-label="Suitable CTA Types">Share Experience</td>
+                    <td data-label="Ideal Framework / Structure">Context → Conflict → Resolution → Lesson</td>
+                    <td data-label="Funnel Stage">Awareness</td>
+                    <td data-label="Complexity">Beginner</td>
+                    <td data-label="Typical Length">Medium</td>
+                    <td data-label="Works Well With">Lesson Learned</td>
+                    <td data-label="AI Prompt Cue">Tell a story illustrating the principle naturally.</td>
+                    <td data-label="Example Headline">One Small Decision Changed Everything</td>
+                </tr>
+                <tr>
+                    <td data-label="Category">Educational</td>
+                    <td data-label="Framing Angle">Mental Model</td>
+                    <td data-label="Purpose">Give a reusable way of thinking.</td>
+                    <td data-label="Cognitive Goal">Build reasoning</td>
+                    <td data-label="Emotional Trigger">Curiosity</td>
+                    <td data-label="Best Used When">Teaching concepts instead of tactics.</td>
+                    <td data-label="Suitable Content Formats">Blog, Long Video</td>
+                    <td data-label="Suitable Hook Types">"Think about it this way…"</td>
+                    <td data-label="Suitable CTA Types">Apply It</td>
+                    <td data-label="Ideal Framework / Structure">Model → Explanation → Application</td>
+                    <td data-label="Funnel Stage">Consideration</td>
+                    <td data-label="Complexity">Intermediate</td>
+                    <td data-label="Typical Length">Long</td>
+                    <td data-label="Works Well With">Analogy</td>
+                    <td data-label="AI Prompt Cue">Explain the idea using a reusable mental model.</td>
+                    <td data-label="Example Headline">The Compass, Not the Map</td>
+                </tr>
+                <tr>
+                    <td data-label="Category">Practical</td>
+                    <td data-label="Framing Angle">Mistake</td>
+                    <td data-label="Purpose">Prevent common errors before they occur.</td>
+                    <td data-label="Cognitive Goal">Behaviour change</td>
+                    <td data-label="Emotional Trigger">Concern</td>
+                    <td data-label="Best Used When">Beginners repeatedly fail in the same place.</td>
+                    <td data-label="Suitable Content Formats">Reel, Carousel</td>
+                    <td data-label="Suitable Hook Types">Mistake Hook</td>
+                    <td data-label="Suitable CTA Types">Avoid This</td>
+                    <td data-label="Ideal Framework / Structure">Mistake → Consequence → Better Way</td>
+                    <td data-label="Funnel Stage">Awareness</td>
+                    <td data-label="Complexity">Beginner</td>
+                    <td data-label="Typical Length">Short</td>
+                    <td data-label="Works Well With">Warning</td>
+                    <td data-label="AI Prompt Cue">Explain the mistake and demonstrate the correct approach.</td>
+                    <td data-label="Example Headline">The Biggest Study Mistake Students Make</td>
+                </tr>
+                <tr>
+                    <td data-label="Category">Evidence</td>
+                    <td data-label="Framing Angle">Demonstration</td>
+                    <td data-label="Purpose">Show the concept working in practice.</td>
+                    <td data-label="Cognitive Goal">Build confidence</td>
+                    <td data-label="Emotional Trigger">Amazement</td>
+                    <td data-label="Best Used When">The audience doubts whether something works.</td>
+                    <td data-label="Suitable Content Formats">Video, Live Demo</td>
+                    <td data-label="Suitable Hook Types">Watch This</td>
+                    <td data-label="Suitable CTA Types">Try It Yourself</td>
+                    <td data-label="Ideal Framework / Structure">Demonstration → Explanation → Conclusion</td>
+                    <td data-label="Funnel Stage">Decision</td>
+                    <td data-label="Complexity">Beginner</td>
+                    <td data-label="Typical Length">Short</td>
+                    <td data-label="Works Well With">Proof</td>
+                    <td data-label="AI Prompt Cue">Demonstrate the concept live and explain why it works.</td>
+                    <td data-label="Example Headline">Watch This Equation Become Obvious</td>
+                </tr>
+                <tr>
+                    <td data-label="Category">Reflective</td>
+                    <td data-label="Framing Angle">Question</td>
+                    <td data-label="Purpose">Encourage self-reflection rather than giving answers.</td>
+                    <td data-label="Cognitive Goal">Reflection</td>
+                    <td data-label="Emotional Trigger">Curiosity</td>
+                    <td data-label="Best Used When">You want the audience to think first.</td>
+                    <td data-label="Suitable Content Formats">Social Post</td>
+                    <td data-label="Suitable Hook Types">Question Hook</td>
+                    <td data-label="Suitable CTA Types">Answer Below</td>
+                    <td data-label="Ideal Framework / Structure">Question → Reflection → Insight</td>
+                    <td data-label="Funnel Stage">Awareness</td>
+                    <td data-label="Complexity">Beginner</td>
+                    <td data-label="Typical Length">Short</td>
+                    <td data-label="Works Well With">Perspective Shift</td>
+                    <td data-label="AI Prompt Cue">Ask a question that naturally leads to the intended insight.</td>
+                    <td data-label="Example Headline">What If You've Been Solving the Wrong Problem?</td>
+                </tr>
+                <tr>
+                    <td data-label="Category">Strategic</td>
+                    <td data-label="Framing Angle">First Principles</td>
+                    <td data-label="Purpose">Build understanding from fundamentals.</td>
+                    <td data-label="Cognitive Goal">Deep understanding</td>
+                    <td data-label="Emotional Trigger">Intellectual curiosity</td>
+                    <td data-label="Best Used When">Teaching foundational concepts.</td>
+                    <td data-label="Suitable Content Formats">Article, Course</td>
+                    <td data-label="Suitable Hook Types">"Let's start at the beginning…"</td>
+                    <td data-label="Suitable CTA Types">Learn More</td>
+                    <td data-label="Ideal Framework / Structure">Fundamental Truth → Reasoning → Conclusion</td>
+                    <td data-label="Funnel Stage">Consideration</td>
+                    <td data-label="Complexity">Advanced</td>
+                    <td data-label="Typical Length">Long</td>
+                    <td data-label="Works Well With">Mental Model</td>
+                    <td data-label="AI Prompt Cue">Derive the conclusion from fundamental truths rather than assumptions.</td>
+                    <td data-label="Example Headline">Why Learning Begins Before Memorisation</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <hr>
+
+    <h1>I would actually build this as Version 2.0</h1>
+
+    <p>Instead of **50–70 framing angles**, I'd organise the entire library into **10 major categories**, each containing **10–15 specialised framing angles**.</p>
+
+    <p>For example:</p>
+
+    <div class="table-container">
+        <table class="summary-table">
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Estimated Angles</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-label="Category">Narrative Framing</td>
+                    <td data-label="Estimated Angles">12</td>
+                </tr>
+                <tr>
+                    <td data-label="Category">Belief Framing</td>
+                    <td data-label="Estimated Angles">15</td>
+                </tr>
+                <tr>
+                    <td data-label="Category">Analytical Framing</td>
+                    <td data-label="Estimated Angles">14</td>
+                </tr>
+                <tr>
+                    <td data-label="Category">Educational Framing</td>
+                    <td data-label="Estimated Angles">16</td>
+                </tr>
+                <tr>
+                    <td data-label="Category">Practical Framing</td>
+                    <td data-label="Estimated Angles">14</td>
+                </tr>
+                <tr>
+                    <td data-label="Category">Evidence Framing</td>
+                    <td data-label="Estimated Angles">12</td>
+                </tr>
+                <tr>
+                    <td data-label="Category">Reflective Framing</td>
+                    <td data-label="Estimated Angles">10</td>
+                </tr>
+                <tr>
+                    <td data-label="Category">Strategic Framing</td>
+                    <td data-label="Estimated Angles">11</td>
+                </tr>
+                <tr>
+                    <td data-label="Category">Persuasive Framing</td>
+                    <td data-label="Estimated Angles">15</td>
+                </tr>
+                <tr>
+                    <td data-label="Category">Emotional Framing</td>
+                    <td data-label="Estimated Angles">12</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p>That would create a comprehensive library of around **130–140 Content Framing Angles**, with each entry fully documented using the schema above.</p>
+
+    <p>Such a library would be a genuine reference system that you could:</p>
+
+    <ul>
+        <li>consult when planning content,</li>
+        <li>use to train AI to choose the most effective framing,</li>
+        <li>integrate into your content workflow,</li>
+        <li>expand over time without changing the underlying structure.</li>
+    </ul>
+
+    <p>I think this would become one of the most useful assets in your entire content system because it separates **what you want to say (the message)** from **how you choose to frame it (the angle)**—a distinction that many content frameworks overlook.</p>
+
+</body>
+</html>

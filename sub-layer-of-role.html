@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sub-layer of ROLE - SPM</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #ef6c57; 
+            --bg-light: #f4f7f6;
+            --white: #ffffff;
+            --text-dark: #333;
+            --code-bg: #1e1e1e;
+            --code-text: #d4d4d4;
+            --border-color: #e0e0e0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Branded Header Styles */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* SPM Geometrical Logo Box */
+        .logo-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            color: var(--primary-color);
+            font-family: sans-serif;
+            font-weight: 900;
+            font-size: 16px;
+            width: 42px;
+            height: 30px;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .page-title-area {
+            text-align: center;
+            padding: 40px 20px 20px 20px;
+        }
+
+        .page-title-area h1 {
+            font-size: 28px;
+            color: var(--text-dark);
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+            width: 100%;
+        }
+
+        .prompt-card {
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+            margin-bottom: 50px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .prompt-header {
+            background: #f8f9fa;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .prompt-header h2 {
+            font-size: 18px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .copy-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            opacity: 0.9;
+        }
+
+        .prompt-content {
+            padding: 40px;
+            background: var(--code-bg);
+            color: var(--code-text);
+            font-family: 'Fira Code', monospace;
+            font-size: 16px;
+            white-space: pre-wrap;
+            word-break: break-word;
+            line-height: 1.8;
+            min-height: 250px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            color: #666;
+            border-top: 1px solid var(--border-color);
+            background: #fff;
+        }
+
+        @media (max-width: 768px) {
+            header { flex-direction: column; gap: 15px; padding: 15px; }
+            .nav-links { font-size: 13px; gap: 15px; }
+            .prompt-header { flex-direction: column; gap: 10px; align-items: flex-start; }
+            .copy-btn { width: 100%; justify-content: center; }
+            .page-title-area h1 { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <div class="logo-box">SPM</div> শিব প্রসাদ মুখার্জি 
+        </div>
+        <div class="nav-links">
+            <a href="https://spmukherjee.co.in/" target="_blank"><i class="fa-regular fa-user"></i> শিবা</a>
+            <a href="https://spm.graphy.com/s/store" target="_blank">
+                <i class="fa-solid fa-store"></i> শিবার কালেকশন দেখুন
+            </a>
+            <a href="#"><i class="fa-regular fa-circle-question"></i> সহায়তা</a>
+        </div>
+    </header>
+
+    <div class="page-title-area">
+        <h1>Sub-layer of ROLE</h1>
+    </div>
+
+    <div class="container">
+        <div class="prompt-card">
+            <div class="prompt-header">
+                <h2><i class="fa-solid fa-user-gear"></i> Thinking Partnership Prompt</h2>
+                <button class="copy-btn" onclick="copyPrompt('thinkingPartnerPrompt', this)">
+                    <i class="fa-regular fa-copy"></i> Copy Prompt
+                </button>
+            </div>
+            <pre class="prompt-content" id="thinkingPartnerPrompt">Thinking Partnership Layer:
+
+I'm trying to find language that faithfully expresses what I believe to be true.
+I'm not trying to invent a marketable label.
+Your role is not to persuade me toward or away from my core belief, core message and my own realization, but to help me examine my ideas rigorously, point out ambiguities when you see them, and test whether my framework remains internally consistent as it develops.</pre>
+        </div>
+    </div>
+
+    <footer>
+        <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        function copyPrompt(elementId, btn) {
+            const text = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalHTML = btn.innerHTML;
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+                btn.style.background = '#2ecc71';
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalHTML;
+                    btn.style.background = '';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                alert('Copy failed. Please copy manually.');
+            });
+        }
+    </script>
+
+</body>
+</html>
