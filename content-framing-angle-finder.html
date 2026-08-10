@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Framing Angle Finder</title>
+    <style>
+        /* Design Strategy: Professional, Reliable, and Clean */
+        :root {
+            --primary-slate: #1e293b;
+            --accent-blue: #2563eb;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --text-main: #334155;
+            --border-color: #e2e8f0;
+            --success-green: #10b981;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.8;
+            padding-bottom: 60px;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        /* Header Area */
+        header {
+            padding: 50px 0 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-slate);
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .welcome-card {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+            border-left: 6px solid var(--accent-blue);
+        }
+
+        .welcome-card p {
+            font-size: 1.1rem;
+            color: var(--text-main);
+            margin-bottom: 0;
+        }
+
+        /* Input Section */
+        .input-section {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            margin-bottom: 40px;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            color: var(--primary-slate);
+        }
+
+        textarea {
+            width: 100%;
+            padding: 18px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 100px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
+        /* Prompt Display Box */
+        .prompt-wrapper {
+            margin-bottom: 40px;
+        }
+
+        .prompt-box {
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .prompt-header {
+            background: var(--primary-slate);
+            color: var(--white);
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prompt-header h3 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .prompt-content {
+            padding: 32px;
+            background: #fafafa;
+            color: #1e293b;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.95rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-top: 1px solid var(--border-color);
+            line-height: 1.6;
+            max-height: 800px;
+            overflow-y: auto;
+        }
+
+        /* Interaction Elements */
+        .copy-btn {
+            background: var(--success-green);
+            color: var(--white);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #059669;
+        }
+
+        /* Toast Notification */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-slate);
+            color: var(--white);
+            padding: 14px 28px;
+            border-radius: 40px;
+            font-size: 1rem;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.9rem; }
+            .container { width: 94%; }
+            .prompt-content { font-size: 0.9rem; padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Content Framing Angle Finder</h1>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <div class="welcome-card">
+            <p>আপনার কন্টেন্টের প্ল্যাটফর্ম এবং উদ্দেশ্য নিচে প্রদান করুন। এটি স্বয়ংক্রিয়ভাবে একটি স্ট্র্যাটেজিক প্রম্পট তৈরি করবে যা আপনার কন্টেন্টের জন্য সেরা অ্যাঙ্গেল খুঁজে বের করতে সাহায্য করবে।</p>
+        </div>
+
+        <div class="input-section">
+            <div class="input-group">
+                <label for="platformInput">[Insert Platform Here]</label>
+                <textarea id="platformInput" placeholder="উদা: Facebook, LinkedIn, Personal Blog..." oninput="updatePrompt()"></textarea>
+            </div>
+            
+            <div class="input-group">
+                <label for="purposeInput">[Insert the Purpose of the Content Here]</label>
+                <textarea id="purposeInput" placeholder="উদা: To educate beginners about digital marketing..." oninput="updatePrompt()"></textarea>
+            </div>
+        </div>
+
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>জেনারেটেড প্রম্পট</h3>
+                    <button class="copy-btn" onclick="copyToClipboard()">কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="promptDisplay"></div>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="toast">ক্লিপবোর্ডে কপি হয়েছে!</div>
+
+    <script>
+        function updatePrompt() {
+            const platform = document.getElementById('platformInput').value.trim() || "[Insert Platform Here]";
+            const purpose = document.getElementById('purposeInput').value.trim() || "[Insert the Purpose of the Content Here]";
+
+            const fullPrompt = `ROLE
+
+You are an expert Content Strategist, Content Marketing Consultant, Content Framing Specialist, and Copywriter.
+
+---
+
+BENGALI LOCALIZATION LAYER
+
+Please write the output of the PROMPT below in the most spontaneous, natural-sounding modern conversational Bengali as spoken in Kolkata, West Bengal, India.
+
+The writing should be easy for a 21-year-old to understand while maintaining high editorial quality, clarity, precision, and natural readability.
+
+Strict Rules
+
+- Reflect Kolkata conversational cadence through sentence rhythm and phrasing by using slightly formal, polite, and smoothly flowing sentence structures with balanced pacing. Avoid slang, regional grammar, overly literary wording, or awkward literal translations.
+- Always use the formal "আপনি", never "তুমি".
+- The tone should remain warm, conversational, approachable, confident, and quietly authoritative.
+- Write as if speaking directly to one person in a natural face-to-face conversation.
+- Do not translate literally. Rewrite naturally so the output feels as though it was originally written in Bengali.
+- Preserve the original meaning, intent, emotional tone, and persuasive effect without adding, removing, or changing information.
+
+---
+
+TASK
+
+I want to write a piece of content.
+
+Platform:  
+${platform}
+
+Purpose:  
+${purpose}
+
+---
+
+OBJECTIVE
+
+Suggest several Content Framing Angles for this content.
+
+1. Recommend the most suitable framing angles based on the platform and purpose.
+2. Rank the suggested framing angles from most suitable to least suitable.
+3. From the following list, recommend the single best Content Framing Category for this content.
+
+| Category | Estimated Angles |
+| ------------------- | ---------------: |
+| Narrative Framing | 12 |
+| Belief Framing | 15 |
+| Analytical Framing | 14 |
+| Educational Framing | 16 |
+| Practical Framing | 14 |
+| Evidence Framing | 12 |
+| Reflective Framing | 10 |
+| Strategic Framing | 11 |
+| Persuasive Framing | 15 |
+| Emotional Framing | 12 |
+
+RULE (MANDATORY)
+
+If none of the categories above is the best fit for the proposed content, recommend the most appropriate category instead and explain why.
+
+---
+
+OUTPUT REQUIREMENTS
+
+Part 1: Recommended Content Framing Category
+
+- Identify the single best Content Framing Category.
+- Explain why it is the best fit for the specified platform and purpose.
+
+Part 2: Recommended Content Framing Angles
+
+For each recommended framing angle, provide:
+
+- Name of the Framing Angle
+- Short Description
+- Why it is suitable
+- Strengths
+- Potential Weaknesses (if any)
+- Best Use Case
+
+Rank all recommended framing angles from most suitable to least suitable.
+
+Part 3: Summary Table
+
+At the end of your response, provide a table containing all the recommended Content Framing Angles using exactly the following table structure.
+
+RULE (MANDATORY)
+
+- Do not edit, alter, add, delete, or reorder any columns in the table.
+- Preserve the table structure exactly as shown below.
+
+| Category | Framing Angle | Purpose | Cognitive Goal | Emotional Trigger | Best Used When | Suitable Content Formats | Suitable Hook Types | Suitable CTA Types | Ideal Framework / Structure | Funnel Stage | Complexity | Typical Length | Works Well With | AI Prompt Cue | Example Headline |
+| -------- | ------------- | ------- | -------------- | ----------------- | -------------- | ------------------------ | ------------------- | ------------------ | --------------------------- | ------------ | ---------- | -------------- | --------------- | ------------- | ---------------- |`;
+
+            document.getElementById('promptDisplay').innerText = fullPrompt;
+        }
+
+        function copyToClipboard() {
+            const text = document.getElementById('promptDisplay').innerText;
+            if (!text) return;
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 2000);
+            });
+        }
+
+        // Initialize display
+        updatePrompt();
+    </script>
+</body>
+</html>
