@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pinterest Image SEO Metadata Generator</title>
+  <style>
+    :root {
+      /* RADICAL REPORTS COLOUR PALETTE OVERRIDE */
+      --primary: #204d4f;      /* Deep Teal - Primary */
+      --secondary: #426a6c;    /* Muted Teal - Secondary */
+      --accent: #739395;       /* Sage Teal - Accent */
+      --border-clr: #a9c1c2;   /* Soft Mint - Borders */
+      --light-bg: #dbeeef;     /* Pale Mint - Background */
+      
+      --ink: #1e2b2c;
+      --muted: #426a6c;
+      --paper: #ffffff;
+      --page-bg: var(--light-bg);
+      --line: var(--border-clr);
+      --shadow: 0 10px 30px rgba(32, 77, 79, 0.08);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--page-bg);
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    .page-wrap {
+      width: min(900px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 40px 0 80px;
+    }
+
+    /* MINIMALIST HEADER */
+    .hero {
+      text-align: left;
+      margin-bottom: 40px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border-clr);
+    }
+
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--primary);
+      text-transform: uppercase;
+    }
+
+    .subtitle {
+      margin: 0;
+      font-size: 16px;
+      max-width: 700px;
+      color: var(--secondary);
+      line-height: 1.6;
+    }
+
+    /* CARDS */
+    .section-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .section-head {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      padding: 24px;
+      background: #fcfdfe;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .step-icon {
+      flex: 0 0 auto;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      font-size: 18px;
+      font-weight: 800;
+      color: #fff;
+      background: var(--primary);
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: 20px;
+      color: var(--primary);
+      letter-spacing: -0.02em;
+    }
+
+    .section-head p {
+      margin: 2px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .section-body { padding: 24px; }
+
+    label {
+      display: block;
+      margin: 0 0 6px;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: var(--secondary);
+    }
+
+    textarea {
+      width: 100%;
+      border: 1px solid var(--border-clr);
+      background: #fff;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font: inherit;
+      color: var(--ink);
+      outline: none;
+      transition: all 0.2s ease;
+      margin-bottom: 16px;
+      min-height: 120px;
+    }
+
+    textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(32, 77, 79, 0.08);
+    }
+
+    #generatedPrompt {
+      min-height: 350px;
+      background: #fcfdfe;
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      font-size: 13px;
+    }
+
+    /* BUTTONS */
+    .button-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+
+    button, .link-button {
+      appearance: none;
+      border: 0;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      transition: all 0.2s ease;
+    }
+
+    .primary-btn { color: #fff; background: var(--primary); }
+    .primary-btn:hover { background: var(--secondary); transform: translateY(-1px); }
+
+    .secondary-btn { color: var(--primary); background: #fff; border: 1px solid var(--border-clr); }
+    .secondary-btn:hover { background: #f0f6f6; }
+
+    .copy-btn { color: #fff; background: var(--accent); }
+    .copy-btn:hover { background: var(--secondary); }
+
+    .toast {
+      position: fixed;
+      left: 50%; bottom: 30px; transform: translateX(-50%);
+      background: var(--primary); color: #fff;
+      padding: 8px 16px; border-radius: 8px; font-size: 13px;
+      opacity: 0; transition: 0.3s; pointer-events: none;
+      z-index: 1000;
+    }
+    .toast.show { opacity: 1; }
+
+    footer {
+      margin-top: 60px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-wrap">
+    <header class="hero">
+      <h1>Pinterest Image SEO Metadata Generator</h1>
+      <p class="subtitle">Generate keyword-rich Pinterest-ready image metadata, pin titles, and descriptions to maximize your reach and visibility.</p>
+    </header>
+
+    <!-- INPUT SECTION -->
+    <section class="section-card">
+      <div class="section-head">
+        <div class="step-icon">📌</div>
+        <div>
+          <h2>Topic Input</h2>
+          <p>Paste the topic you want to generate SEO metadata for.</p>
+        </div>
+      </div>
+      <div class="section-body">
+        <label for="topicInput">[PASTE YOUR TOPIC HERE]</label>
+        <textarea id="topicInput" placeholder="e.g. Email Marketing for Small Businesses, DIY Home Decor Ideas..."></textarea>
+
+        <div class="button-row">
+          <button class="primary-btn" onclick="buildPrompt()">Generate SEO Prompt</button>
+          <button class="copy-btn" onclick="copyText()">Copy Prompt</button>
+          <a class="link-button secondary-btn" href="https://chatgpt.com/" target="_blank">Open ChatGPT</a>
+          <button class="secondary-btn" onclick="clearAll()">Clear</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- OUTPUT SECTION -->
+    <section class="section-card">
+      <div class="section-head">
+        <div class="step-icon">✨</div>
+        <div>
+          <h2>Final Prompt</h2>
+          <p>Copy and paste this into ChatGPT or your preferred AI tool.</p>
+        </div>
+      </div>
+      <div class="section-body">
+        <textarea id="generatedPrompt" readonly placeholder="Your generated prompt will appear here..."></textarea>
+      </div>
+    </section>
+
+    <footer>
+      Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.
+    </footer>
+  </div>
+
+  <div id="toast" class="toast">Copied to clipboard</div>
+
+  <script>
+    function buildPrompt() {
+      const topic = document.getElementById('topicInput').value;
+
+      // PROMPT PRESERVED EXACTLY
+      const fullPrompt = `ROLE
+
+You are an expert Pinterest SEO Strategist and Image Metadata Specialist.
+
+TASK
+
+Generate complete Pinterest-ready image SEO metadata based on the topic below.
+
+INPUT
+
+Topic:
+${topic}
+
+CONSTANT BRAND INFORMATION
+
+Author:
+Siva Prasad Mukherjee
+
+Copyright:
+© Siva Prasad Mukherjee. All Rights Reserved.
+
+Source URL:
+https://spmukherjee.co.in
+
+Credit:
+Siva Prasad Mukherjee
+
+OUTPUT
+
+SEO File Name
+- lowercase
+- hyphens only
+- no dates
+- no special characters
+
+Image Title
+(60–70 characters)
+
+Image Subject
+
+Image Description
+(1–2 keyword-rich sentences)
+
+Image Keywords
+(15–25 comma-separated keywords)
+
+Author
+(Use the constant value.)
+
+Copyright
+(Use the constant value.)
+
+Source URL
+(Use the constant value.)
+
+Credit
+(Use the constant value.)
+
+Pinterest Pin Title
+(Keyword-rich and curiosity-driven)
+
+Pinterest Pin Description
+(200–500 characters)
+
+Image Alt Text
+(Describe exactly what the image shows.)
+
+Suggested Board Name
+
+Board Category
+
+Primary Keyword
+
+Secondary Keywords
+(10–20)
+
+Pinterest Search Tags
+(15–20 keyword phrases, one per line)
+
+Target Audience
+
+Search Intent
+(Informational / Inspirational / Educational / Commercial)
+
+Content Category
+
+Content Pillar
+
+Funnel Stage
+(Awareness / Consideration / Decision)
+
+CTA Goal
+(What should the reader do next?)
+
+RULES
+
+- Write naturally for humans first.
+- Prioritize Pinterest SEO over Google SEO.
+- Keep all metadata consistent with the topic.
+- Do not keyword stuff.
+- Use the constant brand information exactly as provided.
+- Use concise, searchable language.
+- Return only the requested output.`;
+
+      document.getElementById('generatedPrompt').value = fullPrompt;
+    }
+
+    async function copyText() {
+      const el = document.getElementById('generatedPrompt');
+      if (!el.value) return;
+      await navigator.clipboard.writeText(el.value);
+      const t = document.getElementById('toast');
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2000);
+    }
+
+    function clearAll() {
+      document.getElementById('topicInput').value = '';
+      document.getElementById('generatedPrompt').value = '';
+    }
+  </script>
+</body>
+</html>
