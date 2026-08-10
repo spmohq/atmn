@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sundry - Prompt Link Genie</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient-start: #020617;
+      --bg-gradient-end: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.4);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-primary: #22d3ee;
+      --accent-hover: #67e8f9;
+      --accent-success: #10b981;
+      --code-bg: rgba(0, 0, 0, 0.3);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: fixed linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 60px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 700px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      text-transform: uppercase;
+    }
+
+    .prompt-workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .step-header {
+      display: flex;
+      justify-content: flex-start;
+      margin-bottom: 25px;
+    }
+
+    .step-label {
+      font-weight: 800;
+      font-size: 0.8rem;
+      background: var(--accent-primary);
+      color: #020617;
+      padding: 5px 16px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .prompt-content {
+      background: var(--code-bg);
+      padding: 30px;
+      border-radius: 12px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 1.05rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 25px;
+      line-height: 1.6;
+      word-break: break-all;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 15px;
+      flex-direction: column;
+    }
+
+    .btn {
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+      width: 100%;
+      text-decoration: none;
+    }
+
+    .copy-btn {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-primary);
+      color: #020617;
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-success);
+      border-color: var(--accent-success);
+      color: white;
+    }
+
+    .open-btn {
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .open-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: #fff;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 40px;
+      width: 100%;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.6rem; }
+      .step-card { padding: 25px; }
+      .prompt-content { font-size: 0.95rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Sundry</h1>
+    </header>
+
+    <div class="prompt-workflow">
+      
+      <!-- Prompt #1 -->
+      <div class="step-card">
+        <div class="step-header"><span class="step-label">Prompt #1</span></div>
+        <div class="prompt-content" id="p1">ChatGPT Work Step#1
+https://spmohq.github.io/atmn/chatgpt-work-step-1.html</div>
+        <div class="button-group">
+          <button class="btn copy-btn" onclick="copyText('p1', this)"><span>Copy Prompt</span></button>
+          <a href="https://spmohq.github.io/atmn/chatgpt-work-step-1.html" target="_blank" class="btn open-btn"><span>Open Link</span></a>
+        </div>
+      </div>
+
+      <!-- Prompt #2 -->
+      <div class="step-card">
+        <div class="step-header"><span class="step-label">Prompt #2</span></div>
+        <div class="prompt-content" id="p2">ChatGPT Work Step#2
+https://spmohq.github.io/atmn/chatgpt-work-step-2.html</div>
+        <div class="button-group">
+          <button class="btn copy-btn" onclick="copyText('p2', this)"><span>Copy Prompt</span></button>
+          <a href="https://spmohq.github.io/atmn/chatgpt-work-step-2.html" target="_blank" class="btn open-btn"><span>Open Link</span></a>
+        </div>
+      </div>
+
+      <!-- Prompt #3 -->
+      <div class="step-card">
+        <div class="step-header"><span class="step-label">Prompt #3</span></div>
+        <div class="prompt-content" id="p3">ChatGPT Work Step#3
+https://spmohq.github.io/atmn/chatgpt-work-step-3.html</div>
+        <div class="button-group">
+          <button class="btn copy-btn" onclick="copyText('p3', this)"><span>Copy Prompt</span></button>
+          <a href="https://spmohq.github.io/atmn/chatgpt-work-step-3.html" target="_blank" class="btn open-btn"><span>Open Link</span></a>
+        </div>
+      </div>
+
+      <!-- Prompt #4 -->
+      <div class="step-card">
+        <div class="step-header"><span class="step-label">Prompt #4</span></div>
+        <div class="prompt-content" id="p4">ChatGPT Work Step#4
+https://spmohq.github.io/atmn/chatgpt-work-step-4.html</div>
+        <div class="button-group">
+          <button class="btn copy-btn" onclick="copyText('p4', this)"><span>Copy Prompt</span></button>
+          <a href="https://spmohq.github.io/atmn/chatgpt-work-step-4.html" target="_blank" class="btn open-btn"><span>Open Link</span></a>
+        </div>
+      </div>
+
+      <!-- Prompt #5 -->
+      <div class="step-card">
+        <div class="step-header"><span class="step-label">Prompt #5</span></div>
+        <div class="prompt-content" id="p5">Method, Presentation and Pedagogy
+https://spmohq.github.io/atmn/mpp-chatgpt-work.html</div>
+        <div class="button-group">
+          <button class="btn copy-btn" onclick="copyText('p5', this)"><span>Copy Prompt</span></button>
+          <a href="https://spmohq.github.io/atmn/mpp-chatgpt-work.html" target="_blank" class="btn open-btn"><span>Open Link</span></a>
+        </div>
+      </div>
+
+      <!-- Prompt #6 -->
+      <div class="step-card">
+        <div class="step-header"><span class="step-label">Prompt #6</span></div>
+        <div class="prompt-content" id="p6">Content Framing Angle Finder
+https://spmohq.github.io/atmn/content-framing-angle-finder.html</div>
+        <div class="button-group">
+          <button class="btn copy-btn" onclick="copyText('p6', this)"><span>Copy Prompt</span></button>
+          <a href="https://spmohq.github.io/atmn/content-framing-angle-finder.html" target="_blank" class="btn open-btn"><span>Open Link</span></a>
+        </div>
+      </div>
+
+      <!-- Prompt #7 -->
+      <div class="step-card">
+        <div class="step-header"><span class="step-label">Prompt #7</span></div>
+        <div class="prompt-content" id="p7">CONTENT REASONING ANALYZER
+https://spmohq.github.io/atmn/content-reasoning-analyzer.html</div>
+        <div class="button-group">
+          <button class="btn copy-btn" onclick="copyText('p7', this)"><span>Copy Prompt</span></button>
+          <a href="https://spmohq.github.io/atmn/content-reasoning-analyzer.html" target="_blank" class="btn open-btn"><span>Open Link</span></a>
+        </div>
+      </div>
+
+      <!-- Prompt #8 -->
+      <div class="step-card">
+        <div class="step-header"><span class="step-label">Prompt #8</span></div>
+        <div class="prompt-content" id="p8">REVERSE CONTENT REASONING ANALYZER
+https://spmohq.github.io/atmn/reverse-content-reasoning-analyzer.html</div>
+        <div class="button-group">
+          <button class="btn copy-btn" onclick="copyText('p8', this)"><span>Copy Prompt</span></button>
+          <a href="https://spmohq.github.io/atmn/reverse-content-reasoning-analyzer.html" target="_blank" class="btn open-btn"><span>Open Link</span></a>
+        </div>
+      </div>
+
+      <!-- Prompt #9 -->
+      <div class="step-card">
+        <div class="step-header"><span class="step-label">Prompt #9</span></div>
+        <div class="prompt-content" id="p9">Final Content Ideas
+https://spmohq.github.io/atmn/s2.html</div>
+        <div class="button-group">
+          <button class="btn copy-btn" onclick="copyText('p9', this)"><span>Copy Prompt</span></button>
+          <a href="https://spmohq.github.io/atmn/s2.html" target="_blank" class="btn open-btn"><span>Open Link</span></a>
+        </div>
+      </div>
+
+      <!-- Prompt #10 -->
+      <div class="step-card">
+        <div class="step-header"><span class="step-label">Prompt #10</span></div>
+        <div class="prompt-content" id="p10">framing angles
+https://spmohq.github.io/atmn/vvi-caf.html</div>
+        <div class="button-group">
+          <button class="btn copy-btn" onclick="copyText('p10', this)"><span>Copy Prompt</span></button>
+          <a href="https://spmohq.github.io/atmn/vvi-caf.html" target="_blank" class="btn open-btn"><span>Open Link</span></a>
+        </div>
+      </div>
+
+      <!-- Prompt #11 -->
+      <div class="step-card">
+        <div class="step-header"><span class="step-label">Prompt #11</span></div>
+        <div class="prompt-content" id="p11">Sub-layer of ROLE
+https://spmohq.github.io/atmn/sub-layer-of-role.html</div>
+        <div class="button-group">
+          <button class="btn copy-btn" onclick="copyText('p11', this)"><span>Copy Prompt</span></button>
+          <a href="https://spmohq.github.io/atmn/sub-layer-of-role.html" target="_blank" class="btn open-btn"><span>Open Link</span></a>
+        </div>
+      </div>
+
+      <!-- Prompt #12 -->
+      <div class="step-card">
+        <div class="step-header"><span class="step-label">Prompt #12</span></div>
+        <div class="prompt-content" id="p12">Type of Inage Post
+https://spmohq.github.io/atmn/type-of-image-posts-ref.html</div>
+        <div class="button-group">
+          <button class="btn copy-btn" onclick="copyText('p12', this)"><span>Copy Prompt</span></button>
+          <a href="https://spmohq.github.io/atmn/type-of-image-posts-ref.html" target="_blank" class="btn open-btn"><span>Open Link</span></a>
+        </div>
+      </div>
+
+      <!-- Prompt #13 -->
+      <div class="step-card">
+        <div class="step-header"><span class="step-label">Prompt #13</span></div>
+        <div class="prompt-content" id="p13">Group Keywords & Meta Interests
+https://spmohq.github.io/atmn/gr-kw-n-meta-interest.html</div>
+        <div class="button-group">
+          <button class="btn copy-btn" onclick="copyText('p13', this)"><span>Copy Prompt</span></button>
+          <a href="https://spmohq.github.io/atmn/gr-kw-n-meta-interest.html" target="_blank" class="btn open-btn"><span>Open Link</span></a>
+        </div>
+      </div>
+
+    </div>
+
+    <footer class="footer">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    function copyText(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<span>Copied to Clipboard!</span>`;
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
