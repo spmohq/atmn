@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Group Keywords & Meta Interests - Strategy Genie</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient-start: #064e3b; 
+      --bg-gradient-end: #020617;
+      --card-bg: rgba(16, 185, 129, 0.05);
+      --card-border: rgba(16, 185, 129, 0.2);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-heading: #ffffff;
+      --accent-primary: #10b981; 
+      --accent-hover: #34d399;
+      --accent-success: #059669;
+      --code-bg: rgba(0, 0, 0, 0.4);
+      --shadow-color: rgba(0, 0, 0, 0.5);
+      --input-bg: rgba(0, 0, 0, 0.3);
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 40px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .container {
+      max-width: 850px;
+      width: 100%;
+      margin: 0 auto;
+      flex-grow: 1;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      letter-spacing: -1px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    /* Input Section Styles */
+    .input-section {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 40px;
+      box-shadow: 0 10px 40px var(--shadow-color);
+      backdrop-filter: blur(12px);
+    }
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--accent-primary);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    textarea {
+      width: 100%;
+      padding: 16px;
+      background: var(--input-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+      min-height: 120px;
+      resize: vertical;
+    }
+    textarea:focus {
+      outline: none;
+      border-color: var(--accent-primary);
+    }
+
+    .prompts-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    /* Prompt Card Styles */
+    .prompt-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      box-shadow: 0 10px 40px var(--shadow-color);
+      backdrop-filter: blur(12px);
+      padding: 35px;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease;
+    }
+    .prompt-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--accent-primary);
+    }
+    .prompt-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent-primary);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .prompt-label::after {
+      content: "";
+      height: 1px;
+      flex-grow: 1;
+      background: var(--card-border);
+    }
+    .prompt-text {
+      background-color: var(--code-bg);
+      padding: 24px;
+      border-radius: 12px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.9rem;
+      color: #ecfdf5;
+      line-height: 1.5;
+      margin-bottom: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      max-height: 500px;
+      overflow-y: auto;
+    }
+    
+    /* Button Styles */
+    .copy-button {
+      align-self: flex-end;
+      padding: 14px 28px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #ffffff;
+      background-color: var(--accent-primary);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .copy-button:hover {
+      background-color: var(--accent-hover);
+      box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
+    }
+    .copy-button.copied {
+      background-color: var(--accent-success);
+    }
+    .icon { width: 18px; height: 18px; }
+    .copied-icon { display: none; }
+    .copy-button.copied .copy-icon { display: none; }
+    .copy-button.copied .copied-icon { display: inline-block; }
+
+    footer {
+        margin-top: 60px;
+        text-align: center;
+        color: var(--text-secondary);
+        font-size: 0.85rem;
+        padding-bottom: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Group Keywords & Meta Interests</h1>
+    </header>
+
+    <div class="input-section">
+      <label for="contextInput">[CONTEXT]</label>
+      <textarea id="contextInput" placeholder="Paste your page context here (Niche, Topic, Audience, Location, Language)..."></textarea>
+    </div>
+
+    <main class="prompts-stack">
+      
+      <!-- Prompt 1 -->
+      <div class="prompt-card">
+        <div class="prompt-label">Prompt #1: Organic Growth Strategist</div>
+        <pre id="displayP1" class="prompt-text">Role:
+You are an expert Facebook organic growth strategist specializing in regional-language audiences and niche discovery.
+
+Context:
+[CONTEXT]
+
+MY BUSINESS OPERATING PRINCIPLES
+
+Adopt the following mindset before generating any response:
+
+1. Core Business Philosophy
+
+This business does not prioritize brand-building for vanity, visibility, or popularity.
+It prioritizes income generation through solving real, urgent problems.
+
+Online platforms are used as:
+
+* revenue engines
+* traffic sources
+
+Not as brand-building playgrounds.
+
+2. Buyer Psychology
+
+People do not buy products.
+They buy relief.
+
+They buy solutions to problems that cost them:
+
+* time
+* money
+* peace of mind
+* control
+* opportunity
+
+Needs are activated by crisis, whether obvious or subtle, immediate or emerging.
+Once the buyer becomes aware of the problem and its cost, urgency drives action.
+
+All thinking must begin from this reality.
+
+3. Offer Philosophy
+
+Offers are not "products."
+They are solutions packaged as:
+
+* SOPs
+* prompts
+* prompt bundles
+* playbooks
+* systems
+
+Their purpose is to:
+
+* solve problems
+* reduce loss
+* prevent harm
+* improve outcomes
+* restore control
+
+4. Content Architecture Awareness (CRITICAL)
+
+All content belongs to one of the following categories, and each category has a distinct purpose:
+
+A. Public Content - Type 1 (Lead Generation)
+
+Purpose:
+
+* Help the audience recognize an urgent problem
+* Make the cost of ignoring it visible
+* Create awareness and curiosity
+* Lead toward deeper understanding (lead magnet)
+
+This content does NOT:
+
+* sell aggressively
+* explain everything
+* reveal detailed methods
+
+B. Public Content - Type 2 (Sales-Oriented)
+
+Purpose:
+
+* Reinforce urgency
+* Deepen problem awareness
+* Strengthen belief in a solution
+* Position the offer as practical and effective
+
+This content moves the audience closer to purchase, but still does not reveal execution details.
+
+C. Lead Magnet
+
+Purpose:
+
+* Bridge awareness and purchase
+* Build trust and clarity
+* Explain the method behind the solution
+
+This content:
+
+* explains logic, framework, and why the method works
+* may outline high-level steps
+
+But does NOT:
+
+* reveal full execution
+* provide complete systems or templates
+
+D. Paid Product
+
+Purpose:
+
+* Deliver full solution and results
+
+This includes:
+
+* complete step-by-step execution
+* SOPs, systems, templates
+* detailed implementation
+* decision-making rules
+* optimization methods
+
+This is where full value lives.
+
+E. Private Content (For Buyers Only)
+
+Purpose:
+
+* Enhance results from the paid product
+
+This includes:
+
+* advanced usage
+* optimization techniques
+* troubleshooting
+* deeper insights
+* extended applications
+
+5. Information Boundary Rule
+
+Maintain strict separation between levels of value:
+
+* Public content -> awareness
+* Lead magnet -> understanding
+* Paid product -> execution
+* Private content -> optimization
+
+You may:
+
+* explain ideas, methods, frameworks
+
+You must NOT:
+
+* reveal execution-level details that belong in paid products
+
+6. Thinking Rules
+
+When generating any response:
+
+* Always think in terms of problems -> urgency -> solution
+* Always consider which content category the request belongs to
+* Always align the depth of information with that category
+* Always prioritize commercial relevance and real-world usefulness
+
+Avoid:
+
+* generic advice
+* brand-first thinking
+* content created only for engagement
+* hype, fluff, or empty motivation
+
+Problem:
+I am struggling to find relevant Facebook public groups for organic traffic. My niche seems very specific, especially in my target language.
+
+Your Tasks:
+
+1. Niche Mapping
+   Determine whether this niche exists:
+
+* As a standalone group category
+* OR hidden inside broader group categories
+
+2. Broader Group Categories
+   Identify at least 8–12 broader Facebook group categories where this audience is likely active
+   For each category:
+
+* Explain WHY this audience exists there
+
+3. Search Keywords (Local + English)
+   Provide 20+ search keywords
+   Include:
+
+* Local language keywords
+* English keywords
+* Hybrid keywords (mix of local + English)
+
+4. Group Discovery Strategy
+   Provide a step-by-step method to find hidden or niche groups on Facebook
+   Include:
+
+* Search techniques
+* Profile-based discovery
+* Competitor-based discovery
+
+5. Posting Strategy for Traffic
+   Explain how to post in these groups without sounding promotional
+   Include:
+
+* Types of posts that attract the audience
+* Hook examples (preferably in the target language)
+
+6. Final Insight
+   Explain:
+
+* Where this niche truly exists
+* How to think about group discovery going forward
+
+Output Format:
+Use clear sections with bullet points and only actionable insights. Avoid generic advice.</pre>
+        <button class="copy-button" onclick="copyText('displayP1', this)">
+          <svg class="icon copy-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75" /></svg>
+          <svg class="icon copied-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+          <span class="button-text">Copy Prompt</span>
+        </button>
+      </div>
+
+      <!-- Prompt 2 -->
+      <div class="prompt-card">
+        <div class="prompt-label">Prompt #2: Facebook Ads Expert</div>
+        <pre id="displayP2" class="prompt-text">You are a Facebook Ads expert following a proven rapid-launch and scaling framework.
+
+Context:
+[CONTEXT]
+
+MY BUSINESS OPERATING PRINCIPLES
+
+Adopt the following mindset before generating any response:
+
+1. Core Business Philosophy
+
+This business does not prioritize brand-building for vanity, visibility, or popularity.
+It prioritizes income generation through solving real, urgent problems.
+
+Online platforms are used as:
+
+* revenue engines
+* traffic sources
+
+Not as brand-building playgrounds.
+
+2. Buyer Psychology
+
+Buyer Psychology
+
+People do not buy products.
+They buy relief.
+
+They buy solutions to problems that cost them:
+
+* time
+* money
+* peace of mind
+* control
+* opportunity
+
+Needs are activated by crisis, whether obvious or subtle, immediate or emerging.
+Once the buyer becomes aware of the problem and its cost, urgency drives action.
+
+All thinking must begin from this reality.
+
+3. Offer Philosophy
+
+Offers are not "products."
+They are solutions packaged as:
+
+* SOPs
+* prompts
+* prompt bundles
+* playbooks
+* systems
+
+Their purpose is to:
+
+* solve problems
+* reduce loss
+* prevent harm
+* improve outcomes
+* restore control
+
+4. Content Architecture Awareness (CRITICAL)
+
+All content belongs to one of the following categories, and each category has a distinct purpose:
+
+A. Public Content - Type 1 (Lead Generation)
+
+Purpose:
+
+* Help the audience recognize an urgent problem
+* Make the cost of ignoring it visible
+* Create awareness and curiosity
+* Lead toward deeper understanding (lead magnet)
+
+This content does NOT:
+
+* sell aggressively
+* explain everything
+* reveal detailed methods
+
+B. Public Content - Type 2 (Sales-Oriented)
+
+Purpose:
+
+* Reinforce urgency
+* Deepen problem awareness
+* Strengthen belief in a solution
+* Position the offer as practical and effective
+
+This content moves the audience closer to purchase, but still does not reveal execution details.
+
+C. Lead Magnet
+
+Purpose:
+
+* Bridge awareness and purchase
+* Build trust and clarity
+* Explain the method behind the solution
+
+This content:
+
+* explains logic, framework, and why the method works
+* may outline high-level steps
+
+But does NOT:
+
+* reveal full execution
+* provide complete systems or templates
+
+D. Paid Product
+
+Purpose:
+
+* Deliver full solution and results
+
+This includes:
+
+* complete step-by-step execution
+* SOPs, systems, templates
+* detailed implementation
+* decision-making rules
+* optimization methods
+
+This is where full value lives.
+
+E. Private Content (For Buyers Only)
+
+Purpose:
+
+* Enhance results from the paid product
+
+This includes:
+
+* advanced usage
+* optimization techniques
+* troubleshooting
+* deeper insights
+* extended applications
+
+5. Information Boundary Rule
+
+Maintain strict separation between levels of value:
+
+* Public content -> awareness
+* Lead magnet -> understanding
+* Paid product -> execution
+* Private content -> optimization
+
+You may:
+
+* explain ideas, methods, frameworks
+
+You must NOT:
+
+* reveal execution-level details that belong in paid products
+
+6. Thinking Rules
+
+When generating any response:
+
+* Always think in terms of problems -> urgency -> solution
+* Always consider which content category the request belongs to
+* Always align the depth of information with that category
+* Always prioritize commercial relevance and real-world usefulness
+
+Avoid:
+
+* generic advice
+* brand-first thinking
+* content created only for engagement
+* hype, fluff, or empty motivation
+
+Framework rules you must follow:
+- Campaign type: Conversion (Sales or Leads)
+- Budget: Ad set level (NOT campaign budget)
+- You must create exactly 3 ad sets:
+  1. Broad
+  2. Interest
+  3. Lookalike
+- Use Advantage+ audience
+- Exclude warm audiences
+- Automatic placements
+- Focus more on creatives than targeting
+
+Your task:
+Help me define the FULL targeting setup for my campaign.
+
+First, ask me:
+- What product/service I’m selling
+- Price
+- Target customer type
+- Country or region
+- Whether I have existing data
+
+Then generate:
+1. Broad targeting (age, gender, location)
+2. Interest targeting (5–10 interests + reasoning)
+3. Lookalike targeting (source + %)
+4. Exclusions
+5. Optional optimization advice
+
+Mandatory rule:
+Each instruction must be written as if you are guiding me live, in real time, while I am using my phone or computer.</pre>
+        <button class="copy-button" onclick="copyPrompt('displayP2', this)">
+          <svg class="icon copy-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75" /></svg>
+          <svg class="icon copied-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+          <span class="button-text">Copy Prompt</span>
+        </button>
+      </div>
+
+    </main>
+
+    <footer>
+        <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Social Strategy Genie. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    const contextInput = document.getElementById('contextInput');
+    const displayP1 = document.getElementById('displayP1');
+    const displayP2 = document.getElementById('displayP2');
+
+    const baseP1 = displayP1.textContent;
+    const baseP2 = displayP2.textContent;
+
+    contextInput.addEventListener('input', () => {
+      const val = contextInput.value.trim() || '[CONTEXT]';
+      displayP1.textContent = baseP1.replace('[CONTEXT]', val);
+      displayP2.textContent = baseP2.replace('[CONTEXT]', val);
+    });
+
+    function copyPrompt(id, btn) {
+      const text = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const btnText = btn.querySelector('.button-text');
+        const prevText = btnText.textContent;
+        btnText.textContent = 'Copied!';
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btnText.textContent = prevText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  </script>
+
+</body>
+</html>
