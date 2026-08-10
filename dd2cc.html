@@ -76,6 +76,26 @@
       text-transform: uppercase;
     }
 
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 12px 32px;
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+
+    .nav-btn:hover {
+      background: var(--accent-primary);
+      color: #020617;
+      transform: translateY(-2px);
+    }
+
     .prompt-workflow {
       display: flex;
       flex-direction: column;
@@ -223,6 +243,7 @@
   <div class="container">
     <header>
       <h1>Dumb Doc to Complete Content</h1>
+      <a href="https://spmohq.github.io/pbiz/ddc.html" target="_blank" class="nav-btn">Clarifications</a>
     </header>
 
     <div class="prompt-workflow">
