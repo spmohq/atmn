@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What To DO</title>
+    <style>
+        :root {
+            --primary: #161e73;
+            --accent: #c88a58;
+            --secondary: #8ea88b;
+            --light-grey: #bbbbbb;
+            --dark-grey: #aaaaaa;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-grey);
+            margin: 0;
+            padding: 0;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        .block {
+            background-color: var(--white);
+            border-left: 5px solid var(--secondary);
+            border-radius: 8px;
+            margin-bottom: 25px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .block-title {
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--dark-grey);
+            padding-bottom: 5px;
+        }
+
+        .block-content {
+            white-space: pre-wrap;
+            font-size: 1rem;
+            color: #444;
+            margin-bottom: 20px;
+        }
+
+        .copy-btn {
+            background-color: var(--accent);
+            color: var(--white);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .copy-btn:hover {
+            background-color: var(--primary);
+        }
+
+        .copy-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+            .block {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>What To DO</h1>
+</header>
+
+<div class="container">
+    <!-- Block 1 -->
+    <div class="block">
+        <div class="block-title">Host Resources for Ko-fi Readers on:</div>
+        <div class="block-content" id="content-1">https://softtalkhq.github.io/soia/</div>
+        <button class="copy-btn" onclick="copyText('content-1')">Copy Prompt</button>
+    </div>
+
+    <!-- Block 2 -->
+    <div class="block">
+        <div class="block-title">To Do:</div>
+        <div class="block-content" id="content-2">Create Edu Content / Helping Tool
+Publish on Ko-fi Blog
+(Public or All Supporters)
+
+Create And Publish SMP
++
+NISMS</div>
+        <button class="copy-btn" onclick="copyText('content-2')">Copy Prompt</button>
+    </div>
+
+    <!-- Block 3 -->
+    <div class="block">
+        <div class="block-title">Compass:</div>
+        <div class="block-content" id="content-3">Topic to Introduce: How to use the "Question in A Keyword"
+Tool: Question Finder
+In Blog: Tool: Question Finder + How to use - why to use - when to use
+
+In Article: Introduce the Necessity of finding and using “Question in A Keyword”
+In Pin: How to get benefit of using “Question in A Keyword”</div>
+        <button class="copy-btn" onclick="copyText('content-3')">Copy Prompt</button>
+    </div>
+
+    <!-- Block 4 -->
+    <div class="block">
+        <div class="block-title">How will I attract traffic?:</div>
+        <div class="block-content" id="content-4">> With pin containing the searched keywords in Pinterest
+> With Medium.com Article 
+Article CTA: How to use the "Question in A Keyword" step-by-step? Read my Blog Post
+https://ko-fi.spmukherjee.co.in/[your link slug]</div>
+        <button class="copy-btn" onclick="copyText('content-4')">Copy Prompt</button>
+    </div>
+
+    <!-- Block 5 -->
+    <div class="block">
+        <div class="block-title">Medium.com Article Bio:</div>
+        <div class="block-content" id="content-5">Explore My Work:
+🎁 I follow my curiosity. This is what it creates.
+https://ko-fi.com/spmhq</div>
+        <button class="copy-btn" onclick="copyText('content-5')">Copy Prompt</button>
+    </div>
+</div>
+
+<script>
+    function copyText(elementId) {
+        const textToCopy = document.getElementById(elementId).innerText;
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            const btn = event.target;
+            const originalText = btn.innerText;
+            btn.innerText = "Copied!";
+            btn.style.backgroundColor = "#8ea88b";
+            
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.style.backgroundColor = "#c88a58";
+            }, 2000);
+        }).catch(err => {
+            console.error('Error copying text: ', err);
+        });
+    }
+</script>
+
+</body>
+</html>
