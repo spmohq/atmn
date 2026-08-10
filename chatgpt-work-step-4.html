@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT Work Step#4</title>
+    <style>
+        /* Design Strategy: Professional, Reliable, and Clean */
+        :root {
+            --primary-slate: #1e293b;
+            --accent-blue: #2563eb;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --text-main: #334155;
+            --border-color: #e2e8f0;
+            --success-green: #10b981;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.8;
+            padding-bottom: 60px;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        /* Header Area */
+        header {
+            padding: 50px 0 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-slate);
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .welcome-card {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+            border-left: 6px solid var(--accent-blue);
+        }
+
+        .welcome-card p {
+            font-size: 1.1rem;
+            color: var(--text-main);
+            margin-bottom: 0;
+        }
+
+        /* Prompt Display Box */
+        .prompt-wrapper {
+            margin-bottom: 40px;
+        }
+
+        .prompt-box {
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .prompt-header {
+            background: var(--primary-slate);
+            color: var(--white);
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prompt-header h3 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .prompt-content {
+            padding: 32px;
+            background: #fafafa;
+            color: #1e293b;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.95rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-top: 1px solid var(--border-color);
+            line-height: 1.6;
+            max-height: 750px;
+            overflow-y: auto;
+        }
+
+        /* Interaction Elements */
+        .copy-btn {
+            background: var(--success-green);
+            color: var(--white);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #059669;
+            transform: translateY(-1px);
+        }
+
+        /* Toast Notification */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-slate);
+            color: var(--white);
+            padding: 14px 28px;
+            border-radius: 40px;
+            font-size: 1rem;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.9rem; }
+            .container { width: 94%; }
+            .prompt-content { font-size: 0.9rem; padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>ChatGPT Work Step#4</h1>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <div class="welcome-card">
+            <p>আপনার আগের উত্তরটিকে একটি পূর্ণাঙ্গ এবং স্বয়ংসম্পূর্ণ লেসন বা পাঠে রূপান্তর করতে নিচের প্রম্পটটি ব্যবহার করুন। এটি কোর্স ফরম্যাটে তথ্যগুলোকে গুছিয়ে উপস্থাপন করবে।</p>
+        </div>
+
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>LESSON RESTRUCTURE PROMPT</h3>
+                    <button class="copy-btn" onclick="copyToClipboard()">কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="promptDisplay">Kindly restructure your previous answer so that it reads as a complete, standalone lesson within a course, making sure to strictly follow the layout given below.
+
+---
+
+BENGALI LOCALIZATION LAYER
+
+Please write the output of the PROMPT below in the most spontaneous, natural-sounding modern conversational Bengali as spoken in Kolkata, West Bengal, India.
+
+The writing should be easy for a 21-year-old to understand while maintaining high editorial quality, clarity, precision, and natural readability.
+
+Strict Rules
+
+- Reflect Kolkata conversational cadence through sentence rhythm and phrasing by using slightly formal, polite, and smoothly flowing sentence structures with balanced pacing. Avoid slang, regional grammar, overly literary wording, or awkward literal translations.
+- Always use the formal "আপনি", never "তুমি".
+- The tone should remain warm, conversational, approachable, confident, and quietly authoritative.
+- Write as if speaking directly to one person in a natural face-to-face conversation.
+- Do not translate literally. Rewrite naturally so the output feels as though it was originally written in Bengali.
+- Preserve the original meaning, intent, emotional tone, and persuasive effect without adding, removing, or changing information.
+
+---
+
+FORMAT
+
+1. Why learn this?
+[Why]
+2. What will you learn today?
+[What]
+3. Step-by-step
+[How, step-by-step]
+4. Illustration
+[Illustration]
+5. What did you learn?
+[What was learned]
+6. At the conclusion of your answer, please provide the standalone, reusable prompt template(s) featuring [placeholders] for every AI prompt needed to carry out this step. These templates should be fully reusable in a fresh chat across different niches, topics, or use cases simply by substituting the [placeholders] with the appropriate values.
+
+Additionally, please include these three points along with each prompt template:
+
+* What is required before using the AI?
+
+* What should be done while using the AI?
+
+* What should be done after using it?</div>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="toast">ক্লিপবোর্ডে কপি হয়েছে!</div>
+
+    <script>
+        function copyToClipboard() {
+            const text = document.getElementById('promptDisplay').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

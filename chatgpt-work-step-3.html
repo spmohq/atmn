@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT Work Step#3</title>
+    <style>
+        /* Design Strategy: Professional, Reliable, and Clean */
+        :root {
+            --primary-slate: #1e293b;
+            --accent-blue: #2563eb;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --text-main: #334155;
+            --border-color: #e2e8f0;
+            --success-green: #10b981;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.8;
+            padding-bottom: 60px;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        /* Header Area */
+        header {
+            padding: 50px 0 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-slate);
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .welcome-card {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+            border-left: 6px solid var(--accent-blue);
+        }
+
+        .welcome-card p {
+            font-size: 1.15rem;
+            color: var(--text-main);
+            margin-bottom: 0;
+        }
+
+        /* Input Section */
+        .input-section {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            margin-bottom: 40px;
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            color: var(--primary-slate);
+        }
+
+        textarea {
+            width: 100%;
+            padding: 18px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 120px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
+        /* Prompt Display Box */
+        .prompt-wrapper {
+            margin-bottom: 40px;
+        }
+
+        .prompt-box {
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .prompt-header {
+            background: var(--primary-slate);
+            color: var(--white);
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .prompt-header h3 {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .prompt-content {
+            padding: 32px;
+            background: #fafafa;
+            color: #1e293b;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.95rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-top: 1px solid var(--border-color);
+            line-height: 1.6;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        /* Interaction Elements */
+        .copy-btn {
+            background: var(--success-green);
+            color: var(--white);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #059669;
+        }
+
+        /* Toast Notification */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-slate);
+            color: var(--white);
+            padding: 14px 28px;
+            border-radius: 40px;
+            font-size: 1rem;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.9rem; }
+            .container { width: 94%; }
+            .prompt-content { font-size: 0.9rem; padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>ChatGPT Work Step#3</h1>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <div class="welcome-card">
+            <p>নিচে আপনার নির্দিষ্ট ধাপটি (Step) প্রদান করুন। এটি স্বয়ংক্রিয়ভাবে একটি পেশাদার প্রম্পট তৈরি করবে যা দিয়ে আপনি যে কোনো কাজের বিস্তারিত গাইডলাইন এবং AI প্রম্পট জেনারেট করতে পারবেন।</p>
+        </div>
+
+        <div class="input-section">
+            <label for="stepInput">আপনার ধাপটি এখানে দিন (Insert Step Here):</label>
+            <textarea id="stepInput" placeholder="[Insert Step Here]" oninput="updatePrompt()"></textarea>
+        </div>
+
+        <div class="prompt-wrapper">
+            <div class="prompt-box">
+                <div class="prompt-header">
+                    <h3>জেনারেটেড প্রম্পট</h3>
+                    <button class="copy-btn" onclick="copyToClipboard()">কপি করুন</button>
+                </div>
+                <div class="prompt-content" id="promptDisplay"></div>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="toast">ক্লিপবোর্ডে কপি হয়েছে!</div>
+
+    <script>
+        function updatePrompt() {
+            const stepValue = document.getElementById('stepInput').value.trim() || "[Insert Step Here]";
+            
+            const promptTemplate = `How To do this step?:
+${stepValue}
+
+Please provide a step-by-step execution process, starting from setup and continuing through full completion. 
+Also include AI-assisted prompts for any steps that can be completed with the help of AI.
+Each instruction must be written as if you are guiding the user live, in real time, while they are using their phone or computer.
+
+At the end of your answer, please provide the standalone, reusable prompt template(s), using [placeholders], for all AI prompt(s) required to execute this step. These prompt template(s) should be fully reusable in a new chat for other niches, topics, or use cases simply by replacing the [placeholders] with the appropriate values.
+
+Please write the answer in the most spontaneous and natural sounding modern, everyday conversational Bengali as spoken in Kolkata, West Bengal, India that can be understood by an 21 year old but contains the international standards of language.
+
+Strict Rules:
+
+Must subtly reflect Kolkata conversational cadence through sentence rhythm and phrasing by using slightly formal, polite, and smoothly flowing sentence structures, with balanced pacing and no abrupt or overly casual wording — without slang, regional grammar, or loss of conservative authority.
+
+• Always use the formal “আপনি”, not the informal “তুমি.” The address is formal, but the tone should remain warm, conversational, and approachable.
+• The voice should be bold, direct, also should feel like a close friend and a trusted authority, speaking one-on-one with the reader in a natural, face-to-face style.`;
+
+            document.getElementById('promptDisplay').innerText = promptTemplate;
+        }
+
+        function copyToClipboard() {
+            const text = document.getElementById('promptDisplay').innerText;
+            if (!text) return;
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 2000);
+            });
+        }
+
+        // Initialize display on load
+        updatePrompt();
+    </script>
+</body>
+</html>
