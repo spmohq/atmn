@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Transformation → Search Seed Extraction - Prompt Genie</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient-start: #020617;
+      --bg-gradient-end: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.4);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-primary: #22d3ee;
+      --accent-hover: #67e8f9;
+      --accent-success: #10b981;
+      --code-bg: rgba(0, 0, 0, 0.3);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: fixed linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 60px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 800px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      text-transform: uppercase;
+    }
+
+    .prompt-workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .step-header {
+      display: flex;
+      justify-content: flex-start;
+      margin-bottom: 25px;
+    }
+
+    .step-label {
+      font-weight: 800;
+      font-size: 0.8rem;
+      background: var(--accent-primary);
+      color: #020617;
+      padding: 5px 16px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .prompt-content {
+      background: var(--code-bg);
+      padding: 30px;
+      border-radius: 12px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 1rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 25px;
+      line-height: 1.6;
+      word-break: break-word;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 15px;
+      flex-direction: column;
+    }
+
+    .btn {
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+      width: 100%;
+      text-decoration: none;
+      border: none;
+    }
+
+    .copy-btn {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-primary);
+      color: #020617;
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-success);
+      border-color: var(--accent-success);
+      color: white;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 40px;
+      width: 100%;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.6rem; }
+      .step-card { padding: 25px; }
+      .prompt-content { font-size: 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Transformation → Search Seed Extraction</h1>
+    </header>
+
+    <div class="prompt-workflow">
+      
+      <!-- Prompt Card -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt</span>
+        </div>
+        <div class="prompt-content" id="p1">Input
+
+An uploaded document containing relevant information.
+
+The document may contain ideas, topics, problems, questions, needs, goals, frustrations, aspirations, observations, research, content, market information, search-related information, product-related information, or any combination of these.
+
+The document may or may not explicitly identify an audience, their current situation, or their desired transformation.
+
+Task
+
+Read and analyze the uploaded document as a whole.
+
+Your primary task is to identify the "Audience's Desired Transformation" — the meaningful change the relevant audience ultimately wants to achieve — even when that transformation, the audience, or the desired outcome is not explicitly stated.
+
+Infer the underlying audience and desired transformation from the strongest evidence available in the document.
+
+Look for signals such as:
+
+- Problems being discussed
+- Questions being asked
+- Needs or frustrations
+- Goals and aspirations
+- Desired outcomes
+- Information being sought
+- Solutions being explored
+- Behaviour or search intent
+- Changes people appear to want
+- Problems a product, service, idea, or piece of content is intended to solve
+
+Do not limit the analysis to any single sentence, phrase, or keyword. Analyze the document as a whole and identify the transformation that best explains its overall purpose and underlying demand.
+
+Once the Audience's Desired Transformation has been identified or reasonably inferred, derive the remaining outputs from it.
+
+Identify the Following
+
+1. Audience's Desired Transformation
+
+State the meaningful change the relevant audience ultimately wants to achieve.
+
+Express it as a transition from their current situation toward a better desired situation.
+
+Do not simply repeat the audience's problem. Describe the meaningful change they want to experience as a result of solving that problem.
+
+2. Seed Topic
+
+Identify the core topic that most directly addresses the Audience's Desired Transformation.
+
+The Seed Topic should represent the main subject the audience needs to explore, understand, or act upon to move toward the desired transformation.
+
+3. Seed Keyword
+
+Convert the Seed Topic into the most natural, broad, high-relevance search keyword that can serve as the starting point for keyword research.
+
+The Seed Keyword should be a term or phrase that a real person could naturally use when beginning to search for information related to the Seed Topic.
+
+4. Related Search Keywords
+
+Identify relevant search keywords that people may naturally use when searching for information, solutions, methods, strategies, ideas, guides, examples, or resources related to the Seed Keyword.
+
+Include meaningful variations and different search intents where appropriate.
+
+Reasoning Rules
+
+1. The Audience's Desired Transformation does not need to be explicitly stated in the document.
+
+2. The relevant audience does not need to be explicitly identified either. Infer the audience when the document provides sufficient evidence to do so.
+
+3. Infer rather than invent. Every major inference should have a reasonable basis in the document.
+
+4. Distinguish clearly between:
+   - The audience's current problem
+   - The outcome they want
+   - The transformation they ultimately want to achieve
+
+5. The transformation should describe the meaningful movement from:
+   "Current State → Desired State"
+
+6. Choose the transformation that best explains the overall purpose and underlying demand of the document, rather than one suggested by an isolated detail.
+
+7. When multiple possible transformations exist, select the one that is:
+   - Most central to the document
+   - Most strongly supported by the evidence
+   - Most relevant to the underlying demand
+   - Most useful as the foundation for keyword research
+
+8. The Seed Topic must directly connect the desired transformation to a subject the audience would reasonably search for.
+
+9. The Seed Keyword should be broad enough to serve as a starting point for keyword research while remaining highly relevant to the Seed Topic.
+
+10. Related Search Keywords should reflect natural search behaviour rather than artificially generated variations.
+
+11. Avoid irrelevant, overly narrow, highly technical, or unnecessarily complex keywords.
+
+12. Do not allow the Seed Topic or keywords to drift away from the underlying Audience's Desired Transformation.
+
+Core Logic
+
+Use this reasoning chain:
+
+"Document → Underlying Audience → Current Situation → Desired Transformation → Seed Topic → Seed Keyword → Related Search Keywords"
+
+The "Audience's Desired Transformation" is the destination.
+
+The "Seed Topic" is the core subject that can help the audience move toward that destination.
+
+The "Seed Keyword" is the broad search entry point into that subject.
+
+The "Related Search Keywords" represent the different ways the audience may naturally search around that entry point.
+
+Output Format
+
+Audience's Desired Transformation:
+[Clearly stated or reasonably inferred desired transformation]
+
+Seed Topic:
+[Core topic that directly addresses the transformation]
+
+Seed Keyword:
+[Primary broad, high-relevance search keyword]
+
+Related Search Keywords:
+[Keyword 1], [Keyword 2], [Keyword 3], [Keyword 4], [Keyword 5], ...
+
+Final Quality Check
+
+Before producing the final answer, verify that:
+
+- The inferred audience is reasonably supported by the document.
+- The Audience's Desired Transformation is reasonably supported by the document.
+- The transformation describes a desired change, not merely a problem.
+- The Seed Topic directly addresses that transformation.
+- The Seed Keyword naturally represents the Seed Topic.
+- The Related Search Keywords are genuinely relevant to the Seed Keyword.
+- The entire output follows one coherent logical chain:
+
+"Audience → Transformation → Topic → Seed Keyword → Related Search Keywords"</div>
+        <div class="button-group">
+          <button class="btn copy-btn" onclick="copyText('p1', this)">
+            <span>Copy Prompt</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <footer class="footer">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    function copyText(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<span>Copied to Clipboard!</span>`;
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
