@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>universal learning framework</title>
+    <style>
+        :root {
+            --primary-color: #161e73;
+            --accent-color: #c88a58;
+            --secondary-color: #8ea88b;
+            --border-color: #bbbbbb;
+            --muted-color: #aaaaaa;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px 10px;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            text-transform: capitalize;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-left: 5px solid var(--accent-color);
+            padding-left: 10px;
+            margin-top: 30px;
+        }
+
+        /* Responsive Table Design */
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            margin: 20px 0;
+            border: 1px solid var(--border-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px; /* Ensures readability on small screens */
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+
+        td {
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            vertical-align: top;
+            position: relative;
+        }
+
+        /* Copy Buttons for Table Cells */
+        .copy-code-btn {
+            display: block;
+            margin-top: 10px;
+            background-color: var(--muted-color);
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            border-radius: 3px;
+            transition: background 0.3s;
+        }
+
+        .copy-code-btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Prompt Box Design */
+        .prompt-container {
+            background-color: #f9f9f9;
+            border: 2px solid var(--secondary-color);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .prompt-text {
+            font-style: italic;
+            color: var(--primary-color);
+            margin: 0;
+            flex-grow: 1;
+        }
+
+        .copy-prompt-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .copy-prompt-btn:hover {
+            opacity: 0.9;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: var(--border-color);
+            margin: 40px 0;
+        }
+
+        @media (max-width: 600px) {
+            .prompt-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .copy-prompt-btn {
+                width: 100%;
+            }
+            h1 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>universal learning framework</h1>
+</header>
+
+<div class="container">
+
+    <!-- Text Block #1 -->
+    <p>অবশ্যই। আপনার framework-টাকে subject-neutral রেখে চার কলামে সাজালে সবচেয়ে পরিষ্কার হবে। ৪টি কলাম হবে: Subject, Process, Governing Principles & Rules, Underlying Foundation।</p>
+
+    <div class="table-wrapper">
+        <table id="framework-table">
+            <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Process</th>
+                    <th>Governing Principles & Rules</th>
+                    <th>Underlying Foundation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Mathematics</td>
+                    <td>Solve this problem step by step, explaining each step clearly.<button class="copy-code-btn" onclick="copyCellText(this)">Copy Code</button></td>
+                    <td>Which mathematical principles and rules govern the process of solving this problem?<button class="copy-code-btn" onclick="copyCellText(this)">Copy Code</button></td>
+                    <td>What mathematical principles, concepts, and relationships underlie this problem?<button class="copy-code-btn" onclick="copyCellText(this)">Copy Code</button></td>
+                </tr>
+                <tr>
+                    <td>Science</td>
+                    <td>Explain how this system or process works step by step, from beginning to end, explaining each step clearly.<button class="copy-code-btn" onclick="copyCellText(this)">Copy Code</button></td>
+                    <td>Which scientific principles, laws, and mechanisms govern how this system or process works?<button class="copy-code-btn" onclick="copyCellText(this)">Copy Code</button></td>
+                    <td>What scientific principles, concepts, and relationships underlie this system or process?<button class="copy-code-btn" onclick="copyCellText(this)">Copy Code</button></td>
+                </tr>
+                <tr>
+                    <td>History</td>
+                    <td>Explain how this event, movement, or development unfolded step by step, from beginning to end.<button class="copy-code-btn" onclick="copyCellText(this)">Copy Code</button></td>
+                    <td>Which historical forces, causes, conditions, and factors governed or shaped its development?<button class="copy-code-btn" onclick="copyCellText(this)">Copy Code</button></td>
+                    <td>What underlying causes, forces, ideas, and conditions shaped this event, movement, or development?<button class="copy-code-btn" onclick="copyCellText(this)">Copy Code</button></td>
+                </tr>
+                <tr>
+                    <td>Geography</td>
+                    <td>Explain how this geographical process occurs step by step, from beginning to end.<button class="copy-code-btn" onclick="copyCellText(this)">Copy Code</button></td>
+                    <td>Which geographical principles, processes, and factors govern how it occurs?<button class="copy-code-btn" onclick="copyCellText(this)">Copy Code</button></td>
+                    <td>What underlying physical, environmental, and geographical principles and relationships explain it?<button class="copy-code-btn" onclick="copyCellText(this)">Copy Code</button></td>
+                </tr>
+                <tr>
+                    <td>Literature</td>
+                    <td>Explain how this story, narrative, argument, or central idea unfolds step by step, from beginning to end.<button class="copy-code-btn" onclick="copyCellText(this)">Copy Code</button></td>
+                    <td>Which literary principles, narrative techniques, and elements govern how it unfolds?<button class="copy-code-btn" onclick="copyCellText(this)">Copy Code</button></td>
+                    <td>What underlying themes, ideas, meanings, and literary concepts shape it?<button class="copy-code-btn" onclick="copyCellText(this)">Copy Code</button></td>
+                </tr>
+                <tr>
+                    <td>Sociology</td>
+                    <td>Explain how this social process or phenomenon develops step by step, from beginning to end.<button class="copy-code-btn" onclick="copyCellText(this)">Copy Code</button></td>
+                    <td>Which social principles, structures, norms, and forces govern how it develops?<button class="copy-code-btn" onclick="copyCellText(this)">Copy Code</button></td>
+                    <td>What underlying social structures, forces, relationships, and concepts explain it?<button class="copy-code-btn" onclick="copyCellText(this)">Copy Code</button></td>
+                </tr>
+                <tr>
+                    <td>Economics</td>
+                    <td>Explain how this economic process, mechanism, or outcome develops step by step.<button class="copy-code-btn" onclick="copyCellText(this)">Copy Code</button></td>
+                    <td>Which economic principles, rules, incentives, and mechanisms govern it?<button class="copy-code-btn" onclick="copyCellText(this)">Copy Code</button></td>
+                    <td>What underlying economic principles, concepts, relationships, and assumptions explain it?<button class="copy-code-btn" onclick="copyCellText(this)">Copy Code</button></td>
+                </tr>
+                <tr>
+                    <td>Psychology</td>
+                    <td>Explain how this psychological process or phenomenon develops step by step.<button class="copy-code-btn" onclick="copyCellText(this)">Copy Code</button></td>
+                    <td>Which psychological principles, mechanisms, and factors govern how it works?<button class="copy-code-btn" onclick="copyCellText(this)">Copy Code</button></td>
+                    <td>What underlying psychological concepts, mechanisms, and relationships explain it?<button class="copy-code-btn" onclick="copyCellText(this)">Copy Code</button></td>
+                </tr>
+                <tr>
+                    <td>Philosophy</td>
+                    <td>Explain how this argument or philosophical position develops step by step.<button class="copy-code-btn" onclick="copyCellText(this)">Copy Code</button></td>
+                    <td>Which principles of reasoning and rules of argument govern the development of this position?<button class="copy-code-btn" onclick="copyCellText(this)">Copy Code</button></td>
+                    <td>What underlying philosophical concepts, assumptions, principles, and ideas support it?<button class="copy-code-btn" onclick="copyCellText(this)">Copy Code</button></td>
+                </tr>
+                <tr>
+                    <td>Technology / Computing</td>
+                    <td>Explain how this system, process, or technology works step by step.<button class="copy-code-btn" onclick="copyCellText(this)">Copy Code</button></td>
+                    <td>Which technical principles, rules, protocols, and mechanisms govern how it works?<button class="copy-code-btn" onclick="copyCellText(this)">Copy Code</button></td>
+                    <td>What underlying concepts, principles, architecture, and relationships make it work?<button class="copy-code-btn" onclick="copyCellText(this)">Copy Code</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p>এই টেবিলের মূল structure হলো:</p>
+    <p>Process → Governing logic → Underlying foundation</p>
+    <p>অর্থাৎ প্রতিটি বিষয়কে আপনি তিন স্তরে interrogate করছেন:</p>
+    <p>কীভাবে কাজ করে? → চলার সময় কী নিয়ম কাজ করে? → মূলত কোন ধারণা/নীতি/সম্পর্কের উপর দাঁড়িয়ে আছে?</p>
+    <p>এটাই আপনার তিন-স্তরের learning framework হিসেবে সবচেয়ে consistent হবে।</p>
+    <p>মূল distinctionটা হলো:</p>
+    <p>Process = What happens, and in what sequence?<br>
+    Underlying = What makes it happen, shape it, or work the way it does?</p>
+
+    <hr>
+
+    <!-- Text Block #2 -->
+    <h2>For Math:</h2>
+
+    <div class="prompt-container">
+        <p class="prompt-text">Solve this sum step by step, explaining each step clearly.</p>
+        <button class="copy-prompt-btn" onclick="copyPrompt(this)">Copy Prompt</button>
+    </div>
+
+    <div class="prompt-container">
+        <p class="prompt-text">Which principles and rules govern the process of solving this sum?</p>
+        <button class="copy-prompt-btn" onclick="copyPrompt(this)">Copy Prompt</button>
+    </div>
+
+    <div class="prompt-container">
+        <p class="prompt-text">What mathematical principles and rules underlie this sum?</p>
+        <button class="copy-prompt-btn" onclick="copyPrompt(this)">Copy Prompt</button>
+    </div>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>প্রশ্ন</th>
+                    <th>আসলে কী জানতে চাইছে?</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1. Solve this sum step by step, explaining each step clearly.</td>
+                    <td>কীভাবে অংকটি করতে হবে?</td>
+                </tr>
+                <tr>
+                    <td>2. Which principles and rules govern the process of solving this sum?</td>
+                    <td>অংকটি solve করার সময় কোন principles ও rules অনুসরণ করতে হবে?</td>
+                </tr>
+                <tr>
+                    <td>3. What mathematical principles and rules underlie this sum?</td>
+                    <td>অংকটির mathematical foundation কী? কোন fundamental principles/rules-এর উপর এটি দাঁড়িয়ে আছে?</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <hr>
+
+    <!-- Text Block #3 -->
+    <h2>For Science:</h2>
+
+    <p>Process:</p>
+    <div class="prompt-container">
+        <p class="prompt-text">How does this system work step by step from start to finish in chronological order?</p>
+        <button class="copy-prompt-btn" onclick="copyPrompt(this)">Copy Prompt</button>
+    </div>
+
+    <p>Underlying principles:<br>
+    (অর্থাৎ process-এর পিছনে থাকা scientific mechanisms/principles)</p>
+
+    <div class="prompt-container">
+        <p class="prompt-text">What scientific principles and rules underlie this system?</p>
+        <button class="copy-prompt-btn" onclick="copyPrompt(this)">Copy Prompt</button>
+    </div>
+
+</div>
+
+<script>
+    function copyCellText(btn) {
+        const cell = btn.parentElement;
+        // Clone cell to remove the button text from the copied content
+        const tempCell = cell.cloneNode(true);
+        const button = tempCell.querySelector('button');
+        if (button) button.remove();
+        
+        const text = tempCell.innerText.trim();
+        navigator.clipboard.writeText(text).then(() => {
+            const originalText = btn.innerText;
+            btn.innerText = "Copied!";
+            btn.style.backgroundColor = "#8ea88b";
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.style.backgroundColor = "#aaaaaa";
+            }, 1500);
+        });
+    }
+
+    function copyPrompt(btn) {
+        const text = btn.previousElementSibling.innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            const originalText = btn.innerText;
+            btn.innerText = "Copied!";
+            btn.style.backgroundColor = "#8ea88b";
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.style.backgroundColor = "#c88a58";
+            }, 1500);
+        });
+    }
+</script>
+
+</body>
+</html>
