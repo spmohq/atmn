@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter Thinking Tool</title>
+<style>
+:root{
+  --ink:#24313a;
+  --muted:#68757d;
+  --accent:#9a6b2f;
+  --accent-dark:#6f4b20;
+  --gold-soft:#f5ead7;
+  --paper:#fffdf8;
+  --page:#f3f1ec;
+  --line:#ded8ce;
+  --soft:#f8f6f1;
+  --green:#4f765b;
+  --green-soft:#edf4ee;
+  --blue-soft:#eef3f6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--page);
+  color:var(--ink);
+  font-family:"Noto Sans Bengali","Nirmala UI","Segoe UI",Arial,sans-serif;
+  line-height:1.75;
+}
+.container{
+  width:min(1050px,calc(100% - 32px));
+  margin:28px auto 60px;
+  background:var(--paper);
+  border:1px solid var(--line);
+  box-shadow:0 12px 40px rgba(36,49,58,.08);
+}
+header{
+  padding:46px 48px 38px;
+  background:linear-gradient(135deg,#fffdf8 0%,#f7efe2 100%);
+  border-bottom:1px solid var(--line);
+}
+.eyebrow{
+  color:var(--accent);
+  font-size:.82rem;
+  font-weight:700;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  margin-bottom:10px;
+}
+h1{
+  margin:0;
+  font-size:clamp(2rem,5vw,3.15rem);
+  line-height:1.15;
+  letter-spacing:-.02em;
+  color:var(--ink);
+}
+.subtitle{
+  max-width:780px;
+  margin:16px 0 0;
+  color:var(--muted);
+  font-size:1.02rem;
+}
+.content{padding:0 48px 52px}
+.toc{
+  margin:28px 0 46px;
+  padding:22px 24px;
+  background:var(--soft);
+  border:1px solid var(--line);
+  border-radius:12px;
+}
+.toc-title{font-weight:800;margin-bottom:10px}
+.toc a{
+  display:inline-block;
+  color:var(--ink);
+  text-decoration:none;
+  margin:5px 12px 5px 0;
+  padding:6px 10px;
+  border:1px solid var(--line);
+  border-radius:7px;
+  background:#fff;
+}
+.toc a:hover{border-color:var(--accent);color:var(--accent-dark)}
+.section{
+  margin-top:52px;
+  scroll-margin-top:20px;
+}
+.section-number{
+  color:var(--accent);
+  font-size:.82rem;
+  font-weight:800;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+h2{
+  margin:5px 0 10px;
+  font-size:1.8rem;
+  line-height:1.3;
+}
+h3{
+  margin:28px 0 12px;
+  font-size:1.18rem;
+  color:var(--accent-dark);
+}
+.intro{
+  color:var(--muted);
+  margin-top:0;
+}
+.compass-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+  margin-top:22px;
+}
+.compass-card{
+  padding:22px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#fff;
+}
+.compass-card strong{display:block;font-size:1.08rem;margin-bottom:7px}
+.north{border-top:4px solid #7c8c97}
+.east{border-top:4px solid #b88745}
+.south{border-top:4px solid #6f9278}
+.west{border-top:4px solid #8c7197}
+.core{
+  margin-top:14px;
+  padding:24px;
+  background:var(--gold-soft);
+  border:1px solid #e6d3b4;
+  border-radius:12px;
+}
+.core strong{font-size:1.1rem}
+.question{
+  padding:20px 0 22px;
+  border-bottom:1px solid var(--line);
+}
+.question:last-child{border-bottom:0}
+.q-label{
+  font-weight:750;
+  margin-bottom:9px;
+}
+textarea,input[type="text"]{
+  width:100%;
+  border:1px solid #cfc8bd;
+  border-radius:8px;
+  background:#fff;
+  color:var(--ink);
+  font:inherit;
+  padding:12px 14px;
+  outline:none;
+  transition:border-color .2s,box-shadow .2s;
+}
+textarea{min-height:90px;resize:vertical}
+textarea.small{min-height:62px}
+textarea.large{min-height:130px}
+textarea:focus,input[type="text"]:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(154,107,47,.12);
+}
+.hint{
+  font-size:.88rem;
+  color:var(--muted);
+  margin:6px 0 0;
+}
+.prompt-template{
+  margin-top:14px;
+  padding:18px 20px;
+  background:#263238;
+  color:#eef2f3;
+  border-radius:10px;
+  position:relative;
+  white-space:pre-wrap;
+}
+.copy-btn{
+  float:right;
+  margin-left:12px;
+  margin-bottom:8px;
+  border:0;
+  border-radius:6px;
+  padding:7px 11px;
+  background:#d6b27a;
+  color:#2d2418;
+  font-weight:700;
+  cursor:pointer;
+}
+.copy-btn:hover{filter:brightness(.95)}
+blockquote{
+  margin:16px 0 0;
+  padding:13px 17px;
+  background:var(--blue-soft);
+  border-left:4px solid var(--accent);
+  border-radius:0 8px 8px 0;
+  color:#46535b;
+}
+.option-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:10px;
+}
+.option{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  color:#46535b;
+}
+.check-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px 18px;
+  margin-top:18px;
+}
+.check-item{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  padding:11px 12px;
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:#fff;
+}
+.check-item input{margin-top:6px;accent-color:var(--green)}
+.blueprint{
+  margin-top:18px;
+  display:grid;
+  gap:10px;
+}
+.blueprint-item{
+  display:grid;
+  grid-template-columns:44px 1fr;
+  gap:14px;
+  padding:17px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:#fff;
+}
+.num{
+  width:34px;height:34px;
+  display:grid;place-items:center;
+  border-radius:50%;
+  background:var(--gold-soft);
+  color:var(--accent-dark);
+  font-weight:800;
+}
+.footer-note{
+  margin-top:50px;
+  padding:22px;
+  background:var(--green-soft);
+  border:1px solid #d2e2d5;
+  border-radius:12px;
+}
+@media(max-width:700px){
+  .container{width:100%;margin:0;border-left:0;border-right:0}
+  header,.content{padding-left:20px;padding-right:20px}
+  .compass-grid,.check-grid{grid-template-columns:1fr}
+  h2{font-size:1.5rem}
+}
+@media print{
+  body{background:#fff}
+  .container{width:100%;margin:0;box-shadow:none;border:0}
+  .toc{display:none}
+  .content,header{padding-left:0;padding-right:0}
+  .copy-btn{display:none}
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <div class="eyebrow">Nonfiction Writing • Thinking System</div>
+  <h1>Chapter Thinking Tool</h1>
+  <p class="subtitle">
+    একটি chapter-এর intellectual architecture সম্পূর্ণ করার জন্য একটি reusable thinking tool।
+    এটি final manuscript-এর format নয়; এটি চিন্তা → যাচাই → synthesis → first draft-এর প্রস্তুতির framework।
+  </p>
+</header>
+
+<div class="content">
+
+<nav class="toc">
+  <div class="toc-title">Quick Navigation</div>
+  <a href="#compass">01 — Creative Compass</a>
+  <a href="#questionnaire">02 — Master Questionnaire</a>
+  <a href="#synthesis">03 — Core Synthesis</a>
+  <a href="#blueprint">04 — First-Draft Blueprint</a>
+  <a href="#quality">05 — Final Quality Check</a>
+  <a href="#one-line">06 — One-Line Chapter Test</a>
+</nav>
+
+<section class="section" id="compass">
+  <div class="section-number">01</div>
+  <h2>Creative Compass</h2>
+  <p class="intro">প্রথমে chapter-এর চিন্তার চারটি দিক পরিষ্কার করুন।</p>
+
+  <div class="compass-grid">
+    <div class="compass-card north">
+      <strong>🧭 NORTH — WHAT?</strong>
+      <span>আমি আসলে কী বলছি?</span>
+      <div class="hint">Rule, Principle, Meaning, Scope, Boundary</div>
+    </div>
+    <div class="compass-card east">
+      <strong>🧭 EAST — WHY?</strong>
+      <span>এটা সত্য কেন?</span>
+      <div class="hint">Reasoning, Evidence, Cause-and-Effect, Objections</div>
+    </div>
+    <div class="compass-card south">
+      <strong>🧭 SOUTH — UNDERSTAND?</strong>
+      <span>পাঠক এটি বুঝবেন কীভাবে?</span>
+      <div class="hint">Prerequisites, Definitions, Distinctions, Misconceptions, Examples</div>
+    </div>
+    <div class="compass-card west">
+      <strong>🧭 WEST — SO WHAT?</strong>
+      <span>এটা জানলে কী বদলাবে?</span>
+      <div class="hint">Implication, Decision, Action, Transformation</div>
+    </div>
+  </div>
+
+  <div class="core">
+    <strong>🧭 CENTRE — CORE</strong>
+    <p>চার দিকের উত্তর মিলিয়ে chapter-এর একেবারে কেন্দ্রীয় সত্যটি ধরুন।</p>
+    <textarea class="small" placeholder="এই chapter-এর সবকিছু বাদ দিলে, পাঠককে মাত্র একটি সত্য বোঝাতে হলে সেটি কী?"></textarea>
+  </div>
+</section>
+
+<section class="section" id="questionnaire">
+  <div class="section-number">02</div>
+  <h2>Master Questionnaire</h2>
+  <p class="intro">প্রশ্নগুলোর উত্তর দেওয়ার সময় সুন্দর prose লেখার চেষ্টা করবেন না। আগে চিন্তাটা সম্পূর্ণ করুন।</p>
+
+  <h3>A. Chapter Identity</h3>
+  <div class="question">
+    <div class="q-label">1. Chapter-এর working title কী?</div>
+    <input type="text" placeholder="Working title">
+  </div>
+  <div class="question">
+    <div class="q-label">2. এই chapter কোন Rule / Principle-এর উপর প্রতিষ্ঠিত?</div>
+    <textarea class="small" placeholder="Rule / Principle লিখুন"></textarea>
+  </div>
+  <div class="question">
+    <div class="q-label">3. Principle-টি এক বাক্যে কী?</div>
+    <textarea class="small" placeholder="একটি পরিষ্কার বাক্যে লিখুন"></textarea>
+  </div>
+  <div class="question">
+    <div class="q-label">4. এই Principle-টি বইয়ের Core Answer-এর কোন অংশকে support করছে?</div>
+    <textarea class="small"></textarea>
+  </div>
+  <div class="question">
+    <div class="q-label">5. এই chapter বাদ দিলে বইয়ের মূল argument-এর কী ক্ষতি হবে?</div>
+    <textarea class="small"></textarea>
+  </div>
+  <div class="question">
+    <div class="q-label">6. Chapter-এর একেবারে মূল কাজ কী?</div>
+    <div class="option-row">
+      <label class="option"><input type="radio" name="purpose"> একটি সত্য বোঝানো</label>
+      <label class="option"><input type="radio" name="purpose"> ভুল ধারণা সংশোধন</label>
+      <label class="option"><input type="radio" name="purpose"> Decision-এর ভিত্তি তৈরি</label>
+      <label class="option"><input type="radio" name="purpose"> Action-এর ভিত্তি তৈরি</label>
+      <label class="option"><input type="radio" name="purpose"> অন্য কিছু</label>
+    </div>
+  </div>
+
+  <h3>B. WHAT? — Principle-এর প্রকৃত অর্থ</h3>
+  <div class="question"><div class="q-label">7. এই Principle-এর exact meaning কী?</div><textarea></textarea></div>
+  <div class="question"><div class="q-label">8. Principle-এর মূল components কী কী?</div><textarea></textarea></div>
+  <div class="question"><div class="q-label">9. Principle-টি কী বলছে?</div><textarea></textarea></div>
+  <div class="question"><div class="q-label">10. Principle-টি কী বলছে না?</div><textarea></textarea></div>
+  <div class="question"><div class="q-label">11. এর scope বা boundary কোথায়?</div><textarea></textarea></div>
+  <div class="question"><div class="q-label">12. কোন distinction Principle-টিকে আরও পরিষ্কার করবে?</div><textarea></textarea></div>
+  <div class="question"><div class="q-label">13. Principle-টি ভুলভাবে ব্যাখ্যা করলে সবচেয়ে সম্ভাব্য ভুল কী হবে?</div><textarea></textarea></div>
+
+  <h3>C. UNDERSTAND? — পাঠক কীভাবে বুঝবেন?</h3>
+  <div class="question"><div class="q-label">14. এই Principle বোঝার জন্য পাঠকের কোন prerequisite knowledge দরকার?</div><textarea></textarea></div>
+  <div class="question"><div class="q-label">15. কোন concept আগে explain করতে হবে?</div><textarea></textarea></div>
+  <div class="question"><div class="q-label">16. কোন term বা শব্দ define করা দরকার?</div><textarea></textarea></div>
+  <div class="question"><div class="q-label">17. কোন ধারণাটি পাঠকের কাছে নতুন হতে পারে?</div><textarea></textarea></div>
+  <div class="question"><div class="q-label">18. কোন জায়গায় পাঠক সবচেয়ে বেশি confused হতে পারেন?</div><textarea></textarea></div>
+  <div class="question"><div class="q-label">19. এই বিষয় সম্পর্কে পাঠকের সম্ভাব্য পূর্বধারণা কী?</div><textarea></textarea></div>
+  <div class="question"><div class="q-label">20. Common misconception কী?</div><textarea></textarea></div>
+  <div class="question"><div class="q-label">21. সেই misconception কোথায় ভুল?</div><textarea></textarea></div>
+  <div class="question"><div class="q-label">22. সবচেয়ে সহজ analogy বা mental model কী হতে পারে?</div><textarea></textarea></div>
+
+  <h3>D. WHY? — Principle-টি সত্য কেন?</h3>
+  <div class="question"><div class="q-label">23. এই Principle-এর পেছনে কোন বাস্তবতা কাজ করছে?</div><textarea></textarea></div>
+  <div class="question"><div class="q-label">24. এটি কোন cause-and-effect relationship-এর উপর দাঁড়িয়ে?</div><textarea></textarea></div>
+  <div class="question"><div class="q-label">25. Principle-টি সত্য হওয়ার সবচেয়ে শক্তিশালী কারণ কী?</div><textarea></textarea></div>
+  <div class="question"><div class="q-label">26. এই Principle-এর পক্ষে কী ধরনের evidence আছে?</div>
+    <div class="option-row">
+      <label class="option"><input type="checkbox"> Data</label>
+      <label class="option"><input type="checkbox"> Logic</label>
+      <label class="option"><input type="checkbox"> Research</label>
+      <label class="option"><input type="checkbox"> Case</label>
+      <label class="option"><input type="checkbox"> Observation</label>
+      <label class="option"><input type="checkbox"> Experience</label>
+    </div>
+  </div>
+  <div class="question"><div class="q-label">27. সবচেয়ে শক্তিশালী evidence কোনটি?</div><textarea></textarea></div>
+  <div class="question"><div class="q-label">28. Evidence-টি ঠিক কী প্রমাণ করে?</div><textarea></textarea></div>
+  <div class="question"><div class="q-label">29. Evidence-টি কী প্রমাণ করে না?</div><textarea></textarea></div>
+  <div class="question"><div class="q-label">30. Principle-এর বিপরীত ধারণাটি কী?</div><textarea></textarea></div>
+  <div class="question"><div class="q-label">31. বিপরীত ধারণাটি কেন কাজ করে না?</div><textarea></textarea></div>
+  <div class="question"><div class="q-label">32. Principle-এর বিরুদ্ধে সবচেয়ে শক্তিশালী objection কী হতে পারে?</div><textarea></textarea></div>
+  <div class="question"><div class="q-label">33. সেই objection-এর উত্তর কী?</div><textarea></textarea></div>
+  <div class="question"><div class="q-label">34. কোনও exception, limitation বা qualification আছে কি?</div><textarea></textarea></div>
+
+  <h3>E. MAKE IT VISIBLE — বাস্তবে কেমন দেখা যায়?</h3>
+  <div class="question"><div class="q-label">35. সবচেয়ে সহজ example কী?</div><textarea></textarea></div>
+  <div class="question"><div class="q-label">36. সবচেয়ে বাস্তবসম্মত example কী?</div><textarea></textarea></div>
+  <div class="question"><div class="q-label">37. একটি concrete scenario কী হতে পারে?</div><textarea></textarea></div>
+  <div class="question"><div class="q-label">38. একটি counterexample কী হতে পারে?</div><textarea></textarea></div>
+  <div class="question"><div class="q-label">39. Example-গুলো Principle-এর কোন অংশটি পরিষ্কার করছে?</div><textarea></textarea></div>
+  <div class="question"><div class="q-label">40. Example বাদ দিলে reader কী বুঝতে অসুবিধা করবেন?</div><textarea></textarea></div>
+
+  <h3>F. SO WHAT? — জানলে কী বদলাবে?</h3>
+  <div class="question"><div class="q-label">41. Principle সত্য হলে সবচেয়ে গুরুত্বপূর্ণ implication কী?</div><textarea></textarea></div>
+  <div class="question"><div class="q-label">42. কোন পুরনো ধারণা বদলানো উচিত?</div><textarea></textarea></div>
+  <div class="question"><div class="q-label">43. পাঠককে এখন কী differently ভাবতে হবে?</div><textarea></textarea></div>
+  <div class="question"><div class="q-label">44. পাঠককে কী differently সিদ্ধান্ত নিতে হবে?</div><textarea></textarea></div>
+  <div class="question"><div class="q-label">45. কোন ভুলটি এখন এড়িয়ে চলতে পারবেন?</div><textarea></textarea></div>
+  <div class="question"><div class="q-label">46. এই Principle থেকে কোন practical rule বের হয়?</div><textarea class="small" placeholder="যদি ______ হয়, তাহলে ______ করুন।"></textarea></div>
+  <div class="question"><div class="q-label">47. পাঠকের জন্য সবচেয়ে গুরুত্বপূর্ণ action কী?</div><textarea></textarea></div>
+  <div class="question"><div class="q-label">48. সেই action নেওয়ার আগে আর কী জানা বা প্রস্তুত করা দরকার?</div><textarea></textarea></div>
+
+  <h3>G. LOGIC CHECK — Chapter-এর reasoning পরীক্ষা</h3>
+  <div class="question"><div class="q-label">49. আমার argument-এর logical sequence কী?</div><textarea class="small" placeholder="Because ______ → Therefore ______ → Which means ______ → So ______"></textarea></div>
+  <div class="question"><div class="q-label">50. কোনও গুরুত্বপূর্ণ claim কি unsupported রয়ে গেছে?</div><textarea class="small"></textarea></div>
+  <div class="question"><div class="q-label">51. কোনও conclusion কি তার evidence-এর চেয়ে বেশি বড় হয়ে গেছে?</div><textarea class="small"></textarea></div>
+  <div class="question"><div class="q-label">52. কোনও assumption কি আমি না বলে ধরে নিয়েছি?</div><textarea class="small"></textarea></div>
+  <div class="question"><div class="q-label">53. কোনও prerequisite কি পরে এসে explain করা হচ্ছে?</div><textarea class="small"></textarea></div>
+  <div class="question"><div class="q-label">54. কোনও example কি আসল argument-এর জায়গা নিয়ে নিয়েছে?</div><textarea class="small"></textarea></div>
+  <div class="question"><div class="q-label">55. কোনও অংশ কি interesting হলেও chapter-এর focus-এর জন্য অপ্রয়োজনীয়?</div><textarea class="small"></textarea></div>
+  <div class="question"><div class="q-label">56. Chapter-এর সবচেয়ে দুর্বল logical point কোনটি?</div><textarea></textarea></div>
+  <div class="question"><div class="q-label">57. সেটিকে শক্তিশালী করতে কী প্রয়োজন?</div><textarea></textarea></div>
+
+  <h3>H. READER TRANSFORMATION</h3>
+  <div class="question"><div class="q-label">58. Chapter পড়ার আগে পাঠক কী ভাবতে পারেন?</div><textarea></textarea></div>
+  <div class="question"><div class="q-label">59. Chapter পড়ার পরে পাঠক কী বুঝবেন?</div><textarea></textarea></div>
+  <div class="question"><div class="q-label">60. কোন misconception ভাঙবে?</div><textarea></textarea></div>
+  <div class="question"><div class="q-label">61. কোন নতুন mental model তৈরি হবে?</div><textarea></textarea></div>
+  <div class="question"><div class="q-label">62. কোন decision নেওয়া সহজ হবে?</div><textarea></textarea></div>
+  <div class="question"><div class="q-label">63. কোন action নেওয়া সম্ভব হবে?</div><textarea></textarea></div>
+</section>
+
+<section class="section" id="synthesis">
+  <div class="section-number">03</div>
+  <h2>Core Synthesis</h2>
+  <p class="intro">এখন ৬৩টি প্রশ্নের raw thinking-কে পাঁচটি core statement-এ compress করুন।</p>
+
+  <div class="question"><div class="q-label">Principle</div><textarea class="small" placeholder="এই chapter-এর মূল Principle হলো..."></textarea></div>
+  <div class="question"><div class="q-label">Meaning</div><textarea class="small" placeholder="এর অর্থ হলো..."></textarea></div>
+  <div class="question"><div class="q-label">Why</div><textarea class="small" placeholder="এটি সত্য কারণ..."></textarea></div>
+  <div class="question"><div class="q-label">Implication</div><textarea class="small" placeholder="এর practical implication হলো..."></textarea></div>
+  <div class="question"><div class="q-label">Transformation</div><textarea class="small" placeholder="এই chapter-এর আগে পাঠক ______ ভাবতেন; chapter-এর পরে তিনি ______ বুঝবেন।"></textarea></div>
+
+  <div class="prompt-template" id="core-copy">
+    <button class="copy-btn" onclick="copyText('core-copy')">Copy</button>
+Principle:
+এই chapter-এর মূল Principle হলো — ______।
+
+Meaning:
+এর অর্থ হলো — ______।
+
+Why:
+এটি সত্য কারণ — ______।
+
+Implication:
+এর practical implication হলো — ______।
+
+Transformation:
+এই chapter-এর আগে পাঠক ______ ভাবতেন; chapter-এর পরে তিনি ______ বুঝবেন।
+  </div>
+</section>
+
+<section class="section" id="blueprint">
+  <div class="section-number">04</div>
+  <h2>First-Draft Blueprint</h2>
+  <p class="intro">এটি final manuscript-এর বাধ্যতামূলক structure নয়। এটি thinking-কে prose-এ রূপ দেওয়ার working structure।</p>
+
+  <div class="blueprint">
+    <div class="blueprint-item"><div class="num">1</div><div><strong>Opening</strong><br>Problem, question, tension বা reader-এর existing assumption দিয়ে context তৈরি করুন।</div></div>
+    <div class="blueprint-item"><div class="num">2</div><div><strong>Principle</strong><br>Chapter-এর মূল Rule/Principle পরিষ্কারভাবে বলুন।</div></div>
+    <div class="blueprint-item"><div class="num">3</div><div><strong>Meaning</strong><br>অর্থ, scope, boundary এবং প্রয়োজনীয় distinction ব্যাখ্যা করুন।</div></div>
+    <div class="blueprint-item"><div class="num">4</div><div><strong>Prerequisites</strong><br>Principle বোঝার জন্য আগে যে concept, definition বা context দরকার তা দিন।</div></div>
+    <div class="blueprint-item"><div class="num">5</div><div><strong>Why</strong><br>Reasoning, cause-and-effect, evidence এবং supporting logic দিন।</div></div>
+    <div class="blueprint-item"><div class="num">6</div><div><strong>Misconceptions</strong><br>Common misunderstanding, objection এবং ভুল mental model address করুন।</div></div>
+    <div class="blueprint-item"><div class="num">7</div><div><strong>Examples</strong><br>সহজ example, বাস্তব scenario এবং প্রয়োজন হলে counterexample দিন।</div></div>
+    <div class="blueprint-item"><div class="num">8</div><div><strong>Implications</strong><br>Principle সত্য হলে কী follows করে তা দেখান।</div></div>
+    <div class="blueprint-item"><div class="num">9</div><div><strong>Action</strong><br>Reader-এর জন্য practical rule, decision বা next action পরিষ্কার করুন।</div></div>
+    <div class="blueprint-item"><div class="num">10</div><div><strong>Takeaway</strong><br>Chapter-এর কেন্দ্রীয় understanding consolidate করুন।</div></div>
+  </div>
+</section>
+
+<section class="section" id="quality">
+  <div class="section-number">05</div>
+  <h2>Final Quality Check</h2>
+  <p class="intro">First draft-কে final manuscript ভাবার আগে এই checklist দিয়ে chapter-এর intellectual completeness পরীক্ষা করুন।</p>
+
+  <div class="check-grid">
+    <label class="check-item"><input type="checkbox"> <span>Chapter-এর একটি পরিষ্কার Principle আছে।</span></label>
+    <label class="check-item"><input type="checkbox"> <span>Principle-এর অর্থ ও boundary পরিষ্কার।</span></label>
+    <label class="check-item"><input type="checkbox"> <span>প্রয়োজনীয় prerequisites দেওয়া হয়েছে।</span></label>
+    <label class="check-item"><input type="checkbox"> <span>Principle-টি সত্য কেন তা ব্যাখ্যা করা হয়েছে।</span></label>
+    <label class="check-item"><input type="checkbox"> <span>গুরুত্বপূর্ণ evidence/reasoning আছে।</span></label>
+    <label class="check-item"><input type="checkbox"> <span>Common misconception address করা হয়েছে।</span></label>
+    <label class="check-item"><input type="checkbox"> <span>প্রয়োজনীয় distinction পরিষ্কার।</span></label>
+    <label class="check-item"><input type="checkbox"> <span>Concrete example আছে।</span></label>
+    <label class="check-item"><input type="checkbox"> <span>প্রয়োজনে exception/qualification আছে।</span></label>
+    <label class="check-item"><input type="checkbox"> <span>Principle থেকে practical implication বের হয়েছে।</span></label>
+    <label class="check-item"><input type="checkbox"> <span>Reader কী করবেন তা পরিষ্কার।</span></label>
+    <label class="check-item"><input type="checkbox"> <span>Chapter-এর শেষে একটি নির্দিষ্ট understanding তৈরি হচ্ছে।</span></label>
+    <label class="check-item"><input type="checkbox"> <span>কোনও গুরুত্বপূর্ণ claim unsupported নেই।</span></label>
+    <label class="check-item"><input type="checkbox"> <span>অপ্রয়োজনীয় information chapter-এর focus নষ্ট করছে না।</span></label>
+    <label class="check-item"><input type="checkbox"> <span>Chapter-এর content বইয়ের Core Answer-কে সরাসরি support করছে।</span></label>
+  </div>
+</section>
+
+<section class="section" id="one-line">
+  <div class="section-number">06</div>
+  <h2>One-Line Chapter Test</h2>
+  <p class="intro">শেষে chapter-এর intellectual core এক বাক্যে ধরুন।</p>
+
+  <blockquote>
+    “এই chapter-এর সবকিছু বাদ দিয়ে যদি আমাকে মাত্র একটি সত্য পাঠককে বোঝাতে হয়, সেই সত্যটি কী?”
+  </blockquote>
+
+  <div class="question" style="margin-top:10px">
+    <textarea class="large" placeholder="এই chapter-এর কেন্দ্রীয় সত্যটি এক বাক্যে লিখুন।"></textarea>
+  </div>
+
+  <div class="footer-note">
+    <strong>Final rule:</strong> এই এক বাক্য যদি পরিষ্কার না হয়, prose polish করার আগে আবার questionnaire-এ ফিরে যান।
+  </div>
+</section>
+
+</div>
+</div>
+
+<script>
+function copyText(id){
+  const el=document.getElementById(id);
+  const text=Array.from(el.childNodes)
+    .filter(n => !(n.nodeType===1 && n.classList.contains('copy-btn')))
+    .map(n => n.textContent)
+    .join('')
+    .trim();
+  const btn=el.querySelector('.copy-btn');
+  navigator.clipboard.writeText(text).then(()=>{
+    const old=btn.textContent;
+    btn.textContent='Copied!';
+    setTimeout(()=>btn.textContent=old,1500);
+  });
+}
+</script>
+</body>
+</html>

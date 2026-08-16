@@ -1,346 +1,354 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Course System Dashboard</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        :root {
-            --primary-color: #ef6c57; 
-            --bg-light: #f4f7f6;
-            --text-dark: #333;
-            --text-muted: #666;
-            --border-color: #e0e0e0;
-            --white: #ffffff;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-light);
-            color: var(--text-dark);
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 20px;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .container {
-            display: flex;
-            flex: 1;
-        }
-
-        aside {
-            width: 240px;
-            background: var(--white);
-            border-right: 1px solid var(--border-color);
-            padding: 20px 0;
-            overflow-y: auto;
-        }
-
-        .sidebar-item {
-            padding: 10px 25px;
-            display: block;
-            text-decoration: none;
-            color: var(--text-muted);
-            font-size: 14px;
-            transition: 0.2s;
-        }
-
-        .sidebar-item:hover {
-            background: #fff5f3;
-            color: var(--primary-color);
-        }
-
-        .sidebar-item.active {
-            color: var(--primary-color);
-            font-weight: 600;
-            border-left: 4px solid var(--primary-color);
-            background: #fff5f3;
-        }
-
-        main {
-            flex: 1;
-            padding: 20px;
-        }
-
-        .toolbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .btn-outline {
-            border: 1px solid var(--primary-color);
-            color: var(--primary-color);
-            background: white;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .bookmark-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 20px;
-        }
-
-        .category-card {
-            background: white;
-            border-radius: 8px;
-            border-top: 3px solid var(--primary-color);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            padding: 15px;
-        }
-
-        .category-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 8px;
-        }
-
-        .category-header h3 {
-            font-size: 16px;
-            color: #444;
-        }
-
-        .bookmark-list {
-            list-style: none;
-        }
-
-        .bookmark-item {
-            display: flex;
-            align-items: center;
-            padding: 8px 0;
-            text-decoration: none;
-            color: #444;
-            font-size: 14px;
-            transition: 0.2s;
-        }
-
-        .bookmark-item:hover {
-            color: var(--primary-color);
-        }
-
-        .icon-circle {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background: #eee;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 10px;
-            font-size: 10px;
-            color: #666;
-            font-weight: bold;
-        }
-
-        .new-btn {
-            margin-top: 15px;
-            width: 100%;
-            border: 1px dashed var(--primary-color);
-            background: #fffafa;
-            color: var(--primary-color);
-            padding: 8px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 13px;
-            text-align: center;
-            display: block;
-            text-decoration: none;
-        }
-
-        @media (max-width: 768px) {
-            .container { flex-direction: column; }
-            aside {
-                width: 100%;
-                display: flex;
-                overflow-x: auto;
-                padding: 10px;
-                border-right: none;
-                border-bottom: 1px solid var(--border-color);
-                white-space: nowrap;
-            }
-            .sidebar-item { padding: 8px 15px; border-left: none !important; }
-            .nav-links { display: none; }
-            .bookmark-grid { grid-template-columns: 1fr; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Internal Course Pricing — Creative Compass</title>
+<style>
+  :root{
+    --ink:#241f1a;
+    --muted:#6f675f;
+    --paper:#fffdf8;
+    --cream:#f5efe5;
+    --line:#d9d0c4;
+    --accent:#8b5e1a;
+    --accent-soft:#efe3cf;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:#eee9e1;
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+    line-height:1.6;
+  }
+  .page{
+    max-width:1180px;
+    margin:32px auto;
+    background:var(--paper);
+    padding:48px 52px 60px;
+    box-shadow:0 8px 35px rgba(0,0,0,.08);
+  }
+  h1,h2,h3{line-height:1.2}
+  h1{font-size:34px;margin:0 0 10px}
+  h2{
+    font-size:23px;
+    margin:42px 0 14px;
+    padding-bottom:8px;
+    border-bottom:1px solid var(--line);
+  }
+  h3{font-size:18px;margin:24px 0 8px}
+  p{margin:8px 0 14px}
+  .subtitle{color:var(--muted);font-size:17px}
+  .principle{
+    margin:22px 0;
+    padding:18px 22px;
+    background:var(--accent-soft);
+    border-left:5px solid var(--accent);
+    font-size:18px;
+  }
+  .flow{
+    margin:20px 0;
+    padding:16px;
+    text-align:center;
+    background:var(--cream);
+    font-weight:bold;
+    letter-spacing:.02em;
+  }
+  table{
+    width:100%;
+    border-collapse:collapse;
+    margin:16px 0 24px;
+    font-size:14px;
+  }
+  th,td{
+    border:1px solid var(--line);
+    padding:11px 12px;
+    vertical-align:top;
+    text-align:left;
+  }
+  th{
+    background:var(--cream);
+    font-weight:bold;
+  }
+  .compact td,.compact th{padding:9px 10px}
+  ul{margin-top:6px}
+  .formula{
+    padding:14px 18px;
+    background:#f8f3eb;
+    border:1px solid var(--line);
+    font-family:Arial,sans-serif;
+    overflow-x:auto;
+  }
+  .small{font-size:13px;color:var(--muted)}
+  .footer{
+    margin-top:48px;
+    padding-top:20px;
+    border-top:1px solid var(--line);
+    color:var(--muted);
+    font-size:14px;
+  }
+  @media(max-width:760px){
+    .page{margin:0;padding:28px 20px 40px}
+    h1{font-size:28px}
+    table{font-size:12px}
+    th,td{padding:8px}
+  }
+  @media print{
+    body{background:white}
+    .page{margin:0;box-shadow:none;max-width:none}
+    h2{break-after:avoid}
+    table{break-inside:avoid}
+  }
+</style>
 </head>
 <body>
+<main class="page">
+  <h1>Internal Course Pricing — Creative Compass</h1>
+  <p class="subtitle">An internal framework for determining a fair, defensible course price without pricing the learner's potential fortune.</p>
 
-    <header>
-        <div class="logo">
-            <i class="fa-solid fa-heart"></i> My Course System
-        </div>
-        <div class="nav-links">
-            <a href="https://spmukherjee.co.in/" target="_blank" rel="noopener noreferrer"><i class="fa-regular fa-user"></i> Siva</a>
-            <a href="https://spmohq.github.io/pbiz/bookmark.html" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-crown"></i> Memberships</a>
-            <a href="https://example.com/help" target="_blank" rel="noopener noreferrer"><i class="fa-regular fa-circle-question"></i> Support</a>
-        </div>
-    </header>
+  <div class="principle">
+    <strong>Core Principle:</strong><br>
+    Price the Asset — Not the Fortune.
+  </div>
 
-    <div class="container">
-        <aside>
+  <h2>1. The Pricing Architecture</h2>
+  <div class="flow">
+    Determine Asset Class → Establish Pricing Territory → Evaluate Six Value Factors → Determine Fair Position → Final Fairness Check
+  </div>
 
-            <a href="https://spmohq.github.io/atmn/bmk-link.html" target="_blank" rel="noopener noreferrer" class="sidebar-item">Link for Bookmark</a>
-            <a href="https://spmohq.github.io/atmn/sidebar.html" target="_blank" rel="noopener noreferrer" class="sidebar-item">Sidebar Link</a>
-            <a href="https://parashuno.github.io/app/bookmark-category-genie.html" target="_blank" rel="noopener noreferrer" class="sidebar-item">Bookmark Category Genie</a>
-            <a href="https://spmohq.github.io/atmn/repo.html" target="_blank" rel="noopener noreferrer" class="sidebar-item">Repo</a>
-            <a href="https://spmohq.github.io/atmn/edit-bangla.html" target="_blank" rel="noopener noreferrer" class="sidebar-item">Edit Bangla</a>
-            <a href="https://spmohq.github.io/atmn/edit-manuscript.html" target="_blank" rel="noopener noreferrer" class="sidebar-item">Edit Manuscript</a>
-            <a href="https://spmohq.github.io/atmn/uce.html" target="_blank" rel="noopener noreferrer" class="sidebar-item">Universal Content Engine</a>
-            <a href="https://spmohq.github.io/atmn/add-to-home-screen.html" target="_blank" rel="noopener noreferrer" class="sidebar-item">Add to Home</a>
-            <a href="https://spmohq.github.io/atmn/writing-style.html" target="_blank" rel="noopener noreferrer" class="sidebar-item">Writing Style Guide</a>
-            <a href="https://spmohq.github.io/atmn/extract-core-message.html" target="_blank" rel="noopener noreferrer" class="sidebar-item">Extract Core Message</a>
-            <a href="https://spmohq.github.io/atmn/personal.html" target="_blank" rel="noopener noreferrer" class="sidebar-item">Personal View</a>
-            <a href="https://spmohq.github.io/atmn/social-quote-pro.html" target="_blank" rel="noopener noreferrer" class="sidebar-item">Social Quote</a>
-            <a href="https://spmohq.github.io/atmn/input-genie.html" target="_blank" rel="noopener noreferrer" class="sidebar-item">Input Genie</a>
+  <h2>2. Asset Class &amp; Internal Pricing Ladder</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Asset Class</th>
+        <th>Core Nature</th>
+        <th>Typical Scope</th>
+        <th>Complexity</th>
+        <th>Learner Outcome</th>
+        <th>Core Question</th>
+        <th>Internal Reference</th>
+        <th>Internal Pricing Zone</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Micro</strong></td>
+        <td>একটি অত্যন্ত নির্দিষ্ট task/problem</td>
+        <td>খুব narrow</td>
+        <td>Low</td>
+        <td>একটি নির্দিষ্ট কাজ করতে পারা</td>
+        <td>“এই একটি কাজ কীভাবে করব?”</td>
+        <td><strong>₹299</strong></td>
+        <td>₹249–₹399</td>
+      </tr>
+      <tr>
+        <td><strong>Focused</strong></td>
+        <td>একটি নির্দিষ্ট skill/mini-process</td>
+        <td>সীমিত কিন্তু complete</td>
+        <td>Low–Moderate</td>
+        <td>একটি নির্দিষ্ট capability অর্জন</td>
+        <td>“এই কাজটি ভালোভাবে কীভাবে করব?”</td>
+        <td><strong>₹699</strong></td>
+        <td>₹499–₹899</td>
+      </tr>
+      <tr>
+        <td><strong>Standard</strong></td>
+        <td>একটি meaningful problem-এর complete solution</td>
+        <td>মাঝারি</td>
+        <td>Moderate</td>
+        <td>শুরু থেকে শেষ পর্যন্ত process execute করা</td>
+        <td>“পুরো কাজটি কীভাবে করব?”</td>
+        <td><strong>₹1,499</strong></td>
+        <td>₹999–₹1,999</td>
+      </tr>
+      <tr>
+        <td><strong>Advanced</strong></td>
+        <td>Complex / multi-stage methodology</td>
+        <td>বিস্তৃত ও গভীর</td>
+        <td>High</td>
+        <td>Complex process independently handle করা</td>
+        <td>“জটিল পরিস্থিতিতে system-টি কীভাবে প্রয়োগ করব?”</td>
+        <td><strong>₹2,999</strong></td>
+        <td>₹2,499–₹3,999</td>
+      </tr>
+      <tr>
+        <td><strong>Professional</strong></td>
+        <td>Substantial professional system/capability</td>
+        <td>Comprehensive</td>
+        <td>Very High</td>
+        <td>Professional-level capability/system ব্যবহার করা</td>
+        <td>“এটি professional level-এ কীভাবে ব্যবহার করব?”</td>
+        <td><strong>₹5,999</strong></td>
+        <td>₹4,999–₹7,999+</td>
+      </tr>
+    </tbody>
+  </table>
 
-        </aside>
+  <p><strong>Rule:</strong> Asset Class lesson সংখ্যা দিয়ে নির্ধারণ করবেন না। Scope + Depth + Complexity + Outcome + Execution Requirement দেখে নির্ধারণ করবেন।</p>
+  <p class="small"><strong>Important:</strong> Internal Reference এবং Internal Pricing Zone হলো আপনার নিজের internal anchors; এগুলো market-এর universal “সঠিক দাম” বা guaranteed fair market value নয়।</p>
 
-        <main>
-            <div class="toolbar">
-                <h2>Course Production System</h2>
-            </div>
+  <h2>3. The Six Value Factors</h2>
+  <table class="compact">
+    <thead>
+      <tr><th>Factor</th><th>Weight</th><th>মূল প্রশ্ন</th><th>Score Guide</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Problem Significance</strong></td>
+        <td>15%</td>
+        <td>সমস্যাটি learner-এর কাছে কতটা গুরুত্বপূর্ণ?</td>
+        <td>1–2 সামান্য · 3–4 কিছুটা · 5–6 যথেষ্ট · 7–8 খুব গুরুত্বপূর্ণ · 9–10 অত্যন্ত গুরুত্বপূর্ণ</td>
+      </tr>
+      <tr>
+        <td><strong>2. Outcome Utility</strong></td>
+        <td>20%</td>
+        <td>Course শেষে অর্জিত capability কতটা useful?</td>
+        <td>1–2 information · 3–4 basic understanding · 5–6 useful skill · 7–8 strong capability · 9–10 highly useful capability</td>
+      </tr>
+      <tr>
+        <td><strong>3. Uniqueness of Method</strong></td>
+        <td>15%</td>
+        <td>Methodology কতটা স্বতন্ত্র?</td>
+        <td>1–2 সাধারণ · 3–4 সামান্য নিজস্বতা · 5–6 meaningful originality · 7–8 clearly distinctive · 9–10 strong distinctive methodology</td>
+      </tr>
+      <tr>
+        <td><strong>4. Beginner Executability</strong></td>
+        <td>20%</td>
+        <td>একজন novice কতটা সহজে process execute করতে পারবেন?</td>
+        <td>1–2 expert needed · 3–4 external guidance · 5–6 moderate · 7–8 beginner-friendly · 9–10 highly executable</td>
+      </tr>
+      <tr>
+        <td><strong>5. Execution Support</strong></td>
+        <td>15%</td>
+        <td>Homework, templates, prompts, examples, checks ইত্যাদি কতটা শক্তিশালী?</td>
+        <td>1–2 প্রায় নেই · 3–4 minimal · 5–6 useful · 7–8 strong · 9–10 comprehensive execution system</td>
+      </tr>
+      <tr>
+        <td><strong>6. Content Integrity</strong></td>
+        <td>15%</td>
+        <td>Content কতটা complete, clear, accurate, coherent ও actionable?</td>
+        <td>1–2 weak · 3–4 gaps · 5–6 acceptable · 7–8 strong · 9–10 exceptionally complete</td>
+      </tr>
+    </tbody>
+  </table>
 
-            <div class="bookmark-grid">
-                <!-- Market Ready -->
+  <h2>4. Weighted Value Score</h2>
+  <p>প্রতিটি factor-কে 1–10 score দিন। Weighted score সরাসরি <strong>1–10 scale</strong>-এ রাখুন।</p>
+  <div class="formula">
+    Weighted Value Score = [(P×15) + (O×20) + (U×15) + (B×20) + (E×15) + (C×15)] ÷ 100
+  </div>
 
-                <div class="category-card">
-                    <div class="category-header">
-                        <h3><i class="fa-solid fa-chevron-down"></i> Core Message Analysis</h3>
-                        <i class="fa-solid fa-ellipsis"></i>
-                    </div>
-                    <ul class="bookmark-list">
-                        <li>Item</li>
-                        <li><a href="https://spmohq.github.io/atmn/prompt1.html" target="_blank" rel="noopener noreferrer" class="bookmark-item"><span class="icon-circle">1</span> Core Message Analysis & Knowledge Mapping</a></li>
-                        <li><a href="https://spmohq.github.io/atmn/prompt2.html" target="_blank" rel="noopener noreferrer" class="bookmark-item"><span class="icon-circle">2</span> Content Roadmap Generation</a></li>
-                        <li><a href="https://spmohq.github.io/atmn/prompt3.html" target="_blank" rel="noopener noreferrer" class="bookmark-item"><span class="icon-circle">3</span> Content Sequencing & Learning Path</a></li>
-                        <li><a href="https://spmohq.github.io/atmn/prompt4.html" target="_blank" rel="noopener noreferrer" class="bookmark-item"><span class="icon-circle">4</span> Instructional Design & Teaching Strategy</a></li>
+  <table class="compact">
+    <thead><tr><th>Score</th><th>Interpretation</th><th>Pricing Direction</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Below 5.0</strong></td><td>Asset এখনও যথেষ্ট strong নয়</td><td>Reference Price নেওয়ার আগে improve করুন</td></tr>
+      <tr><td><strong>5.0–5.9</strong></td><td>Basic</td><td>Pricing Zone-এর lower end</td></tr>
+      <tr><td><strong>6.0–6.9</strong></td><td>Moderate</td><td>Lower-middle</td></tr>
+      <tr><td><strong>7.0–7.9</strong></td><td>Strong</td><td>Around reference</td></tr>
+      <tr><td><strong>8.0–8.9</strong></td><td>High</td><td>Upper-middle</td></tr>
+      <tr><td><strong>9.0–10</strong></td><td>Exceptional</td><td>Upper end; reference price-ও যথেষ্ট হতে পারে</td></tr>
+    </tbody>
+  </table>
 
-                    </ul>
+  <div class="principle">
+    <strong>Critical Rule:</strong><br>
+    Factor Score is NOT a Price Multiplier.<br>
+    Factor score price inflate করার জন্য নয়; আপনি যে price territory বেছে নিয়েছেন, সেখানে asset-টি সেই price justify করে কি না তা যাচাই করার জন্য।
+  </div>
 
-                </div>
+  <h2>5. The Central Pricing Principle</h2>
+  <div class="principle">
+    <strong>Asset Class determines the pricing territory.</strong><br>
+    <strong>Factor Score determines the justified position within that territory.</strong>
+  </div>
 
-                <div class="category-card">
-                    <div class="category-header">
-                        <h3><i class="fa-solid fa-chevron-down"></i> Course</h3>
-                        <i class="fa-solid fa-ellipsis"></i>
-                    </div>
-                    <ul class="bookmark-list">
-                        <li><a href="https://spmohq.github.io/atmn/get-ans-in-bn.html" target="_blank" rel="noopener noreferrer" class="bookmark-item"><span class="icon-circle">0</span> GAIB</a></li>
+  <p><strong>Asset Class</strong> বলে: এই asset কী ধরনের এবং তার natural pricing territory কোথায়?</p>
+  <p><strong>Six Factors</strong> বলে: এই particular asset সেই territory-র মধ্যে কতটা strong?</p>
+  <p><strong>Final Fairness Check</strong> বলে: এই price নিয়ে creator হিসেবে আমি নিজের কাছে সৎ থাকতে পারছি কি না?</p>
 
-                        <li><a href="https://spmohq.github.io/atmn/course-name.html" target="_blank" rel="noopener noreferrer" class="bookmark-item"><span class="icon-circle">1</span> Course Name</a></li>
-                        <li><a href="https://spmohq.github.io/atmn/evaluate-a-prompt.html" target="_blank" rel="noopener noreferrer" class="bookmark-item"><span class="icon-circle">2</span> Evaluate A Prompt</a></li>
-                        <li><a href="https://spmohq.github.io/atmn/evaluate-a-prompt-principle.html" target="_blank" rel="noopener noreferrer" class="bookmark-item"><span class="icon-circle">3</span> Evaluate A Prompt - Principle</a></li>
-                        <li><a href="https://spmohq.github.io/atmn/final-content-doctrine.html" target="_blank" rel="noopener noreferrer" class="bookmark-item"><span class="icon-circle">4</span> Platform Doctrine</a></li>
-                        <li><a href="https://spmohq.github.io/atmn/rules-mandatory.html" target="_blank" rel="noopener noreferrer" class="bookmark-item"><span class="icon-circle">5</span> Mandatory Rules</a></li>
-                        <li><a href="https://spmohq.github.io/atmn/Course_Design_Reference_Guidelines.html" target="_blank" rel="noopener noreferrer" class="bookmark-item"><span class="icon-circle">6</span> Course Design</a></li>
-                        <li><a href="https://spmohq.github.io/atmn/Course_Architecture_Reference_Guidelines.html" target="_blank" rel="noopener noreferrer" class="bookmark-item"><span class="icon-circle">7</span> Course Architecture</a></li>
-                        <li><a href="https://spmohq.github.io/atmn/Prompt_Engineering_Eye_Opener_Guidelines.html" target="_blank" rel="noopener noreferrer" class="bookmark-item"><span class="icon-circle">8</span> Prompt Engineering</a></li>
-                        <li><a href="https://spmohq.github.io/atmn/lesson-genie.html" target="_blank" rel="noopener noreferrer" class="bookmark-item"><span class="icon-circle">9</span> Lesson Genie</a></li>
-                        <li><a href="https://spmohq.github.io/atmn/course-pre-plan.html" target="_blank" rel="noopener noreferrer" class="bookmark-item"><span class="icon-circle">10</span> Course Pre-plan</a></li>
+  <h2>6. What You Are Actually Pricing</h2>
+  <ul>
+    <li>Your knowledge</li>
+    <li>Your unique methodology</li>
+    <li>Your structure</li>
+    <li>Your clarity</li>
+    <li>Your execution system</li>
+    <li>Your teaching design</li>
+    <li>The practical capability you have built into the asset</li>
+  </ul>
 
+  <h2>7. What You Are NOT Pricing</h2>
+  <ul>
+    <li>Learner কত টাকা আয় করতে পারেন</li>
+    <li>Learner-এর maximum possible ROI</li>
+    <li>অন্য কেউ এই method দিয়ে কত টাকা আয় করেছেন</li>
+    <li>Hypothetical earning claims</li>
+    <li>শুধুমাত্র competitor pricing</li>
+    <li>শুধুমাত্র lesson সংখ্যা</li>
+    <li>শুধুমাত্র video hours</li>
+    <li>শুধুমাত্র PDF/page count</li>
+  </ul>
 
-                    </ul>
+  <h2>8. Learner Result Principle</h2>
+  <div class="principle">
+    <strong>Learner Result = Course Quality × Learner Execution × Context</strong>
+  </div>
+  <p>Learner-এর সময়, পরিশ্রম, consistency, process-following accuracy, decision-making, starting position এবং external context final result-কে প্রভাবিত করতে পারে।</p>
 
-                </div>
+  <h2>9. Final Fairness Check</h2>
+  <p>Formula এবং score-এর পরে calculator বন্ধ করুন। তারপর নিজেকে জিজ্ঞেস করুন:</p>
+  <table class="compact">
+    <thead><tr><th>Check</th><th>Question</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Asset Integrity</strong></td><td>আমি কি promised outcome যথেষ্ট completeness ও quality-সহ deliver করছি?</td></tr>
+      <tr><td><strong>Executability</strong></td><td>একজন novice কি বাস্তবে process-টি follow করতে পারবেন?</td></tr>
+      <tr><td><strong>Buyer Fairness</strong></td><td>Buyer যা পাচ্ছেন, তার তুলনায় price কি reasonable?</td></tr>
+      <tr><td><strong>Creator Self-Respect</strong></td><td>আমার expertise ও system-এর যথাযথ মূল্যায়ন কি হচ্ছে?</td></tr>
+      <tr><td><strong>Anti-Greed Check</strong></td><td>আমি কি buyer-এর potential income দেখে price বাড়াচ্ছি?</td></tr>
+      <tr><td><strong>Anti-Undervaluation Check</strong></td><td>আমি কি buyer হারানোর ভয় থেকে নিজের asset-কে underprice করছি?</td></tr>
+    </tbody>
+  </table>
 
+  <div class="principle">
+    <strong>Final Question:</strong><br>
+    “এই asset-এর প্রকৃত scope, usefulness, uniqueness, executability, support এবং content quality বিবেচনা করে—এই price-টি কি আমার কাছে সৎ, ন্যায্য এবং সম্মানজনক?”
+  </div>
 
+  <h2>10. The Three-Way Balance</h2>
+  <table>
+    <thead><tr><th>Dimension</th><th>Question</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Asset Integrity</strong></td><td>আমি কী তৈরি করেছি?</td></tr>
+      <tr><td><strong>Buyer Fairness</strong></td><td>Buyer যা পাচ্ছেন, তার তুলনায় price কি reasonable?</td></tr>
+      <tr><td><strong>Creator Self-Respect</strong></td><td>আমি যে expertise ও system তৈরি করেছি, তার যথাযথ মূল্যায়ন কি হচ্ছে?</td></tr>
+    </tbody>
+  </table>
 
-                <div class="category-card">
-                    <div class="category-header">
-                        <h3><i class="fa-solid fa-chevron-down"></i> Social Quote</h3>
-                        <i class="fa-solid fa-ellipsis"></i>
-                    </div>
-                    <ul class="bookmark-list">
-                        <li><a href="https://spmohq.github.io/fnb/3-r2fb.html" target="_blank" rel="noopener noreferrer" class="bookmark-item"><span class="icon-circle">1</span> Generate Text</a></li>
-                        <li><a href="https://spmohq.github.io/atmn/my-bg.html" target="_blank" rel="noopener noreferrer" class="bookmark-item"><span class="icon-circle">2</span> Generate Prompt For BG</a></li>
-                        <li><a href="https://spmohq.github.io/atmn/635.html" target="_blank" rel="noopener noreferrer" class="bookmark-item"><span class="icon-circle">3</span> Generate Image Manually With 635</a></li>
+  <h2>11. The Creative Compass</h2>
+  <div class="principle" style="text-align:center">
+    <strong>Not Maximum Price.</strong><br>
+    <strong>Not Minimum Price.</strong><br>
+    <strong>Not Market-Chasing Price.</strong><br><br>
+    <strong>Fair Price.</strong>
+  </div>
 
-                    </ul>
+  <div class="flow">
+    WHAT IS IT? → WHERE DOES IT BELONG? → HOW STRONG IS IT? → WHERE SHOULD IT SIT? → CAN I STAND BEHIND THIS PRICE?
+  </div>
 
-                </div>
+  <h2>Final Principle</h2>
+  <div class="principle">
+    <strong>আমি buyer-এর সম্ভাব্য fortune-এর দাম নেব না।<br>
+    আমি আমার তৈরি করা asset-এর ন্যায্য মূল্য নেব।</strong><br><br>
+    আমি সর্বোচ্চ দাম নেওয়ার চেষ্টা করব না।<br>
+    আমি সর্বনিম্ন দাম নিয়ে নিজের asset-কে ছোটও করব না।<br><br>
+    আমি এমন একটি price নেব, যেটি আমার asset-এর প্রতি সম্মানজনক, buyer-এর প্রতি ন্যায্য এবং নিজের কাছে সম্পূর্ণ সৎ।
+  </div>
 
-                <div class="category-card">
-                    <div class="category-header">
-                        <h3><i class="fa-solid fa-chevron-down"></i> Instant Custom GPT</h3>
-                        <i class="fa-solid fa-ellipsis"></i>
-                    </div>
-                    <ul class="bookmark-list">
-                        <li><a href="https://spmohq.github.io/atmn/ailm.html" target="_blank" rel="noopener noreferrer" class="bookmark-item"><span class="icon-circle">0</span> AI Lead Magnet</a></li>
-                        <li><a href="https://spmohq.github.io/atmn/bangla-custom-gpt.html" target="_blank" rel="noopener noreferrer" class="bookmark-item"><span class="icon-circle">1</span> Bangla Custom GPT</a></li>
-                        <li><a href="https://actionactivated.com/icgpts-dl-id55888/" target="_blank" rel="noopener noreferrer" class="bookmark-item"><span class="icon-circle">3</span> Instant Custom GPT</a></li>
-                        <li><a href="https://actionactivated.com/prompt-engine/the-instant-custom-gpt-system-premium.html" target="_blank" rel="noopener noreferrer" class="bookmark-item"><span class="icon-circle">3a</span> Software</a></li>
-                        <li><a href="https://actionactivated.com/ic-gpt-dl-id5888-2/" target="_blank" rel="noopener noreferrer" class="bookmark-item"><span class="icon-circle">4</span> Instant Custom GPT OTO1</a></li>
-                        <li><a href="https://chatgpt.com/g/g-6a3930e011548191bd8532108b03b9aa-instant-custom-gpt-system" target="_blank" rel="noopener noreferrer" class="bookmark-item"><span class="icon-circle">4a</span> CustomGPT</a></li>
-                        <li><a href="https://actionactivated.com/icgptsbrainstormer-dl-id55888/" target="_blank" rel="noopener noreferrer" class="bookmark-item"><span class="icon-circle">5</span> Instant Custom GPT OTO2</a></li>
-                        <li><a href="https://actionactivated.com/prompt-engine/instant-custom-gpt-enhanced-brainstormer-premium.html" target="_blank" rel="noopener noreferrer" class="bookmark-item"><span class="icon-circle">5a</span> Software</a></li>
-                        <li><a href="https://spmohq.github.io/atmn/my-customgpt-idea-draft.html" target="_blank" rel="noopener noreferrer" class="bookmark-item"><span class="icon-circle">6</span> My CustomGPT Idea Draft</a></li>
-
-                    </ul>
-
-                </div>
-                
-
-            </div>
-        </main>
-    </div>
-
+  <div class="footer">
+    Internal-use reference document. The numerical price anchors are personal/internal reference points, not universal market-value claims.
+  </div>
+</main>
 </body>
 </html>
