@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QDAU</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --accent: #0ea5e9;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 2rem 1rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            flex: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        header h1 {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: var(--text-color);
+            letter-spacing: -0.025em;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Navigation Styles */
+        .nav-container {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: none;
+            padding: 0.65rem 1.25rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .nav-btn:hover {
+            color: var(--primary);
+            background-color: #eff6ff;
+        }
+
+        .nav-btn.active {
+            color: white;
+            background-color: var(--primary);
+            box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+        }
+
+        /* Tab Content Panes */
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Form & Input Styles */
+        .input-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        label {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-color);
+        }
+
+        .btn-clear {
+            background-color: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-clear:hover {
+            background-color: #fecaca;
+        }
+
+        textarea {
+            width: 100%;
+            height: 350px;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            font-size: 0.95rem;
+            resize: vertical;
+            background-color: #fafafa;
+            color: var(--text-color);
+            line-height: 1.6;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            background-color: #fff;
+        }
+
+        /* Prompt Display Box */
+        .prompt-box {
+            background-color: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            max-height: 450px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #1e293b;
+            margin-bottom: 1rem;
+        }
+
+        .action-bar {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.65rem 1.25rem;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: #10b981;
+            color: white;
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            display: none;
+            z-index: 1000;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(1rem); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: auto;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem 0.5rem;
+            }
+            .card {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>QDAU</h1>
+            <p>S#1: Idea drafting - manual - example: p#1, S#2: টার্মিনোলজি আইডেন্টিফিকেশন - p#2, S#3: idea editing - manual, S#4: Reasoning setting  p#3</p>
+        </header>
+
+        <!-- INPUT FIELDS SECTION -->
+        <div class="card">
+            <div class="section-title">Input Fields</div>
+            
+            <!-- Navigation for Input Fields (Rule 4: use names, not numbers) -->
+            <div class="nav-container" id="inputNav">
+                <button class="nav-btn active" onclick="switchTab('input', 'draftIdeaTab', this)">Draft Idea</button>
+                <button class="nav-btn" onclick="switchTab('input', 'editedIdeaTab', this)">Edited Idea</button>
+            </div>
+
+            <!-- Input Field #1 -->
+            <div id="draftIdeaTab" class="tab-pane active">
+                <div class="input-header">
+                    <label for="draftIdeaInput">Draft Idea</label>
+                    <button class="btn-clear" onclick="clearInput('draftIdeaInput')">Clear Input</button>
+                </div>
+                <textarea id="draftIdeaInput" placeholder="[Draft Idea]"></textarea>
+            </div>
+
+            <!-- Input Field #2 -->
+            <div id="editedIdeaTab" class="tab-pane">
+                <div class="input-header">
+                    <label for="editedIdeaInput">Edited Idea</label>
+                    <button class="btn-clear" onclick="clearInput('editedIdeaInput')">Clear Input</button>
+                </div>
+                <textarea id="editedIdeaInput" placeholder="[Edited Idea]"></textarea>
+            </div>
+        </div>
+
+        <!-- PROMPTS SECTION -->
+        <div class="card">
+            <div class="section-title">Prompts</div>
+
+            <!-- Navigation for Prompts (Rule 4: use names, not numbers) -->
+            <div class="nav-container" id="promptNav">
+                <button class="nav-btn active" onclick="switchTab('prompt', 'prompt1Tab', this)">Example of Draft Idea</button>
+                <button class="nav-btn" onclick="switchTab('prompt', 'prompt2Tab', this)">Terminology Identification</button>
+                <button class="nav-btn" onclick="switchTab('prompt', 'prompt3Tab', this)">Reasoning Setting</button>
+            </div>
+
+            <!-- Prompt #1 -->
+            <div id="prompt1Tab" class="tab-pane active">
+                <div class="input-header">
+                    <label>Prompt#1 (Name It -> Example of Draft Idea)</label>
+                </div>
+                <div class="prompt-box" id="prompt1Text">আমি বলতে চাই - 
+বিশ্বচরাচরের কাজের পদ্ধতি (1), ম্যাকানিজম (2) ও কাজের পদ্ধতি ও ম্যাকানিজম-কে অটো-রান ও রেগুলেট করার রেগুলেটরি রুল (3)-র সঙ্গে নিজের করতে হওয়া কাজের পদ্ধতি, ম্যাকানিজম ও কাজের পদ্ধতি ও ম্যাকানিজম-কে অ্যালাইন করতেই হবে।
+আমার claim হ'ল - আমরা ইউনিভার্সের এই কর্মকাণ্ডের দ্বারা ও এই কর্মকাণ্ডের অবিচ্ছেদ্য অংশ হিসেবে সৃষ্ট ও ইউনিভার্সেরই আশ্রিত। আমাদের অস্তিত্বটাই ইউনিভার্স-র সমগ্র কর্মকান্ডের অংশ। আমাদের প্রতিটা কাজই তাই ইউনিভার্সেরই কাজের সঙ্গে ইউনিভার্সের সামগ্রিক কাজের অংশে পরিণত হয়, যা ইউনিভার্সের কাজের অনুকূল হয়, তাকে অ্যাসিস্ট করে নাহয় প্রতিকূল হয় ও ইউনিভার্সের কাজকে ডিস্টার্ব করে। ইউনিভার্সের কাজের আসল ও একমাত্র উদ্দেশ্য হল সৃষ্টি রক্ষা ও সৃষ্টির সমস্ত কিছুর ভিতরে একটা অটো ব্যালেন্স ধরে রাখা। আমাদের কাজ যদি অ্যালাইন্ড নাহয়, অটো-ব্যালেন্সকে ডিস্টার্ব করে, ইউনিভার্স তার অটো-ব্যালেন্সকে রিস্টোর করতে যা করবে তাতে আমাকে আমার কর্মের জন্য বিপরীত ফল ভুগতে হবে।</div>
+                <div class="action-bar">
+                    <button class="btn-primary" onclick="copyText('prompt1Text')">Copy Prompt Only</button>
+                </div>
+            </div>
+
+            <!-- Prompt #2 -->
+            <div id="prompt2Tab" class="tab-pane">
+                <div class="input-header">
+                    <label>Prompt#2 (Name It -> Terminology Identification)</label>
+                </div>
+                <div class="prompt-box" id="prompt2Text">নীচের বক্তব্যটা Terminology-এর দিক থেকে dissect করুন। বক্তব্যের মধ্যে থাকা বিভিন্ন ধরনের intellectual element identify করুন—যেমন premise, proposition, system principle, mechanism, causal relationship, consequence, thesis ইত্যাদি। কোন element কোন category-তে পড়ছে, এবং কেন, সেটা দেখান। যদি কোনও element-এর জন্য এই terminology-গুলোর কোনওটাই যথাযথ না হয়, তাহলে উপযুক্ত terminology প্রস্তাব করুন। নতুন কোনও বক্তব্য বা conclusion যোগ করবেন না।
+
+INPUT
+
+[Draft Idea]</div>
+                <div class="action-bar">
+                    <button class="btn-primary" onclick="copyPromptWithInput('prompt2Text', 'draftIdeaInput', '[Draft Idea]')">Copy Prompt + Input</button>
+                    <button class="btn-primary" onclick="copyText('prompt2Text')">Copy Prompt Only</button>
+                </div>
+            </div>
+
+            <!-- Prompt #3 -->
+            <div id="prompt3Tab" class="tab-pane">
+                <div class="input-header">
+                    <label>Prompt#3 (Name It -> Reasoning Setting)</label>
+                </div>
+                <div class="prompt-box" id="prompt3Text">আমি একটা কনটেন্ট লিখবো।
+ 
+Content type: Question-Driven Actuality Unfolding through Reasoning, in the conversational mode of “One-to-One Intellectual Conversation”
+
+INPUT
+
+[Edited Idea]
+
+
+TASK
+আমাকে এই proposed content-এর argument map ও logical structure বিশ্লেষণ ও আলোচনার মাধ্যমে identify করতে সাহায্য করুন।
+RULE — MANDATORY
+আমার উদ্দেশ্য argument-কে unfold না করে সরাসরি conclusion-কে reader-এর সামনে পৌঁছে দেওয়া নয়।
+আমি কোনওভাবেই চাই না content-টি শেষ পর্যন্ত একটি উপদেশমূলক framework-এ পরিণত হোক।
+আমার কাজের মূল বৈশিষ্ট্য ও শক্তি হল—একটি প্রশ্ন থেকে পরবর্তী প্রশ্নকে logically necessary করে তোলা।
+আমার কাঙ্ক্ষিত পদ্ধতি হল:
+প্রতিটি ধাপে reader-কে এমন একটি অবস্থায় নিয়ে যেতে হবে যেখানে আগের explanation আর পরবর্তী প্রশ্নের উত্তর দেওয়ার জন্য পুরোপুরি যথেষ্ট থাকে না। সেই insufficiency থেকেই পরবর্তী প্রশ্নের প্রয়োজন তৈরি হবে।
+অর্থাৎ:
+প্রতিটি assertion-এর আগে তার প্রয়োজনীয় reasoning তৈরি হবে।
+প্রতিটি নতুন concept তখনই আসবে, যখন আগের reasoning সেটিকে logically necessary করে তুলবে।
+প্রতিটি answer এমনভাবে তৈরি হবে, যাতে তার মধ্য থেকেই পরবর্তী necessary question-এর জন্ম হয়।
+ফলে content-এর নতুন chapter/section শুধুমাত্র topic পরিবর্তনের কারণে শুরু হবে না। আগের chapter/section-এর explanation যখন পরবর্তী প্রশ্নের উত্তর দেওয়ার জন্য আর যথেষ্ট থাকবে না, তখন সেই insufficiency থেকে যে প্রশ্নটি স্বাভাবিকভাবে উঠে আসবে, সেই প্রশ্নই পরবর্তী chapter/section-এর জন্ম দেবে।
+আমার লক্ষ্য হল reader-কে এমন একটি intellectual journey-র মধ্যে দিয়ে নিয়ে যাওয়া, যার শেষে reader নিজেই বলতে পারেন:
+“আচ্ছা, তাহলে ব্যাপারটা এখানে!”
+এটাই আমার কাছে One-to-One Intellectual Conversation-এর আরও গভীর অর্থ।</div>
+                <div class="action-bar">
+                    <button class="btn-primary" onclick="copyPromptWithInput('prompt3Text', 'editedIdeaInput', '[Edited Idea]')">Copy Prompt + Input</button>
+                    <button class="btn-primary" onclick="copyText('prompt3Text')">Copy Prompt Only</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">Copied to clipboard successfully!</div>
+
+    <footer>
+        Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.
+    </footer>
+
+    <script>
+        function switchTab(group, tabId, buttonElement) {
+            const container = group === 'input' ? document.getElementById('inputNav') : document.getElementById('promptNav');
+            const parentCard = container.closest('.card');
+            
+            container.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            buttonElement.classList.add('active');
+
+            parentCard.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        function clearInput(inputId) {
+            const input = document.getElementById(inputId);
+            if (input) {
+                input.value = '';
+                showToast('Input cleared successfully!');
+            }
+        }
+
+        function copyText(elementId) {
+            const text = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('Prompt copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+
+        function copyPromptWithInput(promptElementId, inputElementId, placeholder) {
+            const promptText = document.getElementById(promptElementId).innerText;
+            const inputValue = document.getElementById(inputElementId).value;
+
+            let finalContent = promptText;
+            if (finalContent.includes(placeholder)) {
+                finalContent = finalContent.replace(placeholder, inputValue || '[No content provided]');
+            } else {
+                finalContent += "\n\n" + (inputValue || '[No content provided]');
+            }
+
+            navigator.clipboard.writeText(finalContent).then(() => {
+                showToast('Prompt with input copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 2500);
+        }
+    </script>
+</body>
+</html>
